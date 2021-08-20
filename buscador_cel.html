@@ -255,6 +255,19 @@
         color: rgba(255, 255, 255, 1);
         letter-spacing: -0.38px;
     }
+
+    
+    @media screen and (max-width:990px){ 
+        .remove_cel {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width:990px){ 
+        .remove_pc {
+            display: none;
+        }
+    }
 </style>
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -274,13 +287,14 @@
 
             <div id="buscador" class="row-start-1 col-start-3 col-span-3">
                 <div class=" flex justify-center items-center w-full h-full">
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full">
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 w-full h-full flex items-center justify-end ">
+                            <div class="col-start-1 w-full h-full flex items-center justify-end">
                                 <p class="busca_font">
                                     Praia
                                 </p>
                             </div>
+
 
                             <div class="col-start-4 w-full h-full flex items-center justify-center">
                                 <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
@@ -298,6 +312,35 @@
                                     Explorar
                                 </button>
                             </div>
+                            
+                        </div>
+                    </div>
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                        <div class="w-full h-full grid grid-cols-8">
+                            <div class="col-start-2 w-full h-full flex items-center justify-end">
+                                <p class="busca_font">
+                                    Praia
+                                </p>
+                            </div>
+
+                            <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                </div>
+                            </div>
+
+                            <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                <p class="busca_font">
+                                    2  hospedes
+                                </p>
+                                
+                            </div>
+                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -310,7 +353,7 @@
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center">
                     <button class="rounded-full h-2/3 w-full button_bg">
                         <div class="grid grid-cols-2 flex items-center">
-                            <p class="usuario_font">
+                            <p class="usuario_font remove_cel">
                                 Usuário
                             </p>
 
@@ -324,7 +367,8 @@
         </div>
 
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
-            <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center"> <!--sm:block para cel magicamente funcionou-->
+            <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
+                <!--sm:block para cel magicamente funcionou-->
                 <div class="item col-start-2  text-center resultado_busca">
                     Destino de praia: 30 casas encontradas
                 </div>
