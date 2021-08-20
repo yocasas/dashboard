@@ -1,285 +1,68 @@
 <html>
-<style>
-    @font-face {
-        font-family: "Niveau Grotesk";
-        src: url("fonts/NiveauGroteskRegular.otf");
-    }
 
-    #logo_yo {
-
-
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        position: absolute;
-        width: 123px;
-        height: 114.219px;
-        left: 50%;
-        top: 10%;
-        overflow: visible;
-
-
-
-    }
-
-    #Trazado_78012 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78012 {
-        overflow: visible;
-        position: absolute;
-        width: 44.267px;
-        height: 63.464px;
-        left: 12.758px;
-        top: 22.649px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    #Trazado_78013 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78013 {
-        overflow: visible;
-        position: absolute;
-        width: 55.004px;
-        height: 34.186px;
-        left: 56.516px;
-        top: 21.552px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    #Trazado_78014 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78014 {
-        overflow: visible;
-        position: absolute;
-        width: 55.003px;
-        height: 34.186px;
-        left: 66.985px;
-        top: 53.024px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    #Trazado_78015 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78015 {
-        overflow: visible;
-        position: absolute;
-        width: 7.221px;
-        height: 7.223px;
-        left: 112.313px;
-        top: 39.765px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    #Trazado_78016 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78016 {
-        overflow: visible;
-        position: absolute;
-        width: 7.221px;
-        height: 7.222px;
-        left: 59.997px;
-        top: 61.594px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    #Trazado_78017 {
-        fill: rgba(74, 94, 93, 1);
-    }
-
-    .Trazado_78017 {
-        overflow: visible;
-        position: absolute;
-        width: 31.663px;
-        height: 18.374px;
-        left: 73.19px;
-        top: 0px;
-        transform: matrix(1, 0, 0, 1, 0, 0);
-    }
-
-    .home_show_homes {
-        height: 150%;
-    }
-
-    .footer_typography {
-
-        overflow: visible;
-        white-space: nowrap;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 24px;
-        color: rgba(192, 229, 216, 1);
-    }
-
-    .filter_typography {
-
-        white-space: nowrap;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 21px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .Sobre_Y {
-        overflow: visible;
-        white-space: nowrap;
-        line-height: 60px;
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 24px;
-        color: rgba(192, 229, 216, 1);
-    }
-
-    .footer_bg {
-        background-color: rgba(105, 141, 134, 1);
-    }
-
-    .button_bg {
-        background-color: rgba(192, 229, 216, 1);
-    }
-
-    .button_bg_meio_alpha {
-        background-color: rgba(192, 229, 216, 0.5);
-    }
-
-    .header_color {
-        background-color: rgba(74, 94, 93, 1);
-    }
-
-    .barra_meio {
-        background-color: rgba(192, 229, 216, 1)
-    }
-
-    .resultado_busca {
-        white-space: nowrap;
-        text-align: center;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 42px;
-        color: rgba(69, 95, 93, 1);
-        text-transform: capitalize;
-    }
-
-    .borda_filtro {
-        border-color: rgba(74, 94, 93, 1);
-    }
-
-    .warning_text {
-        white-space: nowrap;
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 15px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .nome_casa {
-        white-space: nowrap;
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 38px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .info_casa {
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 26px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .classificacao_texto {
-        white-space: nowrap;
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 22px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .pontos_text {
-        white-space: nowrap;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 37px;
-        color: rgba(105, 141, 134, 1);
-    }
-
-    .mais_resultados_font {
-        white-space: nowrap;
-        text-align: center;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 21px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .usuario_font {
-        white-space: nowrap;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 25px;
-        color: rgba(69, 95, 93, 1);
-    }
-
-    .busca_font {
-        white-space: nowrap;
-        text-align: left;
-        font-family: Niveau Grotesk;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 23px;
-        color: rgba(255, 255, 255, 1);
-        letter-spacing: -0.38px;
-    }
-
-    
-    @media screen and (max-width:990px){ 
-        .remove_cel {
-            display: none;
-        }
-    }
-
-    @media screen and (min-width:990px){ 
-        .remove_pc {
-            display: none;
-        }
-    }
-</style>
+<link href="style/style.css" rel="stylesheet">
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    function logKey(e) {
+        console.log(` ${e.code}`);
+    }
+
+    function populateHomes(e) {
+        let locationType = $("#locationType")[0].innerHTML.replace(/\s+/g, '')
+        $("#filtro_busca").text(locationType)
+        $("#filtro_busca_mobile").text(locationType)
+
+        
+
+        let data = {
+            "LocationType": locationType
+        }
+
+        let defaultHome = $("#show_home_default")
+
+        let homesShow = $("#homes_show")
+        console.log(defaultHome)
+        $.ajax({
+            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+
+            success: function (x) {
+                let dbResponse = JSON.parse(x)
+                homesShow.find(".show_home").remove()
+                $("#result_quantity")[0].innerHTML = `Destino De ${locationType}: ${dbResponse.length} Casas Encontradas`
+                dbResponse.forEach(element => {
+
+                    let homeClone = defaultHome.clone()
+                    homeClone.find("#img_source").attr("src", element["picturesS3Urls"][0]);
+                    homeClone.find('#nickName').text(element["nickName"]);
+                    homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
+                    homeClone.find('#rank').text(`${"✰".repeat(element["multiplier"])}`);
+                    homeClone.find('#points').text(`${element["multiplier"]}`);
+                    homeClone.removeClass("hidden");
+                    homeClone.addClass("show_home");
+                    homeClone.attr("id", "show_home");
+                    homesShow.append(homeClone)
+                });
+            }
+        })
+    }
+</script>
 
 <body>
+
+
     <div class="px-16">
 
 
         <div id="header" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4">
-            <div class="flex row-start-1 col-start-1 items-center">
+            <div class="flex row-start-1 col-start-1 items-center" onclick="location.href='aaa'">
                 <div id="logo" class="w-36 ">
                     <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
                 </div>
@@ -290,8 +73,8 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-end">
-                                <p class="busca_font">
-                                    Praia
+                                <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                    Selva
                                 </p>
                             </div>
 
@@ -308,18 +91,19 @@
                                 </p>
                             </div>
                             <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font">
+                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                    onclick="populateHomes()">
                                     Explorar
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-8">
                             <div class="col-start-2 w-full h-full flex items-center justify-end">
-                                <p class="busca_font">
-                                    Praia
+                                <p class="busca_font" id="filtro_busca_mobile">
+                                    Selva
                                 </p>
                             </div>
 
@@ -331,16 +115,16 @@
 
                             <div class="col-start-5 w-full h-full flex items-center justify-center">
                                 <p class="busca_font">
-                                    2  hospedes
+                                    2 hospedes
                                 </p>
-                                
+
                             </div>
                             <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
                                 <button class="rounded-full h-1/4 w-full button_bg usuario_font">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -369,8 +153,8 @@
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
             <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
                 <!--sm:block para cel magicamente funcionou-->
-                <div class="item col-start-2  text-center resultado_busca">
-                    Destino de praia: 30 casas encontradas
+                <div class="item col-start-2  text-center resultado_busca" id="result_quantity">
+                    Destino de selva: 0 casas encontradas
                 </div>
 
             </div>
@@ -379,9 +163,9 @@
 
                     <div class="h-full flex-initial flex justify-around items-center  gap-11">
                         <div class="flex-initial  borda_filtro border-2  rounded-full">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography">
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" id="filtro_busca">
 
-                                Praia
+                                Selva
                             </button>
 
                         </div>
@@ -406,29 +190,29 @@
         </div>
 
         <div id="casas_resultantes" class="w-full home_show_homes">
-            <div class="flex flex-wrap gap-7 h-4/5 w-full">
-                <div class=" h-1/2">
+            <div class="flex flex-wrap gap-7 h-4/5 w-full" id="homes_show">
+                <div class=" h-1/2 hidden" id="show_home_default">
                     <div id="imagem_casa" class="object-center h-4/6">
 
                         <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
-                            alt="Imagem- Casa" class="h-full w-full">
+                            alt="Imagem- Casa" id="img_source" class="h-full w-full">
                     </div>
 
                     <div class="object-center h-2/6  w-full ">
                         <div class=" h-1/2">
-                            <h1 class="nome_casa pt-2">Nome da casa</h1>
-                            <h2 class="info_casa">Cidade Estado</h1>
+                            <h1 class="nome_casa pt-2" id="nickName">Nome da casa</h1>
+                            <h2 class="info_casa" id="Location">Cidade Estado</h1>
                         </div>
 
                         <div class="h-1/2 w-full grid grid-cols-2 grid-rows-2">
-                            <div class="row-start-1 classificacao_texto self-end">
+                            <div class="row-start-1 classificacao_texto self-end" id="rank">
                                 ✰✰✰✰✰✰
                             </div>
                             <div class="row-start-2 classificacao_texto self-start">
                                 Classificação
                             </div>
 
-                            <div class="row-start-1 col-start-2 pontos_text self-end">
+                            <div class="row-start-1 col-start-2 pontos_text self-end" id="points">
                                 2.000
                             </div>
                             <div class="row-start-2 col-start-2 classificacao_texto self-start">
