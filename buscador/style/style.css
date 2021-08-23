@@ -1,6 +1,9 @@
-@font-face {
-    font-family: "Niveau Grotesk";
-    src: url("NiveauGroteskRegular.otf");
+@layer base {
+    @font-face {
+        font-family: Niveau Grotesk;
+        font-weight: 400;
+        src: url("NiveauGroteskRegular.otf")
+    }
 }
 
 #logo_yo {
@@ -15,89 +18,6 @@
     overflow: visible;
 }
 
-#Trazado_78012 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78012 {
-    overflow: visible;
-    position: absolute;
-    width: 44.267px;
-    height: 63.464px;
-    left: 12.758px;
-    top: 22.649px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#Trazado_78013 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78013 {
-    overflow: visible;
-    position: absolute;
-    width: 55.004px;
-    height: 34.186px;
-    left: 56.516px;
-    top: 21.552px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#Trazado_78014 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78014 {
-    overflow: visible;
-    position: absolute;
-    width: 55.003px;
-    height: 34.186px;
-    left: 66.985px;
-    top: 53.024px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#Trazado_78015 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78015 {
-    overflow: visible;
-    position: absolute;
-    width: 7.221px;
-    height: 7.223px;
-    left: 112.313px;
-    top: 39.765px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#Trazado_78016 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78016 {
-    overflow: visible;
-    position: absolute;
-    width: 7.221px;
-    height: 7.222px;
-    left: 59.997px;
-    top: 61.594px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
-
-#Trazado_78017 {
-    fill: rgba(74, 94, 93, 1);
-}
-
-.Trazado_78017 {
-    overflow: visible;
-    position: absolute;
-    width: 31.663px;
-    height: 18.374px;
-    left: 73.19px;
-    top: 0px;
-    transform: matrix(1, 0, 0, 1, 0, 0);
-}
 
 .home_show_homes {
     height: 150%;
@@ -110,7 +30,7 @@
     font-family: Niveau Grotesk;
     font-style: normal;
     font-weight: normal;
-    font-size: 24px;
+    /*font-size: 24px;*/
     color: rgba(192, 229, 216, 1);
 }
 
