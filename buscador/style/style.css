@@ -1,9 +1,7 @@
-@layer base {
-    @font-face {
-        font-family: Niveau Grotesk;
-        font-weight: 400;
-        src: url("NiveauGroteskRegular.otf")
-    }
+@font-face {
+    font-family: Niveau Grotesk;
+    font-weight: 400;
+    src: url("NiveauGroteskRegular.otf")
 }
 
 #logo_yo {
