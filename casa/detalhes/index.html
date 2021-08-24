@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <style>
+        .dark_green {
+            color: rgba(69, 95, 93, 1);
+            ;
+        }
+    </style>
+    <style>
+        .carousel-open:checked+.carousel-item {
+            position: static;
+            opacity: 100;
+        }
+
+        .carousel-item {
+            -webkit-transition: opacity 0.6s ease-out;
+            transition: opacity 0.6s ease-out;
+        }
+
+        #carousel-1:checked~.control-1,
+        #carousel-2:checked~.control-2,
+        #carousel-3:checked~.control-3,
+        #carousel-4:checked~.control-4 {
+            display: block;
+        }
+
+        .carousel-indicators {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: 2%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        #carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
+        #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
+        #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet,
+        #carousel-4:checked~.control-4~.carousel-indicators li:nth-child(4) .carousel-bullet {
+            color: #2b6cb0;
+            /*Set to match the Tailwind colour you want the active one to be */
+        }
+    </style>
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <div class="px-16">
+
+        <div id="headers">
+            <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
+                <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
+                    <div id="logo" class="w-36 remove_cel">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+
+                <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
+                    <div class=" flex justify-center items-center w-full h-full">
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
+
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                        onclick="populateHomes()">
+                                        Explorar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                                <div class="col-start-2 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" id="filtro_busca_mobile">
+                                        Selva
+                                    </p>
+                                </div>
+
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+
+                                </div>
+                                <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-center items-center w-full h-full col-start-7 remove_cel">
+                    <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+                        <button class="rounded-full h-2/3 w-full button_bg remove_cel">
+                            <div class="grid grid-cols-3 flex items-center remove_cel">
+                                <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
+                                    Usuário
+                                </p>
+
+                                <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
+                            </div>
+
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+                <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                    <div id="logo" class="h-38  remove_pc">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+
+                <div id="buscador" class="row-start-2 col-start-1 col-span-4 remove_pc">
+                    <div class=" flex justify-center items-center w-full h-2/3">
+
+                        <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
+
+
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                        onclick="populateHomes()">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                    <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                        <div class="flex items-center remove_pc justify-center">
+                            <i class="fas fa-bars fa-lg remove_pc"></i>
+                        </div>
+
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+        <div id="basic_home_info" class="grid grid-cols-2  w-full h-1/5">
+
+            <div class="grid-row-start-1 flex justify-start items-center h-20">
+                <h1 id="nickName" class="text-5xl usuario_font font-extrabold">Nome da casa</h1>
+            </div>
+            <div class="grid-row-start-1 flex justify-end items-center h-20">
+                <h1 id="location" class="usuario_font tetx-lg">Brasília, Distrito Federeal, Brasil</h1>
+            </div>
+
+        </div>
+        <div class="carousel relative shadow-2xl bg-white">
+            <div class="carousel-inner relative overflow-hidden w-full">
+                <!--Slide 1-->
+                <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden=""
+                    checked="checked">
+                <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                    <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">
+                        <img src="https://fakeimg.pl/2000x1000/?retina=1&text=こんにちは&font=noto">
+                    </div>
+                </div>
+                <label for="carousel-3"
+                    class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+                <label for="carousel-2"
+                    class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+                <!--Slide 2-->
+                <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
+                <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                    <div class="block h-full w-full bg-orange-500 text-white text-5xl text-center">
+                        <img src="https://fakeimg.pl/2000x1000/?retina=1&text=AAAAA&font=noto">
+                    </div>
+                </div>
+                <label for="carousel-1"
+                    class="prev control-2 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+                <label for="carousel-3"
+                    class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+                <!--Slide 3-->
+                <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
+                <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                    <div class="block h-full w-full bg-green-500 text-white text-5xl text-center">
+                        <img src="https://fakeimg.pl/2000x1000/?retina=1&text=BBBBB&font=noto">
+                    </div>
+                </div>
+                <label for="carousel-2"
+                    class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+                <label for="carousel-4"
+                    class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+
+                <!--Slide 4-->
+                <input class="carousel-open" type="radio" id="carousel-4" name="carousel" aria-hidden="true" hidden="">
+                <div class="carousel-item absolute opacity-0" style="height:50vh;">
+                    <div class="block h-full w-full bg-yellow-500 text-white text-5xl text-center"><img
+                            src="https://fakeimg.pl/2000x1000/?retina=1&text=CCCCC&font=noto"></div>
+                </div>
+                <label for="carousel-3"
+                    class="prev control-4 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+                <label for="carousel-1"
+                    class="next control-4 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+
+                <!-- Add additional indicators for each slide-->
+                <ol class="carousel-indicators">
+                    <li class="inline-block mr-3">
+                        <label for="carousel-1"
+                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
+                    </li>
+                    <li class="inline-block mr-3">
+                        <label for="carousel-2"
+                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
+                    </li>
+                    <li class="inline-block mr-3">
+                        <label for="carousel-3"
+                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
+                    </li>
+                    <li class="inline-block mr-3">
+                        <label for="carousel-4"
+                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+
+        <div class="grid grid-cols-5 w-full h-1/5">
+            <div class="col-start-1 flex justify-start gap-5 items-center h-20">
+                <div class=" w-1/2 items-center h-full flex justify-end">
+                    <h1 class="text-5x1 usuario_font">
+                        Classificação
+                    </h1>
+                </div>
+                <div class="w-1/2 h-full items-center flex justify-start">
+                    <h1 class="text-lg usuario_font">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" aria-hidden="true"></i>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="col-start-3 gap-10  flex justify-center items-center h-20">
+                <div class=" w-1/2 items-center h-full flex justify-end">
+                    <h1 class="text-5x1 usuario_font">
+                        4,5
+                    </h1>
+                </div>
+                <div class=" w-1/2 h-full items-center  flex justify-start">
+                    <h1 class="text-5x1 usuario_font">
+                        (20 opiniões)
+                    </h1>
+                </div>
+            </div>
+
+            <div class="col-start-5 flex justify-end gap-10 items-center h-20">
+                <div class=" w-1/2 items-center h-full flex justify-end">
+                    <h1 class="text-5x1 usuario_font">
+                        2.000
+                    </h1>
+                </div>
+                <div class="w-1/2 h-full items-center  flex justify-start">
+                    <h1 class="text-lg usuario_font">
+                        Pontos por noite
+                    </h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full flex items-center justify-center">
+            <div id="hr" class="w-full h-px header_color"></div>
+        </div>
+
+        <div class="w-full  grid grid-cols-5 grid-rows-4 home_show_homes">
+            <div class="w-full col-span-3">
+                <div class=" w-full bg-green-200 h-10">
+
+                </div>
+            </div>
+            <div class="w-full col-start-4 col-span-2 row-start-1 bg-blue-400 rounded-full">
+                <div class="grid grid-cols-3 grid-rows-5 h-full w-full">
+                    <div class="col-start-1 row-start-2 flex justify-center items-center">
+                        <div class="w-20 h-20 bg-red-400 rounded-full"></div>
+
+                    </div>
+
+                    <div class="col-start-2 col-end-2  row-start-2 flex justify-center items-end">
+                        <h1 class="text-5xl">Maria M.</h1>
+
+                    </div>
+                    <div class="col-start-2 col-end-3  row-start-3 flex justify-center items-center">
+                        <h1 class="text-lg">Membro desde Setembro 2021</h1>
+
+                    </div>
+
+                    <div class="col-start-2 col-end-2  row-start-4 flex justify-center items-center">
+                        <button class="button_bg h-1/3 w-1/2">Contato</h1>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+    <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
+        <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
+            <div class="flex flex-wrap items-start justify-start">
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Sobre Yô</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Como funciona?</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Termos e condições</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Usuário</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Perfil</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Configurações</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Mensagens</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Painel</a></li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Ajuda</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Contato</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto justify-end flex items-center px-4 lg:px-0">
+            <p class="footer_typography text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
