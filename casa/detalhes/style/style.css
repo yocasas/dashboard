@@ -62,6 +62,11 @@
     background-color: rgba(192, 229, 216, 1);
 }
 
+.button_text {
+    font-family: Niveau Grotesk;
+    color: rgba(192, 229, 216, 1);
+}
+
 .button_bg_meio_alpha {
     background-color: rgba(192, 229, 216, 0.5);
 }
@@ -70,8 +75,20 @@
     background-color: rgba(74, 94, 93, 1);
 }
 
+.header_color_alpha {
+    background-color: rgba(74, 94, 93, 0.3);
+}
+
 .barra_meio {
     background-color: rgba(192, 229, 216, 1)
+}
+
+.max-w-3\/12 {
+    max-width: 25%;
+}
+
+.max-h-2\/5 {
+    max-height: 40%;
 }
 
 .resultado_busca {
@@ -149,6 +166,14 @@
 
 .usuario_font {
     white-space: nowrap;
+    font-family: Niveau Grotesk;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 25px;
+    color: rgba(69, 95, 93, 1);
+}
+
+.usuario_font_warp {
     font-family: Niveau Grotesk;
     font-style: normal;
     font-weight: normal;

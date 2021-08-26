@@ -295,7 +295,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-5 w-full h-1/5">
+        <div class="grid grid-cols-5 w-full h-1/5" id="homeBasicInformation">
             <div class="col-start-1 flex justify-start gap-5 items-center h-20">
                 <div class=" w-1/2 items-center h-full flex justify-end">
                     <h1 class="text-5x1 usuario_font">
@@ -341,37 +341,390 @@
             </div>
         </div>
 
-        <div class="w-full flex items-center justify-center">
+        <div class="w-full flex items-center justify-center" id="lineSeparator">
             <div id="hr" class="w-full h-px header_color"></div>
         </div>
 
         <div class="w-full  grid grid-cols-5 grid-rows-4 home_show_homes">
-            <div class="w-full col-span-3">
-                <div class=" w-full bg-green-200 h-10">
+            <div class="w-full col-span-3" id="homeDescription">
+                <div class=" w-full h-full grid grid-rows-3">
+                    <div class="flex items-center" id="DescriptionTitle">
+                        <h1 id="title" class="text-5xl usuario_font_warp">
+                            Descrição
+                        </h1>
+                    </div>
+                    <div class="flex items-top">
+                        <p id="description" class="text-base usuario_font_warp">
+                            Os hóspedes poderão usufruir da fogueira, deck panorâmico com hidromassagem, sauna seca e
+                            uma vista inigualável. Todos os amenities são privativos da casa. Os hóspedes poderão
+                            usufruir da fogueira, deck panorâmico com hidromassagem, sauna seca e uma vista inigualável.
+                            Todos os amenities são privativos da casa. Os hóspedes poderão usufruir da fogueira, deck
+                            panorâmico com hidromassagem, sauna seca e uma vista inigualável. Todos os amenities são
+                            privativos da casa.
+                        </p>
+                    </div>
+
+                    <div class="flex description_icons" id="description_icons">
+                        <div class="h-4/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-24">
+                                    Capacidade:
+                                    <!--TODO check break line 24 -->
+                                    8 pessoas
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="h-4/5 w-3/12  flex bg-red-400 gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center h-full">
+                                <p class="text-lg usuario_font_warp">
+                                    3 Quartos
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="h-4/5 w-3/12  flex gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp">
+                                    2 Suites
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="h-4/5 w-3/12  flex gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp">
+                                    1 Banheiro
+                                </p>
+                            </div>
+                        </div>
+
+
+
+                    </div>
 
                 </div>
             </div>
-            <div class="w-full col-start-4 col-span-2 row-start-1 bg-blue-400 rounded-full">
-                <div class="grid grid-cols-3 grid-rows-5 h-full w-full">
-                    <div class="col-start-1 row-start-2 flex justify-center items-center">
-                        <div class="w-20 h-20 bg-red-400 rounded-full"></div>
+
+            <div class="w-full col-span-3 " id="homeFacilities">
+                <div class="w-full flex items-center justify-center">
+                    <div id="hr" class="w-full h-px header_color_alpha"></div>
+                </div>
+                <div class=" w-full h-full grid grid-rows-3">
+
+                    <div class="flex items-center" id="DescriptionTitle">
+                        <h1 id="title" class="text-5xl usuario_font_warp">
+                            Facilidades
+                        </h1>
+                    </div>
+
+
+                        <!-- CHEAT SHEET -->
+                        <!--h-2/6 & w-2/12 - 6x3(18) icones | text-LG w-28-->
+                        <!--h-2/6 & w-2/12 - 6x3(18) icones | text-sm w-24-->
+                        <!--h-2/6 & w-3/12 - 6x3(12) icones | text-sm w-24-->
+
+                    <div class="flex description_icons row-span-2 flex-wrap" id="description_icons">
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/facilidades/ACADEMIA.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Piscina
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Wi-fi
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Sauna
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Lareira
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Adega
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Lavadora de
+                                    roupa
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/6 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Cama extra (Ajudante)
+                                </p>
+                            </div>
+                        </div>
+
+
 
                     </div>
 
-                    <div class="col-start-2 col-end-2  row-start-2 flex justify-center items-end">
-                        <h1 class="text-5xl">Maria M.</h1>
+                </div>
+            </div>
+            <div class="w-full col-span-3 " id="homeWorkers">
+                <div class="w-full flex items-center justify-center">
+                    <div id="hr" class="w-full h-px header_color_alpha"></div>
+                </div>
+                <div class=" w-full h-full grid grid-rows-3">
+
+                    <div class="flex items-center" id="DescriptionTitle">
+                        <h1 id="title" class="text-5xl usuario_font_warp">
+                            Funcionarios
+                        </h1>
+                    </div>
+
+                    <div class="flex description_icons row-span-2 flex-wrap" id="description_icons">
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/CASEIRO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Caseiro
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/CAZINHEIRO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Cazinheiro
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/FAXINEIRO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Faxineiro
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/PISCINEIRO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Piscineiro
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/SEGURANÇA.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Segurança
+                                </p>
+                            </div>
+                        </div>
 
                     </div>
-                    <div class="col-start-2 col-end-3  row-start-3 flex justify-center items-center">
-                        <h1 class="text-lg">Membro desde Setembro 2021</h1>
+
+                </div>
+            </div>
+
+            <div class="w-full col-span-3 " id="homeRules">
+                <div class="w-full flex items-center justify-center">
+                    <div id="hr" class="w-full h-px header_color"></div>
+                </div>
+                <div class=" w-full h-full grid grid-rows-3">
+
+                    <div class="flex items-center" id="DescriptionTitle">
+                        <h1 id="title" class="text-5xl usuario_font_warp">
+                            Regras da Casa
+                        </h1>
+                    </div>
+
+                    <div class="flex description_icons row-span-2 flex-wrap" id="description_icons">
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Aquescimento piscina reembolso
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-SEM-REEMBOLSO.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Aquescimento piscina sem reembolso
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/FAMILIA.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Familia
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/FUMANTES.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Fumantes
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/MENORES-23.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Menores de 23
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/PETS.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp w-28">
+                                    Pets
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/USO-ADEGA.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp">
+                                    Uso Adega
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
+                            <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="" class="h-full">
+                            <div class="flex items-center w-full h-full">
+                                <p class="text-lg usuario_font_warp">
+                                    Uso Suit Master
+                                </p>
+                            </div>
+                        </div>
 
                     </div>
 
-                    <div class="col-start-2 col-end-2  row-start-4 flex justify-center items-center">
-                        <button class="button_bg h-1/3 w-1/2">Contato</h1>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="w-full h-full col-start-4 col-span-2 row-start-1  flex justify-center items-center"
+                id="contactInfo">
+                <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
+                    <div class="w-2/5 h-full items-start" id="contactPhoto">
+                        <div class="h-3/5  flex justify-center items-center">
+                            <div class="h-2/3 w-6/12 items-start header_color rounded-full">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-3/5 h-full items-start" id="contactText">
+                        <div class="w-full h-2/3">
+                            <div class="w-full h-2/3 items-end flex">
+                                <div class="h-2/4">
+                                    <h1 class="text-4xl usuario_font_warp" id="contactName">
+                                        Maria M.
+                                    </h1>
+                                </div>
+
+                            </div>
+
+                            <div class="w-full h-1/3 items-start flex">
+                                <div>
+                                    <h1 class="text-sm usuario_font_warp" id="memberSince">
+                                        Membro desde Setembro 2021
+                                    </h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-full h-1/3 items-start flex justify-start">
+                            <input class="hidden" id="contactId">
+                            <button class="header_color w-2/5 h-1/2 rounded-full button_text" id="openChat">
+                                Contato
+                            </button>
+                        </div>
 
                     </div>
 
+                </div>
+            </div>
+
+            <div class="w-full h-full col-start-4 col-span-2 row-start-2 row-span-2  flex justify-center items-center"
+                id="calendar">
+                <!--!!!!!!!!!!TODO!!!!!!!!!!-->
+                <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
+                    <div class="w-2/5 h-full items-start" id="contactPhoto">
+                        <div class="h-3/5  flex justify-center items-center">
+                            <div class="h-2/3 w-6/12 items-start header_color rounded-full">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-3/5 h-full items-start" id="contactText">
+                        <div class="w-full h-2/3">
+                            <div class="w-full h-2/3 items-end flex">
+                                <div class="h-2/4">
+                                    <h1 class="text-4xl usuario_font_warp" id="contactName">
+                                        Maria M.
+                                    </h1>
+                                </div>
+
+                            </div>
+
+                            <div class="w-full h-1/3 items-start flex">
+                                <div>
+                                    <h1 class="text-sm usuario_font_warp" id="memberSince">
+                                        Membro desde Setembro 2021
+                                    </h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-full h-1/3 items-start flex justify-start">
+                            <input class="hidden" id="contactId">
+                            <button class="header_color w-2/5 h-1/2 rounded-full button_text" id="openChat">
+                                Contato
+                            </button>
+                        </div>
+
+                    </div>
 
                 </div>
             </div>
