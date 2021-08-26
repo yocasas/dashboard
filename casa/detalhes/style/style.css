@@ -17,6 +17,12 @@
 }
 
 
+@media screen and (min-width:640px) {
+    .home_show_homes_big {
+        height: 150vh;
+    }
+}
+
 .home_show_homes {
     height: 150vh;
 }
