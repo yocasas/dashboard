@@ -64,21 +64,27 @@
             success: function (x) {
                 let dbResponse = x
                 homesShow.find(".show_home").remove()
-                $("#result_quantity")[0].innerHTML = `Destino De ${locationType}: ${dbResponse.length} Casas Encontradas`
+                $("#result_quantity")[0].innerHTML =
+                    `Destino De ${locationType}: ${dbResponse.length} Casas Encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
-                    homeClone.find("#img_source").attr("src", getS3file(element["picturesS3Urls"][0], homeClone.find("#img_source")));
+                    homeClone.find("#img_source").attr("src", getS3file(element["picturesS3Urls"][
+                        0
+                    ], homeClone.find("#img_source")));
                     homeClone.find('#nickName').text(element["nickName"]);
                     homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
                     let stars = range(element["multiplier"], 1)
 
                     stars.forEach(startId => {
-                        homeClone.find('#rank').find(`#${startId}`).removeClass("text-gray-200");
+                        homeClone.find('#rank').find(`#${startId}`).removeClass(
+                            "text-gray-200");
                     })
 
                     let points = element["multiplier"] * 1000
-                    homeClone.find('#points').text(points >= 1000 ? `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` : `${points}`);
+                    homeClone.find('#points').text(points >= 1000 ?
+                        `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` :
+                        `${points}`);
                     homeClone.removeClass("hidden");
                     homeClone.addClass("show_home");
                     homeClone.attr("id", "show_home");
@@ -87,10 +93,230 @@
             }
         })
     }
+
+
+    function changeVisibility(e) {
+        if ($(`#${e}`).attr("class").split(/\s+/).indexOf("hidden") == -1) {
+            $(`#${e}`).addClass("hidden")
+        } else {
+            $(`#${e}`).removeClass("hidden")
+        }
+        
+    }
+</script>
+
+<style>
+    span {
+        cursor: pointer;
+    }
+
+    .number {
+        margin-top: 20px;
+        position: absolute;
+    }
+
+    .minus,
+    .plus {
+        width: 20px;
+        height: 20px;
+        background: #f2f2f2;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        display: inline-block;
+        vertical-align: middle;
+        text-align: center;
+    }
+
+    input {
+        height: 34px;
+        width: 100px;
+        text-align: center;
+        font-size: 26px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: inline-block;
+        vertical-align: middle;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.minus').click(function () {
+            var $input = $(this).parent().find('input');
+            var count = parseInt($input.val()) - 1;
+            count = count < 1 ? 1 : count;
+            $input.val(count);
+            $input.change();
+            return false;
+        });
+        $('.plus').click(function () {
+            var $input = $(this).parent().find('input');
+            $input.val(parseInt($input.val()) + 1);
+            $input.change();
+            return false;
+        });
+    });
 </script>
 
 <body>
 
+    <div class="absolute w-screen button_bg_meio_alpha flex justify-center items-center hidden py-10" id="more_filters">
+        <div class="w-full sm:w-1/3  bg-red-200 flex flex-col p-10">
+            <div class='quartos_filter flex justify-center'>
+                <h1>
+                    Mais Filtros
+                </h1>
+                
+            </div>
+            <div class="w-full flex items-center justify-center py-5">
+                <div id="hr" class="w-11/12 h-px header_color "></div>
+            </div>
+            <div class="grid grid-rows-3 grid-cols-2 gap-y-10" id="filtros_quartos">
+                <div class="col-span-2 flex ">
+                    <div><h1>Quartos</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Numero de quartos</h1></div>
+                    
+                </div>
+                <div class="col-start-2 flex justify-end contador gap-x-4">
+                    <div class="h-full w-10  rounded-full bg-red-400 flex justify-center">-</div>
+                    <h1> 2 </h1>
+                    <div class="h-full w-10  rounded-full bg-red-400 flex justify-center">-</div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Numero de suites</h1></div>
+                    
+                </div>
+                <div class="col-start-2 flex justify-end contador gap-x-4">
+                    <div class="h-full w-10  rounded-full bg-red-400 flex justify-center">-</div>
+                    <h1> 1 </h1>
+                    <div class="h-full w-10  rounded-full bg-red-400 flex justify-center">-</div>
+                    
+                </div>
+            </div>
+            <div class="w-full flex items-center justify-center  py-5">
+                <div id="hr" class="w-11/12 h-px header_color"></div>
+            </div>
+            <div class="grid grid-rows-autos grid-cols-2 gap-y-10" id="filtros_facilidades">
+                <div class="col-span-2 flex ">
+                    <div><h1>Facilidades</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Ar condicionado</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Quadra/Campo Futebol</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Wi-fi</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Churrasqueira</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Piscina</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Adega</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Sauna</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Lavadoura de roupas</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Jacuzzi/Ofuro</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Lavadora de louca</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Quarto extra ajudante/baba</h1></div>
+                    
+                </div>
+
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Lareira</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Vaga para carros</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Academia</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Cozinha casher</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Quadra de tenis / beach tennis</h1></div>
+                    
+                </div>
+            </div>
+            <div class="w-full flex items-center justify-center  py-5">
+                <div id="hr" class="w-11/12 h-px header_color"></div>
+            </div>
+            <div class="grid grid-rows-autos grid-cols-2 gap-y-10" id="filtros_funcionarios">
+                <div class="col-span-2 flex ">
+                    <div><h1>Funcionarios</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Ar condicionado</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Quadra/Campo Futebol</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Caseiro</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Piscineiro</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Cozinheiro</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Segurança</h1></div>
+                    
+                </div>
+                <div class="col-span-1 flex items-center">
+                    <div><h1>Faxineiro</h1></div>
+                    
+                </div>
+                
+            </div>
+            <div class="w-full flex items-center justify-center  py-5">
+                <div id="hr" class="w-11/12 h-px header_color"></div>
+            </div>
+            <div class="grid grid-cols-2">
+                <div class="grid-col-1">Eliminar filtros</div>
+                <div class="grid-col-2">Aplicar Filtros</div>
+            </div>
+        </div>
+    </div>
     <div class="px-16 py-5">
 
         <div id="headers">
@@ -247,7 +473,7 @@
             <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
                 <!--sm:block para cel magicamente funcionou-->
                 <div class="item col-start-2  text-center resultado_busca remove_cel" id="result_quantity">
-                    Destino de selva: 0 casas encontradas
+
                 </div>
 
             </div>
@@ -261,8 +487,54 @@
                             </button>
 
                         </div>
+
+                        <div>
+                            <div class="flex-initial  borda_filtro border-2  rounded-full">
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
+                                    id="filtro_busca" onclick="changeVisibility('classificacao_counter')">
+                                    Classificação
+                                </button>
+
+
+                            </div>
+                            <div class="number hidden" id="classificacao_counter">
+                                <span class="minus">-</span>
+                                <input type="text" value="1" />
+                                <span class="plus">+</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex-initial  borda_filtro border-2  rounded-full">
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" id="filtro_busca" onclick="changeVisibility('points_counter')">
+                                    Pontos
+                                </button>
+    
+                            </div>
+                            <div class="number hidden" id="points_counter">
+                                <span class="minus">-</span>
+                                <input type="text" value="1" />
+                                <span class="plus">+</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex-initial  borda_filtro border-2  rounded-full">
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" id="filtro_busca" onclick="changeVisibility('beach_distance')">
+                                    Distancia aproximada da praia
+                                </button>
+    
+                            </div>
+                            <div class="number hidden" id="beach_distance">
+                                <span class="minus">-</span>
+                                <input type="text" value="1" />
+                                <span class="plus">+</span>
+                            </div>
+                        </div>
+                        
+
                         <div class="flex-initial  borda_filtro border-2  rounded-full">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography">
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" onclick="changeVisibility('more_filters')">
 
                                 Mais filtros
                             </button>
