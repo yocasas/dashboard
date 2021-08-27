@@ -61,6 +61,42 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            jQuery(document).ready(function ($) {
+                $('.slider').slick({
+                    dots: false,
+                    infinite: true,
+                    speed: 500,
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    arrows: true,
+                    responsive: [{
+                        breakpoint: 600,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 400,
+                        settings: {
+                            arrows: false,
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }]
+                });
+            });
+        });
+    </script>
     <div class="px-10 sm:px-16 ">
 
         <div id="headers">
@@ -165,7 +201,8 @@
                         <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                             <div class="w-full h-full grid grid-cols-7">
                                 <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
+                                        id="locationType">
                                         Selva
                                     </p>
                                 </div>
@@ -183,7 +220,8 @@
                                     </p>
                                 </div>
                                 <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font flex items-center justify-center"
+                                    <button
+                                        class="rounded-full h-2/3 w-3/4 button_bg usuario_font flex items-center justify-center"
                                         onclick="populateHomes()">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
@@ -211,7 +249,6 @@
             </div>
         </div>
 
-        <!-- tah responsivo -->
         <div id="basic_home_info" class="grid md:grid-rows-2 md:grid-cols-2  w-full h-1/5">
 
             <div class="grid-row-start-1 flex justify-start items-center h-20">
@@ -222,77 +259,27 @@
             </div>
 
         </div>
-        <div class="carousel relative shadow-2xl bg-white">
-            <div class="carousel-inner relative overflow-hidden w-full">
-                <!--Slide 1-->
-                <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden=""
-                    checked="checked">
-                <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                    <div class="block h-full w-full bg-indigo-500 text-white text-5xl text-center">
-                        <img src="https://fakeimg.pl/2000x1000/?retina=1&text=こんにちは&font=noto">
-                    </div>
-                </div>
-                <label for="carousel-3"
-                    class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-                <label for="carousel-2"
-                    class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+        <div class="relative shadow-2xl bg-white">
+            <div class="slider">
+                <img
+                    src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1499887142886-791eca5918cd?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1484186304838-0bf1a8cff81c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1484611941511-3628849e90f7?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1485206412256-701ccc5b93ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
+                <img
+                    src="https://images.unsplash.com/photo-1485206412256-701ccc5b93ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
 
-                <!--Slide 2-->
-                <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
-                <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                    <div class="block h-full w-full bg-orange-500 text-white text-5xl text-center">
-                        <img src="https://fakeimg.pl/1000x1000/?retina=1&text=AAAAA&font=noto">
-                    </div>
-                </div>
-                <label for="carousel-1"
-                    class="prev control-2 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-                <label for="carousel-3"
-                    class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-                <!--Slide 3-->
-                <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
-                <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                    <div class="block h-full w-full bg-green-500 text-white text-5xl text-center">
-                        <img src="https://fakeimg.pl/2000x1000/?retina=1&text=BBBBB&font=noto">
-                    </div>
-                </div>
-                <label for="carousel-2"
-                    class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-                <label for="carousel-4"
-                    class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-
-                <!--Slide 4-->
-                <input class="carousel-open" type="radio" id="carousel-4" name="carousel" aria-hidden="true" hidden="">
-                <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                    <div class="block h-full w-full bg-yellow-500 text-white text-5xl text-center"><img
-                            src="https://fakeimg.pl/2000x1000/?retina=1&text=CCCCC&font=noto"></div>
-                </div>
-                <label for="carousel-3"
-                    class="prev control-4 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-                <label for="carousel-1"
-                    class="next control-4 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-blue-700 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-
-                <!-- Add additional indicators for each slide-->
-                <ol class="carousel-indicators">
-                    <li class="inline-block mr-3">
-                        <label for="carousel-1"
-                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                    <li class="inline-block mr-3">
-                        <label for="carousel-2"
-                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                    <li class="inline-block mr-3">
-                        <label for="carousel-3"
-                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                    <li class="inline-block mr-3">
-                        <label for="carousel-4"
-                            class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                </ol>
 
             </div>
         </div>
@@ -364,7 +351,8 @@
                     </div>
 
                     <div class="flex description_icons flex-row flex-wrap justify-center" id="description_icons">
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -375,7 +363,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -386,7 +375,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -397,7 +387,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -427,12 +418,14 @@
                         </h1>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap justify-center sm:justify-start gap-x-8 sm:gap-x-0" id="description_icons">
+                    <div class="flex description_icons flex-row flex-wrap justify-center sm:justify-start gap-x-8 sm:gap-x-0"
+                        id="description_icons">
                         <!-- CHEAT SHEET -->
                         <!--h-4/5 & sm:w-3/12 - 4x2(8) icones | text-LG w-28-->
                         <!--h-3/5 & w-2/12 - 6x3(18) icones | sm:text-sm | gap-0 w-24-->
                         <!--h-3/5 & w-3/12 - 4x3(12) icones | text-sm | gap-1 w-24-->
-                        <div class="h-3/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
+                        <div class="h-3/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-sm usuario_font_warp w-24">
@@ -441,8 +434,10 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
-                            <img src="Assets/regras/AQUECIMENTO-PISCINA-SEM-REEMBOLSO.svg" alt="" class="w-6/12 sm:w-4/12">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-SEM-REEMBOLSO.svg" alt=""
+                                class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
                                     Wi-fi
@@ -450,7 +445,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/FAMILIA.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -459,7 +455,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/FUMANTES.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -467,7 +464,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/MENORES-23.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -476,7 +474,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/PETS.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -486,7 +485,8 @@
                         </div>
 
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/USO-ADEGA.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -495,7 +495,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -602,8 +603,10 @@
                         </h1>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap gap-x-10 sm:gap-x-0 justify-center sm:justify-start" id="description_icons">
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
+                    <div class="flex description_icons flex-row flex-wrap gap-x-10 sm:gap-x-0 justify-center sm:justify-start"
+                        id="description_icons">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/CASEIRO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -612,16 +615,18 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/CAZINHEIRO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
-                                   Cazinheiro
+                                    Cazinheiro
                                 </p>
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/FAXINEIRO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -630,7 +635,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/PISCINEIRO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -638,7 +644,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/SEGURANÇA.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -666,8 +673,10 @@
                         </h1>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap justify-center sm:justify-start gap-x-8 sm:gap-x-0" id="description_icons">
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
+                    <div class="flex description_icons flex-row flex-wrap justify-center sm:justify-start gap-x-8 sm:gap-x-0"
+                        id="description_icons">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -676,8 +685,10 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
-                            <img src="Assets/regras/AQUECIMENTO-PISCINA-SEM-REEMBOLSO.svg" alt="" class="w-6/12 sm:w-4/12">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-SEM-REEMBOLSO.svg" alt=""
+                                class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
                                     Aquescimento piscina sem reembolso
@@ -685,7 +696,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/FAMILIA.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -694,7 +706,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/FUMANTES.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -702,7 +715,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/MENORES-23.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -711,7 +725,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/PETS.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -721,7 +736,8 @@
                         </div>
 
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/USO-ADEGA.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -730,7 +746,8 @@
                             </div>
                         </div>
 
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3" id="description-icon">
+                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
+                            id="description-icon">
                             <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
                                 <p class="text-xs sm:text-lg usuario_font_warp w-24">
@@ -822,9 +839,9 @@
 
                 </div>
             </div>
-            
 
-            
+
+
 
 
 
@@ -917,13 +934,8 @@
                 </div>
             </div>
 
-            
+
         </div>
-
-
-
-
-
     </div>
     <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
         <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">

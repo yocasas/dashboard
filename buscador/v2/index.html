@@ -34,6 +34,25 @@
 
         let defaultHome = $("#show_home_default")
 
+        function range(size, startAt = 0) {
+            return [...Array(size).keys()].map(i => i + startAt);
+        }
+
+        function getS3file(name, image) {
+            $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                type: "POST",
+                data: JSON.stringify({
+                    "pic-name": name
+                }),
+                contentType: "application/json",
+                success: (x) => {
+                    console.log(x)
+                    image.attr("src", `data:image/png;base64,${x}`)
+                }
+            })
+        }
+
         let homesShow = $("#homes_show")
         console.log(defaultHome)
         $.ajax({
@@ -41,7 +60,7 @@
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
-
+            
             success: function (x) {
                 let dbResponse = JSON.parse(x)
                 homesShow.find(".show_home").remove()
@@ -49,11 +68,17 @@
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
-                    homeClone.find("#img_source").attr("src", element["picturesS3Urls"][0]);
+                    homeClone.find("#img_source").attr("src", getS3file(element["picturesS3Urls"][0], homeClone.find("#img_source")));
                     homeClone.find('#nickName').text(element["nickName"]);
                     homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
-                    homeClone.find('#rank').text(`${"✰".repeat(element["multiplier"])}`);
-                    homeClone.find('#points').text(`${element["multiplier"]}`);
+                    let stars = range(element["multiplier"], 1)
+
+                    stars.forEach(startId => {
+                        homeClone.find('#rank').find(`#${startId}`).removeClass("text-gray-200");
+                    })
+                    
+                    let points = element["multiplier"] * 1000
+                    homeClone.find('#points').text(points >= 1000 ? `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` : `${points}`);
                     homeClone.removeClass("hidden");
                     homeClone.addClass("show_home");
                     homeClone.attr("id", "show_home");
@@ -170,7 +195,8 @@
                         <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                             <div class="w-full h-full grid grid-cols-7">
                                 <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
+                                        id="locationType">
                                         Selva
                                     </p>
                                 </div>
@@ -188,7 +214,8 @@
                                     </p>
                                 </div>
                                 <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font flex items-center justify-center"
+                                    <button
+                                        class="rounded-full h-2/3 w-3/4 button_bg usuario_font flex items-center justify-center"
                                         onclick="populateHomes()">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
@@ -255,11 +282,11 @@
         </div>
 
         <div id="casas_resultantes" class="home_show_homes">
-            <div class="flex flex-wrap gap-7 h-4/5 w-full" id="homes_show">
-                <div class=" h-1/2" id="show_home_default">
+            <div class="flex flex-wrap gap-7 h-4/5 w-full justify-around" id="homes_show">
+                <div class="hidden h-1/2" id="show_home_default">
                     <div id="imagem_casa" class="object-center h-4/6">
 
-                        <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80"
+                        <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
                             alt="Imagem- Casa" id="img_source" class="h-full w-full">
                     </div>
 
@@ -270,18 +297,31 @@
                         </div>
 
                         <div class="h-1/2 w-full grid grid-cols-2 grid-rows-2">
-                            <div class="row-start-1 classificacao_texto self-end" id="rank">
-                                ✰✰✰✰✰✰
+                            <div class="w-1/2 sm:h-full items-center flex justify-start">
+                                <h1 class="text-lg usuario_font" id="rank">
+                                    <i class="fa fa-star text-gray-200" id="1" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-gray-200" id="2" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-gray-200" id="3" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-gray-200" id="4" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-gray-200" id="5" aria-hidden="true"></i>
+                                    <i class="fa fa-star text-gray-200" id="6" aria-hidden="true"></i>
+                                </h1>
                             </div>
                             <div class="row-start-2 classificacao_texto self-start">
                                 Classificação
                             </div>
 
-                            <div class="row-start-1 col-start-2 pontos_text self-end" id="points">
-                                2.000
+                            <div class="row-start-1 col-start-2 pontos_text self-end flex justify-end" id="points">
+                                <p>
+                                    2.000
+                                </p>
+
                             </div>
-                            <div class="row-start-2 col-start-2 classificacao_texto self-start">
-                                Pontos
+                            <div class="row-start-2 col-start-2 classificacao_texto self-start flex justify-end">
+                                <p>
+                                    Pontos
+                                </p>
+
                             </div>
                         </div>
 
@@ -290,7 +330,7 @@
 
 
                 </div>
-                
+
 
 
 
