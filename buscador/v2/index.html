@@ -60,9 +60,9 @@
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
-            
+
             success: function (x) {
-                let dbResponse = JSON.parse(x)
+                let dbResponse = x
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML = `Destino De ${locationType}: ${dbResponse.length} Casas Encontradas`
                 dbResponse.forEach(element => {
@@ -76,7 +76,7 @@
                     stars.forEach(startId => {
                         homeClone.find('#rank').find(`#${startId}`).removeClass("text-gray-200");
                     })
-                    
+
                     let points = element["multiplier"] * 1000
                     homeClone.find('#points').text(points >= 1000 ? `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` : `${points}`);
                     homeClone.removeClass("hidden");

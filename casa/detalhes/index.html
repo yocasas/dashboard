@@ -7,6 +7,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <script>
+        function logKey(e) {
+            console.log(` ${e.code}`);
+        }
+
+        function startCarrousel() {
+            $('.slider').removeClass("hidden")
+            $(document).ready(function () {
+                jQuery(document).ready(function ($) {
+                    $('.slider').slick({
+                        dots: false,
+                        infinite: true,
+                        speed: 500,
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 2000,
+                        arrows: true,
+                        responsive: [{
+                            breakpoint: 600,
+                            settings: {
+                                slidesToShow: 2,
+                                slidesToScroll: 1
+                            }
+                        },
+                        {
+                            breakpoint: 400,
+                            settings: {
+                                arrows: false,
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }]
+                    });
+                });
+            });
+
+
+        }
+
+        function populateHomes(e) {
+
+
+
+            let data = {
+                "HomeId": e
+            }
+
+
+
+            function range(size, startAt = 0) {
+                return [...Array(size).keys()].map(i => i + startAt);
+            }
+
+            function getS3file(name, image, total, y) {
+
+                console.log(123)
+                $.ajax({
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                    type: "POST",
+                    data: JSON.stringify({
+                        "pic-name": name
+                    }),
+                    contentType: "application/json",
+                    success: (x) => {
+                        y.push(0)
+
+                        image.prepend(`<img id="theImg" src="data:image/png;base64,${x}" />`);
+                        if (y.length == total) {
+                            console.log("acabou")
+                            startCarrousel()
+                        }
+                    }
+                })
+            }
+
+            let homesShow = $("#homes_show")
+            $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
+
+                success: function (x) {
+                    console.log(x)
+                    let element = x[0]
+                    $("#nickName").text(`${element["nickName"]}`)
+                    $("#location").text(`${element["city"]}, ${element["state"]}, Brasil`)
+                    let stars = range(element["multiplier"], 1)
+
+                    stars.forEach(startId => {
+                        $('#rank').find(`#${startId}`).removeClass("text-gray-200");
+                    })
+
+                    let points = element["multiplier"] * 1000
+                    $('#points').text(points >= 1000 ? `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` : `${points}`);
+
+                    element["picturesS3Urls"].forEach(x => {
+                        let y = []
+                        getS3file(x, $("#slider"), element["picturesS3Urls"].length, y);
+                    })
+
+                    $("#maxCapacity").text(`Capacidade: ${element['maxPeople'] > 1 ? element['maxPeople'] + " Pessoas" : element['maxPeople'] + " Pessoa" }`)
+
+                    $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro" }`)
+                    $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quartos" }`)
+                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? element['totalSuites'] + " Suites" : element['totalSuites'] + " Suite" }`)
+
+
+                    /*
+                    
+
+                    
+                    homeClone.removeClass("hidden");
+                    homeClone.addClass("show_home");
+                    homeClone.attr("id", "show_home");*/
+                }
+            })
+        }
+    </script>
+
+
 </head>
 
 <body>
@@ -14,44 +136,6 @@
         .dark_green {
             color: rgba(69, 95, 93, 1);
             ;
-        }
-    </style>
-    <style>
-        .carousel-open:checked+.carousel-item {
-            position: static;
-            opacity: 100;
-        }
-
-        .carousel-item {
-            -webkit-transition: opacity 0.6s ease-out;
-            transition: opacity 0.6s ease-out;
-        }
-
-        #carousel-1:checked~.control-1,
-        #carousel-2:checked~.control-2,
-        #carousel-3:checked~.control-3,
-        #carousel-4:checked~.control-4 {
-            display: block;
-        }
-
-        .carousel-indicators {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            position: absolute;
-            bottom: 2%;
-            left: 0;
-            right: 0;
-            text-align: center;
-            z-index: 10;
-        }
-
-        #carousel-1:checked~.control-1~.carousel-indicators li:nth-child(1) .carousel-bullet,
-        #carousel-2:checked~.control-2~.carousel-indicators li:nth-child(2) .carousel-bullet,
-        #carousel-3:checked~.control-3~.carousel-indicators li:nth-child(3) .carousel-bullet,
-        #carousel-4:checked~.control-4~.carousel-indicators li:nth-child(4) .carousel-bullet {
-            color: #2b6cb0;
-            /*Set to match the Tailwind colour you want the active one to be */
         }
     </style>
     <link href="style/style.css" rel="stylesheet">
@@ -65,38 +149,10 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
     <script>
-        $(document).ready(function () {
-            jQuery(document).ready(function ($) {
-                $('.slider').slick({
-                    dots: false,
-                    infinite: true,
-                    speed: 500,
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                    autoplay: true,
-                    autoplaySpeed: 2000,
-                    arrows: true,
-                    responsive: [{
-                        breakpoint: 600,
-                        settings: {
-                            slidesToShow: 2,
-                            slidesToScroll: 1
-                        }
-                    },
-                    {
-                        breakpoint: 400,
-                        settings: {
-                            arrows: false,
-                            slidesToShow: 1,
-                            slidesToScroll: 1
-                        }
-                    }]
-                });
-            });
-        });
+        populateHomes('8e680c5de87d0ff1b8572dbb2be21e19fcaa1b4978deb7d412662b622f4fdd00b9adfedcb6839bbe5a6ac530289f10ff')
     </script>
+
     <div class="px-10 sm:px-16 ">
 
         <div id="headers">
@@ -260,7 +316,7 @@
 
         </div>
         <div class="relative shadow-2xl bg-white">
-            <div class="slider">
+            <div class="slider hidden" id="slider">
                 <img
                     src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" />
                 <img
@@ -291,13 +347,13 @@
                     </h1>
                 </div>
                 <div class="w-1/2 sm:h-full items-center flex justify-start">
-                    <h1 class="text-lg usuario_font">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star text-gray-200" aria-hidden="true"></i>
+                    <h1 class="text-lg usuario_font" id="rank">
+                        <i class="fa fa-star text-gray-200" id="1" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" id="2" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" id="3" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" id="4" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" id="5" aria-hidden="true"></i>
+                        <i class="fa fa-star text-gray-200" id="6" aria-hidden="true"></i>
                     </h1>
                 </div>
             </div>
@@ -317,7 +373,7 @@
 
             <div class="sm:col-start-5 flex justify-end sm:gap-10 flex-col sm:flex-row  sm:items-center sm:h-20">
                 <div class=" w-1/2 items-center sm:h-full flex sm:justify-end">
-                    <h1 class="text-lg sm:text-2x1 usuario_font">
+                    <h1 class="text-lg sm:text-2x1 usuario_font" id="points">
                         2.000
                     </h1>
                 </div>
@@ -355,7 +411,7 @@
                             id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-xs sm:text-lg usuario_font_warp w-24">
+                                <p class="text-xs sm:text-lg usuario_font_warp w-24" id="maxCapacity">
                                     Capacidade:
                                     <!--TODO check break line 24 -->
                                     8 pessoas
@@ -367,7 +423,7 @@
                             id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-xs sm:text-lg usuario_font_warp w-24">
+                                <p class="text-xs sm:text-lg usuario_font_warp w-24" id="totalBedRooms">
                                     3
                                     <!--TODO check break line 24 -->
                                     Quartos
@@ -379,7 +435,7 @@
                             id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-xs sm:text-lg usuario_font_warp w-24">
+                                <p class="text-xs sm:text-lg usuario_font_warp w-24" id="totalSuits">
                                     2
                                     <!--TODO check break line 24 -->
                                     Suites
@@ -391,7 +447,7 @@
                             id="description-icon">
                             <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-xs sm:text-lg usuario_font_warp w-24">
+                                <p class="text-xs sm:text-lg usuario_font_warp w-24" id="totalBathRooms">
                                     1
                                     <!--TODO check break line 24 -->
                                     Banheiro
