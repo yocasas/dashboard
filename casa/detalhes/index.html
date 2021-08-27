@@ -344,7 +344,7 @@
         <div class="w-full md:flex items-center justify-center" id="lineSeparator">
             <div id="hr" class="w-full h-px header_color"></div>
         </div>
-        <div class="w-full  md:grid grid-cols-5 grid-rows-4 home_show_homes_big">
+        <div class="w-full  md:grid md:grid-cols-5 md:grid-rows-4 home_show_homes_big">
             <div class="w-full col-span-3" id="homeDescription">
                 <div class=" w-full h-full sm:grid sm:grid-rows-3 flex flex-col">
                     <div class="flex items-center py-3 sm:py-0" id="DescriptionTitle">
@@ -415,93 +415,6 @@
                 </div>
             </div>
 
-            <!--TODO remove deprecated-->
-            <div class="w-full col-span-3 hidden" id="homeFacilities">
-                <div class="w-full flex items-center justify-center">
-                    <div id="hr" class="w-full h-px header_color_alpha"></div>
-                </div>
-                <div class=" w-full h-full grid grid-rows-3">
-
-                    <div class="flex items-center" id="DescriptionTitle">
-                        <h1 id="title" class="text-5xl usuario_font_warp">
-                            Facilidades
-                        </h1>
-                    </div>
-
-
-                        <!-- CHEAT SHEET -->
-                        <!--h-2/6 & w-2/12 - 6x3(18) icones | text-LG w-28-->
-                        <!--h-2/6 & w-2/12 - 6x3(18) icones | text-sm w-24-->
-                        <!--h-2/6 & w-3/12 - 6x3(12) icones | text-sm w-24-->
-
-                    <div class="flex description_icons row-span-2 flex-wrap" id="description_icons">
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/facilidades/ACADEMIA.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Piscina
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Wi-fi
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Sauna
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Lareira
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Adega
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/5 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Lavadora de
-                                    roupa
-                                </p>
-                            </div>
-                        </div>
-                        <div class="h-2/6 w-3/12 flex  gap-3" id="description-icon">
-                            <img src="Assets/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-full">
-                            <div class="flex items-center w-full h-full">
-                                <p class="text-lg usuario_font_warp w-28">
-                                    Cama extra (Ajudante)
-                                </p>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-
-                </div>
-            </div>
-
-            <!---!!!!!!!!!!!-->
-
             <div class="w-full col-span-3" id="homeFacilities">
                 <div class="w-full flex items-center justify-center">
                     <div id="hr" class="w-full h-px header_color"></div>
@@ -515,10 +428,14 @@
                     </div>
 
                     <div class="flex description_icons flex-row flex-wrap justify-center sm:justify-start gap-x-8 sm:gap-x-0" id="description_icons">
-                        <div class="h-4/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
+                        <!-- CHEAT SHEET -->
+                        <!--h-4/5 & sm:w-3/12 - 4x2(8) icones | text-LG w-28-->
+                        <!--h-3/5 & w-2/12 - 6x3(18) icones | sm:text-sm | gap-0 w-24-->
+                        <!--h-3/5 & w-3/12 - 4x3(12) icones | text-sm | gap-1 w-24-->
+                        <div class="h-3/5 w-5/12 sm:w-3/12 flex justify-center sm:justify-start items-center  sm:gap-3" id="description-icon">
                             <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="w-6/12 sm:w-4/12">
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-xs sm:text-lg usuario_font_warp w-24">
+                                <p class="text-xs sm:text-sm usuario_font_warp w-24">
                                     Piscina
                                 </p>
                             </div>
@@ -591,6 +508,8 @@
 
                     </div>
                 </div>
+
+                <!--TODO remove deprecated-->
                 <div class=" w-full h-full hidden">
 
                     <div class="flex items-center" id="DescriptionTitle">
@@ -903,61 +822,13 @@
 
                 </div>
             </div>
-
-            <!--n responsivo-->
             
 
             
 
 
 
-
-
-            <div class="w-full h-full col-start-4 col-span-2 row-start-1   justify-center items-center hidden  sm:flex"
-                id="contactInfo">
-                <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
-                    <div class="w-2/5 h-full items-start" id="contactPhoto">
-                        <div class="h-3/5  flex justify-center items-center">
-                            <div class="h-2/3 w-6/12 items-start header_color rounded-full">
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="w-3/5 h-full items-start" id="contactText">
-                        <div class="w-full h-2/3">
-                            <div class="w-full h-2/3 items-end flex">
-                                <div class="h-2/4">
-                                    <h1 class="text-4xl usuario_font_warp" id="contactName">
-                                        Maria M.
-                                    </h1>
-                                </div>
-
-                            </div>
-
-                            <div class="w-full h-1/3 items-start flex">
-                                <div>
-                                    <h1 class="text-sm usuario_font_warp" id="memberSince">
-                                        Membro desde Setembro 2021
-                                    </h1>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="w-full h-1/3 items-start flex justify-start">
-                            <input class="hidden" id="contactId">
-                            <button class="header_color w-2/5 h-1/2 rounded-full button_text" id="openChat">
-                                Contato
-                            </button>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="w-full h-full col-start-4 col-span-2 row-start-2 row-span-2  flex justify-center items-center hidden  sm:flex"
+            <div class="h-s-5/6 sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
                 id="calendar">
                 <!--!!!!!!!!!!TODO!!!!!!!!!!-->
                 <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
@@ -1001,6 +872,52 @@
 
                 </div>
             </div>
+
+            <div class="sm:w-full h-72 sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-1 justify-center items-center flex"
+                id="contactInfo">
+                <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
+                    <div class="w-2/5 h-full items-start" id="contactPhoto">
+                        <div class="h-3/5  flex justify-center items-center">
+                            <div class="h-1/3 sm:h-2/3 w-6/12 items-start header_color rounded-full">
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="w-3/5 h-full items-start" id="contactText">
+                        <div class="w-full h-2/3">
+                            <div class="w-full h-2/3 items-end flex">
+                                <div class="h-2/4">
+                                    <h1 class="text-4xl usuario_font_warp" id="contactName">
+                                        Maria M.
+                                    </h1>
+                                </div>
+
+                            </div>
+
+                            <div class="w-full h-1/3 items-start flex">
+                                <div>
+                                    <h1 class="text-sm usuario_font_warp" id="memberSince">
+                                        Membro desde Setembro 2021
+                                    </h1>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="w-full h-1/3 items-start flex justify-start">
+                            <input class="hidden" id="contactId">
+                            <button class="header_color w-3/5 sm:w-2/5 h-1/2 rounded-full button_text" id="openChat">
+                                Contato
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            
         </div>
 
 
