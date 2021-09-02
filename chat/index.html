@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+</head>
+
+<body>
+    <style>
+        .dark_green {
+            color: rgba(69, 95, 93, 1);
+            ;
+        }
+    </style>
+    <link href="style/style.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <div class="px-10 sm:px-16 h-screen">
+
+        <div id="headers">
+            <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
+                <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
+                    <div id="logo" class="w-36 remove_cel">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+
+                <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
+                    <div class=" flex justify-center items-center w-full h-full">
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
+
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                        onclick="populateHomes()">
+                                        Explorar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                                <div class="col-start-2 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" id="filtro_busca_mobile">
+                                        Selva
+                                    </p>
+                                </div>
+
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+
+                                </div>
+                                <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-center items-center w-full h-full col-start-7 remove_cel">
+                    <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+                        <button class="rounded-full h-2/3 w-full button_bg remove_cel">
+                            <div class="grid grid-cols-3 flex items-center remove_cel">
+                                <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
+                                    Usuário
+                                </p>
+
+                                <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
+                            </div>
+
+
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+                <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                    <div id="logo" class="h-16 w-16  remove_pc">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+
+                <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                    <div class=" flex justify-center items-center w-full h-2/3">
+
+                        <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
+                                        id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
+
+
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <p class=" text-sm busca_font w-12">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                    <button
+                                        class="rounded-full h-2/3 w-3/4 button_bg usuario_font flex items-center justify-center"
+                                        onclick="populateHomes()">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                    <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                        <div class="flex items-center remove_pc justify-center">
+                            <i class="fas fa-bars fa-lg remove_pc"></i>
+                        </div>
+
+
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full h-4/5 grid grid-cols-4 " id="chatItem">
+            <div class="bg-red-500 overflow-y-scroll" id="avaliableChats">
+                <div class="w-full flex justify-center items-center">
+                    <div class="w-3/4 bg-green-300 flex p-3">
+                        <div class="w-3/12 flex justify-center items-center">
+                            <div class="h-20 w-20 bg-yellow-300 rounded-full" id="imgChat">
+
+                            </div>
+                        </div>
+                        <div class=" bg-blue-300 w-9/12" id="chatInfo">
+                            <h1 id="contactName" class="w-full">Lorem ipsum</h1>
+                            <p id="lastMessage">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, rerum dicta...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-yellow-500 col-span-3 overflow-y-scroll ">
+                <div class="w-full bg-red-500 h-20 justify-start">
+                    <div class="p-2">
+                        <h1 id="contactName p-10">
+                            Yo equipe
+                        </h1>
+                    </div>
+                    
+                    
+
+                    
+                </div>
+                <div class="w-full bg-green-300 flex p-3">
+                    <div class="w-1/12 flex justify-center items-center"> <!--less -->
+                        <div class="h-20 w-20 bg-yellow-300 rounded-full" id="imgChat">
+
+                        </div>
+                    </div>
+                    <div class=" bg-blue-300 w-11/12" id="chatInfo">
+                        <h1 id="contactName" class="w-full">Lorem ipsum</h1>
+                        <p id="lastMessage">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
+        <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
+            <div class="flex flex-wrap items-start justify-start">
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Sobre Yô</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Como funciona?</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Termos e condições</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Política de privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Usuário</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Perfil</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Configurações</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Mensagens</a></li>
+                        <li><a class="footer_typography hover:underline" href="#">Painel</a></li>
+                    </ul>
+                </div>
+                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                    <h5 class="font-semibold footer_typography mb-2">Ajuda</h5>
+                    <ul class="leading-loose">
+                        <li><a class="footer_typography hover:underline" href="#">Contato</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto justify-end flex items-center px-4 lg:px-0">
+            <p class="footer_typography text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
