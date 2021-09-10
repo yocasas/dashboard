@@ -74,8 +74,8 @@
                     success: (x) => {
 
                         image.prepend(`<img id="theImg" src="data:image/png;base64,${x}" />`);
-                        
-                        if ($("#slider").children().length == total +9) {
+
+                        if ($("#slider").children().length == total + 9) {
                             console.log("acabou")
                             startCarrousel()
                         }
@@ -905,43 +905,32 @@
                 id="calendar">
                 <!--!!!!!!!!!!TODO!!!!!!!!!!-->
                 <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
-                    <div class="w-2/5 h-full items-start" id="contactPhoto">
-                        <div class="h-3/5  flex justify-center items-center">
-                            <div class="h-2/3 w-6/12 items-start header_color rounded-full">
-
-                            </div>
-                        </div>
-
+                    <div id='app' class="w-full h-full flex justify-center items-center">
+                        <v-calendar :attributes='attrs' class="h-5/6 w-5/6"/>
                     </div>
-                    <div class="w-3/5 h-full items-start" id="contactText">
-                        <div class="w-full h-2/3">
-                            <div class="w-full h-2/3 items-end flex">
-                                <div class="h-2/4">
-                                    <h1 class="text-4xl usuario_font_warp" id="contactName">
-                                        Maria M.
-                                    </h1>
-                                </div>
+                    <script src='https://unpkg.com/vue/dist/vue.js'></script>
 
-                            </div>
+                    <!-- 2. Link VCalendar Javascript (Plugin automatically installed) -->
+                    <script src='https://unpkg.com/v-calendar'></script>
 
-                            <div class="w-full h-1/3 items-start flex">
-                                <div>
-                                    <h1 class="text-sm usuario_font_warp" id="memberSince">
-                                        Membro desde Setembro 2021
-                                    </h1>
-                                </div>
+                    <!--3. Create the Vue instance-->
+                    <script>
+                        new Vue({
+                            el: '#app',
+                            data() {
+                                return {
+                                    attrs: [
+                                        {
+                                            key: 'today',
+                                            highlight: 'red',
+                                            dates: new Date(),
+                                        },
+                                    ],
+                                };
+                            }
+                        })
+                    </script>
 
-                            </div>
-                        </div>
-
-                        <div class="w-full h-1/3 items-start flex justify-start">
-                            <input class="hidden" id="contactId">
-                            <button class="header_color w-2/5 h-1/2 rounded-full button_text" id="openChat">
-                                Contato
-                            </button>
-                        </div>
-
-                    </div>
 
                 </div>
             </div>

@@ -174,6 +174,44 @@
 
     </script>
 
+    <script>
+        function getCookie(name) {
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+            if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                    end = dc.length;
+                }
+            }
+            // because unescape has been deprecated, replaced with decodeURI
+            //return unescape(dc.substring(begin + prefix.length, end));
+            return decodeURI(dc.substring(begin + prefix.length, end));
+        }
+
+        $(document).ready(function () {
+
+            var myCookie = getCookie("login_session");
+
+            if (myCookie == null) {
+                window.onload(window.location.replace("/home"))
+            } else {
+                console.log(`tah logado ${myCookie}`)
+            }
+
+
+
+
+        });
+
+    </script>
+
     <div class="px-10 sm:px-16 sm:h-screen">
 
         <div id="headers">
@@ -417,13 +455,14 @@
                 </div>
                 <div class="py-3 w-full flex justify-center">
                     <input type="text" placeholder="Write Something" id="inputMessage"
-                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                        class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
                     <div class="w-20 flex items-center justify-center">
-                        <button class=" w-2/3 h-full rounded-full button_bg" onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                        <button class=" w-2/3 h-full rounded-full button_bg" onclick="sendNewMessage('inputMessage')"><i
+                                class="fa fa-paper-plane" aria-hidden="true"></i></button>
                     </div>
-                    
+
                 </div>
-                
+
 
             </div>
 
