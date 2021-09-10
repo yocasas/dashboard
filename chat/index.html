@@ -112,8 +112,8 @@
         $(document).on("click", ".itemChat", function () {
             var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
             alert('you clicked on button #' + clickedBtnID);
-
-
+            $(".itemChat").removeClass("button_bg_meio_alpha")
+            $(this).addClass("button_bg_meio_alpha")
             if (screen.width < 640) {
                 changeVisibility("avaliableChats")
                 changeVisibility("fullChatBLockCel")
@@ -158,6 +158,13 @@
 
             getS3ProfilePics(fullChatInfo).then((x) => populateFullChat(fullChat, fullChatInfo))
         });
+
+
+        function sendNewMessage(messageId) {
+            let messageElement = $(`#${messageId}`)
+            console.log(messageElement.val())
+            messageElement.val("")
+        }
     </script>
 
     <script>
@@ -326,7 +333,7 @@
                         Mensagens
                     </h1>
                 </div>
-                <div class="w-full flex justify-center flex-col items-center hidden itemChat cursor-pointer"
+                <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer rounded-lg"
                     id="itemChat">
                     <div class="w-full flex">
                         <div class="w-3/12 flex justify-start items-center">
@@ -335,7 +342,7 @@
                                     height="600">
                             </div>
                         </div>
-                        <div class=" w-9/12" id="chatInfo">
+                        <div class=" w-7/12 " id="chatInfo">
                             <h1 id="contactName" class="w-full py-3 text-9x1 sm:text-9x1 usuario_font_warp">Julio L.
                             </h1>
                             <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -408,9 +415,13 @@
                     </div>
 
                 </div>
-                <div class="py-3">
-                    <input type="text" placeholder="Write Something"
-                    class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                <div class="py-3 w-full flex justify-center">
+                    <input type="text" placeholder="Write Something" id="inputMessage"
+                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                    <div class="w-20 flex items-center justify-center">
+                        <button class=" w-2/3 h-full rounded-full button_bg" onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                    </div>
+                    
                 </div>
                 
 
