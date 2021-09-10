@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
     <style>
         .dark_green {
             color: rgba(69, 95, 93, 1);
@@ -29,7 +30,144 @@
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-    <div class="px-10 sm:px-16 h-screen">
+    <script>
+
+
+
+        async function getS3ProfilePics(fullInfo) {
+
+            console.log(fullInfo.hostPicture)
+            let photo0 = await $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                type: "POST",
+                data: JSON.stringify({
+                    "pic-name": fullInfo.hostPicture
+                }),
+                contentType: "application/json",
+                success: (x) => {
+                    fullInfo.hostImageb64 = `data:image/png;base64,${x}`
+                }
+            })
+
+            let photo1 = await $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                type: "POST",
+                data: JSON.stringify({
+                    "pic-name": fullInfo.guestPicture
+                }),
+                contentType: "application/json",
+                success: (x) => {
+                    fullInfo.guestImageb64 = `data:image/png;base64,${x}`
+                }
+            })
+
+            return (photo0, photo1)
+
+        }
+
+
+        let avaliableChats = {}
+
+        function addChat(chatInfo) {
+            let avaliableChats = $("#avaliableChats")
+            let ChatModel = $("#itemChat").clone()
+
+            ChatModel.removeClass('hidden')
+            ChatModel.prop('id', 'itemChat' + avaliableChats.children().length)
+            avaliableChats['itemChat' + avaliableChats.children().length] = chatInfo
+            avaliableChats.append(ChatModel)
+
+        }
+
+        function populateFullChat(fullChat, fullChatInfo) {
+            fullChat.find("#contactNameChat").text(fullChatInfo.hostName)
+
+
+
+            let allMessages = fullChat.find("#messages")
+
+            allMessages.find(".chatMessage").slice(1).remove();
+
+            fullChatInfo.messages.forEach(element => {
+                let fullMessage = fullChat.find("#chatMessage").clone()
+                //getS3ProfilePics(element.guest ? fullChatInfo.guestPicture : fullChatInfo.hostPicture, )
+                fullMessage.find("#contactPhoto").attr("src", `${element.guest ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
+                fullMessage.removeClass("hidden")
+                fullMessage.find("#contactNameChatInternal").text(element.guest ? fullChatInfo.guestName : fullChatInfo.hostName);
+                fullMessage.find("#content").text(element.content);
+                fullMessage.prop('id', 'itemChat' + allMessages.children().length)
+                allMessages.append(fullMessage)
+            });
+        }
+
+        function changeVisibility(e) {
+            if ($(`#${e}`).attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                $(`#${e}`).addClass("hidden")
+            } else {
+                $(`#${e}`).removeClass("hidden")
+            }
+
+        }
+
+        $(document).on("click", ".itemChat", function () {
+            var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
+            alert('you clicked on button #' + clickedBtnID);
+
+
+            if (screen.width < 640) {
+                changeVisibility("avaliableChats")
+                changeVisibility("fullChatBLockCel")
+            }
+
+
+            let fullChat = $("#fullChat")
+
+            let fullChatInfo = { //TODO get from DB
+                hostName: "Julio L.",
+                guestName: "Gabriel J.",
+                hostPicture: "casa-hill-1",
+                guestPicture: "casa-hill-2",
+                messages: [
+                    {
+                        guest: false,
+                        date: "17 setembro",
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
+                    },
+                    {
+                        guest: true,
+                        date: "18 setembro",
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
+                    },
+                    {
+                        guest: false,
+                        date: "18 setembro",
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
+                    },
+                    {
+                        guest: true,
+                        date: "18 setembro",
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
+                    },
+                    {
+                        guest: true,
+                        date: "18 setembro",
+                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
+                    }
+                ]
+            }
+
+            getS3ProfilePics(fullChatInfo).then((x) => populateFullChat(fullChat, fullChatInfo))
+        });
+    </script>
+
+    <script>
+        window.onload = function () {
+            addChat({}) //TODO get from server
+        }
+
+    </script>
+
+    <div class="px-10 sm:px-16 sm:h-screen">
 
         <div id="headers">
             <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
@@ -181,45 +319,107 @@
             </div>
         </div>
 
-        <div class="w-full h-4/5 grid grid-cols-4 " id="chatItem">
-            <div class="bg-red-500 overflow-y-scroll" id="avaliableChats">
-                <div class="w-full flex justify-center items-center">
-                    <div class="w-3/4 bg-green-300 flex p-3">
-                        <div class="w-3/12 flex justify-center items-center">
-                            <div class="h-20 w-20 bg-yellow-300 rounded-full" id="imgChat">
-
+        <div class="w-full sm:h-4/5 h-auto grid sm:grid-cols-4 sm:grid-rows-1 " id="chats">
+            <div class="block sm:block sm:overflow-y-scroll" id="avaliableChats">
+                <div class="w-3/4 flex justify-start">
+                    <h1 id="Message" class="p-3 text-9x1 sm:text-9x1 font-extrabold usuario_font_warp">
+                        Mensagens
+                    </h1>
+                </div>
+                <div class="w-full flex justify-center flex-col items-center hidden itemChat cursor-pointer"
+                    id="itemChat">
+                    <div class="w-full flex">
+                        <div class="w-3/12 flex justify-start items-center">
+                            <div class="h-14 w-14 rounded-full" id="imgChat">
+                                <img src="Assets/chat_con.png" alt="Girl in a jacket" class="rounded-full" width="500"
+                                    height="600">
                             </div>
                         </div>
-                        <div class=" bg-blue-300 w-9/12" id="chatInfo">
-                            <h1 id="contactName" class="w-full">Lorem ipsum</h1>
-                            <p id="lastMessage">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia, rerum dicta...</p>
+                        <div class=" w-9/12" id="chatInfo">
+                            <h1 id="contactName" class="w-full py-3 text-9x1 sm:text-9x1 usuario_font_warp">Julio L.
+                            </h1>
+                            <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur adipisicing
+                                elit. Officia, rerum
+                                dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit qui
+                                laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus voluptates
+                                similique praesentium cumque nulla eligendi numquam, cum laborum quidem. Lorem ipsum
+                                dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat repudiandae
+                                mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur, itaque
+                                nostrum quia modi vitae, temporibus saepe!</p>
                         </div>
                     </div>
+                    <div class="w-full flex items-center justify-center p-2">
+                        <div id="hr" class="w-11/12 h-px header_color"></div>
+                    </div>
+
                 </div>
             </div>
-            <div class="bg-yellow-500 col-span-3 overflow-y-scroll ">
-                <div class="w-full bg-red-500 h-20 justify-start">
-                    <div class="p-2">
-                        <h1 id="contactName p-10">
-                            Yo equipe
-                        </h1>
+            <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
+                <div class=" overflow-y-scroll sm:h-95%  " id="fullChat">
+                    <div class="w-full h-20 ">
+                        <div class="p-2 ">
+                            <div class="w-full flex justify-center sm:justify-center">
+                                <h1 id="contactNameChat" class="p-3 text-9x1 sm:text-9x1 usuario_font_warp">
+                                    Nenhum chat selecionado
+                                </h1>
+                            </div>
+                            <div class="w-full flex items-center justify-center">
+                                <div id="hr" class="w-11/12 h-px header_color "></div>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
-                    
-                    
-
-                    
-                </div>
-                <div class="w-full bg-green-300 flex p-3">
-                    <div class="w-1/12 flex justify-center items-center"> <!--less -->
-                        <div class="h-20 w-20 bg-yellow-300 rounded-full" id="imgChat">
-
+                    <div id="messages">
+                        <div class="w-full  flex p-3 hidden chatMessage" id="chatMessage">
+                            <div class="w-1/12 flex justify-center items-start">
+                                <!--less -->
+                                <div class="h-14 w-14 rounded-full" id="imgChat">
+                                    <img src="Assets/chat_con.png" alt="Contact Photo" class="rounded-full"
+                                        id="contactPhoto" width="500" height="600">
+                                </div>
+                            </div>
+                            <div class=" w-11/12" id="chatInfo">
+                                <h1 class="text-9x1 sm:text-9x1 usuario_font_warp" id="contactNameChatInternal">
+                                    Lorem ipsum
+                                </h1>
+                                <p id="content" class="py-10 content">Lorem ipsum dolor sit amet consectetur adipisicing
+                                    elit.
+                                    Error
+                                    asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam
+                                    repudiandae
+                                    numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem
+                                    ipsum
+                                    dolor
+                                    sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum
+                                    laborum
+                                    tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate
+                                    velit
+                                    ab
+                                    obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam,
+                                    debitis
+                                    ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus
+                                    blanditiis
+                                    maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class=" bg-blue-300 w-11/12" id="chatInfo">
-                        <h1 id="contactName" class="w-full">Lorem ipsum</h1>
-                        <p id="lastMessage">Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
-                    </div>
+
                 </div>
+                <div class="py-3">
+                    <input type="text" placeholder="Write Something"
+                    class="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                </div>
+                
+
+            </div>
+
+
+
+            <div>
+
             </div>
         </div>
 
