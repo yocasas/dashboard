@@ -68,6 +68,10 @@
     background-color: rgba(74, 94, 93, 1);
 }
 
+.header_color_alpha {
+    background-color: rgba(74, 94, 93, 0.9);
+}
+
 .barra_meio {
     background-color: rgba(192, 229, 216, 1)
 }

@@ -153,6 +153,161 @@
         populateHomes('8e680c5de87d0ff1b8572dbb2be21e19fcaa1b4978deb7d412662b622f4fdd00b9adfedcb6839bbe5a6ac530289f10ff')
     </script>
 
+    <div id="headers" class="px-10 sm:px-16 sm:py-5">
+        <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
+            <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
+                <div id="logo" class="w-36 remove_cel">
+                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                </div>
+            </div>
+
+            <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
+                <div class=" flex justify-center items-center w-full h-full">
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                        <div class="w-full h-full grid grid-cols-7">
+                            <div class="col-start-1 w-full h-full flex items-center justify-end">
+                                <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                    Selva
+                                </p>
+                            </div>
+
+
+                            <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                </div>
+                            </div>
+
+                            <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                <p class="busca_font">
+                                    2 hospedes
+                                </p>
+                            </div>
+                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                    onclick="populateHomes()">
+                                    Explorar
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                        <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                            <div class="col-start-2 w-full h-full flex items-center justify-end">
+                                <p class="busca_font" id="filtro_busca_mobile">
+                                    Selva
+                                </p>
+                            </div>
+
+                            <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                </div>
+                            </div>
+
+                            <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                <p class="busca_font">
+                                    2 hospedes
+                                </p>
+
+                            </div>
+                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class=" flex justify-center items-center w-full h-full col-start-7 remove_cel">
+                <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+                    <button class="rounded-full h-2/3 w-full button_bg remove_cel">
+                        <div class="grid grid-cols-3 flex items-center remove_cel">
+                            <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
+                                Usuário
+                            </p>
+
+                            <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
+                        </div>
+
+
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                <div id="logo" class="h-16 w-16  remove_pc">
+                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                </div>
+            </div>
+
+            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                <div class=" flex justify-center items-center w-full h-2/3">
+
+                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                        <div class="w-full h-full grid grid-cols-7">
+                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                                <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
+                                    id="locationType">
+                                    Selva
+                                </p>
+                            </div>
+
+
+                            <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                </div>
+                            </div>
+
+                            <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                <p class=" text-sm busca_font w-12">
+                                    2 hospedes
+                                </p>
+                            </div>
+                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                                <button
+                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                    onclick="changeVisibility('more_filters')">
+                                    <i class="fas fa-sliders-h text-xs"></i>
+                                </button>
+
+                                <button
+                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                    onclick="populateHomes()">
+                                    <i class="text-xs fas fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                    <div class="flex items-center remove_pc justify-center">
+                        <i class="fas fa-bars fa-lg remove_pc"></i>
+                    </div>
+
+
+                </button>
+
+            </div>
+        </div>
+    </div>
     <div class="px-10 sm:px-16 ">
 
         <div id="headers">
@@ -906,7 +1061,7 @@
                 <!--!!!!!!!!!!TODO!!!!!!!!!!-->
                 <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
                     <div id='app' class="w-full h-full flex justify-center items-center">
-                        <v-calendar :attributes='attrs' class="h-5/6 w-5/6"/>
+                        <v-calendar :attributes='attrs' class="h-5/6 w-5/6" />
                     </div>
                     <script src='https://unpkg.com/vue/dist/vue.js'></script>
 
