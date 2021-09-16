@@ -17,9 +17,27 @@
 }
 
 @media screen and (min-width: 640px) {
-  .sm\:h-95\% {
-    height: 95%;
+  .sm\:h-90\% {
+    height: 90%;
   }
+}
+
+@media screen and (min-width: 640px) {
+  .sm\:h-80\% {
+    height: 80%;
+  }
+}
+
+.bg-green_light {
+  --bg-opacity: 1;
+  background-color: #C0E5D8;
+  background-color: rgba(192, 229, 216, var(--bg-opacity));
+}
+
+.border-green_light {
+  --border-opacity: 1;
+  border-color: #C0E5D8;
+  border-color: rgba(192, 229, 216, var(--border-opacity));
 }
 
 .clamp_line_2 {

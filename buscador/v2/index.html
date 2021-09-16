@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <script>
+
+        $(document).ready(() => {
+            var clientInfo = checkCurrentUser()
+        });
+
+    </script>
+
 </head>
 
 <link href="style/style.css" rel="stylesheet">
@@ -156,7 +164,7 @@
 
 <body>
 
-    <div class="absolute w-screen button_bg_meio_alpha flex justify-center items-center hidden py-10" id="more_filters">
+    <div class="absolute w-screen bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10" id="more_filters">
         <div class="w-full sm:w-1/3  bg-white rounded-xl  flex flex-col p-10">
             <div class='quartos_filter flex justify-center'>
                 <h1 class="text-xl font-extrabold filter_typography">

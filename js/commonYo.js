@@ -25,15 +25,12 @@ let checkCurrentUser = function () {
     let clientInfo
 
     if (myCookie == null) {
-        window.onload(window.location.replace("/home"))
+        //window.onload(window.location.replace("/home"))
     } else {
         console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(myCookie.split(".")[1]);
     }
 
     return clientInfo
-
-
-
 
 }

@@ -183,164 +183,165 @@
 
     </script>
 
-    <div id="headers" class="px-10 sm:px-16 sm:py-5">
-        <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
-            <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
-                <div id="logo" class="w-36 remove_cel">
-                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
-                </div>
-            </div>
 
-            <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
-                <div class=" flex justify-center items-center w-full h-full">
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
-                        <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 w-full h-full flex items-center justify-end">
-                                <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
-                                    Selva
-                                </p>
-                            </div>
+    <div class="px-10 sm:px-16 sm:h-screen">
 
-
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-5 w-full h-full flex items-center justify-center">
-                                <p class="busca_font">
-                                    2 hospedes
-                                </p>
-                            </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
-                                    onclick="populateHomes()">
-                                    Explorar
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-8 grid-rows-2">
-                            <div class="col-start-2 w-full h-full flex items-center justify-end">
-                                <p class="busca_font" id="filtro_busca_mobile">
-                                    Selva
-                                </p>
-                            </div>
-
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-5 w-full h-full flex items-center justify-center">
-                                <p class="busca_font">
-                                    2 hospedes
-                                </p>
-
-                            </div>
-                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-
-                        </div>
+        <div id="headers" class="sm:py-5">
+            <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
+                <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
+                    <div id="logo" class="w-36 remove_cel">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
                     </div>
                 </div>
 
+                <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
+                    <div class=" flex justify-center items-center w-full h-full">
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" contenteditable="true" onkeydown="logKey()" id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
 
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                        onclick="populateHomes()">
+                                        Explorar
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                                <div class="col-start-2 w-full h-full flex items-center justify-end">
+                                    <p class="busca_font" id="filtro_busca_mobile">
+                                        Selva
+                                    </p>
+                                </div>
+
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-start-5 w-full h-full flex items-center justify-center">
+                                    <p class="busca_font">
+                                        2 hospedes
+                                    </p>
+
+                                </div>
+                                <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                    <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-center items-center w-full h-full col-start-7 remove_cel">
+                    <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+                        <button class="rounded-full h-2/3 w-full button_bg remove_cel">
+                            <div class="grid grid-cols-3 flex items-center remove_cel">
+                                <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
+                                    Usuário
+                                </p>
+
+                                <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
+                            </div>
+
+
+                        </button>
+                    </div>
+                </div>
             </div>
+            <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+                <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                    <div id="logo" class="h-16 w-16  remove_pc">
+                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+
+                <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                    <div class=" flex justify-center items-center w-full h-2/3">
+
+                        <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                            <div class="w-full h-full grid grid-cols-7">
+                                <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                                    <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
+                                        id="locationType">
+                                        Selva
+                                    </p>
+                                </div>
 
 
-            <div class=" flex justify-center items-center w-full h-full col-start-7 remove_cel">
-                <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-                    <button class="rounded-full h-2/3 w-full button_bg remove_cel">
-                        <div class="grid grid-cols-3 flex items-center remove_cel">
-                            <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
-                                Usuário
-                            </p>
+                                <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
 
-                            <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
+                                    </div>
+                                </div>
+
+                                <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                    <p class=" text-sm busca_font w-12">
+                                        2 hospedes
+                                    </p>
+                                </div>
+                                <div
+                                    class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                                    <button
+                                        class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                        onclick="changeVisibility('more_filters')">
+                                        <i class="fas fa-sliders-h text-xs"></i>
+                                    </button>
+
+                                    <button
+                                        class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                        onclick="populateHomes()">
+                                        <i class="text-xs fas fa-search"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+                <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                    <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                        <div class="flex items-center remove_pc justify-center">
+                            <i class="fas fa-bars fa-lg remove_pc"></i>
                         </div>
 
 
                     </button>
+
                 </div>
             </div>
         </div>
-        <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
-            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
-                <div id="logo" class="h-16 w-16  remove_pc">
-                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
-                </div>
-            </div>
-
-            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
-                <div class=" flex justify-center items-center w-full h-2/3">
-
-                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <p class="text-sm busca_font" contenteditable="true" onkeydown="logKey()"
-                                    id="locationType">
-                                    Selva
-                                </p>
-                            </div>
-
-
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <p class=" text-sm busca_font w-12">
-                                    2 hospedes
-                                </p>
-                            </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="changeVisibility('more_filters')">
-                                    <i class="fas fa-sliders-h text-xs"></i>
-                                </button>
-
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="populateHomes()">
-                                    <i class="text-xs fas fa-search"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
-
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
-                    <div class="flex items-center remove_pc justify-center">
-                        <i class="fas fa-bars fa-lg remove_pc"></i>
-                    </div>
-
-
-                </button>
-
-            </div>
-        </div>
-    </div>
-    <div class="px-10 sm:px-16 sm:h-screen">
-
-
         <div class="w-full sm:h-4/5 h-auto grid sm:grid-cols-4 sm:grid-rows-1 " id="chats">
             <div class="block sm:block sm:overflow-y-scroll" id="avaliableChats">
                 <div class="w-11/12 flex justify-start flex-col">
@@ -364,7 +365,7 @@
                             </div>
                         </div>
                         <div class=" w-7/12 " id="chatInfo">
-                            <h1 id="contactName" class="w-full py-3 text-9x1 sm:text-9x1 usuario_font_warp">Julio L.
+                            <h1 id="contactName" class="w-full py-3 text-5xl sm:text-2xl usuario_font_warp">Julio L.
                             </h1>
                             <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur adipisicing
                                 elit. Officia, rerum
@@ -383,7 +384,7 @@
                 </div>
             </div>
             <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
-                <div class=" overflow-y-scroll sm:h-95%  " id="fullChat">
+                <div class=" overflow-y-scroll sm:h-80%  " id="fullChat">
                     <div class="w-full h-20 ">
                         <div class="p-2 ">
                             <div class="w-full flex justify-center sm:justify-center">
@@ -434,6 +435,13 @@
                             </div>
                         </div>
                     </div>
+
+                </div>
+                <div class="py-3 w-full flex justify-end gap-4" id="approveReserve">
+                    <a href="#"
+                        class="cadastro-button bg-green_light px-10 py-3 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-green_dark">Recusar Reserva</a>
+                    <a href="#"
+                        class="cadastro-button bg-green_light px-10 py-3 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-4 border-green_light text-green_dark">Aceitar Reserva</a>
 
                 </div>
                 <div class="py-3 w-full flex justify-center">
