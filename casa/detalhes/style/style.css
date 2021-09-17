@@ -19,7 +19,7 @@
 
 @media screen and (min-width:640px) {
     .home_show_homes_big {
-        height: 150vh;
+        min-height: 150vh;
     }
 }
 
@@ -192,6 +192,10 @@
     font-weight: normal;
     font-size: 25px;
     color: rgba(69, 95, 93, 1);
+}
+
+.slick-prev:before, .slick-next:before { 
+    color:rgba(74, 94, 93, 1) !important;
 }
 
 .usuario_font_warp {
