@@ -74,7 +74,7 @@
 }
 
 .checkbox-round:checked {
-    background-color: gray;
+    background-color: rgba(192, 229, 216, 1);;
 }
 
 .button_bg_meio_alpha {

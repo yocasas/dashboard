@@ -124,6 +124,12 @@
 
 
 
+
+    }
+
+    function eliminar() {
+        console.log($(`.filtro_busca`))
+        $(`.filtro_busca`).removeClass("button_bg")
     }
 </script>
 
@@ -174,16 +180,16 @@
             <div class='quartos_filter flex flex-col justify-center'>
                 <div class="w-full items-end flex justify-end">
                     <button class=" item self-end px-8 py-2"
-                    onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                    X
-                </button>
+                        onclick="changeVisibility('more_filters', 'more_filters_filter')">
+                        X
+                    </button>
                 </div>
                 <div class="w-full flex items-center justify-center">
-                <h1 class="text-xl font-extrabold filter_typography">
-                    Mais Filtros
-                </h1>
-            </div>
-                
+                    <h1 class="text-xl font-extrabold filter_typography">
+                        Mais Filtros
+                    </h1>
+                </div>
+
 
             </div>
             <div class="w-full flex items-center justify-center py-5">
@@ -232,115 +238,117 @@
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
-                        <h1 class="filter_typography">Ar condicionado</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                    <div class="flex gap-4 w-full flex justify-end items-end">
+                        <h1 class="filter_typography  ">Ar condicionado</h1>
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " />
+
                     </div>
+
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra/Campo Futebol</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Wi-fi</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Churrasqueira</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Piscina</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Adega</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Sauna</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadoura de roupas</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Jacuzzi/Ofuro</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadora de louca</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quarto extra ajudante/baba</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
 
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lareira</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Vaga para carros</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Academia</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Cozinha casher</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra de tenis / beach tennis</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
@@ -350,57 +358,57 @@
             </div>
             <div class="grid grid-rows-autos grid-cols-2 gap-y-10" id="filtros_funcionarios">
                 <div class="col-span-2 flex ">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="text-xl font-extrabold filter_typography">Funcionarios</h1>
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Ar condicionado</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra/Campo Futebol</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Caseiro</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Piscineiro</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Cozinheiro</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Segurança</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
-                    <div class="flex gap-4 items-center">
+                    <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Faxineiro</h1>
-                        <input type="checkbox" class="checkbox-round" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
@@ -410,7 +418,11 @@
                 <div id="hr" class="w-11/12 h-px header_color"></div>
             </div>
             <div class="grid grid-cols-2">
-                <div class="grid-col-1 filter_typography underline">Eliminar filtros</div>
+                <div class="grid-col-1 filter_typography underline" ">
+                    <button class=" px-8 py-2" onclick="eliminar()">
+                    Eliminar filtros
+                    </button>
+                </div>
                 <div class=" grid-col-2 flex justify-center items-center" id="more_filters_filter">
                     <button class="button_bg item rounded-full px-8 py-2"
                         onclick="changeVisibility('more_filters', 'more_filters_filter')">
@@ -439,6 +451,7 @@
                             </div>
 
 
+
                             <div class="col-start-4 w-full h-full flex items-center justify-center">
                                 <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
 
@@ -462,7 +475,7 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-8 grid-rows-2">
                             <div class="col-start-2 w-full h-full flex items-center justify-end">
-                                <p class="busca_font" id="filtro_busca_mobile">
+                                <p class="busca_font " id="filtro_busca_mobile">
                                     Selva
                                 </p>
                             </div>
@@ -592,16 +605,16 @@
 
                     <div class="h-full flex-initial flex justify-around items-center  gap-11">
                         <div class="flex-initial  borda_filtro border-2  rounded-full">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" id="filtro_busca">
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography " id="filtro_busca">
                                 Selva
                             </button>
 
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border-2  rounded-full"
+                            <div class="flex-initial  borda_filtro border-2 filtro_busca rounded-full"
                                 id="classificacao_counter_filter">
-                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
                                     onclick="changeVisibility('classificacao_counter', 'classificacao_counter_filter')">
                                     Classificação
@@ -624,8 +637,8 @@
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border-2  rounded-full" id="points_counter_filter">
-                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
+                            <div class="flex-initial  borda_filtro border-2  rounded-full filtro_busca" id="points_counter_filter">
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
                                     onclick="changeVisibility('points_counter', 'points_counter_filter')">
                                     Pontos
@@ -670,7 +683,8 @@
 
         <div id="casas_resultantes" class="home_show_homes_big py-5">
             <div class="flex flex-wrap gap-7 h-4/5 w-full justify-around" id="homes_show">
-                <div class="hidden h-1/2 cursor-pointer " id="show_home_default" onclick="location.href='/dashboard/casa/detalhes/'">
+                <div class="hidden h-1/2 cursor-pointer " id="show_home_default"
+                    onclick="location.href='/dashboard/casa/detalhes/'">
                     <div id="imagem_casa" class="object-center h-4/6">
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
