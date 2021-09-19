@@ -30,7 +30,7 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="../js/commonYo.js"></script>
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
 
     <script>
 
@@ -178,8 +178,10 @@
 
     <script>
 
+
         $(document).ready(() => {
-            var clientInfo = checkCurrentUser()
+            checkCurrentUser()
+            startCarrousel()
         });
 
     </script>
@@ -365,7 +367,8 @@
                             </div>
                         </div>
                         <div class=" w-7/12 " id="chatInfo">
-                            <h1 id="contactName" class="w-full font-extrabold py-3 text-5xl sm:text-2xl usuario_font_warp">Julio L.
+                            <h1 id="contactName"
+                                class="w-full font-extrabold py-3 text-5xl sm:text-2xl usuario_font_warp">Julio L.
                             </h1>
                             <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur adipisicing
                                 elit. Officia, rerum
@@ -394,7 +397,7 @@
                             </div>
                             <!--<div class="w-full flex items-center justify-center">
                                 <div id="hr" class="w-11/12 h-px header_color "></div>
-                            </div>-->   
+                            </div>-->
                         </div>
 
 
@@ -406,7 +409,8 @@
                             <div class="w-1/12 flex justify-center items-start">
                                 <!--less -->
                                 <div class="h-14 w-14 rounded-full" id="imgChat">
-                                    <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png" id="contactPhoto">
+                                    <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png"
+                                        id="contactPhoto">
                                 </div>
                             </div>
                             <div class=" w-11/12" id="chatInfo">
@@ -414,11 +418,12 @@
                                     <h1 class="text-5xl sm:text-4xl usuario_font_warp" id="contactNameChatInternal">
                                         Lucas L.
                                     </h1>
-                                    <h1 class=" align-bottom text-5xl  sm:text-3xl usuario_font_warp ml-20" id="contactDateChatInternal">
+                                    <h1 class=" align-bottom text-5xl  sm:text-3xl usuario_font_warp ml-20"
+                                        id="contactDateChatInternal">
                                         2019
                                     </h1>
                                 </div>
-                                
+
                                 <p id="content" class="py-10 content">Lorem ipsum dolor sit amet consectetur adipisicing
                                     elit.
                                     Error
@@ -444,9 +449,11 @@
                 </div>
                 <div class="py-3 w-full flex justify-end gap-4" id="approveReserve">
                     <a href="#"
-                        class="cadastro-button header_color px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar Reserva</a>
+                        class="cadastro-button header_color px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
+                        Reserva</a>
                     <a href="#"
-                        class="cadastro-button bg-green_light px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar Reserva</a>
+                        class="cadastro-button bg-green_light px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                        Reserva</a>
 
                 </div>
                 <div class="py-3 w-full flex justify-center">

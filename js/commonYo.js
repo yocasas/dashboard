@@ -1,3 +1,6 @@
+let clientInfo
+
+
 function getCookie(name) {
     var dc = document.cookie;
     var prefix = name + "=";
@@ -22,14 +25,15 @@ function getCookie(name) {
 let checkCurrentUser = function () {
 
     let myCookie = getCookie("login_session");
-    let clientInfo
+    
 
     if (myCookie == null) {
-        //window.onload(window.location.replace("/home"))
+        window.onload(window.location.replace("/home"))
     } else {
-        console.log(`cliente ja esta logado ${myCookie}`)
-        clientInfo = JSON.parse(myCookie.split(".")[1]);
+        //console.log(`cliente ja esta logado ${myCookie}`)
+        clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
     }
+
 
     return clientInfo
 
