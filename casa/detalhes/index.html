@@ -89,6 +89,10 @@
 
         }
 
+        function checkData(data) {
+            return data!= undefined && data.length > 0
+        }
+
         function populateHomes(e) {
 
 
@@ -144,11 +148,13 @@
                     $("#coveredParking").text(element[`coveredParking`])
                     $("#map").prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element["zipCode"]}"">
             </iframe>`)
-                    $(`#infoWorkers`).text(element[`infoWorkers`])
-                    $(`#infoAC`).text(element[`totalAc`])
-                    $(`#carEntrance`).text(element[`accessPath`])
+                    $(`#infoWorkers`).text(checkData(element[`infoWorkers`]) ? element[`infoWorkers`] : "Sem Informações")
+                    $(`#infoAC`).text(checkData(element[`totalAc`]) ? element[`totalAc`] : "Sem Informações")
+                    $(`#carEntrance`).text(checkData(element[`accessPath`]) ? element[`accessPath`] : "Sem Informações")
                     $(`#description`).text(element[`description`])
-                    $(`#curatedDetails`).text(element[`curatedDetails`])
+                    $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[`curatedDetails`] : "Sem Informações")
+                    $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[`extraRestriction`] : "Sem Informações")
+                    
 
                     contactId = element["clientId"]
 
@@ -281,18 +287,18 @@
             if (qnt < 8) {
                 facilities.addClass('sm:w-3/12')
                 facilities.removeClass('sm:w-2/12')
-                facilities.parent().removeClass('py-3')
-                facilities.parent().addClass('py-14')
+                facilities.parent().removeClass('sm:py-3')
+                facilities.parent().addClass('sm:py-14')
             } else if (qnt > 8 && qnt < 12) {
                 facilities.removeClass('sm:w-3/12')
                 facilities.addClass('sm:w-2/12')
-                facilities.parent().removeClass('py-3')
-                facilities.parent().addClass('py-14')
+                facilities.parent().removeClass('sm:py-3')
+                facilities.parent().addClass('sm:py-14')
             } else if (qnt > 12 && qnt < 16) {
                 facilities.removeClass('sm:w-3/12')
                 facilities.addClass('sm:w-2/12')
-                facilities.parent().removeClass('py-14')
-                facilities.parent().addClass('py-3')
+                facilities.parent().removeClass('sm:py-14')
+                facilities.parent().addClass('sm:py-3')
             }
 
 
@@ -633,7 +639,7 @@
                         2.000
                     </h1>
                 </div>
-                <div class="w-1/2 sm:h-full items-center  flex justify-start">
+                <div class="w-1/2 sm:h-full items-center  flex justify-start pb-10 sm:pb-0">
                     <h1 class="text-lg usuario_font">
                         Pontos por noite
                     </h1>
@@ -646,7 +652,7 @@
         <div class="w-full  md:grid md:grid-cols-5 md:grid-rows-4 home_show_homes_big">
             <div class="w-full col-span-3" id="homeDescription">
                 <div class=" w-full h-full sm:grid sm:grid-rows-3 flex flex-col">
-                    <div class="flex items-center py-3 sm:py-0" id="DescriptionTitle">
+                    <div class="flex items-center pt-10 sm:pt-0" id="DescriptionTitle">
                         <h1 id="title" class="font-black text-3xl usuario_font_warp">
                             Descrição
                         </h1>
@@ -662,7 +668,7 @@
                         </p>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap justify-center" id="description_icons">
+                    <div class="flex description_icons flex-row flex-wrap justify-center py-10 sm:py-0" id="description_icons">
                         <div class="h-4/5 w-full sm:w-3/12 flex justify-start items-center  sm:gap-3"
                             id="description-icon">
                             <div class="w-2/12 sm:w-2/12 flex items-start h-full">
@@ -740,7 +746,7 @@
                     <!--py-14 eh o normal dos outros-->
 
                     <div class="flex items-center justify-start sm:py-14" id="DescriptionTitle">
-                        <h1 id="title" class="font-black text-3xl usuario_font_warp">
+                        <h1 id="title" class="font-black pt-10 sm:pt-0 text-3xl usuario_font_warp">
                             Facilidades
                         </h1>
                     </div>
@@ -941,11 +947,9 @@
                             </h1>
                         </div>
 
-                        <div class="flex items-center w-full" id="DescriptionTitle">
+                        <div class="flex items-center w-full pb-10 sm:pb-0" id="DescriptionTitle">
                             <h1 id="infoAC" class="text-ls usuario_font_warp">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, eum error! Eligendi
-                                provident, sunt ad impedit quam architecto dolorum adipisci suscipit. Officia, vitae
-                                sed. Saepe quod labore unde ipsum delectus!
+                                Sem Informações
                             </h1>
                         </div>
                     </div>
@@ -961,17 +965,17 @@
                 <div class=" w-full h-full sm:grid sm:grid-rows-3">
 
                     <div class="flex items-center" id="DescriptionTitle">
-                        <h1 id="title" class="font-black text-3xl usuario_font_warp py-10 sm:py-0">
+                        <h1 id="title" class="font-black text-3xl usuario_font_warp pb-2 sm:pb-0 pt-10 sm:pt-0">
                             Informações importantes
                         </h1>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap gap-x-1 sm:gap-x-0 gap-y-10 sm:gap-y-1 justify-center sm:justify-start"
+                    <div class="flex description_icons flex-row flex-wrap gap-x-1 sm:gap-x-0 gap-y-4 sm:gap-y-1 justify-center sm:justify-start"
                         id="description_icons">
                         <div class="h-2/5 w-full sm:w-3/12 flex flex-col justify-start sm:justify-start items-start"
                             id="description-icon">
                             <div class="flex justify-start items-end w-auto h-full">
-                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp w-36">
+                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp sm:w-36">
                                     Sua casa fica no(a)
                                 </p>
                             </div>
@@ -986,7 +990,7 @@
                         <div class="h-2/5 w-full sm:w-3/12 flex flex-col justify-start sm:justify-start items-start"
                             id="description-icon">
                             <div class="flex justify-start items-end w-auto h-full">
-                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp w-36">
+                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp sm:w-36">
                                     Sua casa fica no condominio?
                                 </p>
                             </div>
@@ -1016,7 +1020,7 @@
                         <div class="h-2/5 w-full sm:w-3/12 flex flex-col justify-start sm:justify-start items-start"
                             id="description-icon">
                             <div class="flex justify-start items-end w-auto h-full">
-                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp w-36">
+                                <p class="font-extrabold text-lg sm:text-sm usuario_font_warp sm:w-36">
                                     Aeroporto mais proximo
                                 </p>
                             </div>
@@ -1063,7 +1067,7 @@
 
 
                     </div>
-                    <div id="funcionario_desc" class="row-start-3 py-10">
+                    <div id="funcionario_desc" class="row-start-3 pt-2 pb-10 sm:pt-10">
                         <div class="flex items-center" id="DescriptionTitle">
                             <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
                                 Melhor forma de acesso de carro
@@ -1072,9 +1076,7 @@
 
                         <div class="flex items-center" id="DescriptionTitle">
                             <h1 id="carEntrance" class="text-ls usuario_font_warp">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, eum error! Eligendi
-                                provident, sunt ad impedit quam architecto dolorum adipisci suscipit. Officia, vitae
-                                sed. Saepe quod labore unde ipsum delectus!
+                                Sem Informações
                             </h1>
                         </div>
                     </div>
@@ -1090,7 +1092,7 @@
                 <div class=" w-full h-full sm:grid sm:grid-rows-3">
 
                     <div class="flex items-center" id="DescriptionTitle">
-                        <h1 id="title" class="font-black text-3xl usuario_font_warp">
+                        <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 sm:pt-0">
                             Funcionarios
                         </h1>
                     </div>
@@ -1162,9 +1164,7 @@
 
                         <div class="flex items-center w-full" id="DescriptionTitle">
                             <h1 id="infoWorkers" class="text-ls usuario_font_warp">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio, eum error! Eligendi
-                                provident, sunt ad impedit quam architecto dolorum adipisci suscipit. Officia, vitae
-                                sed. Saepe quod labore unde ipsum delectus!
+                                Sem Informações
                             </h1>
                         </div>
                     </div>
@@ -1180,7 +1180,7 @@
                 <div class=" w-full h-full sm:grid sm:grid-rows-3">
 
                     <div class="flex items-center" id="DescriptionTitle">
-                        <h1 id="title" class="font-black text-3xl usuario_font_warp">
+                        <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 sm:pt-0">
                             Autorizo
                         </h1>
                     </div>
@@ -1192,7 +1192,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/FUMANTES.svg" alt="">
                             </div>
                             <!--TODO fix responsivity-->
@@ -1208,7 +1208,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/FAMILIA.svg" alt="">
                             </div>
 
@@ -1222,7 +1222,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/PETS.svg" alt="">
                             </div>
 
@@ -1236,7 +1236,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/MENORES-23.svg" alt="">
                             </div>
 
@@ -1250,7 +1250,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="">
                             </div>
 
@@ -1264,7 +1264,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/USO-ADEGA.svg" alt="">
                             </div>
 
@@ -1278,7 +1278,7 @@
 
                         <div
                             class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="">
                             </div>
 
@@ -1292,7 +1292,7 @@
 
                         <div class="h-2/5 w-full sm:w-3/12 flex justify-center sm:justify-start  items-center  sm:gap-3"
                             id="description-icon">
-                            <div class="w-6/12 sm:w-2/12 flex items-start h-full">
+                            <div class="w-2/12 sm:w-2/12 flex items-start h-full">
                                 <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="">
                             </div>
 
@@ -1306,6 +1306,19 @@
 
 
 
+                    </div>
+                    <div id="authorize_desc" class="row-start-3 py-10">
+                        <div class="flex items-center" id="DescriptionTitle">
+                            <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
+                                Restrições extras
+                            </h1>
+                        </div>
+
+                        <div class="flex items-center w-full" id="DescriptionTitle">
+                            <h1 id="extraRestriction" class="text-ls usuario_font_warp">
+                                Sem Informações
+                            </h1>
+                        </div>
                     </div>
                 </div>
                 <div class=" w-full h-full hidden">
@@ -1398,7 +1411,7 @@
 
             <div class="h-s-5/6 sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
                 id="calendar">
-                <div class="button_bg rounded-3xl w-11/12 h-5/6 flex flex-col">
+                <div class="button_bg rounded-3xl sm:w-11/12 h-5/6 flex flex-col">
                     <div id='app' class="w-full h-3/6 flex  justify-center items-center">
 
                         <v-date-picker v-model="range" is-range :available-dates='avbldates' @dayclick="onDayClick" />
@@ -1518,8 +1531,7 @@
                     <div class="h-2/3 w-full flex justify-center items-start">
                         <div class="w-2/3">
                             <p class="text-center font-black text-md usuario_font_warp" id="curatedDetails">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum repellendus nobis culpa
-                                natus aliquam minima obcaecati molestias sit beatae
+                                Sem Informações
                             </p>
                         </div>
 
