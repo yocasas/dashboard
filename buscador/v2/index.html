@@ -101,7 +101,7 @@
                             "text-gray-200");
                     })
 
-                    let points = element["multiplier"] * 1000
+                    let points = starsToPointsPerNight(element["multiplier"])
                     homeClone.find('#points').text(points >= 1000 ?
                         `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` :
                         `${points}`);

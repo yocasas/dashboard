@@ -40,3 +40,27 @@ let checkCurrentUser = function () {
     return clientInfo
 
 }
+
+
+let starsToPointsPerNight = function (multiplier) {
+
+    switch (multiplier) {
+        case -1:
+            return 100
+        case 3:
+            return 200
+        case 4:
+            return 300
+        case 5:
+            return 400
+        case 6:
+            return 500
+        case -2:
+            return 600
+    
+        default:
+            return 0
+    }
+    
+
+}
