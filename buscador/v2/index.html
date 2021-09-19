@@ -74,7 +74,7 @@
         }
 
         let homesShow = $("#homes_show")
-        console.log(defaultHome)
+        //console.log(defaultHome)
         $.ajax({
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
             type: "POST",
@@ -95,7 +95,7 @@
                     homeClone.find('#nickName').text(element["nickName"]);
                     homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
                     let stars = range(element["multiplier"], 1)
-
+                    homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
                     stars.forEach(startId => {
                         homeClone.find('#rank').find(`#${startId}`).removeClass(
                             "text-gray-200");
@@ -125,14 +125,10 @@
         if ($(`#${cr}`).attr("class").split(/\s+/).indexOf("button_bg") == -1) {
             $(`#${cr}`).addClass("button_bg")
         }
-
-
-
-
     }
 
     function eliminar() {
-        console.log($(`.filtro_busca`))
+        changeVisibility('more_filters', 'more_filters_filter')
         $(`.filtro_busca`).removeClass("button_bg")
     }
 </script>
@@ -178,7 +174,7 @@
 
 <body>
 
-    <div class="absolute w-screen bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
+    <div class="absolute w-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
         id="more_filters">
         <div class="w-full sm:w-1/3  bg-white rounded-xl  flex flex-col p-10">
             <div class='quartos_filter flex flex-col justify-center'>
@@ -508,7 +504,7 @@
             <div class="col-start-4 row-start-1 remove_cel">
                 <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 bg-white rounded-lg  shadow-xl z-20"
                     id="guestsDropdown">
-                    <div class="number  header_color_alpha p-4 rounded-lg" id="classificacao_counter">
+                    <div class="number  header_color_alpha p-4 rounded-lg" id="">
                         <div class="flex justify-end contador gap-x-4">
                             <div
                                 class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">

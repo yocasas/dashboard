@@ -267,10 +267,13 @@
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <script>
-        populateHomes('8e680c5de87d0ff1b8572dbb2be21e19fcaa1b4978deb7d412662b622f4fdd00b9adfedcb6839bbe5a6ac530289f10ff')
+        const urlParams = new URLSearchParams(window.location.search);
+        const homeId = urlParams.get('homeId');
+        populateHomes(homeId)
     </script>
 
     <script>
+        
         function facilitiesFormat(qnt) {
 
             let facilities = $('.facility')
@@ -590,13 +593,6 @@
         </div>
         <div class="relative shadow-2xl bg-white">
             <div class="slider hidden" id="slider">
-                <div class="bg-indigo-300 ">
-                    <img class="object-cover h-96 w-full "
-                        src="https://images.unsplash.com/photo-1485893086445-ed75865251e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cGVvcGxlfGVufDB8MnwwfHw%3D&ixlib=rb-1.2.1&fit=crop&w=533&q=60">
-
-                </div>
-
-
             </div>
         </div>
         <div class="grid sm:grid-cols-5 grid-rows-3 sm:grid-rows-1 w-full sm:h-1/5" id="homeBasicInformation">
