@@ -44,19 +44,20 @@ let checkCurrentUser = function () {
 
 let starsToPointsPerNight = function (multiplier) {
 
+    const basePoint = 400
     switch (multiplier) {
         case -1:
-            return 100
+            return basePoint*(Math.pow(2,0))
         case 3:
-            return 200
+            return basePoint*(Math.pow(2,1))
         case 4:
-            return 300
+            return basePoint*(Math.pow(2,2))
         case 5:
-            return 400
+            return basePoint*(Math.pow(2,3))
         case 6:
-            return 500
+            return basePoint*(Math.pow(2,4))
         case -2:
-            return 600
+            return basePoint*(Math.pow(2,4))*1.5
     
         default:
             return 0
