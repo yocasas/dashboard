@@ -60,6 +60,10 @@
     background-color: rgba(192, 229, 216, 1);
 }
 
+.hover\:button_bg:hover {
+    background-color: rgba(192, 229, 216, 1);
+}
+
 .checkbox-round {
     width: 1.3em;
     height: 1.3em;

@@ -1,6 +1,8 @@
 let clientInfo
 
 
+
+
 function getCookie(name) {
     var dc = document.cookie;
     var prefix = name + "=";
