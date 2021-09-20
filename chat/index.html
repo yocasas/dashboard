@@ -33,10 +33,22 @@
     <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
 
     <script>
+        function changeVisibility(e) {
+            if ($(`#${e}`).attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                $(`#${e}`).addClass("hidden")
+            } else {
+                $(`#${e}`).removeClass("hidden")
+            }
+
+        }
+
+    </script>
+
+    <script id="chatFunctionality"> //all db communication and chat functionality
 
         let chatsInfos = {}
 
-        async function getS3ProfilePics(fullInfo) {
+        async function getS3ProfilePics(fullInfo) { //populate s3 pics b64 data
             let photo0 = await $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                 type: "POST",
@@ -68,25 +80,25 @@
 
         let avaliableChats = {}
 
-        function addChat(chatInfo, fullInfo) {
+        function addChat(chatInfo, fullInfo) { //add chat infomation miniature
             let avaliableChats = $("#avaliableChats")
-            let ChatModel = $("#itemChat").clone()
+            let ChatModel = $("#itemChat").clone() //clone dafault chat
 
-            ChatModel.find(`#contactName`).text(chatInfo.contactName)
+            ChatModel.find(`#contactName`).text(chatInfo.contactName) //change informatio
             ChatModel.prop("chatId", chatInfo.chatId)
-            fullInfo.contactName = chatInfo.contactName
+            fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
             ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
 
-            ChatModel.removeClass('hidden')
-            ChatModel.prop('id', 'itemChat' + avaliableChats.children().length)
+            ChatModel.removeClass('hidden') //show element
+            ChatModel.prop('id', 'itemChat' + avaliableChats.children().length) //add chat id 
             ChatModel.prop("id", chatInfo.chatId)
-            avaliableChats['itemChat' + avaliableChats.children().length] = chatInfo
+            avaliableChats['itemChat' + avaliableChats.children().length] = chatInfo //DEPRECATED
             avaliableChats.append(ChatModel)
 
         }
 
-        function populateFullChat(fullChatInfo, messages, fullChatElement) {
+        function populateFullChat(fullChatInfo, messages, fullChatElement) { //add all messages to full chat
             fullChatElement.find("#contactNameChat").text(fullChatInfo.contactName)
 
             let allMessages = fullChatElement.find("#messages")
@@ -94,47 +106,46 @@
             allMessages.find(".chatMessage").slice(1).remove();
 
             messages.forEach(element => {
+                //get element end format date
                 let fullMessage = fullChatElement.find("#chatMessage").clone()
-                //getS3ProfilePics(element.guest ? fullChatInfo.guestPicture : fullChatInfo.hostPicture, )
-                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
-                fullMessage.removeClass("hidden")
-                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.guestName : fullChatInfo.hostName);
                 let msgTime = new Date(element.messageTime)
 
+                //show element
+                fullMessage.removeClass("hidden")
+
+
+                //setup current element
+                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
+                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.guestName : fullChatInfo.hostName);
                 fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
                 fullMessage.find("#content").text(element.content);
                 fullMessage.prop('id', 'itemChat' + allMessages.children().length)
+
+                //add element to array
                 allMessages.append(fullMessage)
             });
         }
 
-        function changeVisibility(e) {
-            if ($(`#${e}`).attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                $(`#${e}`).addClass("hidden")
-            } else {
-                $(`#${e}`).removeClass("hidden")
-            }
-
-        }
-
+        //add chats click to load full chat
         $(document).on("click", ".itemChat", function () {
-            var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
+            var clickedBtnID = $(this).attr('id'); // get caht id from database and infos from chat all
             var fullInfo = chatsInfos[clickedBtnID]
-            
-            //alert(fullInfo);
-            console.log($(".itemChat"))
-            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha")
-            $(this).find("#information").addClass("button_bg_meio_alpha")
-            if (screen.width < 640) {
+
+
+
+            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
+            $(this).find("#information").addClass("button_bg_meio_alpha") //add selected chat
+
+
+            if (screen.width < 640) { //for cel show one at a time
                 changeVisibility("avaliableChats")
                 changeVisibility("fullChatBLockCel")
             }
 
 
-            let fullChat = $("#fullChat")
+            let fullChat = $("#fullChat") //fullchat get
 
-
-            $.ajax({
+            $.ajax({ //get messages from database
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
                 type: "POST",
                 headers: {
@@ -146,31 +157,20 @@
                 contentType: "application/json",
 
                 success: (msgsString) => {
-
-                    let msgs = JSON.parse(msgsString)
-
-
-                    let fullInfoJson = fullInfo
-
-                    getS3ProfilePics(fullInfoJson).then((x) => populateFullChat(fullInfoJson, msgs, fullChat))
-                    //$(`#contactName`).text(client[`firstname`] + " " + client[`lastname`][0] + ".") TODO
+                    getS3ProfilePics(fullInfoJson).then((x) => populateFullChat(fullInfo, JSON.parse(msgsString), fullChat))
                 }
             })
-
-
-
-
         });
 
 
-        function sendNewMessage(messageId) {
+        function sendNewMessage(messageId) { //TODO send new message
             let messageElement = $(`#${messageId}`)
             console.log(messageElement.val())
             messageElement.val("")
         }
     </script>
 
-    <script>
+    <script> //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
 
@@ -191,7 +191,6 @@
                     msgs.forEach(msg => {
                         addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
                     });
-                    //$(`#contactName`).text(client[`firstname`] + " " + client[`lastname`][0] + ".")
                 }
             })
 
