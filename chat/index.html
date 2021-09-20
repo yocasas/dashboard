@@ -34,10 +34,9 @@
 
     <script>
 
-
+        let chatsInfos = {}
 
         async function getS3ProfilePics(fullInfo) {
-
             let photo0 = await $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                 type: "POST",
@@ -69,33 +68,40 @@
 
         let avaliableChats = {}
 
-        function addChat(chatInfo) {
+        function addChat(chatInfo, fullInfo) {
             let avaliableChats = $("#avaliableChats")
             let ChatModel = $("#itemChat").clone()
 
+            ChatModel.find(`#contactName`).text(chatInfo.contactName)
+            ChatModel.prop("chatId", chatInfo.chatId)
+            fullInfo.contactName = chatInfo.contactName
+            chatsInfos[chatInfo.chatId] = fullInfo
+            ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
+
             ChatModel.removeClass('hidden')
             ChatModel.prop('id', 'itemChat' + avaliableChats.children().length)
+            ChatModel.prop("id", chatInfo.chatId)
             avaliableChats['itemChat' + avaliableChats.children().length] = chatInfo
             avaliableChats.append(ChatModel)
 
         }
 
-        function populateFullChat(fullChat, fullChatInfo) {
-            fullChat.find("#contactNameChat").text(fullChatInfo.hostName)
+        function populateFullChat(fullChatInfo, messages, fullChatElement) {
+            fullChatElement.find("#contactNameChat").text(fullChatInfo.contactName)
 
-
-
-            let allMessages = fullChat.find("#messages")
+            let allMessages = fullChatElement.find("#messages")
 
             allMessages.find(".chatMessage").slice(1).remove();
 
-            fullChatInfo.messages.forEach(element => {
-                let fullMessage = fullChat.find("#chatMessage").clone()
+            messages.forEach(element => {
+                let fullMessage = fullChatElement.find("#chatMessage").clone()
                 //getS3ProfilePics(element.guest ? fullChatInfo.guestPicture : fullChatInfo.hostPicture, )
-                fullMessage.find("#contactPhoto").attr("src", `${element.guest ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
+                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
                 fullMessage.removeClass("hidden")
-                fullMessage.find("#contactNameChatInternal").text(element.guest ? fullChatInfo.guestName : fullChatInfo.hostName);
-                fullMessage.find("#contactDateChatInternal").text(element.date)
+                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.guestName : fullChatInfo.hostName);
+                let msgTime = new Date(element.messageTime)
+
+                fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
                 fullMessage.find("#content").text(element.content);
                 fullMessage.prop('id', 'itemChat' + allMessages.children().length)
                 allMessages.append(fullMessage)
@@ -113,8 +119,11 @@
 
         $(document).on("click", ".itemChat", function () {
             var clickedBtnID = $(this).attr('id'); // or var clickedBtnID = this.id
-            //alert('you clicked on button #' + clickedBtnID);
-            $(".itemChat").removeClass("button_bg_meio_alpha")
+            var fullInfo = chatsInfos[clickedBtnID]
+            
+            //alert(fullInfo);
+            console.log($(".itemChat"))
+            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha")
             $(this).find("#information").addClass("button_bg_meio_alpha")
             if (screen.width < 640) {
                 changeVisibility("avaliableChats")
@@ -124,41 +133,33 @@
 
             let fullChat = $("#fullChat")
 
-            let fullChatInfo = { //TODO get from DB
-                hostName: "Julio L.",
-                guestName: "Gabriel J.",
-                hostPicture: "casa-hill-1.jpg",
-                guestPicture: "casa-hill-2.jpg",
-                messages: [
-                    {
-                        guest: false,
-                        date: "17 setembro",
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
-                    },
-                    {
-                        guest: true,
-                        date: "18 setembro",
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
-                    },
-                    {
-                        guest: false,
-                        date: "18 setembro",
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
-                    },
-                    {
-                        guest: true,
-                        date: "18 setembro",
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
-                    },
-                    {
-                        guest: true,
-                        date: "18 setembro",
-                        content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Error asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam repudiandae numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum laborum tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate velit ab obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam, debitis ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus blanditiis maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo."
-                    }
-                ]
-            }
 
-            getS3ProfilePics(fullChatInfo).then((x) => populateFullChat(fullChat, fullChatInfo))
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify({
+                    chatId: clickedBtnID
+                }),
+                contentType: "application/json",
+
+                success: (msgsString) => {
+
+                    let msgs = JSON.parse(msgsString)
+
+
+                    let fullInfoJson = fullInfo
+
+                    getS3ProfilePics(fullInfoJson).then((x) => populateFullChat(fullInfoJson, msgs, fullChat))
+                    //$(`#contactName`).text(client[`firstname`] + " " + client[`lastname`][0] + ".") TODO
+                }
+            })
+
+
+
+
         });
 
 
@@ -171,7 +172,30 @@
 
     <script>
         window.onload = function () {
-            addChat({}) //TODO get from server
+            checkCurrentUser()
+
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/getChats",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify({
+                    clientId: clientInfo.ClientId
+                }),
+                contentType: "application/json",
+
+                success: (msgsString) => {
+
+                    let msgs = JSON.parse(msgsString)
+                    msgs.forEach(msg => {
+                        addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
+                    });
+                    //$(`#contactName`).text(client[`firstname`] + " " + client[`lastname`][0] + ".")
+                }
+            })
+
+
         }
 
     </script>
@@ -181,7 +205,6 @@
 
         $(document).ready(() => {
             checkCurrentUser()
-            startCarrousel()
         });
 
     </script>
@@ -209,7 +232,6 @@
                 });
 
                 function changeVisibilityUser() {
-                    console.log($("#userPanel"))
                     if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                         $("#userPanel").addClass("hidden")
                     } else {
@@ -544,7 +566,7 @@
                                     <h1 class="text-5xl sm:text-4xl usuario_font_warp" id="contactNameChatInternal">
                                         Lucas L.
                                     </h1>
-                                    <h1 class=" align-bottom text-5xl  sm:text-3xl usuario_font_warp ml-20"
+                                    <h1 class=" align-bottom text-3xl  sm:text-lg usuario_font_warp ml-20"
                                         id="contactDateChatInternal">
                                         2019
                                     </h1>
