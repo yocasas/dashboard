@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
-  <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
+    <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
     <title>Yô</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -480,7 +480,8 @@
             }
         </script>
         <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
-            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell" onclick="location.href='https://yocasas.com.br/home'">
+            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
+                onclick="location.href='https://yocasas.com.br/home'">
                 <div id="logo" class="py-8 w-36 remove_cel">
                     <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
                 </div>
@@ -530,12 +531,12 @@
                 </div>
             </div>
 
-            <div id="buscador" class="row-start-1 col-start-3 col-span-3 remove_cel">
+            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
                 <div class=" flex justify-center items-center w-full h-full">
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font" id="locationType" onclick="dropLocationShow()">
+                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
                                     Praia
                                 </button>
                             </div>
@@ -551,14 +552,14 @@
                             <div class="col-start-5 w-full h-full flex items-center justify-center">
                                 <button id='totalGuestFilter'
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="busca_font" id="totalGuests">
-                                        2 hospedes
+                                    <h1 class="busca_font text-xl" id="totalGuests">
+                                        2 hóspedes
                                     </h1>
                                 </button>
 
                             </div>
                             <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font"
+                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
                                     onclick="populateHomes()">
                                     Explorar
                                 </button>
@@ -581,11 +582,11 @@
                                 </div>
                             </div>
 
-                            <div class="col-start-5 w-full h-full flex items-center justify-center">
+                            <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
                                 <button id='totalGuestFilter'
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
                                     <h1 class="busca_font" id="totalGuests">
-                                        2 hospedes
+                                        2 hóspedes
                                     </h1>
                                 </button>
 
@@ -606,19 +607,20 @@
 
             <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-                    <button class="rounded-full h-2/3 w-full button_bg remove_cel" onclick="changeVisibilityUser()">
-                        <div class="grid grid-cols-3 flex items-center remove_cel">
-                            <p class="usuario_font col-span-2 text-center remove_cel text-center remove_cel">
+                    <!-- <button class="rounded-full py-2  w-full button_bg remove_cel" onclick="changeVisibilityUser()"> -->
+                        <!-- <div class="grid grid-cols-3 flex items-center remove_cel">
+                            <p class="usuario_font text-lg col-span-2 text-center remove_cel text-center remove_cel">
                                 Usuário
                             </p>
 
-
                             <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
-                        </div>
+                        </div> -->
+                        <a href="#" @click="dropdownOpen = !dropdownOpen"
+                            class=" bg-green_light px-5 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-4 border-green_light text-green_dark inline-flex items-center">Usuário
+                            <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                        </a>
 
-
-
-                    </button>
+                    <!-- </button> -->
 
                 </div>
 
@@ -727,7 +729,8 @@
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
             <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
                 <!--sm:block para cel magicamente funcionou-->
-                <div class="item col-start-2 text-3xl text-center resultado_busca remove_cel font-bold" id="result_quantity">
+                <div class="item col-start-2 text-3xl text-center resultado_busca remove_cel font-bold"
+                    id="result_quantity">
 
                 </div>
 
@@ -827,8 +830,8 @@
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-full ">
                         <div class=" h-1/2">
-                            <h1 class="text-4xl nome_casa pt-2" id="nickName">Nome da casa</h1>
-                            <h2 class="text-2xl info_casa" id="Location">Cidade Estado</h1>
+                            <h1 class="nome_casa pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa</h1>
+                            <h2 class="info_casa text-xl leading-snug" id="Location">Cidade Estado</h1>
                         </div>
 
                         <div class="h-1/2 w-full grid sm:grid-cols-2 sm:grid-rows-2 sm:grid-rows-4">
@@ -842,20 +845,20 @@
                                     <i class="fa fa-star text-gray-200" id="6" aria-hidden="true"></i>
                                 </h1>
                             </div>
-                            <div class="sm:row-start-2 col-start-1 classificacao_texto self-start">
+                            <div class="sm:row-start-2 col-start-1 classificacao_texto self-start text-lg leading-snug">
                                 Classificação
                             </div>
 
-                            <div class="sm:text-lg txt-xs row-start-1 col-start-2 pontos_text self-end flex sm:justify-end"
+                            <div class="row-start-1 col-start-2 pontos_text self-end flex sm:justify-end font-medium text-3xl leading-snug"
                                 id="points">
                                 <p>
                                     2.000
                                 </p>
 
                             </div>
-                            <div class="sm:row-start-2 col-start-2 classificacao_texto self-start flex sm:justify-end">
+                            <div class="sm:row-start-2 col-start-2 classificacao_texto self-start flex sm:justify-end text-lg leading-snug">
                                 <p>
-                                    pontos
+                                    Pontos
                                 </p>
 
                             </div>
@@ -869,7 +872,7 @@
 
             </div>
             <div class="w-full h-1/5 flex justify-center items-center">
-                <button class="button_bg item h-1/5 rounded-full px-8 mais_resultados_font">
+                <button class="button_bg item h-14 rounded-full px-8 mais_resultados_font">
                     Mais resultados
                 </button>
             </div>
