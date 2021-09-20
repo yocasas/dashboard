@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
+  <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
+    <title>Yô</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -83,7 +85,7 @@
                 let dbResponse = x
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML =
-                    `Destino De ${locationType}: ${dbResponse.length} Casas Encontradas`
+                    `Destinos de ${locationType}: ${dbResponse.length} casas encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
@@ -170,7 +172,7 @@
 
 <body>
 
-    <div class="absolute w-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
+    <div class="absolute z-30 w-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
         id="more_filters">
         <div class="w-full sm:w-1/3  bg-white rounded-xl  flex flex-col p-10">
             <div class='quartos_filter flex flex-col justify-center'>
@@ -465,9 +467,9 @@
             }
         </script>
         <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
-            <div class="flex row-start-1 col-start-1 items-center remove_cell" onclick="location.href='aaa'">
-                <div id="logo" class="w-36 remove_cel">
-                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell" onclick="location.href='https://yocasas.com.br/home'">
+                <div id="logo" class="py-8 w-36 remove_cel">
+                    <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
                 </div>
             </div>
 
@@ -498,7 +500,7 @@
             </div>
 
             <div class="col-start-4 row-start-1 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 bg-white rounded-lg  shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
                     id="guestsDropdown">
                     <div class="number  header_color_alpha p-4 rounded-lg" id="">
                         <div class="flex justify-end contador gap-x-4">
@@ -712,7 +714,7 @@
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
             <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
                 <!--sm:block para cel magicamente funcionou-->
-                <div class="item col-start-2  text-center resultado_busca remove_cel" id="result_quantity">
+                <div class="item col-start-2 text-3xl text-center resultado_busca remove_cel font-bold" id="result_quantity">
 
                 </div>
 
