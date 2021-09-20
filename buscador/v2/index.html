@@ -67,14 +67,12 @@
                 }),
                 contentType: "application/json",
                 success: (x) => {
-                    console.log(x)
                     image.attr("src", `data:image/png;base64,${x}`)
                 }
             })
         }
 
         let homesShow = $("#homes_show")
-        //console.log(defaultHome)
         $.ajax({
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
             type: "POST",
@@ -102,9 +100,7 @@
                     })
 
                     let points = starsToPointsPerNight(element["multiplier"])
-                    homeClone.find('#points').text(points >= 1000 ?
-                        `${points / 1000}.${points % 1000 > 100 ? "0" + (points % 1000) : "00" + (points % 1000)}` :
-                        `${points}`);
+                    homeClone.find('#points').text(numberWithCommas(points));
                     homeClone.removeClass("hidden");
                     homeClone.addClass("show_home");
                     homeClone.attr("id", "show_home");
@@ -525,7 +521,7 @@
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
                                 <button class="busca_font" id="locationType" onclick="dropLocationShow()">
-                                    Selva
+                                    beach
                                 </button>
                             </div>
 
@@ -560,7 +556,7 @@
                             <div class="col-start-2 w-full h-full flex items-center justify-end"
                                 onclick="dropLocationShow()">
                                 <p class="busca_font " id="filtro_busca_mobile">
-                                    Selva
+                                    -
                                 </p>
                             </div>
 
@@ -653,7 +649,7 @@
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
                                 <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
                                     id="locationType">
-                                    Selva
+                                    beach
                                 </button>
                             </div>
 
@@ -728,7 +724,7 @@
                         <div class="flex-initial  borda_filtro border-2  rounded-full">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                 id="filtro_busca">
-                                Selva
+                                beach
                             </button>
 
                         </div>
@@ -814,7 +810,7 @@
                             alt="Imagem- Casa" id="img_source" class="h-full w-full">
                     </div>
 
-                    <div class="object-center h-2/6  w-full ">
+                    <div class="object-center sm:h-3/6 md:h-auto  w-full ">
                         <div class=" h-1/2">
                             <h1 class="text-4xl nome_casa pt-2" id="nickName">Nome da casa</h1>
                             <h2 class="text-2xl info_casa" id="Location">Cidade Estado</h1>
