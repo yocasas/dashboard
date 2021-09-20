@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+
 
     <script>
 
@@ -90,7 +92,7 @@
         }
 
         function checkData(data) {
-            return data!= undefined && data.length > 0
+            return data != undefined && data.length > 0
         }
 
         function populateHomes(e) {
@@ -129,12 +131,15 @@
             }
 
             let homesShow = $("#homes_show")
+            checkCurrentUser()
             $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json",
-
+                headers: {
+                    "Authorization": authCookie
+                },
                 success: function (x) {
                     let element = x[0]
                     $("#nickName").text(`${element["nickName"]}`)
@@ -154,7 +159,7 @@
                     $(`#description`).text(element[`description`])
                     $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[`curatedDetails`] : "Sem Informações")
                     $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[`extraRestriction`] : "Sem Informações")
-                    
+
 
                     contactId = element["clientId"]
 
@@ -162,6 +167,9 @@
                     $.ajax({
                         url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
                         type: "POST",
+                        headers: {
+                            "Authorization": authCookie
+                        },
                         data: JSON.stringify({
                             ClientId: element["clientId"]
                         }),
@@ -231,7 +239,7 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+
     <script>
 
         let openChat = () => {
@@ -279,7 +287,7 @@
     </script>
 
     <script>
-        
+
         function facilitiesFormat(qnt) {
 
             let facilities = $('.facility')
@@ -668,7 +676,8 @@
                         </p>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap justify-center py-10 sm:py-0" id="description_icons">
+                    <div class="flex description_icons flex-row flex-wrap justify-center py-10 sm:py-0"
+                        id="description_icons">
                         <div class="h-4/5 w-full sm:w-3/12 flex justify-start items-center  sm:gap-3"
                             id="description-icon">
                             <div class="w-2/12 sm:w-2/12 flex items-start h-full">

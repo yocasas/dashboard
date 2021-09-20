@@ -1,5 +1,7 @@
 let clientInfo
 
+let authCookie
+
 
 
 
@@ -28,6 +30,7 @@ let checkCurrentUser = function () {
 
     let myCookie = getCookie("login_session");
     
+    authCookie = myCookie
 
     if (myCookie == null) {
         window.onload(window.location.replace("/home"))
