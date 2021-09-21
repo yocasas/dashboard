@@ -615,8 +615,8 @@
 
                             <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
                         </div> -->
-                        <a href="#" @click="dropdownOpen = !dropdownOpen"
-                            class=" bg-green_light px-5 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-4 border-green_light text-green_dark inline-flex items-center">Usuário
+                        <a onclick="changeVisibilityUser()"
+                            class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg remove_cel hover:bg-gray-300 hover:border-gray-300 border-4 inline-flex items-center">Usuário
                             <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                         </a>
 
@@ -626,22 +626,22 @@
 
                 <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                    <!-- <a href="#"
+                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Perfil
-                    </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                    </a> -->
+                    <a onclick="location.href='/onboarding'"
+                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Configurações
                     </a>
                     <a href="/dashboard/chat"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Mensagens
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                    <!-- <a href="#"
+                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Painel
-                    </a>
+                    </a> -->
                     <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
                         class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
                         Log out

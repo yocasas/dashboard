@@ -48,6 +48,10 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+function removeCookie() {
+    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+  }
+
 
 let starsToPointsPerNight = function (multiplier) {
 
