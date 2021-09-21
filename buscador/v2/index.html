@@ -459,13 +459,13 @@
                     var count = parseInt($input.text()) - 1;
                     count = count < 1 ? 1 : count;
                     $input.text(count);
-                    $(`#totalGuests`).text(`${count} Hospedes`)
+                    $(`#totalGuests`).text(`${count} Hóspedes`)
                     return false;
                 });
                 $('.plus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
                     $input.text(parseInt($input.text()) + 1);
-                    $(`#totalGuests`).text(`${$input.text()} Hospedes`)
+                    $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
                     return false;
                 });
             });
