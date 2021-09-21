@@ -12,6 +12,8 @@
 
     <script>
 
+        let currentHomeInfo
+
         let contactId
 
         function generateAvaliableObj(arr) {
@@ -97,6 +99,33 @@
             return data != undefined && data.length > 0
         }
 
+        let selectedDates
+
+        function abrirChat(messageId) { //TODO send new message
+            let chatSettings = {
+                "hostId": currentHomeInfo.clientId,
+                "guestId": clientInfo.ClientId,
+                "guestPicture": "chat_con.png",
+                "hostPicture": "chat_con.png",
+                "requestedDate": selectedDates,
+                "hostName": currentHomeInfo.contactName,
+                "guestName": clientInfo.nickName
+            }
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify(chatSettings),
+                contentType: "application/json",
+
+                success: (msgsString) => {
+
+                }
+            })
+        }
+
         function populateHomes(e) {
 
             console.log(e)
@@ -144,6 +173,7 @@
                 },
                 success: function (x) {
                     let element = x[0]
+                    currentHomeInfo = element
                     $("#nickName").text(`${element["nickName"]}`)
                     $("#location").text(`${element["city"]}, ${element["state"]}, Brasil`)
                     $("#locationTypeHost").text(element["locationType"])
@@ -178,7 +208,10 @@
                         contentType: "application/json",
 
                         success: (client) => {
+                            currentHomeInfo.contactName = client[`firstname`] + " " + client[`lastname`][0] + "."
                             $(`#contactName`).text(client[`firstname`] + " " + client[`lastname`][0] + ".")
+                            //$(".loading").removeClass('dot-pulse')
+                            $(".loading").parent().addClass('hidden')
                         }
                     })
 
@@ -274,6 +307,7 @@
     <link href="https://kenwheeler.github.io/slick/slick/slick-theme.css" rel="stylesheet" />
 
     <link href="style/style.css" rel="stylesheet">
+    <link href="style/loading.css" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -319,6 +353,11 @@
         }
     </script>
 
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
+        <div class="loading dot-pulse">
+
+        </div>
+    </div>
 
     <div id="headers" class="px-10 sm:px-16 sm:py-5">
         <script>
@@ -368,23 +407,19 @@
             <div id="buscador" class="row-start-1 col-start-3 remove_cel">
                 <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
                         Praia
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`country`);dropLocationShow()">
                         Campo
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`mountain`);dropLocationShow()">
                         Montanha
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`city`);dropLocationShow()">
                         Cidade
                     </a>
@@ -417,8 +452,7 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType"
-                                    onclick="dropLocationShow()">
+                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
                                     Praia
                                 </button>
                             </div>
@@ -546,8 +580,8 @@
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true"
-                                    onclick="dropLocationShow()" id="locationType">
+                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
+                                    id="locationType">
                                     Praia
                                 </button>
                             </div>
@@ -568,8 +602,7 @@
                                 </button>
 
                             </div>
-                            <div
-                                class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
                                 <button
                                     class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
                                     onclick="changeVisibility('more_filters', 'more_filters_filter')">
@@ -605,6 +638,8 @@
         </div>
 
     </div>
+
+
     <div class="px-10 sm:px-16 sm:py-5">
 
 
@@ -613,6 +648,8 @@
 
             <div class="grid-row-start-1 flex justify-start items-center h-20">
                 <h1 id="nickName" class="text-5xl usuario_font_warp font-extrabold">Nome da casa</h1>
+
+
             </div>
             <div class="grid-row-start-1 flex sm:justify-start md:justify-end items-center h-20">
                 <h1 id="location" class="usuario_font_warp tetx-lg">Brasília, Distrito Federeal, Brasil</h1>
@@ -1445,8 +1482,8 @@
 
                     </div>
                     <div class="w-full h-1/6 flex justify-center items-center gap-4">
-                        <button onclick="location.href='/dashboard/chat'"
-                            class="header_color w-2/5 sm:w-2/5 h-1/2 rounded-full button_text" id="openChat">
+                        <button onclick="abrirChat()" class="header_color w-2/5 sm:w-2/5 h-1/2 rounded-full button_text"
+                            id="openChat">
                             Reservar
                         </button>
                     </div>
@@ -1481,7 +1518,7 @@
                         function updateCalendarData(days1) {
                             let startDate = vue.$data.range.start
                             let endDate = vue.$data.range.end
-                            console.log(startDate, endDate)
+                            selectedDates = [startDate, endDate]
                             let days = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
                             //console.log("aaa", startDate, endDate)
                             $('#totalCost').text(multiplier * 1000 * days)

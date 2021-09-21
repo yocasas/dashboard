@@ -116,7 +116,7 @@
                 $('.hostOnly').addClass('hidden')
             }
 
-            
+
 
             let allMessages = fullChatElement.find("#messages")
 
@@ -132,8 +132,8 @@
 
 
                 //setup current element
-                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.guestImageb64 : fullChatInfo.hostImageb64}`);
-                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.guestName : fullChatInfo.hostName);
+                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
+                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName);
                 fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
                 fullMessage.find("#content").text(element.content);
                 fullMessage.prop('id', 'itemChat' + allMessages.children().length)
@@ -543,7 +543,7 @@
 
         </div>
         <div class="w-full sm:h-4/5 h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
-            <div class="block sm:block " id="avaliableChats">
+            <div class="block sm:block " id="">
                 <div class="w-11/12 flex justify-start flex-col">
                     <h1 id="Message" class="p-3 text-4xl sm:text-4xl font-extrabold usuario_font_warp">
                         Mensagens
@@ -555,40 +555,46 @@
                         tirar suas dúvidas
                     </p>
                 </div>
-                <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer sm:overflow-y-scroll"
-                    id="itemChat">
-                    <div class="w-full flex rounded-lg p-4" id="information">
-                        <div class="w-3/12 flex justify-start items-center">
-                            <div class="h-14 w-14 rounded-full" id="imgChat">
-                                <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png">
+                <div class="sm:overflow-y-scroll h-4/5" id="avaliableChats">
+                    <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer "
+                        id="itemChat">
+                        <div class="w-full flex rounded-lg p-4" id="information">
+                            <div class="w-3/12 flex justify-start items-center">
+                                <div class="h-14 w-14 rounded-full" id="imgChat">
+                                    <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png">
+                                </div>
+                            </div>
+                            <div class=" w-7/12 " id="chatInfo">
+                                <h1 id="contactName"
+                                    class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">Julio L.
+                                </h1>
+                                <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing
+                                    elit. Officia, rerum
+                                    dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit qui
+                                    laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus voluptates
+                                    similique praesentium cumque nulla eligendi numquam, cum laborum quidem. Lorem ipsum
+                                    dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat
+                                    repudiandae
+                                    mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur, itaque
+                                    nostrum quia modi vitae, temporibus saepe!</p>
                             </div>
                         </div>
-                        <div class=" w-7/12 " id="chatInfo">
-                            <h1 id="contactName"
-                                class="w-full font-extrabold py-3 text-5xl sm:text-2xl usuario_font_warp">Julio L.
-                            </h1>
-                            <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur adipisicing
-                                elit. Officia, rerum
-                                dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit qui
-                                laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus voluptates
-                                similique praesentium cumque nulla eligendi numquam, cum laborum quidem. Lorem ipsum
-                                dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat repudiandae
-                                mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur, itaque
-                                nostrum quia modi vitae, temporibus saepe!</p>
+                        <div class="w-full flex items-center justify-center p-2">
+                            <div id="hr" class="w-full h-px header_color"></div>
                         </div>
-                    </div>
-                    <div class="w-full flex items-center justify-center p-2">
-                        <div id="hr" class="w-full h-px header_color"></div>
-                    </div>
 
+                    </div>
                 </div>
+
             </div>
             <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
                 <div class=" overflow-y-scroll sm:h-90%  " id="fullChat">
                     <div class="w-full h-20 ">
                         <div class="p-2 ">
                             <div class="w-full flex justify-center sm:justify-center">
-                                <h1 id="contactNameChat" class="p-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage">
+                                <h1 id="contactNameChat"
+                                    class="p-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage">
                                     Nenhum chat selecionado
                                 </h1>
 
@@ -648,23 +654,29 @@
                 <div class=" w-full flex justify-end gap-4" id="approveReserve">
                     <div class="absolute flex  justify-start ">
 
-                    
-                    <a href="#"
-                        class="-inset-12 left-0  relative hostOnly hidden  cadastro-button header_color px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
-                        Reserva</a>
-                    <a href="#"
-                        class="-inset-12 left-0 mx-10  relative hostOnly hidden cadastro-button bg-green_light px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
-                        Reserva</a>
+
+                        <a href="#"
+                            class="-inset-12 left-0  relative hostOnly hidden  cadastro-button header_color px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
+                            Reserva</a>
+                        <a href="#"
+                            class="-inset-12 left-0 mx-10  relative hostOnly hidden cadastro-button bg-green_light px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                            Reserva</a>
+
+
                     </div>
 
                 </div>
-                <div class="py-3 w-full flex justify-center">
-                    <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                        class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
-                    <div class="w-20 flex items-center justify-center">
-                        <button class=" w-2/3 h-full rounded-full button_bg" onclick="sendNewMessage('inputMessage')"><i
-                                class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                <div class="py-3 w-full  justify-center">
+                    <div class="z-30 mt-10 sm:mt-0 relative w-full flex">
+                        <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
+                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                        <div class="w-20 flex items-center justify-center">
+                            <button class=" w-2/3 h-full rounded-full button_bg"
+                                onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
+                                    aria-hidden="true"></i></button>
+                        </div>
                     </div>
+
 
                 </div>
 
