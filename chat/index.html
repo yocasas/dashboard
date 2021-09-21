@@ -426,29 +426,17 @@
 
                 <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
                     <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-                        <!-- <button class="rounded-full py-2  w-full button_bg remove_cel" onclick="changeVisibilityUser()"> -->
-                        <!-- <div class="grid grid-cols-3 flex items-center remove_cel">
-                                <p class="usuario_font text-lg col-span-2 text-center remove_cel text-center remove_cel">
-                                    Usuário
-                                </p>
-    
-                                <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
-                            </div> -->
+
                         <a onclick="changeVisibilityUser()"
-                            class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg remove_cel hover:bg-gray-300 hover:border-gray-300 border-4 inline-flex items-center">Usuário
+                            class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
                             <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                         </a>
 
-                        <!-- </button> -->
 
                     </div>
 
                     <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                         id="userPanel">
-                        <!-- <a href="#"
-                            class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                            Perfil
-                        </a> -->
                         <a onclick="location.href='/onboarding'"
                             class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
                             Configurações
@@ -610,7 +598,7 @@
                     </div>
                     <div id="messages">
                         <div class="w-full hidden  flex p-3  chatMessage" id="chatMessage">
-                            <div class="w-1/12 flex justify-center items-start">
+                            <div class="hidden sm:block w-1/12 flex justify-center items-start">
                                 <!--less -->
                                 <div class="h-14 w-14 rounded-full" id="imgChat">
                                     <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png"
@@ -619,10 +607,10 @@
                             </div>
                             <div class=" w-11/12" id="chatInfo">
                                 <div class="flex w-full">
-                                    <h1 class="text-5xl sm:text-4xl usuario_font_warp" id="contactNameChatInternal">
+                                    <h1 class="text-xl sm:text-4xl usuario_font_warp" id="contactNameChatInternal">
                                         Lucas L.
                                     </h1>
-                                    <h1 class=" align-bottom text-3xl  sm:text-lg usuario_font_warp ml-20"
+                                    <h1 class=" align-bottom text-sm sm:text-3xl  sm:text-lg usuario_font_warp ml-20"
                                         id="contactDateChatInternal">
                                         2019
                                     </h1>
@@ -656,10 +644,10 @@
 
 
                         <a href="#"
-                            class="-inset-12 left-0  relative hostOnly hidden  cadastro-button header_color px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
+                            class="sm:-inset-12 left-0  relative hostOnly hidden  cadastro-button header_color sm:px-10 px-1 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
                             Reserva</a>
                         <a href="#"
-                            class="-inset-12 left-0 mx-10  relative hostOnly hidden cadastro-button bg-green_light px-10 py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                            class="sm:-inset-12 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
                             Reserva</a>
 
 
@@ -669,7 +657,7 @@
                 <div class="py-3 w-full  justify-center">
                     <div class="z-30 mt-10 sm:mt-0 relative w-full flex">
                         <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-12 bg-gray-200 rounded-full py-3">
+                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full py-3">
                         <div class="w-20 flex items-center justify-center">
                             <button class=" w-2/3 h-full rounded-full button_bg"
                                 onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"

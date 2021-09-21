@@ -98,7 +98,7 @@
                 let dbResponse = x
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML =
-                    `Destinos de ${locationType}: ${dbResponse.length} casas encontradas`
+                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : "-" }: ${dbResponse.length} casas encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
@@ -479,7 +479,7 @@
                 }
             }
         </script>
-        <div id="header_pc" class="h-32 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
+        <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
             <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
                 onclick="location.href='https://yocasas.com.br/home'">
                 <div id="logo" class="py-8 w-36 remove_cel">
@@ -612,29 +612,17 @@
 
             <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-                    <!-- <button class="rounded-full py-2  w-full button_bg remove_cel" onclick="changeVisibilityUser()"> -->
-                    <!-- <div class="grid grid-cols-3 flex items-center remove_cel">
-                            <p class="usuario_font text-lg col-span-2 text-center remove_cel text-center remove_cel">
-                                Usuário
-                            </p>
 
-                            <i class=" col-start-3 fas fa-bars fa-lg remove_cel"></i>
-                        </div> -->
                     <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg remove_cel hover:bg-gray-300 hover:border-gray-300 border-4 inline-flex items-center">Usuário
+                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
                         <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
 
-                    <!-- </button> -->
 
                 </div>
 
                 <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
-                    <!-- <a href="#"
-                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Perfil
-                    </a> -->
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Configurações
@@ -656,7 +644,7 @@
             </div>
 
         </div>
-        <div id="header_cel" class="h-46 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+        <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
             <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
                 <div id="logo" class="h-16 w-16  remove_pc">
                     <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
@@ -826,7 +814,7 @@
 
         <div id="casas_resultantes" class="home_show_homes_big py-5">
             <div class="flex flex-wrap gap-7 h-4/5 w-full justify-around" id="homes_show">
-                <div class="hidden h-1/2 cursor-pointer " id="show_home_default"
+                <div class="hidden h-1/2 cursor-pointer max-w-full" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
                     <div id="imagem_casa" class="object-center h-4/6">
 
@@ -836,7 +824,7 @@
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-full ">
                         <div class=" h-1/2">
-                            <h1 class="nome_casa pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa</h1>
+                            <h1 class="nome_casa_warp pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa</h1>
                             <h2 class="info_casa text-xl leading-snug" id="Location">Cidade Estado</h1>
                         </div>
 
@@ -877,8 +865,8 @@
                 </div>
 
             </div>
-            <div class="w-full h-1/5 flex justify-center items-center">
-                <button class="button_bg item h-14 rounded-full px-8 mais_resultados_font">
+            <div class="w-full h-1/5 flex justify-center items-center py-4 sm:py-0">
+                <button class="button_bg item h-14 rounded-full px-8  mais_resultados_font">
                     Mais resultados
                 </button>
             </div>

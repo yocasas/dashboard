@@ -135,6 +135,12 @@
     color: rgba(69, 95, 93, 1);
 }
 
+.nome_casa_warp {
+    text-align: left;
+    font-family: Niveau Grotesk;
+    color: rgba(69, 95, 93, 1);
+}
+
 .info_casa {
     text-align: left;
     font-family: Niveau Grotesk;
