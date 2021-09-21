@@ -182,8 +182,8 @@
                     currentHomeInfo = element
                     $("#nickName").text(`${element["nickName"]}`)
                     $("#location").text(`${element["city"]}, ${element["state"]}, Brasil`)
-                    $("#locationTypeHost").text(element["locationType"])
-                    $("#locationTypeHost").text(element["locationType"])
+                    $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
+                    $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
                     $("#inCondominium").text(element[`inCondominium`] ? "Sim" : "Não")
                     $("#floorSpace").text(element[`floorSpace`])
                     $("#airportDistance").text(element[`airportDistance`])

@@ -3,7 +3,21 @@ let clientInfo
 let authCookie
 
 
+function traduzirLocation(location) {
 
+
+    let tradutor = {
+        'beach': "Praia",
+        'country': "Campo",
+        'mountain': "Montanha",
+        'city': "Cidade",
+        "Cidade": "city",
+        "Montanha": "mountain",
+        "Campo": "country",
+        "Praia": "beach"
+    }
+    return tradutor[location]
+}
 
 function getCookie(name) {
     var dc = document.cookie;
