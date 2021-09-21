@@ -48,6 +48,11 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+
+function toHumanDate(x) {
+    return x.getFullYear() + "-" + (x.getMonth() + 1) + "-" + (x.getDate());
+}
+
 function removeCookie() {
     document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
   }

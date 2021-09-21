@@ -15,6 +15,7 @@
 </head>
 
 <link href="style/style.css" rel="stylesheet">
+<link href="style/loading.css" rel="stylesheet">
 <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
@@ -48,18 +49,18 @@
             'country': "Campo",
             'mountain': "Montanha",
             'city': "Cidade",
-            "Cidade":"city",
-            "Montanha":"mountain",
-            "Campo":"country",
+            "Cidade": "city",
+            "Montanha": "mountain",
+            "Campo": "country",
             "Praia": "beach"
         }
         return tradutor[location]
     }
 
     function populateHomes(e) {
-        
+
         if (e == undefined) {
-            
+
             e = traduzirLocation($("#locationType").text().replace(/\s+/g, ''))
         }
 
@@ -82,6 +83,8 @@
         }
 
         function getS3file(name, image) {
+
+            let imgSrc = image.find("#img_source")
             $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
                 type: "POST",
@@ -90,7 +93,10 @@
                 }),
                 contentType: "application/json",
                 success: (x) => {
-                    image.attr("src", `data:image/png;base64,${x}`)
+                    image.find(".loader").addClass("hidden")
+                    imgSrc.removeClass("hidden")
+                    imgSrc.attr("src", `data:image/png;base64,${x}`)
+                    
                 }
             })
         }
@@ -110,9 +116,9 @@
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
-                    homeClone.find("#img_source").attr("src", getS3file(element["picturesS3Urls"][
+                    getS3file(element["picturesS3Urls"][
                         0
-                    ], homeClone.find("#img_source")));
+                    ], homeClone.find("#imagem_casa"))
                     homeClone.find('#nickName').text(element["nickName"]);
                     homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
                     let stars = range(element["multiplier"], 1)
@@ -818,10 +824,15 @@
             <div class="flex flex-wrap gap-7 h-4/5 w-full justify-around" id="homes_show">
                 <div class="hidden h-1/2 cursor-pointer max-w-full" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
-                    <div id="imagem_casa" class="object-center h-4/6">
+                    <div id="imagem_casa" class="object-center h-4/6 ">
+                        <div class="flex w-full h-full items-center justify-center loader">
+                            <div class="dot-pulse">
+
+                            </div>
+                        </div>
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                            alt="Imagem- Casa" id="img_source" class="h-full w-full">
+                            alt="Imagem- Casa" id="img_source" class="h-full w-full hidden">
                     </div>
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-full ">

@@ -122,7 +122,10 @@
                 contentType: "application/json",
 
                 success: (resp) => {
-                    window.location.href = "/dashboard/chat"
+                    window.scrollTo(0, 0);
+                    $('#showWarn').removeClass('hidden')
+                    //$('#showWarn').removeClass('hidden')
+                    //window.location.href = "/dashboard/chat"
                 }
             })
         }
@@ -359,6 +362,20 @@
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
         <div class="loading dot-pulse">
 
+        </div>
+    </div>
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden" id="showWarn">
+        <div class="flex flex-col bg-white h-2/6 w-2/6 rounded-md items-center p-10 ">
+            <h1 class="font-extrabold text-2xl usuario_font_warp">Reserva enviada com sucesso</h1>
+            <p class="font-normal text-md usuario_font_warp pt-10">Datas reservadas de </p>
+            <p class="font-normal text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5">Para falar com o host acesse o chat clicando  </h1>
+            <button onclick="window.location.href='/dashboard/chat/'" class="header_color w-2/5 sm:w-2/5 h-1/6 rounded-full button_text"
+                            id="openChatC">
+                            Aqui
+                        </button>
         </div>
     </div>
 
@@ -1525,6 +1542,7 @@
                             selectedDates = [startDate, endDate]
                             let days = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
                             //console.log("aaa", startDate, endDate)
+                            $('#dataReserva').text(`${toHumanDate(startDate)} a ${toHumanDate(endDate)}`)
                             $('#totalCost').text(multiplier * 1000 * days)
                         }
                     </script>
