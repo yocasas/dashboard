@@ -16,6 +16,16 @@
   overflow: visible;
 }
 
+div {
+  scrollbar-width: thin;
+}
+
+div::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa; /* or add it to the track */
+}
+
 @media screen and (min-width: 640px) {
   .sm\:h-90\% {
     height: 90%;
