@@ -615,7 +615,7 @@
 
                     <a onclick="changeVisibilityUser()"
                         class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
-                        <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                        <div class="flex flex-wrap md:hidden ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
 
 
@@ -645,7 +645,7 @@
 
         </div>
         <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
-            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='/home'">
                 <div id="logo" class="h-16 w-16  remove_pc">
                     <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
                 </div>
@@ -702,9 +702,9 @@
             </div>
 
 
-            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+            <div class="flex justify-end items-center w-full h-full col-start-2 remove_pc">
 
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                <button onclick="changeVisibilityUser()" class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
                     <div class="flex items-center remove_pc justify-center">
                         <i class="fas fa-bars fa-lg remove_pc"></i>
                     </div>
