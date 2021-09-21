@@ -87,11 +87,16 @@
             let avaliableChats = $("#avaliableChats")
             let ChatModel = $("#itemChat").clone() //clone dafault chat
 
+            
+
             ChatModel.find(`#contactName`).text(chatInfo.contactName) //change informatio
             ChatModel.prop("chatId", chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
             ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
+            if (fullInfo.isHost) {
+                ChatModel.find('#isHost').removeClass('text-gray-200')
+            }
 
             ChatModel.removeClass('hidden') //show element
             ChatModel.prop('id', 'itemChat' + avaliableChats.children().length) //add chat id 
@@ -553,9 +558,13 @@
                                 </div>
                             </div>
                             <div class=" w-7/12 " id="chatInfo">
-                                <h1 id="contactName"
-                                    class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">Julio L.
-                                </h1>
+                                <div class="flex flex-row">
+                                    <h1 id="contactName"
+                                        class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">Julio
+                                        L.
+                                    </h1>
+                                    <i class="text-gray-200 fas fa-crown" id="isHost"></i>
+                                </div>
                                 <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
                                     adipisicing
                                     elit. Officia, rerum

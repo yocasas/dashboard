@@ -121,8 +121,8 @@
                 data: JSON.stringify(chatSettings),
                 contentType: "application/json",
 
-                success: (msgsString) => {
-
+                success: (resp) => {
+                    window.location.href = "/dashboard/chat"
                 }
             })
         }
