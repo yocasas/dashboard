@@ -41,25 +41,33 @@
     }
 
     function traduzirLocation(location) {
-        switch (location) {
-            case 'beach':
-                return "Praia";
-            case 'country':
-                return "Campo";
-            case 'mountain':
-                return "Montanha";
-            case 'city':
-                return "Montanha";
+
+
+        let tradutor = {
+            'beach': "Praia",
+            'country': "Campo",
+            'mountain': "Montanha",
+            'city': "Cidade",
+            "Cidade":"city",
+            "Montanha":"mountain",
+            "Campo":"country",
+            "Praia": "beach"
         }
+        return tradutor[location]
     }
 
     function populateHomes(e) {
+        
+        if (e == undefined) {
+            
+            e = traduzirLocation($("#locationType").text().replace(/\s+/g, ''))
+        }
 
         let locationType = e//$("#locationType")[0].innerHTML.replace(/\s+/g, '')
         $("#filtro_busca").text(traduzirLocation(locationType))
         $("#locationType").text(traduzirLocation(locationType))
 
-        $("#filtro_busca_mobile").text(locationType)
+        $("#filtro_busca_mobile").text(traduzirLocation(locationType))
 
 
 
@@ -98,7 +106,7 @@
                 let dbResponse = x
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML =
-                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : "-" }: ${dbResponse.length} casas encontradas`
+                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : "-"}: ${dbResponse.length} casas encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
@@ -491,23 +499,19 @@
             <div id="buscador" class="row-start-1 col-start-3 remove_cel">
                 <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
                         Praia
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`country`);dropLocationShow()">
                         Campo
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`mountain`);dropLocationShow()">
                         Montanha
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`city`);dropLocationShow()">
                         Cidade
                     </a>
@@ -540,8 +544,7 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType"
-                                    onclick="dropLocationShow()">
+                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
                                     Praia
                                 </button>
                             </div>
@@ -657,8 +660,8 @@
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true"
-                                    onclick="dropLocationShow()" id="locationType">
+                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
+                                    id="locationType">
                                     Praia
                                 </button>
                             </div>
@@ -679,8 +682,7 @@
                                 </button>
 
                             </div>
-                            <div
-                                class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
                                 <button
                                     class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
                                     onclick="changeVisibility('more_filters', 'more_filters_filter')">
@@ -824,7 +826,8 @@
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-full ">
                         <div class=" h-1/2">
-                            <h1 class="nome_casa_warp pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa</h1>
+                            <h1 class="nome_casa_warp pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa
+                            </h1>
                             <h2 class="info_casa text-xl leading-snug" id="Location">Cidade Estado</h1>
                         </div>
 
@@ -850,7 +853,8 @@
                                 </p>
 
                             </div>
-                            <div class="sm:row-start-2 col-start-2 classificacao_texto self-start flex sm:justify-end text-lg leading-snug">
+                            <div
+                                class="sm:row-start-2 col-start-2 classificacao_texto self-start flex sm:justify-end text-lg leading-snug">
                                 <p>
                                     Pontos
                                 </p>
