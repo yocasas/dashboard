@@ -110,7 +110,19 @@
 
         }
 
-        function generateElementMessage(fullChatInfo,fullChatElement,element, id) {
+
+        function addNewMsg(msg, fullInfo) { //add chat infomation miniature
+            let fullChat = $("#fullChat")
+            let allMessages = fullChat.find("#messages")
+
+
+
+            allMessages.append(generateElementMessage(fullInfo, fullChat, msg, allMessages.children().length + 1))
+            fullChat.animate({ scrollTop: allMessages.height() }, 1000)
+
+        }
+
+        function generateElementMessage(fullChatInfo, fullChatElement, element, id) {
             let fullMessage = fullChatElement.find("#chatMessage").clone()
 
             let msgTime = new Date(element.messageTime)
@@ -163,9 +175,28 @@
 
 
                 //add element to array
-                allMessages.append(generateElementMessage(fullChatInfo,fullChatElement,element, allMessages.children().length +1))
+                allMessages.append(generateElementMessage(fullChatInfo, fullChatElement, element, allMessages.children().length + 1))
             });
+
+            fullChatElement.animate({ scrollTop: allMessages.height() }, 1000)
         }
+
+        function appendChat(e) {
+            var id = e.target.id;
+            console.log(123)
+            //variables for testing, you could have all of the
+            //comparisons in the 'if' statement, just using these to
+            //make the 'if' statement more clear
+
+            let isEnterKeypress = e.type == "keypress" && e.keyCode == 13,
+                isSendClick = e.type == "click" && id == "send";
+
+            if ((isEnterKeypress || isSendClick)) {
+                sendNewMessage('inputMessage')
+            }
+        }
+
+        $(document).on("keypress", "#inputMessage", appendChat)
 
         //add chats click to load full chat
         $(document).on("click", ".itemChat", function () {
@@ -210,6 +241,10 @@
         function sendNewMessage(messageId) { //TODO send new message
             let messageElement = $(`#${messageId}`)
             let messageContent = messageElement.val()
+            $(`#loadMSg`).removeClass('hidden')
+            let chInfo = chatsInfos[currentChatInfo.chatId]
+            addNewMsg({ messageTime: toHumanDate(new Date()), isHost: clientInfo.ClientId == chInfo.hostId, content: messageContent }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
+                    
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
                 type: "POST",
@@ -231,11 +266,15 @@
                 success: (msgsString) => {
 
                     let msgs = JSON.parse(msgsString)
-                    msgs.forEach(msg => {
-                        addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
-                    });
+                    $(`#loadMSg`).addClass('hidden')
+                    console.log(444)
                 }
             })
+
+            
+
+
+
             messageElement.val("")
         }
     </script>
@@ -589,7 +628,9 @@
                                                 Julio
                                                 L.
                                             </h1>
-                                            <i class="w-full font-extrabold py-3 text-1xl sm:text-sm usuario_font_warp " id="isHost"></i> <!--fas fa-crown-->
+                                            <i class="w-full font-extrabold py-3 text-1xl sm:text-sm usuario_font_warp "
+                                                id="isHost"></i>
+                                            <!--fas fa-crown-->
                                         </div>
                                         <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
                                             adipisicing
@@ -700,8 +741,11 @@
                             </div>
 
                         </div>
-                        <div class=" w-full h-auto justify-center" id="sendBar">
+                        <div class=" w-full h-auto justify-center sm:px-10" id="sendBar">
                             <!-- relative: -->
+                            <div class="w-full h-4 flex justify-center items-center">
+                                <div class=" bg-grey-400 dot-elastic hidden" id="loadMSg"></div>
+                            </div>
                             <div class="z-30 mt-10 sm:mt-0  w-full flex">
                                 <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
                                     class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full h-10">
