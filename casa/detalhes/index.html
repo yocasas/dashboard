@@ -243,7 +243,7 @@
 
                     $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`)
                     $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`)
-                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? "(" + element['totalSuites'] + " Suítes" + ")" : "(" + element['totalSuites'] + " Suíte"}` + ")")
+                    $("#totalSuits").text(element['totalSuites'] > 1 ? `( ${element['totalSuites']} Suítes )` : `( ${element['totalSuites']} Suíte )`)
 
 
                     facilitiesFormat(element.facilities.length)
@@ -748,7 +748,7 @@
                             <!--TODO fix responsivity-->
 
 
-                            <div class="flex justify-center items-center w-auto h-full">
+                            <div class="flex justify-start items-start w-auto h-full">
                                 <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="maxCapacity">
                                     Capacidade:
                                     <!--TODO check break line 24 -->
@@ -776,7 +776,7 @@
                             <!--TODO fix responsivity-->
 
 
-                            <div class="flex justify-center items-center w-auto h-full flex-col">
+                            <div class="flex justify-start items-start w-auto h-full flex-col">
                                 <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBedRooms">
                                     3
                                     <!--TODO check break line 24 -->
@@ -799,7 +799,7 @@
                             <!--TODO fix responsivity-->
 
 
-                            <div class="flex justify-center items-center w-auto h-full">
+                            <div class="flex justify-start items-start w-auto h-full">
                                 <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBathRooms">
                                     1
                                     <!--TODO check break line 24 -->
