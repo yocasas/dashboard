@@ -243,7 +243,7 @@
 
                     $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`)
                     $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`)
-                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? "(" + element['totalSuites'] + " Suítes" + ")" : "(" + element['totalSuites'] + " Suíte"}`  + ")")
+                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? "(" + element['totalSuites'] + " Suítes" + ")" : "(" + element['totalSuites'] + " Suíte"}` + ")")
 
 
                     facilitiesFormat(element.facilities.length)
@@ -780,7 +780,7 @@
                                 <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBedRooms">
                                     3
                                     <!--TODO check break line 24 -->
-                                    Quartos 
+                                    Quartos
                                 </p>
                                 <p class="w-28 text-md sm:text-sm align-top usuario_font_warp " id="totalSuits">
                                     (2
@@ -1072,7 +1072,7 @@
                         </h1>
                     </div>
 
-                    <div class="flex flex-col items-start description_icons h-auto  sm:grid sm:grid-cols-3 sm:grid-rows-auto gap-x-8 gap-y-10 sm:gap-y-5  sm:gap-x-6 "
+                    <div class="flex flex-col items-start description_icons h-auto sm:grid sm:grid-cols-3 sm:grid-rows-auto gap-x-8 gap-y-10 sm:gap-y-5  sm:gap-x-6 py-10"
                         id="description_icons">
 
 
@@ -1334,7 +1334,7 @@
                             <img src="Assets/regras/FAMILIA.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp"
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
                                     id="authorized-kids">
                                     Familia com criança(s) pequena(s)
                                 </p>
@@ -1344,20 +1344,23 @@
 
 
 
-
                         <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/PETS.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top" id="authorized-pets">
+                            <img src="Assets/regras/PETS.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                    id="authorized-pets">
                                     Pets
                                 </p>
                             </div>
                         </div>
 
                         <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/MENORES-23.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top" id="authorized-minor">
+                            <img src="Assets/regras/MENORES-23.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                    id="authorized-minor">
                                     Menores de 23 anos desacompanhados
                                 </p>
                             </div>
@@ -1366,45 +1369,56 @@
 
 
 
-
-
                         <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/USO-SUIT-MASTER.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top" id="authorized-masterSuite">
+                            <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                    id="authorized-masterSuite">
                                     Uso da suíte master
                                 </p>
                             </div>
                         </div>
 
 
+
                         <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/USO-ADEGA.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top" id="authorized-wineUse">
+                            <img src="Assets/regras/USO-ADEGA.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                    id="authorized-wineUse">
                                     Uso da adega
                                 </p>
                             </div>
                         </div>
 
-                        <div class="h-20 flex justify-center sm:justify-center  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top"
+                        <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
                                     id="authorized-poolHeatingNoRefund">
-                                    Aquescimento da piscina (sem reembolso do valor)
+                                    Aquecimento da piscina (sem reembolso do valor)
                                 </p>
                             </div>
                         </div>
 
                         <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1">
-                            <img class="h-14" src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="">
-                            <div class="flex justify-center items-center max-w-sm  h-full">
-                                <p class="line-through text-md sm:text-lg align-top" id="authorized-poolHeatingRefund">
-                                    Aquescimento da piscina (com reembolso do valor)
+                            <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="h-14">
+
+                            <div class="flex justify-center items-center w-auto h-full">
+                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                    id="authorized-poolHeatingRefund">
+                                    Aquecimento da piscina (com reembolso do valor)
                                 </p>
                             </div>
                         </div>
+
+
+
+
+
 
 
 
