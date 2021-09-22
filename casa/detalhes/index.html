@@ -242,7 +242,7 @@
                     $("#maxCapacity").text(`${element['maxPeople'] > 1 ? element['maxPeople'] + " Hóspedes" : element['maxPeople'] + " Hóspede"}`)
 
                     $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`)
-                    $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos sem banheiro" : element['totalBedRooms'] + " Quarto sem banheiro"}`)
+                    $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`)
                     $("#totalSuits").text(`${element['totalSuites'] > 1 ? element['totalSuites'] + " Suítes" : element['totalSuites'] + " Suíte"}`)
 
 
@@ -759,19 +759,15 @@
 
 
 
-                        <div class="h-20  flex justify-start sm:justify-start  items-start  sm:gap-1">
+                        <!--<div class="h-20  flex justify-start sm:justify-start  items-start  sm:gap-1">
                             <img src="Assets/caracteristicas/SUITES.svg" alt="" class="h-14">
-                            <!--TODO fix responsivity-->
+                            TODO fix responsivity
 
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalSuits">
-                                    2
-                                    <!--TODO check break line 24 -->
-                                    Suites
-                                </p>
+                                
                             </div>
-                        </div>
+                        </div>-->
 
 
 
@@ -785,6 +781,11 @@
                                     3
                                     <!--TODO check break line 24 -->
                                     Quartos sem Banheiro
+                                </p>
+                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalSuits">
+                                    (2
+                                    <!--TODO check break line 24 -->
+                                    Suites)
                                 </p>
                             </div>
                         </div>
