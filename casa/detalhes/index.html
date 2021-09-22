@@ -243,7 +243,7 @@
 
                     $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`)
                     $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`)
-                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? "(" + element['totalSuites'] + " Suítes" + ")" : "(" + element['totalSuites'] + " Suíte"} + ")"`)
+                    $("#totalSuits").text(`${element['totalSuites'] > 1 ? "(" + element['totalSuites'] + " Suítes" + ")" : "(" + element['totalSuites'] + " Suíte"}`  + ")")
 
 
                     facilitiesFormat(element.facilities.length)
@@ -780,9 +780,9 @@
                                 <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBedRooms">
                                     3
                                     <!--TODO check break line 24 -->
-                                    Quartos sem Banheiro
+                                    Quartos 
                                 </p>
-                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalSuits">
+                                <p class="w-28 text-md sm:text-sm align-top usuario_font_warp " id="totalSuits">
                                     (2
                                     <!--TODO check break line 24 -->
                                     Suites)
@@ -1080,7 +1080,7 @@
 
 
                         <div class="h-full w-full flex flex-col" id="description-icon">
-                            <div class="h-full">
+                            <div class="">
                                 <p class="font-extrabold text-lg sm:text-sm usuario_font_warp">
                                     Sua casa fica no(a)
                                 </p>
@@ -1095,7 +1095,7 @@
                         </div>
 
                         <div class="h-full w-full flex flex-col" id="description-icon">
-                            <div class="h-full">
+                            <div class="">
                                 <p class="font-extrabold text-lg sm:text-sm usuario_font_warp">
                                     Sua casa fica no condomínio?
                                 </p>
