@@ -262,282 +262,284 @@
     </script>
 
 <div class="flex flex-col">
-    <div class="px-10 sm:px-16 sm:h-screen">
-
-        <div id="headers" class="sm:py-5">
-            <script>
-                $(document).ready(function () {
-                    $('.minus-guests').click(function () {
-                        var $input = $(this).parent().find('.input');
-                        var count = parseInt($input.text()) - 1;
-                        count = count < 1 ? 1 : count;
-                        $input.text(count);
-                        $(`#totalGuests`).text(`${count} Hospedes`)
-                        return false;
-                    });
-                    $('.plus-guests').click(function () {
-                        var $input = $(this).parent().find('.input');
-                        $input.text(parseInt($input.text()) + 1);
-                        $(`#totalGuests`).text(`${$input.text()} Hospedes`)
-                        return false;
-                    });
+    <div class="h-screen">
+    <div id="headers" class="sm:py-5 h-1/4">
+        <script>
+            $(document).ready(function () {
+                $('.minus-guests').click(function () {
+                    var $input = $(this).parent().find('.input');
+                    var count = parseInt($input.text()) - 1;
+                    count = count < 1 ? 1 : count;
+                    $input.text(count);
+                    $(`#totalGuests`).text(`${count} Hóspedes`)
+                    return false;
                 });
+                $('.plus-guests').click(function () {
+                    var $input = $(this).parent().find('.input');
+                    $input.text(parseInt($input.text()) + 1);
+                    $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
+                    return false;
+                });
+            });
 
-                function changeVisibilityUser() {
-                    console.log($("#userPanel"))
-                    if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                        $("#userPanel").addClass("hidden")
-                    } else {
-                        $("#userPanel").removeClass("hidden")
-                    }
+            function changeVisibilityUser() {
+                console.log($("#userPanel"))
+                if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#userPanel").addClass("hidden")
+                } else {
+                    $("#userPanel").removeClass("hidden")
                 }
+            }
 
-                function dropLocationShow() {
-                    if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                        $("#locationDropdown").addClass("hidden")
-                    } else {
-                        $("#locationDropdown").removeClass("hidden")
-                    }
+            function dropLocationShow() {
+                if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#locationDropdown").addClass("hidden")
+                } else {
+                    $("#locationDropdown").removeClass("hidden")
                 }
-            </script>
-            <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
-                <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
-                    onclick="location.href='https://yocasas.com.br/home'">
-                    <div id="logo" class="py-8 w-36 remove_cel">
-                        <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
-                    </div>
+            }
+        </script>
+        <div id="header_pc" class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel px-10">
+            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
+                onclick="location.href='https://yocasas.com.br/home'">
+                <div id="logo" class="py-8 w-36 remove_cel">
+                    <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
+                </div>
+            </div>
+
+
+            <div id="buscador" class="row-start-1 col-start-3 remove_cel">
+                <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
+                    id="locationDropdown">
+                    <a href="#"
+                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                        onclick="populateHomes(`beach`);dropLocationShow()">
+                        Praia
+                    </a>
+                    <a href="#"
+                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                        onclick="populateHomes(`country`);dropLocationShow()">
+                        Campo
+                    </a>
+                    <a href="#"
+                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                        onclick="populateHomes(`mountain`);dropLocationShow()">
+                        Montanha
+                    </a>
+                    <a href="#"
+                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                        onclick="populateHomes(`city`);dropLocationShow()">
+                        Cidade
+                    </a>
                 </div>
 
 
-                <div id="buscador" class="row-start-1 col-start-3 remove_cel">
-                    <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
-                        id="locationDropdown">
-                        <a href="#"
-                            class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                            onclick="populateHomes(`beach`);dropLocationShow()">
-                            Praia
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                            onclick="populateHomes(`country`);dropLocationShow()">
-                            Campo
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                            onclick="populateHomes(`mountain`);dropLocationShow()">
-                            Montanha
-                        </a>
-                        <a href="#"
-                            class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                            onclick="populateHomes(`city`);dropLocationShow()">
-                            Cidade
-                        </a>
-                    </div>
-
-
-
-                </div>
-
-                <div class="col-start-4 row-start-1 remove_cel">
-                    <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
-                        id="guestsDropdown">
-                        <div class="number  header_color_alpha p-4 rounded-lg" id="">
-                            <div class="flex justify-end contador gap-x-4">
-                                <div
-                                    class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
-                                    -</div>
-                                <h1 class="input text-white">1</h1>
-                                <div
-                                    class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
-                                    +</div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
-                    <div class=" flex justify-center items-center w-full h-full">
-                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
-                            <div class="w-full h-full grid grid-cols-7">
-                                <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                    <button class="busca_font text-xl ml-10" id="locationType"
-                                        onclick="dropLocationShow()">
-                                        Praia
-                                    </button>
-                                </div>
-
-
-
-                                <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-start-5 w-full h-full flex items-center justify-center">
-                                    <button id='totalGuestFilter'
-                                        onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                        <h1 class="busca_font text-xl" id="totalGuests">
-                                            2 hóspedes
-                                        </h1>
-                                    </button>
-
-                                </div>
-                                <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                        onclick="populateHomes()">
-                                        Explorar
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
-                            <div class="w-full h-full grid grid-cols-8 grid-rows-2">
-                                <div class="col-start-2 w-full h-full flex items-center justify-end"
-                                    onclick="dropLocationShow()">
-                                    <p class="busca_font " id="filtro_busca_mobile">
-                                        -
-                                    </p>
-                                </div>
-
-                                <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
-                                    <button id='totalGuestFilter'
-                                        onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                        <h1 class="busca_font" id="totalGuests">
-                                            2 hóspedes
-                                        </h1>
-                                    </button>
-
-                                </div>
-                                <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
-                                    <button class="rounded-full h-1/4 w-full button_bg usuario_font">
-                                        <i class="fas fa-search fa-sm"></i>
-                                    </button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
-                <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
-                    <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-
-                        <a onclick="changeVisibilityUser()"
-                            class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
-                            <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
-                        </a>
-
-
-                    </div>
-
-                    <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
-                        id="userPanel">
-                        <a onclick="location.href='/onboarding'"
-                            class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                            Configurações
-                        </a>
-                        <a href="/dashboard/chat"
-                            class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                            Mensagens
-                        </a>
-                        <!-- <a href="#"
-                            class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                            Painel
-                        </a> -->
-                        <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-                            class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
-                            Log out
-                        </a>
-                    </div>
-
-                </div>
 
             </div>
-            <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
-                <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
-                    <div id="logo" class="h-16 w-16  remove_pc">
-                        <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+
+            <div class="col-start-4 row-start-1 remove_cel -mx-24">
+                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
+                    id="guestsDropdown">
+                    <div class="number  header_color_alpha p-4 rounded-lg" id="">
+                        <div class="flex justify-end contador gap-x-4">
+                            <div
+                                class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
+                                -</div>
+                            <h1 class="input text-white">1</h1>
+                            <div
+                                class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
+                                +</div>
+
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
-                    <div class=" flex justify-center items-center w-full h-2/3">
+            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
+                <div class=" flex justify-center items-center w-full h-full">
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                        <div class="w-full h-full grid grid-cols-7">
+                            <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
+                                <button class="busca_font text-xl ml-10" id="locationType"
+                                    onclick="dropLocationShow()">
+                                    Praia
+                                </button>
+                            </div>
 
-                        <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
-                            <div class="w-full h-full grid grid-cols-7">
-                                <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                    <button class="text-sm busca_font" contenteditable="true"
-                                        onclick="dropLocationShow()" id="locationType">
-                                        Praia
-                                    </button>
-                                </div>
 
 
-                                <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                    <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                    </div>
-                                </div>
-
-                                <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                    <button id='totalGuestFilter'
-                                        onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                        <h1 class="text-sm busca_font w-12" id="totalGuests">
-                                            2 hospedes
-                                        </h1>
-                                    </button>
+                            <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
 
                                 </div>
-                                <div
-                                    class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
-                                    <button
-                                        class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                        onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                                        <i class="fas fa-sliders-h text-xs"></i>
-                                    </button>
+                            </div>
 
-                                    <button
-                                        class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                        onclick="populateHomes()">
-                                        <i class="text-xs fas fa-search"></i>
-                                    </button>
-                                </div>
+                            <div class="col-start-5 w-full h-full flex items-center justify-center ">
+                                <button id='totalGuestFilter'
+                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                    <h1 class="busca_font text-xl" id="totalGuests">
+                                        2 hóspedes
+                                    </h1>
+                                </button>
 
                             </div>
+                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                    onclick="populateHomes()">
+                                    Explorar
+                                </button>
+                            </div>
+
                         </div>
                     </div>
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                        <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                            <div class="col-start-2 w-full h-full flex items-center justify-end"
+                                onclick="dropLocationShow()">
+                                <p class="busca_font " id="filtro_busca_mobile">
+                                    -
+                                </p>
+                            </div>
 
+                            <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
 
-                </div>
+                                </div>
+                            </div>
 
+                            <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
+                                <button id='totalGuestFilter'
+                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                    <h1 class="busca_font" id="totalGuests">
+                                        2 hóspedes
+                                    </h1>
+                                </button>
 
-                <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+                            </div>
+                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
 
-                    <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
-                        <div class="flex items-center remove_pc justify-center">
-                            <i class="fas fa-bars fa-lg remove_pc"></i>
                         </div>
+                    </div>
+                </div>
 
 
-                    </button>
+            </div>
+
+
+            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
+                <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+
+                    <a onclick="changeVisibilityUser()"
+                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
+                        <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                    </a>
+
 
                 </div>
+
+                <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                    id="userPanel">
+                    <a onclick="location.href='/onboarding'"
+                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Configurações
+                    </a>
+                    <a href="/dashboard/chat"
+                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Mensagens
+                    </a>
+                    <!-- <a href="#"
+                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Painel
+                    </a> -->
+                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
+                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
+                        Log out
+                    </a>
+                </div>
+
             </div>
 
         </div>
-        <div class="w-full sm:h-4/5 h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
+        <div id="header_cel" class="h-full grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                <div id="logo" class="h-16 w-16  remove_pc">
+                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                </div>
+            </div>
+
+            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                <div class=" flex justify-center items-center w-full h-2/3">
+
+                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                        <div class="w-full h-full grid grid-cols-7">
+                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                                <button class="text-sm busca_font" contenteditable="true"
+                                    onclick="dropLocationShow()" id="locationType">
+                                    Praia
+                                </button>
+                            </div>
+
+
+                            <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                </div>
+                            </div>
+
+                            <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                <button id='totalGuestFilter'
+                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                    <h1 class="text-sm busca_font w-12" id="totalGuests">
+                                        2 hospedes
+                                    </h1>
+                                </button>
+
+                            </div>
+                            <div
+                                class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                                <button
+                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                    onclick="changeVisibility('more_filters', 'more_filters_filter')">
+                                    <i class="fas fa-sliders-h text-xs"></i>
+                                </button>
+
+                                <button
+                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                    onclick="populateHomes()">
+                                    <i class="text-xs fas fa-search"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                    <div class="flex items-center remove_pc justify-center">
+                        <i class="fas fa-bars fa-lg remove_pc"></i>
+                    </div>
+
+
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="px-10 sm:px-16 sm:h-3/4">
+
+        
+        <div class="w-full sm:h-full h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
             <div class="block sm:block " id="">
                 <div class="w-11/12 flex justify-start flex-col">
                     <h1 id="Message" class="p-3 text-4xl sm:text-4xl font-extrabold usuario_font_warp">
@@ -665,10 +667,11 @@
                     </div>
 
                 </div>
-                <div class="py-3 w-full justify-center" id="sendBar">
-                    <div class="z-30 mt-10 sm:mt-0 relative w-full flex">
+                <div class=" w-full h-auto justify-center" id="sendBar">
+                    <!-- relative: -->
+                    <div class="z-30 mt-10 sm:mt-0  w-full flex"> 
                         <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full py-3">
+                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full h-10">
                         <div class="w-20 flex items-center justify-center">
                             <button class=" w-2/3 h-full rounded-full button_bg"
                                 onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
@@ -688,6 +691,7 @@
 
 
     </div>
+</div>
     <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
         <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
             <div class="flex flex-wrap items-start justify-start">
