@@ -43,7 +43,7 @@ function getCookie(name) {
 let checkCurrentUser = function () {
 
     let myCookie = getCookie("login_session");
-    
+
     authCookie = myCookie
 
     if (myCookie == null) {
@@ -64,12 +64,19 @@ function numberWithCommas(x) {
 
 
 function toHumanDate(x) {
-    return x.getFullYear() + "-" + (x.getMonth() + 1) + "-" + (x.getDate());
+    let date = x
+    if (typeof (date) == 'string') {
+        date = new Date(date)
+    }
+
+    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+
+
 }
 
 function removeCookie() {
     document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-  }
+}
 
 
 let starsToPointsPerNight = function (multiplier) {
@@ -77,21 +84,21 @@ let starsToPointsPerNight = function (multiplier) {
     const basePoint = 400
     switch (multiplier) {
         case -1:
-            return basePoint*(Math.pow(2,0))
+            return basePoint * (Math.pow(2, 0))
         case 3:
-            return basePoint*(Math.pow(2,1))
+            return basePoint * (Math.pow(2, 1))
         case 4:
-            return basePoint*(Math.pow(2,2))
+            return basePoint * (Math.pow(2, 2))
         case 5:
-            return basePoint*(Math.pow(2,3))
+            return basePoint * (Math.pow(2, 3))
         case 6:
-            return basePoint*(Math.pow(2,4))
+            return basePoint * (Math.pow(2, 4))
         case -2:
-            return basePoint*(Math.pow(2,4))*1.5
-    
+            return basePoint * (Math.pow(2, 4)) * 1.5
+
         default:
             return 0
     }
-    
+
 
 }

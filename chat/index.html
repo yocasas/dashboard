@@ -89,7 +89,7 @@
             let avaliableChats = $("#avaliableChats")
             let ChatModel = $("#itemChat").clone() //clone dafault chat
 
-            
+
 
             ChatModel.find(`#contactName`).text(chatInfo.contactName) //change informatio
             ChatModel.prop("chatId", chatInfo.chatId)
@@ -108,9 +108,37 @@
 
         }
 
+        function generateElementMessage(fullChatInfo,fullChatElement,element, id) {
+            let fullMessage = fullChatElement.find("#chatMessage").clone()
+
+            let msgTime = new Date(element.messageTime)
+
+            //show element
+            fullMessage.removeClass("hidden")
+
+
+            //setup current element
+            fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
+            fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName);
+            fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
+            fullMessage.find("#content").text(element.content);
+            fullMessage.prop('id', 'itemChat' + id)
+
+            return fullMessage
+
+        }
+
         function populateFullChat(fullChatInfo, messages, fullChatElement, chatId) { //add all messages to full chat
-            fullChatElement.find("#contactNameChat").removeClass("dot-spin")
-            fullChatElement.find("#contactNameChat").text(fullChatInfo.contactName)
+            $("#contactNameChat").removeClass("dot-spin")
+
+
+
+            let requestedDates = fullChatInfo.requestedDates
+
+
+
+
+            $("#contactNameChat").text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? fullChatInfo.contactName + " [ " + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + " ]" : fullChatInfo.contactName + ' [Sem datas]')
             //fullChatElement.find("#contactNameChat").prop('id', chatId)
             currentChatInfo.chatId = chatId
             currentChatInfo.isHost = fullChatInfo.isHost
@@ -130,23 +158,10 @@
             allMessages.find(".chatMessage").slice(1).remove();
 
             messages.forEach(element => {
-                //get element end format date
-                let fullMessage = fullChatElement.find("#chatMessage").clone()
-                let msgTime = new Date(element.messageTime)
 
-                //show element
-                fullMessage.removeClass("hidden")
-
-
-                //setup current element
-                fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
-                fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName);
-                fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
-                fullMessage.find("#content").text(element.content);
-                fullMessage.prop('id', 'itemChat' + allMessages.children().length)
 
                 //add element to array
-                allMessages.append(fullMessage)
+                allMessages.append(generateElementMessage(fullChatInfo,fullChatElement,element, allMessages.children().length +1))
             });
         }
 
@@ -169,8 +184,8 @@
 
             let fullChat = $("#fullChat") //fullchat get
 
-            fullChat.find("#contactNameChat").addClass("dot-spin")
-            fullChat.find("#contactNameChat").text("")
+            $("#contactNameChat").addClass("dot-spin")
+            $("#contactNameChat").text("")
 
             $.ajax({ //get messages from database
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
@@ -261,470 +276,486 @@
 
     </script>
 
-<div class="flex flex-col">
-    <div class="h-screen">
-    <div id="headers" class="sm:py-5 h-1/4">
-        <script>
-            $(document).ready(function () {
-                $('.minus-guests').click(function () {
-                    var $input = $(this).parent().find('.input');
-                    var count = parseInt($input.text()) - 1;
-                    count = count < 1 ? 1 : count;
-                    $input.text(count);
-                    $(`#totalGuests`).text(`${count} Hóspedes`)
-                    return false;
-                });
-                $('.plus-guests').click(function () {
-                    var $input = $(this).parent().find('.input');
-                    $input.text(parseInt($input.text()) + 1);
-                    $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
-                    return false;
-                });
-            });
+    <div class="flex flex-col">
+        <div class="h-screen">
+            <div id="headers" class="sm:py-5 h-1/4">
+                <script>
+                    $(document).ready(function () {
+                        $('.minus-guests').click(function () {
+                            var $input = $(this).parent().find('.input');
+                            var count = parseInt($input.text()) - 1;
+                            count = count < 1 ? 1 : count;
+                            $input.text(count);
+                            $(`#totalGuests`).text(`${count} Hóspedes`)
+                            return false;
+                        });
+                        $('.plus-guests').click(function () {
+                            var $input = $(this).parent().find('.input');
+                            $input.text(parseInt($input.text()) + 1);
+                            $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
+                            return false;
+                        });
+                    });
 
-            function changeVisibilityUser() {
-                console.log($("#userPanel"))
-                if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#userPanel").addClass("hidden")
-                } else {
-                    $("#userPanel").removeClass("hidden")
-                }
-            }
+                    function changeVisibilityUser() {
+                        console.log($("#userPanel"))
+                        if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                            $("#userPanel").addClass("hidden")
+                        } else {
+                            $("#userPanel").removeClass("hidden")
+                        }
+                    }
 
-            function dropLocationShow() {
-                if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#locationDropdown").addClass("hidden")
-                } else {
-                    $("#locationDropdown").removeClass("hidden")
-                }
-            }
-        </script>
-        <div id="header_pc" class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel px-10">
-            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
-                onclick="location.href='https://yocasas.com.br/home'">
-                <div id="logo" class="py-8 w-36 remove_cel">
-                    <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
-                </div>
-            </div>
-
-
-            <div id="buscador" class="row-start-1 col-start-3 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
-                    id="locationDropdown">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`beach`);dropLocationShow()">
-                        Praia
-                    </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`country`);dropLocationShow()">
-                        Campo
-                    </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`mountain`);dropLocationShow()">
-                        Montanha
-                    </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`city`);dropLocationShow()">
-                        Cidade
-                    </a>
-                </div>
-
-
-
-            </div>
-
-            <div class="col-start-4 row-start-1 remove_cel -mx-24">
-                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
-                    id="guestsDropdown">
-                    <div class="number  header_color_alpha p-4 rounded-lg" id="">
-                        <div class="flex justify-center contador gap-x-4">
-                            <div
-                                class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
-                                -</div>
-                            <h1 class="input text-white">2</h1>
-                            <div
-                                class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
-                                +</div>
-
+                    function dropLocationShow() {
+                        if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                            $("#locationDropdown").addClass("hidden")
+                        } else {
+                            $("#locationDropdown").removeClass("hidden")
+                        }
+                    }
+                </script>
+                <div id="header_pc"
+                    class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel px-10">
+                    <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
+                        onclick="location.href='https://yocasas.com.br/home'">
+                        <div id="logo" class="py-8 w-36 remove_cel">
+                            <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
-                <div class=" flex justify-center items-center w-full h-full">
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
-                        <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType"
-                                    onclick="dropLocationShow()">
-                                    Praia
-                                </button>
-                            </div>
 
 
+                    <div id="buscador" class="row-start-1 col-start-3 remove_cel">
+                        <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
+                            id="locationDropdown">
+                            <a href="#"
+                                class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                onclick="populateHomes(`beach`);dropLocationShow()">
+                                Praia
+                            </a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                onclick="populateHomes(`country`);dropLocationShow()">
+                                Campo
+                            </a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                onclick="populateHomes(`mountain`);dropLocationShow()">
+                                Montanha
+                            </a>
+                            <a href="#"
+                                class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                onclick="populateHomes(`city`);dropLocationShow()">
+                                Cidade
+                            </a>
+                        </div>
 
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+
+                    </div>
+
+                    <div class="col-start-4 row-start-1 remove_cel -mx-24">
+                        <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
+                            id="guestsDropdown">
+                            <div class="number  header_color_alpha p-4 rounded-lg" id="">
+                                <div class="flex justify-center contador gap-x-4">
+                                    <div
+                                        class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
+                                        -</div>
+                                    <h1 class="input text-white">2</h1>
+                                    <div
+                                        class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
+                                        +</div>
 
                                 </div>
                             </div>
-
-                            <div class="col-start-5 w-full h-full flex items-center justify-center ">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="busca_font text-xl" id="totalGuests">
-                                        2 hóspedes
-                                    </h1>
-                                </button>
-
-                            </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                    onclick="populateHomes()">
-                                    Explorar
-                                </button>
-                            </div>
-
                         </div>
                     </div>
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-8 grid-rows-2">
-                            <div class="col-start-2 w-full h-full flex items-center justify-end"
-                                onclick="dropLocationShow()">
-                                <p class="busca_font " id="filtro_busca_mobile">
-                                    -
-                                </p>
-                            </div>
 
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+                    <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
+                        <div class=" flex justify-center items-center w-full h-full">
+                            <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
+                                <div class="w-full h-full grid grid-cols-7">
+                                    <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
+                                        <button class="busca_font text-xl ml-10" id="locationType"
+                                            onclick="dropLocationShow()">
+                                            Praia
+                                        </button>
+                                    </div>
+
+
+
+                                    <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                        <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-start-5 w-full h-full flex items-center justify-center ">
+                                        <button id='totalGuestFilter'
+                                            onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                            <h1 class="busca_font text-xl" id="totalGuests">
+                                                2 hóspedes
+                                            </h1>
+                                        </button>
+
+                                    </div>
+                                    <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
+                                        <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                            onclick="populateHomes()">
+                                            Explorar
+                                        </button>
+                                    </div>
 
                                 </div>
                             </div>
+                            <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
+                                <div class="w-full h-full grid grid-cols-8 grid-rows-2">
+                                    <div class="col-start-2 w-full h-full flex items-center justify-end"
+                                        onclick="dropLocationShow()">
+                                        <p class="busca_font " id="filtro_busca_mobile">
+                                            -
+                                        </p>
+                                    </div>
 
-                            <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="busca_font" id="totalGuests">
-                                        2 hóspedes
-                                    </h1>
-                                </button>
+                                    <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                        <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
 
+                                        </div>
+                                    </div>
+
+                                    <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
+                                        <button id='totalGuestFilter'
+                                            onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                            <h1 class="busca_font" id="totalGuests">
+                                                2 hóspedes
+                                            </h1>
+                                        </button>
+
+                                    </div>
+                                    <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
+                                        <button class="rounded-full h-1/4 w-full button_bg usuario_font">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
+                        <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
+
+                            <a onclick="changeVisibilityUser()"
+                                class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
+                                <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                            </a>
+
 
                         </div>
-                    </div>
-                </div>
 
-
-            </div>
-
-
-            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
-                <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-
-                    <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
-                        <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
-                    </a>
-
-
-                </div>
-
-                <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
-                    id="userPanel">
-                    <a onclick="location.href='/onboarding'"
-                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Configurações
-                    </a>
-                    <a href="/dashboard/chat"
-                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Mensagens
-                    </a>
-                    <!-- <a href="#"
+                        <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                            id="userPanel">
+                            <a onclick="location.href='/onboarding'"
+                                class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                                Configurações
+                            </a>
+                            <a href="/dashboard/chat"
+                                class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                                Mensagens
+                            </a>
+                            <!-- <a href="#"
                         class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
                         Painel
                     </a> -->
-                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Log out
-                    </a>
+                            <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
+                                class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
+                                Log out
+                            </a>
+                        </div>
+
+                    </div>
+
                 </div>
+                <div id="header_cel" class="h-full grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
+                    <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
+                        <div id="logo" class="h-16 w-16  remove_pc">
+                            <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
+                        </div>
+                    </div>
 
-            </div>
+                    <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                        <div class=" flex justify-center items-center w-full h-2/3">
 
-        </div>
-        <div id="header_cel" class="h-full grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
-            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
-                <div id="logo" class="h-16 w-16  remove_pc">
-                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
-                </div>
-            </div>
-
-            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
-                <div class=" flex justify-center items-center w-full h-2/3">
-
-                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true"
-                                    onclick="dropLocationShow()" id="locationType">
-                                    Praia
-                                </button>
-                            </div>
+                            <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
+                                <div class="w-full h-full grid grid-cols-7">
+                                    <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                                        <button class="text-sm busca_font" contenteditable="true"
+                                            onclick="dropLocationShow()" id="locationType">
+                                            Praia
+                                        </button>
+                                    </div>
 
 
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+                                    <div class="col-start-3 w-full h-full flex items-center justify-center">
+                                        <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-start-4 w-full h-full flex items-center justify-center">
+                                        <button id='totalGuestFilter'
+                                            onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
+                                            <h1 class="text-sm busca_font w-12" id="totalGuests">
+                                                2 hospedes
+                                            </h1>
+                                        </button>
+
+                                    </div>
+                                    <div
+                                        class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                                        <button
+                                            class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                            onclick="changeVisibility('more_filters', 'more_filters_filter')">
+                                            <i class="fas fa-sliders-h text-xs"></i>
+                                        </button>
+
+                                        <button
+                                            class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
+                                            onclick="populateHomes()">
+                                            <i class="text-xs fas fa-search"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="text-sm busca_font w-12" id="totalGuests">
-                                        2 hospedes
+
+                    </div>
+
+
+                    <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
+
+                        <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                            <div class="flex items-center remove_pc justify-center">
+                                <i class="fas fa-bars fa-lg remove_pc"></i>
+                            </div>
+
+
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="px-10 sm:px-16 sm:h-3/4">
+
+
+                <div class="w-full sm:h-full h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
+                    <div class="block sm:flex flex-col " id="">
+                        <div class="w-11/12 flex justify-start flex-col">
+                            <h1 id="Message" class="p-3 text-4xl sm:text-4xl font-extrabold usuario_font_warp">
+                                Mensagens
+                            </h1>
+                            <p id="HelpMessage" class="p-3 text-xs sm:text-xs  usuario_font_warp">
+                                Você tem alguma dúvida? Estamos aqui para te ajudar. Entre em contato com o nosso
+                                serviço de
+                                assistência enviando um e-mail para <a class="font-extrabold"
+                                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a> Teremos o maior
+                                prazer em
+                                tirar suas dúvidas
+                            </p>
+                        </div>
+                        <div class="sm:overflow-y-scroll h-4/5" id="avaliableChats">
+                            <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer "
+                                id="itemChat">
+                                <div class="w-full flex rounded-lg p-4" id="information">
+                                    <div class="w-3/12 flex justify-start items-center">
+                                        <div class="h-14 w-14 rounded-full" id="imgChat">
+                                            <img class="object-cover h-full w-full rounded-full "
+                                                src="Assets/chat_con.png">
+                                        </div>
+                                    </div>
+                                    <div class=" w-7/12 " id="chatInfo">
+                                        <div class="flex flex-row">
+                                            <h1 id="contactName"
+                                                class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">
+                                                Julio
+                                                L.
+                                            </h1>
+                                            <i class="text-gray-200 fas fa-crown" id="isHost"></i>
+                                        </div>
+                                        <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
+                                            adipisicing
+                                            elit. Officia, rerum
+                                            dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit
+                                            qui
+                                            laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus
+                                            voluptates
+                                            similique praesentium cumque nulla eligendi numquam, cum laborum quidem.
+                                            Lorem ipsum
+                                            dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat
+                                            repudiandae
+                                            mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur,
+                                            itaque
+                                            nostrum quia modi vitae, temporibus saepe!</p>
+                                    </div>
+                                </div>
+                                <div class="w-full flex items-center justify-center p-2">
+                                    <div id="hr" class="w-full h-px header_color"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
+                        <div class="w-full h-20 ">
+                            <div class="p-2 ">
+                                <div class="w-full flex justify-center sm:justify-center">
+                                    <h1 id="contactNameChat"
+                                        class="p-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage">
+                                        Nenhum chat selecionado
                                     </h1>
-                                </button>
 
+                                </div>
+                                <!--<div class="w-full flex items-center justify-center">
+                            <div id="hr" class="w-11/12 h-px header_color "></div>
+                        </div>-->
                             </div>
-                            <div
-                                class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                                    <i class="fas fa-sliders-h text-xs"></i>
-                                </button>
 
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="populateHomes()">
-                                    <i class="text-xs fas fa-search"></i>
-                                </button>
+
+
+
+                        </div>
+                        <div class=" overflow-y-scroll sm:h-90%  " id="fullChat">
+
+                            <div id="messages">
+                                <div class="w-full hidden  flex p-3  chatMessage" id="chatMessage">
+                                    <div class="hidden sm:block w-1/12 flex justify-center items-start">
+                                        <!--less -->
+                                        <div class="h-14 w-14 rounded-full" id="imgChat">
+                                            <img class="object-cover h-full w-full rounded-full "
+                                                src="Assets/chat_con.png" id="contactPhoto">
+                                        </div>
+                                    </div>
+                                    <div class=" w-11/12" id="chatInfo">
+                                        <div class="flex w-full">
+                                            <h1 class="text-xl sm:text-4xl usuario_font_warp"
+                                                id="contactNameChatInternal">
+                                                Lucas L.
+                                            </h1>
+                                            <h1 class=" align-bottom text-sm sm:text-lg  sm:text-lg usuario_font_warp ml-20"
+                                                id="contactDateChatInternal">
+                                                2019
+                                            </h1>
+                                        </div>
+
+                                        <p id="content" class="py-10 content">Lorem ipsum dolor sit amet consectetur
+                                            adipisicing
+                                            elit.
+                                            Error
+                                            asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam
+                                            repudiandae
+                                            numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa.
+                                            Lorem
+                                            ipsum
+                                            dolor
+                                            sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore
+                                            nostrum
+                                            laborum
+                                            tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum
+                                            voluptate
+                                            velit
+                                            ab
+                                            obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                                            Totam,
+                                            debitis
+                                            ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus
+                                            blanditiis
+                                            maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
+                        <div class=" w-full flex justify-end gap-4" id="approveReserve">
+                            <div class="absolute flex  justify-start ">
+
+
+                                <a href="#"
+                                    class="sm:-inset-16 left-0 relative hostOnly hidden  cadastro-button header_color sm:px-10 px-1 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
+                                    Reserva</a>
+                                <a href="#"
+                                    class="sm:-inset-16 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                                    Reserva</a>
+
+
+                            </div>
+
+                        </div>
+                        <div class=" w-full h-auto justify-center" id="sendBar">
+                            <!-- relative: -->
+                            <div class="z-30 mt-10 sm:mt-0  w-full flex">
+                                <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
+                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full h-10">
+                                <div class="w-20 flex items-center justify-center">
+                                    <button class=" w-2/3 h-full rounded-full button_bg"
+                                        onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
+                                            aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
                     </div>
+
+
                 </div>
 
 
-            </div>
-
-
-            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
-
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
-                    <div class="flex items-center remove_pc justify-center">
-                        <i class="fas fa-bars fa-lg remove_pc"></i>
-                    </div>
-
-
-                </button>
 
             </div>
         </div>
-
-    </div>
-    <div class="px-10 sm:px-16 sm:h-3/4">
-
-        
-        <div class="w-full sm:h-full h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
-            <div class="block sm:flex flex-col " id="">
-                <div class="w-11/12 flex justify-start flex-col">
-                    <h1 id="Message" class="p-3 text-4xl sm:text-4xl font-extrabold usuario_font_warp">
-                        Mensagens
-                    </h1>
-                    <p id="HelpMessage" class="p-3 text-xs sm:text-xs  usuario_font_warp">
-                        Você tem alguma dúvida? Estamos aqui para te ajudar. Entre em contato com o nosso serviço de
-                        assistência enviando um e-mail para <a class="font-extrabold"
-                            href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a> Teremos o maior prazer em
-                        tirar suas dúvidas
-                    </p>
-                </div>
-                <div class="sm:overflow-y-scroll h-4/5" id="avaliableChats">
-                    <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer "
-                        id="itemChat">
-                        <div class="w-full flex rounded-lg p-4" id="information">
-                            <div class="w-3/12 flex justify-start items-center">
-                                <div class="h-14 w-14 rounded-full" id="imgChat">
-                                    <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png">
-                                </div>
-                            </div>
-                            <div class=" w-7/12 " id="chatInfo">
-                                <div class="flex flex-row">
-                                    <h1 id="contactName"
-                                        class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">Julio
-                                        L.
-                                    </h1>
-                                    <i class="text-gray-200 fas fa-crown" id="isHost"></i>
-                                </div>
-                                <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing
-                                    elit. Officia, rerum
-                                    dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit qui
-                                    laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus voluptates
-                                    similique praesentium cumque nulla eligendi numquam, cum laborum quidem. Lorem ipsum
-                                    dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat
-                                    repudiandae
-                                    mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur, itaque
-                                    nostrum quia modi vitae, temporibus saepe!</p>
-                            </div>
-                        </div>
-                        <div class="w-full flex items-center justify-center p-2">
-                            <div id="hr" class="w-full h-px header_color"></div>
-                        </div>
-
+        <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
+            <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
+                <div class="flex flex-wrap items-start justify-start">
+                    <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                        <h5 class="font-semibold footer_typography mb-2">Sobre Yô</h5>
+                        <ul class="leading-loose">
+                            <li><a class="footer_typography hover:underline" href="#">Como funciona?</a></li>
+                            <li><a class="footer_typography hover:underline" href="#">Termos e condições</a></li>
+                            <li><a class="footer_typography hover:underline" href="#">Política de privacidade</a></li>
+                        </ul>
                     </div>
-                </div>
+                    <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                        <h5 class="font-semibold footer_typography mb-2">Usuário</h5>
+                        <ul class="leading-loose">
+                            <li><a class="footer_typography hover:underline" href="#">Perfil</a></li>
+                            <li><a class="footer_typography hover:underline" href="#">Configurações</a></li>
+                            <li><a class="footer_typography hover:underline" href="#">Mensagens</a></li>
+                            <li><a class="footer_typography hover:underline" href="#">Painel</a></li>
+                        </ul>
+                    </div>
+                    <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
+                        <h5 class="font-semibold footer_typography mb-2">Ajuda</h5>
+                        <ul class="leading-loose">
+                            <li><a class="footer_typography hover:underline" href="#">Contato</a></li>
+                        </ul>
+                    </div>
 
+                </div>
             </div>
-            <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
-                <div class=" overflow-y-scroll sm:h-90%  " id="fullChat">
-                    <div class="w-full h-20 ">
-                        <div class="p-2 ">
-                            <div class="w-full flex justify-center sm:justify-center">
-                                <h1 id="contactNameChat"
-                                    class="p-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage">
-                                    Nenhum chat selecionado
-                                </h1>
-
-                            </div>
-                            <!--<div class="w-full flex items-center justify-center">
-                                <div id="hr" class="w-11/12 h-px header_color "></div>
-                            </div>-->
-                        </div>
-
-
-
-
-                    </div>
-                    <div id="messages">
-                        <div class="w-full hidden  flex p-3  chatMessage" id="chatMessage">
-                            <div class="hidden sm:block w-1/12 flex justify-center items-start">
-                                <!--less -->
-                                <div class="h-14 w-14 rounded-full" id="imgChat">
-                                    <img class="object-cover h-full w-full rounded-full " src="Assets/chat_con.png"
-                                        id="contactPhoto">
-                                </div>
-                            </div>
-                            <div class=" w-11/12" id="chatInfo">
-                                <div class="flex w-full">
-                                    <h1 class="text-xl sm:text-4xl usuario_font_warp" id="contactNameChatInternal">
-                                        Lucas L.
-                                    </h1>
-                                    <h1 class=" align-bottom text-sm sm:text-lg  sm:text-lg usuario_font_warp ml-20"
-                                        id="contactDateChatInternal">
-                                        2019
-                                    </h1>
-                                </div>
-
-                                <p id="content" class="py-10 content">Lorem ipsum dolor sit amet consectetur adipisicing
-                                    elit.
-                                    Error
-                                    asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam
-                                    repudiandae
-                                    numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa. Lorem
-                                    ipsum
-                                    dolor
-                                    sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore nostrum
-                                    laborum
-                                    tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum voluptate
-                                    velit
-                                    ab
-                                    obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Totam,
-                                    debitis
-                                    ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus
-                                    blanditiis
-                                    maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class=" w-full flex justify-end gap-4" id="approveReserve">
-                    <div class="absolute flex  justify-start ">
-
-
-                        <a href="#"
-                            class="sm:-inset-12 left-0  relative hostOnly hidden  cadastro-button header_color sm:px-10 px-1 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
-                            Reserva</a>
-                        <a href="#"
-                            class="sm:-inset-12 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
-                            Reserva</a>
-
-
-                    </div>
-
-                </div>
-                <div class=" w-full h-auto justify-center" id="sendBar">
-                    <!-- relative: -->
-                    <div class="z-30 mt-10 sm:mt-0  w-full flex"> 
-                        <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                            class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full h-10">
-                        <div class="w-20 flex items-center justify-center">
-                            <button class=" w-2/3 h-full rounded-full button_bg"
-                                onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
-                                    aria-hidden="true"></i></button>
-                        </div>
-                    </div>
-
-
-                </div>
-
-
+            <div class="max-w-6xl mx-auto justify-end flex items-center px-4 lg:px-0">
+                <p class="footer_typography text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
             </div>
-
-
-        </div>
-
-
-
-    </div>
-</div>
-    <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
-        <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
-            <div class="flex flex-wrap items-start justify-start">
-                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
-                    <h5 class="font-semibold footer_typography mb-2">Sobre Yô</h5>
-                    <ul class="leading-loose">
-                        <li><a class="footer_typography hover:underline" href="#">Como funciona?</a></li>
-                        <li><a class="footer_typography hover:underline" href="#">Termos e condições</a></li>
-                        <li><a class="footer_typography hover:underline" href="#">Política de privacidade</a></li>
-                    </ul>
-                </div>
-                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
-                    <h5 class="font-semibold footer_typography mb-2">Usuário</h5>
-                    <ul class="leading-loose">
-                        <li><a class="footer_typography hover:underline" href="#">Perfil</a></li>
-                        <li><a class="footer_typography hover:underline" href="#">Configurações</a></li>
-                        <li><a class="footer_typography hover:underline" href="#">Mensagens</a></li>
-                        <li><a class="footer_typography hover:underline" href="#">Painel</a></li>
-                    </ul>
-                </div>
-                <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
-                    <h5 class="font-semibold footer_typography mb-2">Ajuda</h5>
-                    <ul class="leading-loose">
-                        <li><a class="footer_typography hover:underline" href="#">Contato</a></li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-        <div class="max-w-6xl mx-auto justify-end flex items-center px-4 lg:px-0">
-            <p class="footer_typography text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
-        </div>
-    </footer>
+        </footer>
     </div>
 </body>
 
