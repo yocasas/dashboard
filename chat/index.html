@@ -89,9 +89,9 @@
             let avaliableChats = $("#avaliableChats")
             let ChatModel = $("#itemChat").clone() //clone dafault chat
 
+            let nameSplit = chatInfo.contactName.split(' ')
 
-
-            ChatModel.find(`#contactName`).text(chatInfo.contactName) //change informatio
+            ChatModel.find(`#contactName`).text(nameSplit[0] + " " + nameSplit[nameSplit.length - 1]) //change informatio TODO fix name (using for marcello)
             ChatModel.prop("chatId", chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
@@ -152,7 +152,16 @@
 
 
 
-            $("#contactNameChat").text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? fullChatInfo.contactName + " [ " + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + " ]" : fullChatInfo.contactName + ' [Sem datas]')
+            $("#contactNameChat").text(fullChatInfo.contactName)
+            $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
+            if (requestedDates == undefined || requestedDates == "[]") {
+
+                $(`.fas`).addClass(`fa-info-circle`)
+                $(`.tooltiptext`).text(`Defina datas de hospedagem antes de entar no chat`)
+            } else {
+                $(`.fas`).removeClass(`fa-info-circle`)
+            }
+
             //fullChatElement.find("#contactNameChat").prop('id', chatId)
             currentChatInfo.chatId = chatId
             currentChatInfo.isHost = fullChatInfo.isHost
@@ -244,7 +253,7 @@
             $(`#loadMSg`).removeClass('hidden')
             let chInfo = chatsInfos[currentChatInfo.chatId]
             addNewMsg({ messageTime: toHumanDate(new Date()), isHost: clientInfo.ClientId == chInfo.hostId, content: messageContent }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
-                    
+
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
                 type: "POST",
@@ -271,7 +280,7 @@
                 }
             })
 
-            
+
 
 
 
@@ -622,14 +631,15 @@
                                         </div>
                                     </div>
                                     <div class=" w-7/12 " id="chatInfo">
-                                        <div class="flex flex-row">
+                                        <div class="flex flex-col">
+                                            <i class="w-full font-extrabold text-1xl sm:text-xs usuario_font_warp "
+                                                id="isHost"></i>
                                             <h1 id="contactName"
-                                                class="w-full font-extrabold py-3 text-1xl sm:text-2xl usuario_font_warp">
+                                                class="w-full font-extrabold  text-1xl sm:text-2xl usuario_font_warp">
                                                 Julio
                                                 L.
                                             </h1>
-                                            <i class="w-full font-extrabold py-3 text-1xl sm:text-sm usuario_font_warp "
-                                                id="isHost"></i>
+
                                             <!--fas fa-crown-->
                                         </div>
                                         <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
@@ -659,11 +669,20 @@
                     <div class="sm:col-span-3 w-full hidden sm:block " id="fullChatBLockCel">
                         <div class="w-full h-20 ">
                             <div class="p-2 ">
-                                <div class="w-full flex justify-center sm:justify-center">
+                                <div class="w-full flex flex-col justify-center sm:justify-center">
                                     <h1 id="contactNameChat"
-                                        class="p-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage">
+                                        class="pt-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage flex items-center justify-center">
                                         Nenhum chat selecionado
                                     </h1>
+                                    <div class="flex items-center justify-center">
+                                        <h1 id="datesChat" class=" text-xs sm:text-xs usuario_font_warp stage ">
+
+                                        </h1>
+                                        <div class="tooltip text-xs fas fa-info-circle ml-2">
+                                            <span class="tooltiptext">Selecione um chat ao lado</span>
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <!--<div class="w-full flex items-center justify-center">
@@ -678,7 +697,7 @@
                         <div class=" overflow-y-scroll sm:h-90%  " id="fullChat">
 
                             <div id="messages">
-                                <div class="w-full hidden  flex p-3  chatMessage" id="chatMessage">
+                                <div class="w-full hidden  flex py-3 px-6 chatMessage" id="chatMessage">
                                     <div class="hidden sm:block w-1/12 flex justify-center items-start">
                                         <!--less -->
                                         <div class="h-14 w-14 rounded-full" id="imgChat">
@@ -698,7 +717,8 @@
                                             </h1>
                                         </div>
 
-                                        <p id="content" class="py-3 content classificacao_texto text-sm">Lorem ipsum dolor sit amet consectetur
+                                        <p id="content" class="py-3 content classificacao_texto text-sm">Lorem ipsum
+                                            dolor sit amet consectetur
                                             adipisicing
                                             elit.
                                             Error
@@ -754,8 +774,11 @@
                                         onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
                                             aria-hidden="true"></i></button>
                                 </div>
-                                <div class="absolute w-8/12 h-10 z-10 button_bg opacity-70 rounded-full flex items-center justify-center" id="chatBlock"> <!--TODO remove chat block-->
-                                    <p class="classificacao_texto font-normal">Escolha um chat ao lado para enviar mensagens</p>
+                                <div class="absolute w-8/12 h-10 z-10 button_bg opacity-70 rounded-full flex items-center justify-center"
+                                    id="chatBlock">
+                                    <!--TODO remove chat block-->
+                                    <p class="classificacao_texto font-normal">Escolha um chat ao lado para enviar
+                                        mensagens</p>
                                 </div>
                             </div>
 
