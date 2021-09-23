@@ -41,7 +41,7 @@
         console.log(` ${e.code}`);
     }
 
-    
+
 
     function populateHomes(e) {
 
@@ -82,7 +82,7 @@
                     image.find(".loader").addClass("hidden")
                     imgSrc.removeClass("hidden")
                     imgSrc.attr("src", `data:image/png;base64,${x}`)
-                    
+
                 }
             })
         }
@@ -180,6 +180,13 @@
             $input.text(parseInt($input.text()) + 1);
             return false;
         });
+    });
+</script>
+
+<script>
+    //TODO radio input star rating inhangabugagag
+    $(':radio').change(function () {
+        console.log('New star rating: ' + this.value);
     });
 </script>
 
@@ -724,7 +731,7 @@
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border-2 filtro_busca rounded-full hidden"
+                            <div class="flex-initial  borda_filtro border-2 filtro_busca rounded-full "
                                 id="classificacao_counter_filter">
                                 <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
@@ -734,8 +741,10 @@
 
 
                             </div>
-                            <div class="number hidden header_color_alpha p-4 rounded-lg" id="classificacao_counter">
-                                <div class="flex justify-end contador gap-x-4">
+
+                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg " id="classificacao_counter">
+                                <div class="flex justify-end contador gap-x-4 hidden">
+                                    <!--OLD METHOD-->
                                     <div
                                         class="h-full w-10 minus cursor-pointer   rounded-full button_bg flex justify-center">
                                         -</div>
@@ -745,6 +754,38 @@
                                         +</div>
 
                                 </div>
+                                <form class="rating">
+                                    <label>
+                                        <input type="radio" name="stars" value="3" />
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="stars" value="4" />
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="stars" value="5" />
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="stars" value="6" />
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                        <span class="icon">★</span>
+                                    </label>
+                                </form>
                             </div>
                         </div>
 

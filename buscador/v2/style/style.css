@@ -1,204 +1,281 @@
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  font-size: 30px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 6;
+}
+
+.rating label:nth-child(2) {
+  z-index: 5;
+}
+
+.rating label:nth-child(3) {
+  z-index: 4;
+}
+
+.rating label:nth-child(4) {
+  z-index: 3;
+}
+
+.rating label:nth-child(5) {
+  z-index: 2;
+}
+.rating label:nth-child(6) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: rgba(105, 141, 134, 0.2);
+  
+
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: rgba(105, 141, 134, 1);
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: rgba(105, 141, 134, 0.2);
+
+  text-shadow: 0 0 5px rgba(105, 141, 134, 1);
+}
+/* pra cima eh a estrela */
+
 @font-face {
-    font-family: Niveau Grotesk;
-    font-weight: 400;
-    src: url("NiveauGroteskRegular.otf")
+  font-family: Niveau Grotesk;
+  font-weight: 400;
+  src: url('NiveauGroteskRegular.otf');
+}
+
+input[type='range']::-webkit-slider-thumb {
+  pointer-events: all;
+  width: 24px;
+  height: 24px;
+  -webkit-appearance: none;
+
+  /* @apply w-6 h-6 appearance-none pointer-events-auto; */
 }
 
 #logo_yo {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    position: absolute;
-    width: 123px;
-    height: 114.219px;
-    left: 50%;
-    top: 10%;
-    overflow: visible;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: absolute;
+  width: 123px;
+  height: 114.219px;
+  left: 50%;
+  top: 10%;
+  overflow: visible;
 }
 
-
-@media screen and (min-width:640px) {
-    .home_show_homes_big {
-        height: 150vh;
-    }
+@media screen and (min-width: 640px) {
+  .home_show_homes_big {
+    height: 150vh;
+  }
 }
 
 .footer_typography {
-
-    overflow: visible;
-    white-space: nowrap;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    /*font-size: 24px;*/
-    color: rgba(192, 229, 216, 1);
+  overflow: visible;
+  white-space: nowrap;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: normal;
+  /*font-size: 24px;*/
+  color: rgba(192, 229, 216, 1);
 }
 
 .filter_typography {
-
-    font-family: Niveau Grotesk;
-    color: rgba(69, 95, 93, 1);
+  font-family: Niveau Grotesk;
+  color: rgba(69, 95, 93, 1);
 }
 
 .Sobre_Y {
-    overflow: visible;
-    white-space: nowrap;
-    line-height: 60px;
-    text-align: left;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    color: rgba(192, 229, 216, 1);
+  overflow: visible;
+  white-space: nowrap;
+  line-height: 60px;
+  text-align: left;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  color: rgba(192, 229, 216, 1);
 }
 
 .footer_bg {
-    background-color: rgba(105, 141, 134, 1);
+  background-color: rgba(105, 141, 134, 1);
 }
 
 .button_bg {
-    background-color: rgba(192, 229, 216, 1);
+  background-color: rgba(192, 229, 216, 1);
 }
 
 .border-green_light {
-    --border-opacity: 1;
-    border-color: #C0E5D8;
-    border-color: rgba(192, 229, 216, var(--border-opacity));
-  }
+  --border-opacity: 1;
+  border-color: #c0e5d8;
+  border-color: rgba(192, 229, 216, var(--border-opacity));
+}
 
 .hover\:button_bg:hover {
-    background-color: rgba(192, 229, 216, 1);
+  background-color: rgba(192, 229, 216, 1);
 }
 
 .checkbox-round {
-    width: 1.3em;
-    height: 1.3em;
-    background-color: white;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: 1px solid #ddd;
-    appearance: none;
-    -webkit-appearance: none;
-    outline: none;
-    cursor: pointer;
+  width: 1.3em;
+  height: 1.3em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 1px solid #ddd;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .checkbox-round:checked {
-    background-color: rgba(192, 229, 216, 1);;
+  background-color: rgba(192, 229, 216, 1);
 }
 
 .button_bg_meio_alpha {
-    background-color: rgba(192, 229, 216, 0.5);
+  background-color: rgba(192, 229, 216, 0.5);
 }
 
 .header_color {
-    background-color: rgba(74, 94, 93, 1);
+  background-color: rgba(74, 94, 93, 1);
 }
 
 .header_color_alpha {
-    background-color: rgba(74, 94, 93, 0.9);
+  background-color: rgba(74, 94, 93, 0.9);
 }
 
 .barra_meio {
-    background-color: rgba(192, 229, 216, 1)
+  background-color: rgba(192, 229, 216, 1);
 }
 
 .resultado_busca {
-    white-space: nowrap;
-    text-align: center;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 42px;
-    color: rgba(69, 95, 93, 1);
-
+  white-space: nowrap;
+  text-align: center;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 42px;
+  color: rgba(69, 95, 93, 1);
 }
 
 .borda_filtro {
-    border-color: rgba(74, 94, 93, 1);
+  border-color: rgba(74, 94, 93, 1);
 }
 
 .warning_text {
-    white-space: nowrap;
-    text-align: left;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 15px;
-    color: rgba(69, 95, 93, 1);
+  white-space: nowrap;
+  text-align: left;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  color: rgba(69, 95, 93, 1);
 }
 
 .nome_casa {
-    white-space: nowrap;
-    text-align: left;
-    font-family: Niveau Grotesk;
-    color: rgba(69, 95, 93, 1);
+  white-space: nowrap;
+  text-align: left;
+  font-family: Niveau Grotesk;
+  color: rgba(69, 95, 93, 1);
 }
 
 .nome_casa_warp {
-    text-align: left;
-    font-family: Niveau Grotesk;
-    color: rgba(69, 95, 93, 1);
+  text-align: left;
+  font-family: Niveau Grotesk;
+  color: rgba(69, 95, 93, 1);
 }
 
 .info_casa {
-    text-align: left;
-    font-family: Niveau Grotesk;
-    color: rgba(69, 95, 93, 1);
+  text-align: left;
+  font-family: Niveau Grotesk;
+  color: rgba(69, 95, 93, 1);
 }
 
 .classificacao_texto {
-    white-space: nowrap;
-    text-align: left;
-    font-family: Niveau Grotesk;
-    color: rgba(69, 95, 93, 1);
+  white-space: nowrap;
+  text-align: left;
+  font-family: Niveau Grotesk;
+  color: rgba(69, 95, 93, 1);
 }
 
 .pontos_text {
-    white-space: nowrap;
-    font-family: Niveau Grotesk;
-    color: rgba(105, 141, 134, 1);
+  white-space: nowrap;
+  font-family: Niveau Grotesk;
+  color: rgba(105, 141, 134, 1);
 }
 
 .mais_resultados_font {
-    white-space: nowrap;
-    text-align: center;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 21px;
-    color: rgba(69, 95, 93, 1);
+  white-space: nowrap;
+  text-align: center;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 21px;
+  color: rgba(69, 95, 93, 1);
 }
 
 .usuario_font {
-    white-space: nowrap;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 25px;
-    color: rgba(69, 95, 93, 1);
+  white-space: nowrap;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  color: rgba(69, 95, 93, 1);
 }
 
 .busca_font {
-    white-space: nowrap;
-    text-align: left;
-    font-family: Niveau Grotesk;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 23px;
-    color: rgba(255, 255, 255, 1);
-    letter-spacing: -0.38px;
+  white-space: nowrap;
+  text-align: left;
+  font-family: Niveau Grotesk;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 23px;
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: -0.38px;
 }
 
-
-@media screen and (max-width:990px) {
-    .remove_cel {
-        display: none;
-    }
+@media screen and (max-width: 990px) {
+  .remove_cel {
+    display: none;
+  }
 }
 
-@media screen and (min-width:990px) {
-    .remove_pc {
-        display: none;
-    }
+@media screen and (min-width: 990px) {
+  .remove_pc {
+    display: none;
+  }
 }
