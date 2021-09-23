@@ -20,10 +20,30 @@ div {
   scrollbar-width: thin;
 }
 
+chats
+
+#avaliableChats:-webkit-scrollbar {
+  width: 2px !important;
+  height: 2px !important;
+  background-color: #aaa !important; /* or add it to the track */
+}
+
+#avaliableChats:-webkit-scrollbar-thumb  {
+  width: 2px !important;
+  height: 1px !important;
+  background-color: #C0E5D8 !important; /* or add it to the track */
+}
+
 div::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
+  width: 1px;
+  height: 1px;
   background-color: #aaa; /* or add it to the track */
+}
+
+div::-webkit-scrollbar-thumb {
+  width: 1px;
+  height: 1px;
+  background-color: #C0E5D8; /* or add it to the track */
 }
 
 @media screen and (min-width: 640px) {

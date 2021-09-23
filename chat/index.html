@@ -203,7 +203,7 @@
             var clickedBtnID = $(this).attr('id'); // get caht id from database and infos from chat all
             var fullInfo = chatsInfos[clickedBtnID]
 
-
+            $('#chatBlock').addClass('hidden')
 
             $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
             $(this).find("#information").addClass("button_bg_meio_alpha") //add selected chat
@@ -688,17 +688,17 @@
                                     </div>
                                     <div class=" w-11/12" id="chatInfo">
                                         <div class="flex w-full">
-                                            <h1 class="text-xl sm:text-4xl usuario_font_warp"
+                                            <h1 class="text-xl sm:text-2xl usuario_font_warp"
                                                 id="contactNameChatInternal">
                                                 Lucas L.
                                             </h1>
-                                            <h1 class=" align-bottom text-sm sm:text-lg  sm:text-lg usuario_font_warp ml-20"
+                                            <h1 class=" align-bottom text-sm  sm:text-sm usuario_font_warp ml-20"
                                                 id="contactDateChatInternal">
                                                 2019
                                             </h1>
                                         </div>
 
-                                        <p id="content" class="py-10 content">Lorem ipsum dolor sit amet consectetur
+                                        <p id="content" class="py-3 content classificacao_texto text-sm">Lorem ipsum dolor sit amet consectetur
                                             adipisicing
                                             elit.
                                             Error
@@ -753,6 +753,9 @@
                                     <button class=" w-2/3 h-full rounded-full button_bg"
                                         onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
                                             aria-hidden="true"></i></button>
+                                </div>
+                                <div class="absolute w-8/12 h-10 z-10 button_bg opacity-70 rounded-full flex items-center justify-center" id="chatBlock"> <!--TODO remove chat block-->
+                                    <p class="classificacao_texto font-normal">Escolha um chat ao lado para enviar mensagens</p>
                                 </div>
                             </div>
 
