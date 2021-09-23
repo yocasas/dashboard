@@ -1,9 +1,9 @@
 .rating {
   display: inline-block;
   position: relative;
-  height: 30px;
-  line-height: 30px;
-  font-size: 30px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 40px;
 }
 
 .rating label {
@@ -19,25 +19,22 @@
 }
 
 .rating label:nth-child(1) {
-  z-index: 6;
-}
-
-.rating label:nth-child(2) {
   z-index: 5;
 }
 
-.rating label:nth-child(3) {
+.rating label:nth-child(2) {
   z-index: 4;
 }
 
-.rating label:nth-child(4) {
+.rating label:nth-child(3) {
   z-index: 3;
 }
 
-.rating label:nth-child(5) {
+.rating label:nth-child(4) {
   z-index: 2;
 }
-.rating label:nth-child(6) {
+
+.rating label:nth-child(5) {
   z-index: 1;
 }
 
@@ -55,8 +52,6 @@
 
 .rating label:last-child .icon {
   color: rgba(105, 141, 134, 0.2);
-  
-
 }
 
 .rating:not(:hover) label input:checked ~ .icon,
