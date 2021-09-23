@@ -74,13 +74,7 @@
                         autoplay: true,
                         autoplaySpeed: 2000,
                         arrows: true,
-                        responsive: [{
-                            breakpoint: 600,
-                            settings: {
-                                slidesToShow: 2,
-                                slidesToScroll: 1
-                            }
-                        },
+                        responsive: [
                         {
                             breakpoint: 400,
                             settings: {
@@ -103,6 +97,10 @@
         let selectedDates
 
         function abrirChat(messageId) { //TODO send new message
+
+
+
+
             let chatSettings = {
                 "hostId": currentHomeInfo.clientId,
                 "guestId": clientInfo.ClientId,
@@ -124,6 +122,10 @@
                 success: (resp) => {
                     window.scrollTo(0, 0);
                     $('#showWarn').removeClass('hidden')
+                    $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
                     //$('#showWarn').removeClass('hidden')
                     //window.location.href = "/dashboard/chat"
                 }
@@ -158,7 +160,7 @@
                     success: (x) => {
 
                         //image.prepend(`<img id="theImg" src="data:image/png;base64,${x}" />`);
-                        let element = `<div class="bg-indigo-300 ">
+                        let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="data:image/png;base64,${x}">
                                         </div>`
 
@@ -183,7 +185,7 @@
                     $("#nickName").text(`${element["nickName"]}`)
                     $("#location").text(`${element["city"]}, ${element["state"]}, Brasil`)
                     $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
-                    $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
+                    $("#locationType").text(traduzirLocation(element["locationType"]))
                     $("#inCondominium").text(element[`inCondominium`] ? "Sim" : "Não")
                     $("#floorSpace").text(element[`floorSpace`])
                     $("#airportDistance").text(element[`airportDistance`])
@@ -367,12 +369,12 @@
 
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn">
-        <div class="flex flex-col bg-white h-2/6 w-2/6 rounded-md items-center p-10 ">
-            <h1 class="font-extrabold text-2xl usuario_font_warp">Reserva enviada com sucesso</h1>
+        <div class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-2/6 w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Reserva enviada com sucesso</h1>
             <p class="font-normal text-md usuario_font_warp pt-10">Datas reservadas de </p>
-            <p class="font-normal text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
+            <p class="font-normal text-xl sm:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
 
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5">Para falar com o host acesse o chat clicando
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o host acesse o chat clicando
             </h1>
             <button onclick="window.location.href='/dashboard/chat/'"
                 class="header_color w-2/5 sm:w-2/5 h-1/6 rounded-full button_text" id="openChatC">
@@ -381,7 +383,7 @@
         </div>
     </div>
 
-    <div id="headers" class="px-10 sm:px-16 sm:py-5">
+    <div id="headers" class="px-10 sm:px-16 sm:py-5" onclick="window.location.href='/dashboard/buscador'">
         <script>
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
@@ -654,14 +656,14 @@
 
 
 
-        <div id="basic_home_info" class="grid md:grid-rows-2 md:grid-cols-2  w-full h-1/5">
+        <div id="basic_home_info" class="md:grid md:grid-rows-2 md:grid-cols-2 flex flex-col gap-y-3  w-full h-1/5">
 
-            <div class="grid-row-start-1 flex justify-start items-center h-20">
-                <h1 id="nickName" class="text-5xl usuario_font_warp font-extrabold">Nome da casa</h1>
+            <div class="grid-row-start-1 flex justify-start items-center md:h-20">
+                <h1 id="nickName" class=" text-2xl sm:text-5xl usuario_font_warp font-extrabold">Nome da casa</h1>
 
 
             </div>
-            <div class="grid-row-start-1 flex sm:justify-start md:justify-end items-center h-20">
+            <div class="grid-row-start-1 flex sm:justify-start md:justify-end items-center md:h-20">
                 <h1 id="location" class="usuario_font_warp tetx-lg">Brasília, Distrito Federeal, Brasil</h1>
             </div>
 
@@ -670,8 +672,10 @@
             <div class="slider hidden" id="slider">
             </div>
         </div>
-        <div class="grid sm:grid-cols-5 grid-rows-3 sm:grid-rows-1 w-full sm:h-1/5" id="homeBasicInformation">
-            <div class="sm:col-start-1 flex flex-col sm:flex-row justify-start sm:gap-5 sm:items-center sm:h-20">
+        <div class="grid sm:grid-cols-5 grid-rows-auto sm:grid-rows-1 w-full sm:h-1/5 gap-5 sm:gap-0"
+            id="homeBasicInformation">
+            <div
+                class="sm:col-start-1 flex flex-col sm:flex-row justify-center sm:justify-start sm:gap-5 sm:items-center sm:h-20">
 
                 <div class="w-1/2 sm:h-full items-center flex justify-start">
                     <h1 class="text-lg usuario_font" id="rank">
@@ -1448,14 +1452,15 @@
 
             <div class="h-s-5/6 sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
                 id="calendar">
-                <div class="button_bg rounded-3xl sm:w-11/12 h-4/6 flex flex-col">
+                <div class="button_bg rounded-3xl sm:w-11/12 h-5/6 sm:h-4/6 flex flex-col">
                     <div id='app' class="w-full h-auto flex sm:pt-20 pb-2 justify-center items-center">
 
                         <v-date-picker v-model="range" is-range :available-dates='avbldates' @dayclick="onDayClick" />
 
                     </div>
                     <div class="flex justify-center items-center">
-                        <p class="text-xs usuario_font_warp">Adicione suas datas de viagem para ver os pontos necessarios</p>
+                        <p class="text-xs usuario_font_warp">Adicione suas datas de viagem para ver os pontos
+                            necessarios</p>
                     </div>
 
 
@@ -1519,7 +1524,7 @@
                 <div class="button_bg rounded-3xl w-11/12 h-5/6 flex">
                     <div class="w-2/5 h-full items-start" id="contactPhoto">
                         <div class="h-3/5  flex justify-center items-center">
-                            <div class="h-40 w-40 items-start header_color rounded-full">
+                            <div class="h-20 w-20 sm:h-40 sm:w-40 items-start header_color rounded-full">
                                 <img class="object-cover md:h-40 md:w-40 rounded-full " src="Assets/chat_con.png"
                                     id="contactPhoto">
                             </div>
@@ -1562,11 +1567,11 @@
 
             <div class="sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-4 sm:row-span-1 p-14 sm:p-0  flex justify-center items-center  sm:flex"
                 id="curation">
-                <div class="button_bg rounded-full sm:w-96 w-72 h-72 sm:h-96 flex flex-col gap-y-6">
+                <div class="button_bg rounded-full sm:w-96 w-72 h-60 sm:h-96 flex flex-col gap-y-6">
 
                     <div class="h-1/3 w-full flex justify-center items-end">
                         <div>
-                            <p class="font-black text-3xl usuario_font_warp">
+                            <p class="font-black text-2xl sm:text-3xl usuario_font_warp">
                                 Curadoria Yô
                             </p>
                         </div>
