@@ -95,10 +95,10 @@
             contentType: "application/json",
 
             success: function (x) {
-                let dbResponse = x
+                let dbResponse = x.slice(0, x.length > (window.innerWidth < 1300 ? 4 : 6) ? (window.innerWidth < 1300 ? 4 : 6) : x.length)
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML =
-                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : "-"}: ${dbResponse.length} casas encontradas`
+                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : "-"}: ${x.length} casas encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()

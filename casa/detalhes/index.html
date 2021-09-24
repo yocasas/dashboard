@@ -23,33 +23,77 @@
                 return new Date(b.date) - new Date(a.date);
             });
 
-            console.log(arr)
+            //console.log(arr)
 
             let fullDates = []
 
-            let latestStartDate = sortedDates[0]
+            if (sortedDates.length > 1) {
+                let initDate = new Date(0)
+                let startDate = new Date(0)
+                let endDate = new Date(0)
+
+                sortedDates.forEach((lastDate) => {
+                    initDate = endDate
+                    initDate.setDate(initDate.getDate() + 1)
+                    if (initDate.getDate() == lastDate.getDate() && initDate.getFullYear() == lastDate.getFullYear() && initDate.getMonth() == lastDate.getMonth()) {
+                        console.log(lastDate)
+                        endDate = lastDate
+                    } else {
+                        if (endDate > (new Date())) {
+                            fullDates.push({
+                                start: startDate,
+                                end: endDate
+                            })
+                        }
+
+                        startDate = lastDate
+                        endDate = lastDate
+
+                        console.log("end:" + endDate)
+                    }
+
+
+                })
+
+
+                fullDates.push({
+                    start: startDate,
+                    end: sortedDates[sortedDates.length-1]
+                })
+
+                console.log(fullDates)
+
+
+
+            }
+
+
+
+            /*let latestStartDate = sortedDates[0]
             let tempDate = sortedDates[0]
             let latestEndDate = sortedDates[0]
 
             sortedDates.forEach((lastDate) => {
 
+                
                 let nextStartDate = new Date(tempDate)
                 nextStartDate.setDate(nextStartDate.getDate() + 1)
                 tempDate = new Date(nextStartDate)
                 if (nextStartDate.getDate() == lastDate.getDate() && nextStartDate.getFullYear() == lastDate.getFullYear() && nextStartDate.getMonth() == lastDate.getMonth()) {
                     latestEndDate = lastDate
+                    console.log(lastDate)
                 } else {
                     fullDates.push({
                         start: latestStartDate,
                         end: latestEndDate
                     })
-                    //console.log(latestStartDate + ":" + latestEndDate)
+                    console.log(latestStartDate + ":" + latestEndDate)
                     latestStartDate = lastDate
                     latestEndDate = lastDate
                     tempDate = lastDate
                 }
 
-            })
+            })*/
 
             return fullDates
         }
@@ -75,14 +119,14 @@
                         autoplaySpeed: 2000,
                         arrows: true,
                         responsive: [
-                        {
-                            breakpoint: 400,
-                            settings: {
-                                arrows: false,
-                                slidesToShow: 1,
-                                slidesToScroll: 1
-                            }
-                        }]
+                            {
+                                breakpoint: 400,
+                                settings: {
+                                    arrows: false,
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1
+                                }
+                            }]
                     });
                 });
             });
@@ -276,7 +320,6 @@
                     //vue.$data.attrs[0].dates = totalDates
                     vue.$data.avbldates = totalDates
 
-                    console.log(totalDates)
 
 
                 }
@@ -369,12 +412,15 @@
 
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn">
-        <div class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Obrigado! Seu pedido de hospedagem foi enviado. Aguarde a resposta do anfitrião</h1>
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Obrigado! Seu pedido de hospedagem foi
+                enviado.<br> Aguarde a resposta do anfitrião</h1>
             <p class="font-normal text-md usuario_font_warp pt-10">Datas reservadas de </p>
             <p class="font-normal text-xl sm:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
 
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o host acesse o chat clicando
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o host acesse o chat
+                clicando
             </h1>
             <button onclick="window.location.href='/dashboard/chat/'"
                 class="header_color w-2/5 sm:w-2/5 h-1/6 rounded-full button_text" id="openChatC">
@@ -403,7 +449,6 @@
             });
 
             function changeVisibilityUser() {
-                console.log($("#userPanel"))
                 if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#userPanel").addClass("hidden")
                 } else {
@@ -1499,7 +1544,6 @@
                                 };
                             }, methods: {
                                 onDayClick(day) {
-                                    //console.log(day)
                                     updateCalendarData(day)
                                 }
                             },
@@ -1509,7 +1553,6 @@
                             let endDate = vue.$data.range.end
                             selectedDates = [startDate, endDate]
                             let days = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
-                            //console.log("aaa", startDate, endDate)
                             $('#dataReserva').text(`${toHumanDate(startDate)} a ${toHumanDate(endDate)}`)
                             $('#totalCost').text(multiplier * 1000 * days)
                         }
