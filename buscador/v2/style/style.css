@@ -189,7 +189,7 @@ input[type='range']::-webkit-slider-thumb {
   background-color: white;
   border-radius: 50%;
   vertical-align: middle;
-  border: 1px solid #ddd;
+  border: 1px solid rgba(69, 95, 93, 1);
   appearance: none;
   -webkit-appearance: none;
   outline: none;
@@ -228,6 +228,11 @@ input[type='range']::-webkit-slider-thumb {
 
 .borda_filtro {
   border-color: rgba(74, 94, 93, 1);
+}
+
+.borda_filtro:hover {
+  background-color: #c0e5d8;
+  border-width: 0px !important;
 }
 
 .warning_text {

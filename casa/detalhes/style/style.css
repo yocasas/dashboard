@@ -194,6 +194,18 @@
     color: rgba(69, 95, 93, 1);
 }
 
+#hr {
+    background-color: #c0e5d8;
+}
+
+
+
+.points_font {
+
+    font-family: Niveau Grotesk;
+
+    color: #698d86
+}
 .slick-prev:before, .slick-next:before { 
     color:rgba(74, 94, 93, 1) !important;
 }

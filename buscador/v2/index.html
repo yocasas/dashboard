@@ -133,14 +133,16 @@
             $(`#${e}`).removeClass("hidden")
         }
 
-        if ($(`#${cr}`).attr("class").split(/\s+/).indexOf("button_bg") == -1) {
-            $(`#${cr}`).addClass("button_bg")
+        if ($(`#${cr}`).attr("class").split(/\s+/).indexOf("boarder-2") == -1) {
+            $(`#${cr}`).removeClass("border")
+            $(`#${cr}`).addClass("border-2")
         }
     }
 
     function eliminar() {
         changeVisibility('more_filters', 'more_filters_filter')
-        $(`.filtro_busca`).removeClass("button_bg")
+        $(`.filtro_busca`).removeClass("border-2")
+        $(`.filtro_busca`).addClass("border")
     }
 </script>
 
@@ -722,7 +724,7 @@
                 <div class="flex flex-row h-full">
 
                     <div class="h-full flex-initial flex justify-around items-center  gap-11">
-                        <div class="flex-initial  borda_filtro border-2  rounded-full">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                 id="filtro_busca">
                                 Praia
@@ -731,13 +733,15 @@
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border-2 filtro_busca rounded-full "
+                            <div class="flex-initial  borda_filtro border  filtro_busca rounded-full "
                                 id="classificacao_counter_filter">
                                 <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
                                     onclick="changeVisibility('classificacao_counter', 'classificacao_counter_filter')">
                                     Classificação
                                 </button>
+
+
 
 
                             </div>
@@ -819,7 +823,7 @@
                         </div>-->
 
 
-                        <div class="flex-initial  borda_filtro border-2  rounded-full">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
                                 onclick="changeVisibility('more_filters', 'more_filters_filter')">
 
@@ -846,7 +850,7 @@
                         </div>
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                            alt="Imagem- Casa" id="img_source" class="sm:max-h-full max-h-44 hidden">
+                            alt="Imagem- Casa" id="img_source" class="sm:max-h-full max-h-44 hidden rounded">
                     </div>
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-auto ">
