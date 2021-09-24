@@ -97,9 +97,9 @@
             chatsInfos[chatInfo.chatId] = fullInfo
             ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
             if (fullInfo.isHost) {
-                ChatModel.find('#isHost').text('anfitrião')
+                ChatModel.find('#isHost').text('Sou anfitrião')
             } else {
-                ChatModel.find('#isHost').text('hóspede')
+                ChatModel.find('#isHost').text('Sou hóspede')
             }
 
             ChatModel.removeClass('hidden') //show element
@@ -451,7 +451,7 @@
                                     </div>
                                     <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
                                         <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                            onclick="populateHomes()">
+                                            onclick="location.href='/dashboard/buscador'">
                                             Explorar
                                         </button>
                                     </div>
@@ -642,7 +642,7 @@
 
                                             <!--fas fa-crown-->
                                         </div>
-                                        <p id="lastMessage" class="clamp_line_2">Lorem ipsum dolor sit amet, consectetur
+                                        <p id="lastMessage" class="clamp_line_2 hidden">Lorem ipsum dolor sit amet, consectetur
                                             adipisicing
                                             elit. Officia, rerum
                                             dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit
