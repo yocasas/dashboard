@@ -1,3 +1,42 @@
+@media screen and (min-width: 2000px) {
+
+  #background {
+    background-image: url('../Assets/LINHA\ BG\ 1.svg');
+    background-repeat: no-repeat;
+    background-position-x: -8em;
+    background-position-y: -5em;
+    background-size: 110% 100%;
+  }
+}
+
+
+@media screen and (min-width: 1700px) and (max-width: 1999px) {
+
+  #background {
+    background-image: url('../Assets/LINHA\ BG\ 1.svg');
+    background-repeat: no-repeat;
+    background-position-x: -8em;
+    background-position-y: -7em;
+    background-size: 109% 96%;
+  }
+}
+
+
+
+@media screen and (min-width: 600px) and (max-width: 1699px) {
+
+  #background {
+    background-image: url('../Assets/LINHA\ BG\ 1.svg');
+    background-repeat: no-repeat;
+    background-position-x: -8em;
+    background-position-y: -15em;
+    background-size: 120% 96%;
+  }
+}
+
+
+
+
 .rating {
   display: inline-block;
   position: relative;
