@@ -70,7 +70,7 @@ div::-webkit-scrollbar-thumb {
 
 @media screen and (min-width: 640px) {
   .sm\:h-90\% {
-    height: 82%;
+    height: 85%;
   }
 }
 

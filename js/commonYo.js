@@ -69,7 +69,9 @@ function toHumanDate(x) {
         date = new Date(date)
     }
 
-    return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+    //return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+
+    return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
 
 }
