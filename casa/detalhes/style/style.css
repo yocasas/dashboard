@@ -1,3 +1,12 @@
+.header_color_bt:hover {
+    background-color: rgba(74, 94, 93, 0.5);
+}
+
+.button_bg:hover {
+    background-color: rgba(192, 229, 216, 0.5)
+}
+
+
 @font-face {
     font-family: Niveau Grotesk;
     font-weight: 400;
@@ -83,6 +92,12 @@
     background-color: rgba(192, 229, 216, 1);
 }
 
+.button_bg_background_only {
+    background-color: rgba(192, 229, 216, 1);
+}
+
+
+
 .button_text {
     font-family: Niveau Grotesk;
     color: rgba(192, 229, 216, 1);
@@ -95,6 +110,12 @@
 .header_color {
     background-color: rgba(74, 94, 93, 1);
 }
+
+.header_color_bt {
+    background-color: rgba(74, 94, 93, 1);
+}
+
+
 
 .header_color_alpha {
     background-color: rgba(74, 94, 93, 0.3);
