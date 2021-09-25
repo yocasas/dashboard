@@ -7,14 +7,14 @@ function traduzirLocation(location) {
 
 
     let tradutor = {
-        'beach': "Praia",
-        'country': "Campo",
-        'mountain': "Montanha",
-        'city': "Cidade",
-        "Cidade": "city",
-        "Montanha": "mountain",
-        "Campo": "country",
-        "Praia": "beach"
+        'beach': "Destino de praia",
+        'country': "Destino de campo",
+        'mountain': "Destino de montanha",
+        'city': "Destino de cidade",
+        "Destino de cidade": "city",
+        "Destino de montanha": "mountain",
+        "Destino de campo": "country",
+        "Destino de praia": "beach"
     }
     return tradutor[location]
 }
