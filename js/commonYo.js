@@ -2,8 +2,13 @@ let clientInfo
 
 let authCookie
 
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
-function traduzirLocation(location) {
+
+
+function traduzirLocation(location, tiny) {
 
 
     let tradutor = {
@@ -16,7 +21,15 @@ function traduzirLocation(location) {
         "Destino de campo": "country",
         "Destino de praia": "beach"
     }
-    return tradutor[location]
+
+
+
+    if (tiny != undefined) {
+        return capitalizeFirstLetter(tradutor[location].split(' '))
+    } else {
+        return tradutor[location]
+    }
+
 }
 
 function getCookie(name) {

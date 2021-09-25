@@ -123,7 +123,7 @@
                         arrows: true,
                         responsive: [
                             {
-                                breakpoint: 400,
+                                breakpoint: 640,
                                 settings: {
                                     arrows: false,
                                     slidesToShow: 1,
@@ -232,7 +232,9 @@
                     $("#nickName").text(`${element["nickName"]}`)
                     $("#location").text(`${element["city"]}, ${element["state"]}, Brasil`)
                     $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
-                    $("#locationType").text(traduzirLocation(element["locationType"]))
+                    $(".locationType").text(traduzirLocation(element["locationType"]))
+                    $(".locationTypeMobile").text(traduzirLocation(element["locationType"], 1))
+                    
                     $("#inCondominium").text(element[`inCondominium`] ? "Sim" : "Não")
                     $("#floorSpace").text(element[`floorSpace`])
                     $("#airportDistance").text(element[`airportDistance`])
@@ -536,7 +538,7 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
+                                <button class="busca_font text-xl ml-10 locationType" id="locationType" onclick="dropLocationShow()">
                                     Praia
                                 </button>
                             </div>
@@ -652,7 +654,7 @@
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
+                                <button class="text-sm busca_font locationTypeMobile" contenteditable="true" onclick="dropLocationShow()"
                                     id="locationType">
                                     Praia
                                 </button>
@@ -665,12 +667,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <button id='totalGuestFilter'
+                            <div class="col-start-4 w-full h-full flex items-center   justify-center">
+                                <button id='totalGuestFilter' class=" flex justify-center items-center gap-x-5"
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="text-sm busca_font w-12" id="totalGuests">
-                                        2 hospedes
+                                    <h1 class="text-sm busca_font h-full" id="totalGuests">
+                                        2
                                     </h1>
+                                    <i class="fas fa-user text-white"></i>
                                 </button>
 
                             </div>
@@ -920,7 +923,7 @@
                                 </div>
                             </div>
 
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
+                            <div class="h-20  flex justify-start w-full sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
                                 id="facility-pool">
                                 <img src="Assets/facilidades/PISCINA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
@@ -1148,7 +1151,7 @@
 
 
                             <div class="">
-                                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2" id="locationTypeHost">
+                                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType" id="locationTypeHost">
                                     Praia
                                 </p>
                             </div>
@@ -1510,7 +1513,7 @@
 
 
 
-            <div class="h-s-5/6 sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
+            <div class="h-auto sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
                 id="calendar">
                 <div class="button_bg rounded-3xl sm:w-11/12 h-5/6 sm:h-4/6 flex flex-col justify-between">
                     
@@ -1535,7 +1538,7 @@
                         <h1 class="text-6x1 font-bold usuario_font" id="totalCost">0 </h1>
 
                     </div>
-                    <div class="w-full h-1/6 flex justify-center items-center gap-4">
+                    <div class="w-full h-24 sm:h-1/6 flex justify-center items-center gap-4">
                         <button onclick="abrirChat()" class="header_color w-2/5 sm:w-2/5 h-1/2 rounded-full button_text"
                             id="openChat">
                             Quero me hospedar
@@ -1588,7 +1591,7 @@
                     <div class="w-2/5 h-full items-start" id="contactPhoto">
                         <div class="h-3/5  flex justify-center items-center">
                             <div class="h-20 w-20 sm:h-40 sm:w-40 items-start header_color rounded-full">
-                                <img class="object-cover md:h-40 md:w-40 rounded-full " src="Assets/chat_con.png"
+                                <img class="object-cover md:h-40 md:w-40 rounded-full " src="Assets/PERFIL.svg"
                                     id="contactPhoto">
                             </div>
                         </div>

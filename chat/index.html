@@ -207,6 +207,47 @@
 
         $(document).on("keypress", "#inputMessage", appendChat)
 
+
+        let clickItemChat = (e) => {
+            var clickedBtnID = e.attr('id'); // get caht id from database and infos from chat all
+            alert(clickedBtnID)
+            var fullInfo = chatsInfos[clickedBtnID]
+
+            $('#chatBlock').addClass('hidden')
+
+            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
+            e.find("#information").addClass("button_bg_meio_alpha") //add selected chat
+
+
+            if (screen.width < 640) { //for cel show one at a time
+                changeVisibility("avaliableChats")
+                changeVisibility("fullChatBLockCel")
+            }
+
+
+            let fullChat = $("#fullChat") //fullchat get
+
+            $("#contactNameChat").addClass("dot-spin")
+            $("#contactNameChat").text("")
+
+            $.ajax({ //get messages from database
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify({
+                    chatId: clickedBtnID
+                }),
+                contentType: "application/json",
+
+                success: (msgsString) => {
+                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(msgsString), fullChat, clickedBtnID))
+                }
+            })
+        }
+
+
         //add chats click to load full chat
         $(document).on("click", ".itemChat", function () {
             var clickedBtnID = $(this).attr('id'); // get caht id from database and infos from chat all
@@ -309,6 +350,8 @@
                     msgs.forEach(msg => {
                         addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
                     });
+
+                    clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
                 }
             })
 
@@ -627,7 +670,7 @@
                                     <div class="w-3/12 flex justify-start items-center">
                                         <div class="h-14 w-14 rounded-full" id="imgChat">
                                             <img class="object-cover h-full w-full rounded-full "
-                                                src="Assets/chat_con.png">
+                                                src="Assets/PERFIL.svg">
                                         </div>
                                     </div>
                                     <div class=" w-7/12 " id="chatInfo">
@@ -702,7 +745,7 @@
                                         <!--less -->
                                         <div class="h-14 w-14 rounded-full" id="imgChat">
                                             <img class="object-cover h-full w-full rounded-full "
-                                                src="Assets/chat_con.png" id="contactPhoto">
+                                                src="Assets/PERFIL.svg" id="contactPhoto">
                                         </div>
                                     </div>
                                     <div class=" w-11/12" id="chatInfo">

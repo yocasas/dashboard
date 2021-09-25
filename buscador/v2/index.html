@@ -99,7 +99,7 @@
                 let dbResponse = x.slice(0, x.length > (window.innerWidth < 1300 ? 4 : 6) ? (window.innerWidth < 1300 ? 4 : 6) : x.length)
                 homesShow.find(".show_home").remove()
                 $("#result_quantity")[0].innerHTML =
-                    `Destinos  ${locationType != undefined ? "de " + traduzirLocation(locationType) : ""}: ${x.length} casas encontradas`
+                    ` ${locationType != undefined ? "" + traduzirLocation(locationType) : "Destinos"}: ${x.length} casas encontradas`
                 dbResponse.forEach(element => {
 
                     let homeClone = defaultHome.clone()
@@ -134,7 +134,9 @@
             $(`#${e}`).removeClass("hidden")
         }
 
-        if ($(`#${cr}`).attr("class").split(/\s+/).indexOf("boarder-2") == -1) {
+        let crClass = $(`#${cr}`).attr("class")
+
+        if (crClass != undefined && crClass.split(/\s+/).indexOf("boarder-2") == -1) {
             $(`#${cr}`).removeClass("border")
             $(`#${cr}`).addClass("border-2")
         }
