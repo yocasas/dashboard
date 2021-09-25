@@ -3,6 +3,7 @@ let clientInfo
 let authCookie
 
 function capitalizeFirstLetter(string) {
+    console.log(string)
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -10,7 +11,7 @@ function capitalizeFirstLetter(string) {
 
 function traduzirLocation(location, tiny) {
 
-
+    
     let tradutor = {
         'beach': "Destino de praia",
         'country': "Destino de campo",
@@ -24,8 +25,8 @@ function traduzirLocation(location, tiny) {
 
 
 
-    if (tiny != undefined) {
-        return capitalizeFirstLetter(tradutor[location].split(' '))
+    if (tiny != undefined && tradutor.hasOwnProperty(location)) {
+        return capitalizeFirstLetter(tradutor[location].split(' ')[2])
     } else {
         return tradutor[location]
     }
