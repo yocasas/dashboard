@@ -210,7 +210,6 @@
 
         let clickItemChat = (e) => {
             var clickedBtnID = e.attr('id'); // get caht id from database and infos from chat all
-            alert(clickedBtnID)
             var fullInfo = chatsInfos[clickedBtnID]
 
             $('#chatBlock').addClass('hidden')
@@ -332,6 +331,8 @@
     <script> //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
+            const urlParams = new URLSearchParams(window.location.search);
+            const clientId = urlParams.get('chat');
 
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/getChats",
@@ -351,7 +352,17 @@
                         addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
                     });
 
-                    clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
+                    if (clientId != undefined && clientId.length > 0) {
+                        let homesArray = Object.values(chatsInfos)
+                        let chatHostId = homesArray.filter(x => x.hostId == clientId)
+                        //console.log(localChatInfo)
+                        clickItemChat($(`#${chatHostId[0].chatId}`))
+                        //clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
+                    } else {
+                        clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
+                    }
+
+                    
                 }
             })
 

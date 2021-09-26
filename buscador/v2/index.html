@@ -111,8 +111,9 @@
                     let stars = range(element["multiplier"], 1)
                     homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
                     stars.forEach(startId => {
-                        homeClone.find('#rank').find(`#${startId}`).removeClass(
-                            "text-gray-200");
+                        let rank = homeClone.find('#rank')
+                        rank.find(`#${startId}`).removeClass("far");
+                        rank.find(`#${startId}`).addClass("fas");
                     })
 
                     let points = starsToPointsPerNight(element["multiplier"])
@@ -493,7 +494,7 @@
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
-                        Destinos de Praia
+                        Praia
                     </a>
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`country`);dropLocationShow()">
@@ -537,7 +538,7 @@
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
                                 <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
-                                    Destinos de Praia
+                                    Destinos de praia
                                 </button>
                             </div>
 
@@ -866,12 +867,12 @@
                         <div class="h-1/2 w-full grid sm:grid-cols-2 sm:grid-rows-2 sm:grid-rows-4">
                             <div class="w-1/2 sm:h-full items-center flex justify-start">
                                 <h1 class="text-xs sm:text-lg usuario_font" id="rank">
-                                    <i class="fa fa-star text-gray-200" id="1" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-gray-200" id="2" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-gray-200" id="3" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-gray-200" id="4" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-gray-200" id="5" aria-hidden="true"></i>
-                                    <i class="fa fa-star text-gray-200" id="6" aria-hidden="true"></i>
+                                    <i class="far fa-star" id="1" aria-hidden="true"></i>
+                                    <i class="far fa-star " id="2" aria-hidden="true"></i>
+                                    <i class="far fa-star " id="3" aria-hidden="true"></i>
+                                    <i class="far fa-star " id="4" aria-hidden="true"></i>
+                                    <i class="far fa-star " id="5" aria-hidden="true"></i>
+                                    <i class="far fa-star " id="6" aria-hidden="true"></i>
                                 </h1>
                             </div>
                             <div class="sm:row-start-2 col-start-1 classificacao_texto self-start text-lg leading-snug">
