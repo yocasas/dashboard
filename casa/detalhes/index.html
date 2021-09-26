@@ -19,14 +19,31 @@
 
         let contactId
 
-        function generateAvaliableObj(arr) {
-            let sortedDates = arr.sort(function (a, b) {
-                // Turn your strings into dates, and then subtract them
-                // to get a value that is either negative, positive, or zero.
-                return new Date(b.date) - new Date(a.date);
-            });
 
-            //console.log(sortedDates)
+        Date.prototype.addHours = function (h) {
+            this.setTime(this.getTime() + (h * 60 * 60 * 1000));
+            return this;
+        }
+
+        function fixTimeZone(date) {
+            let dateSave = new Date(date.getTime())
+            return dateSave.addHours(dateSave.getTimezoneOffset()/60)
+            
+        }
+
+        function generateAvaliableObj(sortedDatesJSON) {
+
+
+            let sortedDatesString = JSON.parse(JSON.stringify(sortedDatesJSON))
+
+
+            let sortedDates = sortedDatesString.map(x => new Date(x))
+            let sortedDates1 = sortedDatesString.map(x => new Date(x))
+            //console.log(typeof sortedDates[0])
+
+            console.log(555, sortedDates1)
+            console.log(444, sortedDates)
+
 
             let fullDates = []
 
@@ -36,21 +53,24 @@
                 let endDate = new Date(0)
 
                 sortedDates.forEach((lastDate) => {
-                    initDate = endDate
+                    initDate = new Date(endDate.getTime())
                     initDate.setDate(initDate.getDate() + 1)
                     if (initDate.getDate() == lastDate.getDate() && initDate.getFullYear() == lastDate.getFullYear() && initDate.getMonth() == lastDate.getMonth()) {
-                        console.log(lastDate)
-                        endDate = lastDate
+                        endDate = new Date(lastDate.getTime())
                     } else {
                         if (endDate > (new Date())) {
+                            let startDateSave = fixTimeZone(startDate)
+                            let endDateSave = fixTimeZone(endDate)
+
+
                             fullDates.push({
-                                start: startDate,
-                                end: endDate
+                                start: startDateSave,
+                                end: endDateSave
                             })
                         }
 
-                        startDate = lastDate
-                        endDate = lastDate
+                        startDate = new Date(lastDate.getTime())
+                        endDate = new Date(lastDate.getTime())
 
                         console.log("end:" + endDate)
                     }
@@ -59,12 +79,16 @@
                 })
 
 
+                let startDateSave = fixTimeZone(startDate)
+                let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+
+
                 fullDates.push({
-                    start: startDate,
-                    end: sortedDates[sortedDates.length - 1]
+                    start: startDateSave,
+                    end: endDateSave
                 })
 
-                console.log(fullDates)
+                //console.log(arr)
 
 
 
@@ -234,7 +258,7 @@
                     $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
                     $(".locationType").text(traduzirLocation(element["locationType"]))
                     $(".locationTypeMobile").text(traduzirLocation(element["locationType"], 1))
-                    
+
                     $("#inCondominium").text(element[`inCondominium`] ? "Sim" : "Não")
                     $("#floorSpace").text(element[`floorSpace`])
                     $("#airportDistance").text(element[`airportDistance`])
@@ -317,16 +341,25 @@
                     })
 
 
-                    let totalDates = []
+                    let totalAvaliableDates = []
                     element.availableDates.forEach((e) => {
-                        totalDates.push(new Date(e))
+                        let localDate = new Date(e)
+                        totalAvaliableDates.push(localDate)
                     })
 
 
 
-                    totalDates = generateAvaliableObj(totalDates)
+                    totalAvaliableDates.sort(function (a, b) {
+                        // Turn your strings into dates, and then subtract them
+                        // to get a value that is either negative, positive, or zero.
+                        return a - b;
+                    });
 
-                    //console.log(totalDates)
+
+
+                    let totalDates = generateAvaliableObj(totalAvaliableDates)
+
+                    console.log(totalDates)
 
                     //vue.$data.attrs[0].dates = totalDates
                     vue.$data.avbldates = totalDates
@@ -446,11 +479,12 @@
             <p class="font-normal text-md usuario_font_warp pt-10">Datas solicitadas de </p>
             <p class="font-normal text-xl sm:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
 
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o anfitrião acesse o chat
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o anfitrião acesse o
+                chat
                 clicando
             </h1>
-            <button onclick="redirectChat()"
-                class="header_color_bt w-2/5 sm:w-2/5 h-1/6 rounded-full button_text" id="openChatC">
+            <button onclick="redirectChat()" class="header_color_bt w-2/5 sm:w-2/5 h-1/6 rounded-full button_text"
+                id="openChatC">
                 Aqui
             </button>
         </div>
@@ -547,7 +581,8 @@
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10 locationType" id="locationType" onclick="dropLocationShow()">
+                                <button class="busca_font text-xl ml-10 locationType" id="locationType"
+                                    onclick="dropLocationShow()">
                                     Praia
                                 </button>
                             </div>
@@ -663,8 +698,8 @@
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font locationTypeMobile" contenteditable="true" onclick="dropLocationShow()"
-                                    id="locationType">
+                                <button class="text-sm busca_font locationTypeMobile" contenteditable="true"
+                                    onclick="dropLocationShow()" id="locationType">
                                     Praia
                                 </button>
                             </div>
@@ -728,11 +763,12 @@
 
 
 
-        <div id="basic_home_info" class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5  w-full h-1/5">
+        <div id="basic_home_info"
+            class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5  w-full h-1/5">
 
             <div class="grid-row-start-1 flex justify-start items-center md:h-20">
                 <h1 id="nickName" class=" text-2xl sm:text-5xl usuario_font_warp font-extrabold">Casa</h1>
-                
+
 
             </div>
             <div class="grid-row-start-1 flex sm:justify-start md:justify-end items-center md:h-20">
@@ -1160,7 +1196,8 @@
 
 
                             <div class="">
-                                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType" id="locationTypeHost">
+                                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType"
+                                    id="locationTypeHost">
                                     Praia
                                 </p>
                             </div>
@@ -1524,8 +1561,9 @@
 
             <div class="h-auto sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
                 id="calendar">
-                <div class="button_bg_background_only rounded-3xl sm:w-11/12 h-5/6 sm:h-4/6 flex flex-col justify-between">
-                    
+                <div
+                    class="button_bg_background_only rounded-3xl sm:w-11/12 h-5/6 sm:h-4/6 flex flex-col justify-between">
+
                     <div class="flex justify-center items-center">
                         <p class="text-4xl font-black usuario_font_warp mt-10">Calendário</p>
                     </div>
@@ -1548,8 +1586,8 @@
 
                     </div>
                     <div class="w-full h-24 sm:h-1/6 flex justify-center items-center gap-4">
-                        <button onclick="abrirChat()" class="header_color_bt w-2/5 sm:w-2/5 h-1/2 rounded-full button_text"
-                            id="openChat">
+                        <button onclick="abrirChat()"
+                            class="header_color_bt w-2/5 sm:w-2/5 h-1/2 rounded-full button_text" id="openChat">
                             Quero me hospedar
                         </button>
                     </div>
@@ -1600,11 +1638,11 @@
                     <div class="w-2/5 h-full flex items-center justify-center" id="contactPhoto">
                         <div class="  md:w-6/12 h-auto  flex justify-center items-center">
                             <div class="h-full w-20 sm:h-auto sm:w-full items-start header_color rounded-full">
-                                <img class="object-cover h-20 w-20 md:h-full md:w-full rounded-full " src="Assets/PERFIL.svg"
-                                    id="contactPhoto">
+                                <img class="object-cover h-20 w-20 md:h-full md:w-full rounded-full "
+                                    src="Assets/PERFIL.svg" id="contactPhoto">
                             </div>
                         </div>
-                        
+
 
                     </div>
                     <div class="w-3/5 h-full items-start " id="contactText">
@@ -1631,7 +1669,7 @@
                         <div class="w-full h-1/3  items-start flex justify-start">
                             <input class="hidden" id="contactId">
                             <button class="header_color_bt w-3/5 sm:w-2/5 h-1/2 rounded-full button_text"
-                            onclick="redirectChat()" id="openChat">
+                                onclick="redirectChat()" id="openChat">
                                 Contato
                             </button>
                         </div>
