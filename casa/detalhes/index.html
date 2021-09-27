@@ -179,7 +179,8 @@
                 "hostPicture": "chat_con.png",
                 "requestedDate": selectedDates,
                 "hostName": currentHomeInfo.contactName,
-                "guestName": clientInfo.nickName
+                "guestName": clientInfo.nickName,
+                "homeNickName": currentHomeInfo.nickName
             }
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat",

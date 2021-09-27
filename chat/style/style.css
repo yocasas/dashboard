@@ -4,6 +4,14 @@
   src: url('NiveauGroteskRegular.otf');
 }
 
+.borda_filtro {
+  border-width: 1px;
+  border-color: rgba(74, 94, 93, 1);
+}
+.header_color_bt {
+  background-color: rgba(74, 94, 93, 1);
+}
+
 #logo_yo {
   margin: 0;
   padding: 0;

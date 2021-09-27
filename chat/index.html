@@ -21,6 +21,53 @@
         }
     </style>
 
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+        id="showWarn">
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <div class="flex justify-end items-end h-10 w-full removeWarn">
+                <div class="">
+                    <i class="fas fa-times"></i>
+                </div>
+
+
+            </div>
+
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que Pena! Voce recusou a oferta do
+                hospede.<br> Caso queira entrar em contato conosoco.</h1>
+
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Podem nos contatar atraves do email
+                <a href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            </h1>
+
+        </div>
+    </div>
+
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+        id="showWarn1">
+
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <div class="flex justify-end items-start w-full h-10  removeWarn">
+                <div class="h-2">
+                    <i class="fas fa-times"></i>
+                </div>
+
+            </div>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que legal! Voce aceitou a oferta do
+                hospede.<br> Esperamos que tenha tido uma otima experiencia ate agora.</h1>
+
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
+                importante não deixe de nos contatar em <a
+                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            </h1>
+
+        </div>
+    </div>
+
     <link href="style/style.css" rel="stylesheet">
     <link href="style/loading.css" rel="stylesheet">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -44,6 +91,8 @@
             }
 
         }
+
+
 
     </script>
 
@@ -154,6 +203,7 @@
 
             $("#contactNameChat").text(fullChatInfo.contactName)
             $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
+            $(`#homeNickName`).text(`(${fullChatInfo.homeNickName})`)
             if (requestedDates == undefined || requestedDates == "[]") {
 
                 $(`.fas`).addClass(`fa-info-circle`)
@@ -286,6 +336,14 @@
             })
         });
 
+        $(document).on("click", ".removeWarn", function () {
+            $(this).parent().parent().addClass('hidden')
+            $('html, body').css({
+                overflow: 'auto',
+                height: 'auto'
+            });
+        })
+
 
         function sendNewMessage(messageId) { //TODO send new message
             let messageElement = $(`#${messageId}`)
@@ -328,6 +386,48 @@
         }
     </script>
 
+    <script>
+        function resolveChat(accept) { //TODO send new message
+
+
+
+
+            let chatSettings = {
+                "chatId": currentChatInfo.chatId,
+                "response": accept ? 1 : 2,
+            }
+
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/host/request/respond",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify(chatSettings),
+                contentType: "application/json",
+
+                success: (resp) => {
+                    window.scrollTo(0, 0);
+                    if (accept) {
+                        $('#showWarn1').removeClass('hidden')
+                    } else {
+                        $('#showWarn').removeClass('hidden')
+                    }
+
+
+                    $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+
+                    //$('#showWarn').removeClass('hidden')
+                    //window.location.href = "/dashboard/chat"
+                }
+            })
+        }
+
+    </script>
+
     <script> //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
@@ -341,7 +441,8 @@
                     "Authorization": authCookie
                 },
                 data: JSON.stringify({
-                    clientId: clientInfo.ClientId
+                    clientId: clientInfo.ClientId,
+                    ending: 1
                 }),
                 contentType: "application/json",
 
@@ -362,7 +463,7 @@
                         clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
                     }
 
-                    
+
                 }
             })
 
@@ -696,7 +797,8 @@
 
                                             <!--fas fa-crown-->
                                         </div>
-                                        <p id="lastMessage" class="clamp_line_2 hidden">Lorem ipsum dolor sit amet, consectetur
+                                        <p id="lastMessage" class="clamp_line_2 hidden">Lorem ipsum dolor sit amet,
+                                            consectetur
                                             adipisicing
                                             elit. Officia, rerum
                                             dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit
@@ -728,6 +830,12 @@
                                         class="pt-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage flex items-center justify-center">
                                         Nenhum chat selecionado
                                     </h1>
+                                    <div class="flex items-center justify-center">
+                                        <h1 id="homeNickName" class=" text-sm sm:text-sm usuario_font_warp stage ">
+
+                                        </h1>
+
+                                    </div>
                                     <div class="flex items-center justify-center">
                                         <h1 id="datesChat" class=" text-xs sm:text-xs usuario_font_warp stage ">
 
@@ -804,12 +912,12 @@
                             <div class="absolute flex  justify-start ">
 
 
-                                <a href="#"
+                                <button onclick="resolveChat(1)" href="#"
                                     class="sm:-inset-16 left-0 relative hostOnly hidden  cadastro-button header_color sm:px-10 px-1 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
-                                    Reserva</a>
-                                <a href="#"
+                                    Reserva</button>
+                                <button onclick="resolveChat(2)" href="#"
                                     class="sm:-inset-16 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
-                                    Reserva</a>
+                                    Reserva</button>
 
 
                             </div>
@@ -822,7 +930,7 @@
                             </div>
                             <div class="z-30 mt-10 sm:mt-0  w-full flex">
                                 <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 bg-gray-200 rounded-full h-10">
+                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 borda_filtro rounded-full h-10">
                                 <div class="w-20 flex items-center justify-center">
                                     <button class=" w-2/3 h-full rounded-full button_bg"
                                         onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
