@@ -42,7 +42,76 @@
         console.log(` ${e.code}`);
     }
 
+    let maxPage = 0
+    let currentPage = 0
+    let pageSize = -1
+    let resultFromApi = []
 
+
+    function createAndPopulate(locationType, dbResponse) {
+
+        function range(size, startAt = 0) {
+            return [...Array(size).keys()].map(i => i + startAt);
+        }
+
+        function getS3file(name, image, element) {
+            let imgSrc = image.find("#img_source")
+            if (element.b64img == undefined) {
+                $.ajax({
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                    type: "POST",
+                    data: JSON.stringify({
+                        "pic-name": name
+                    }),
+                    contentType: "application/json",
+                    success: (x) => {
+                        image.find(".loader").addClass("hidden")
+                        imgSrc.removeClass("hidden")
+                        element.b64img = `data:image/png;base64,${x}`
+                        imgSrc.attr("src", element.b64img)
+
+                    },
+                })
+            } else {
+                image.find(".loader").addClass("hidden")
+                console.log("ja tem")
+                imgSrc.removeClass("hidden")
+                imgSrc.attr("src", element.b64img)
+            }
+
+
+        }
+
+
+        let homesShow = $("#homes_show")
+        let defaultHome = $("#show_home_default")
+        homesShow.find(".show_home").remove()
+        $("#result_quantity")[0].innerHTML =
+            ` ${locationType != undefined ? "" + traduzirLocation(locationType) : "Destinos"}: ${resultFromApi.length} casas encontradas`
+        dbResponse.forEach(element => {
+
+            let homeClone = defaultHome.clone()
+            getS3file(element["picturesS3Urls"][
+                0
+            ], homeClone.find("#imagem_casa"), element)
+            homeClone.find('#nickName').text(element["nickName"]);
+            homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
+            let stars = range(element["multiplier"], 1)
+            homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
+            stars.forEach(startId => {
+                let rank = homeClone.find('#rank')
+                rank.find(`#${startId}`).removeClass("far");
+                rank.find(`#${startId}`).addClass("fas");
+            })
+
+            let points = starsToPointsPerNight(element["multiplier"])
+            homeClone.find('#points').text(numberWithCommas(points));
+            homeClone.removeClass("hidden");
+            homeClone.addClass("show_home");
+            homeClone.attr("id", "show_home");
+            homesShow.append(homeClone)
+        });
+    }
 
     function populateHomes(e) {
 
@@ -63,66 +132,99 @@
             "LocationType": e
         }
 
-        let defaultHome = $("#show_home_default")
 
-        function range(size, startAt = 0) {
-            return [...Array(size).keys()].map(i => i + startAt);
-        }
 
-        function getS3file(name, image) {
 
-            let imgSrc = image.find("#img_source")
-            $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
-                type: "POST",
-                data: JSON.stringify({
-                    "pic-name": name
-                }),
-                contentType: "application/json",
-                success: (x) => {
-                    image.find(".loader").addClass("hidden")
-                    imgSrc.removeClass("hidden")
-                    imgSrc.attr("src", `data:image/png;base64,${x}`)
 
-                }
-            })
-        }
 
-        let homesShow = $("#homes_show")
+
+
+
+
+
+
+
         $.ajax({
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
             type: "POST",
             data: JSON.stringify(data),
             contentType: "application/json",
 
+
+
             success: function (x) {
-                let dbResponse = x.slice(0, x.length > (window.innerWidth < 1300 ? 4 : 6) ? (window.innerWidth < 1300 ? 4 : 6) : x.length)
-                homesShow.find(".show_home").remove()
-                $("#result_quantity")[0].innerHTML =
-                    ` ${locationType != undefined ? "" + traduzirLocation(locationType) : "Destinos"}: ${x.length} casas encontradas`
-                dbResponse.forEach(element => {
 
-                    let homeClone = defaultHome.clone()
-                    getS3file(element["picturesS3Urls"][
-                        0
-                    ], homeClone.find("#imagem_casa"))
-                    homeClone.find('#nickName').text(element["nickName"]);
-                    homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
-                    let stars = range(element["multiplier"], 1)
-                    homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
-                    stars.forEach(startId => {
-                        let rank = homeClone.find('#rank')
-                        rank.find(`#${startId}`).removeClass("far");
-                        rank.find(`#${startId}`).addClass("fas");
-                    })
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = x.length
+                }
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = 4
+                } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
+                    pageSize = 6
+                } else if (window.innerWidth >= 1536) {
+                    pageSize = 8
+                }
 
-                    let points = starsToPointsPerNight(element["multiplier"])
-                    homeClone.find('#points').text(numberWithCommas(points));
-                    homeClone.removeClass("hidden");
-                    homeClone.addClass("show_home");
-                    homeClone.attr("id", "show_home");
-                    homesShow.append(homeClone)
-                });
+                maxPage = Math.ceil((x.length) / pageSize)
+
+
+                let pages = $(`#pages`)
+
+                //pages.slice(1).remove()
+
+
+                let pageIcon = pages.find('#0')
+
+                console.log(maxPage)
+
+                for (let index = 0; index < maxPage - 1; index++) {
+                    let pageClone = pageIcon.clone()
+                    pageClone.removeClass('button_bg')
+                    pageClone.addClass('border')
+                    pageClone.addClass('borda_filtro')
+                    pageClone.attr('id', index + 1)
+
+                    pages.append(pageClone)
+
+                }
+
+
+
+
+                resultFromApi = x
+
+                $(document).on("click", ".page", function () {
+                    let allPages = $(`.page`)
+                    allPages.removeClass('button_bg')
+                    allPages.addClass('border')
+                    allPages.addClass('borda_filtro')
+
+                    $(this).addClass('button_bg')
+                    $(this).removeClass('border')
+                    $(this).removeClass('border')
+
+                    currentPage = parseInt($(this).attr(`id`))
+
+                    nextItem = (currentPage + 1) * pageSize
+
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi.length ? resultFromApi.length : nextItem)
+
+                    console.log(currentPage * pageSize)
+
+                    createAndPopulate(locationType, dbResponse)
+
+
+
+
+                })
+
+
+                nextItem = (currentPage + 1) * pageSize
+
+                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi.length ? resultFromApi.length : nextItem)
+
+                createAndPopulate(locationType, dbResponse)
+
             }
         })
     }
@@ -452,19 +554,18 @@
                     var count = parseInt($input.text()) - 1;
                     count = count < 1 ? 1 : count;
                     $input.text(count);
-                    $(`#totalGuests`).text(`${count} Hóspedes`)
+                    $(`#totalGuests`).text(`${count} Hospedes`)
                     return false;
                 });
                 $('.plus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
                     $input.text(parseInt($input.text()) + 1);
-                    $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
+                    $(`#totalGuests`).text(`${$input.text()} Hospedes`)
                     return false;
                 });
             });
 
             function changeVisibilityUser() {
-                console.log($("#userPanel"))
                 if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#userPanel").addClass("hidden")
                 } else {
@@ -481,15 +582,15 @@
             }
         </script>
         <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
-            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
-                onclick="location.href='/home'">
-                <div id="logo" class="py-8 w-36 remove_cel">
+            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell">
+                <div id="logo" class="py-8 w-36 remove_cel" onclick="window.location.href='/home'">
                     <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
                 </div>
             </div>
 
 
-            <div id="buscador" class="row-start-1 col-start-3 remove_cel">
+            <div id="buscador" class="row-start-1 col-start-3 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
@@ -514,7 +615,7 @@
 
             </div>
 
-            <div class="col-start-4 row-start-1 remove_cel">
+            <div class="col-start-4 row-start-1 remove_cel" onclick="window.location.href='/dashboard/buscador'">
                 <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
                     id="guestsDropdown">
                     <div class="number  header_color_alpha p-4 rounded-lg" id="">
@@ -532,13 +633,15 @@
                 </div>
             </div>
 
-            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
+            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-full">
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
-                                    Destinos de praia
+                                <button class="busca_font text-xl ml-10 locationType" id="locationType"
+                                    onclick="dropLocationShow()">
+                                    Praia
                                 </button>
                             </div>
 
@@ -561,7 +664,7 @@
                             </div>
                             <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
                                 <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                    onclick="populateHomes()">
+                                    onclick="location.href='/home'">
                                     Explorar
                                 </button>
                             </div>
@@ -606,12 +709,13 @@
             </div>
 
 
-            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
+            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                     <a onclick="changeVisibilityUser()"
                         class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">Usuário
-                        <div class="flex flex-wrap md:hidden ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                        <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
 
 
@@ -621,7 +725,7 @@
                     id="userPanel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Editar cadastro
+                        Configurações
                     </a>
                     <a href="/dashboard/chat"
                         class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -642,20 +746,21 @@
         </div>
         <div id="header_cel" class="h-2/6 grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
             <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='/home'">
-                <div id="logo" class="h-16 w-16  remove_pc">
+                <div id="logo" class="h-16 w-16  remove_pc" onclick="window.location.href='/home'">
                     <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
                 </div>
             </div>
 
-            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-2/3">
 
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
-                                    id="locationType">
-                                    Destinos de Praia
+                                <button class="text-sm busca_font locationTypeMobile" contenteditable="true"
+                                    onclick="dropLocationShow()" id="locationType">
+                                    Praia
                                 </button>
                             </div>
 
@@ -666,12 +771,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <button id='totalGuestFilter'
+                            <div class="col-start-4 w-full h-full flex items-center   justify-center">
+                                <button id='totalGuestFilter' class=" flex justify-center items-center gap-x-5"
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="text-sm busca_font w-12" id="totalGuests">
-                                        2 hospedes
+                                    <h1 class="text-sm busca_font h-full" id="totalGuests">
+                                        2
                                     </h1>
+                                    <i class="fas fa-user text-white"></i>
                                 </button>
 
                             </div>
@@ -697,9 +803,10 @@
             </div>
 
 
-            <div class="flex justify-end items-center w-full h-full col-start-2 remove_pc">
+            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc"
+                onclick="window.location.href='/dashboard/buscador'">
 
-                <button onclick="changeVisibilityUser()" class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
                     <div class="flex items-center remove_pc justify-center">
                         <i class="fas fa-bars fa-lg remove_pc"></i>
                     </div>
@@ -842,12 +949,14 @@
             </div>
         </div>
 
-        <div id="casas_resultantes" class=" py-5 ">
-            <div class="sm:grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 sm:grid-rows-auto gap-7 h-full w-full justify-around sm:min-h-screen" id="homes_show">
+        <div id="casas_resultantes" class=" ">
+            <div class="flex flex-col gap-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 sm:grid-rows-auto gap-7 h-auto w-full justify-around sm:min-h-screen"
+                id="homes_show">
                 <div class="hidden h-full sm:h-1/2 cursor-pointer" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
-                    <div id="imagem_casa" class="object-center flex justify-center md:h-80 2xl:h-96  zoom">
-                        <div class="flex w-full h-full items-center justify-center loader">
+                    <div id="imagem_casa"
+                        class="object-center flex justify-center h-auto w-full md:h-80 2xl:h-96  zoom">
+                        <div class="flex w-full h-64 items-center justify-center loader">
                             <div class="dot-pulse">
 
                             </div>
@@ -859,9 +968,10 @@
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-auto ">
                         <div class=" h-1/2">
-                            <h1 class="nome_casa_warp pt-2 text-3xl font-medium leading-snug" id="nickName">Nome da casa
+                            <h1 class="nome_casa_warp pt-2 text-2xl md:text-3xl font-medium leading-snug" id="nickName">
+                                Nome da casa
                             </h1>
-                            <h2 class="info_casa text-xl leading-snug" id="Location">Cidade Estado</h1>
+                            <h2 class="info_casa text-lg md:text-xl leading-snug" id="Location">Cidade Estado</h1>
                         </div>
 
                         <div class="h-1/2 w-full flex flex-col gap-2 ">
@@ -871,8 +981,8 @@
 
                             <div id="description" class="w-full flex justify-between items-end">
                                 <div class="w-1/2 sm:h-full items-end flex">
-                                    <h1 class="text-xs sm:text-lg usuario_font" id="rank">
-                                        <i class="far fa-star" id="1" aria-hidden="true"></i>
+                                    <h1 class="text-sm md:text-lg usuario_font" id="rank">
+                                        <i class="far fa-star " id="1" aria-hidden="true"></i>
                                         <i class="far fa-star " id="2" aria-hidden="true"></i>
                                         <i class="far fa-star " id="3" aria-hidden="true"></i>
                                         <i class="far fa-star " id="4" aria-hidden="true"></i>
@@ -882,7 +992,7 @@
                                 </div>
 
 
-                                <div class="pontos_text self-end flex sm:justify-end font-medium text-3xl leading-snug"
+                                <div class="pontos_text self-end flex sm:justify-end font-medium text-lg md:text-xl leading-snug"
                                     id="points">
                                     <p>
                                         2.000
@@ -893,12 +1003,11 @@
 
 
                             <div id="description" class=" w-full flex justify-between">
-                                <div
-                                    class=" classificacao_texto self-start text-lg leading-snug">
+                                <div class=" classificacao_texto self-start text-md md:text-lg leading-snug">
                                     Classificação
                                 </div>
                                 <div
-                                    class=" classificacao_texto self-end flex sm:justify-end text-lg leading-snug">
+                                    class=" classificacao_texto self-end flex sm:justify-end text-md md:text-lg leading-snug">
                                     <p>
                                         Pontos por noite
                                     </p>
@@ -918,9 +1027,9 @@
             </div>
 
         </div>
-        <div class="w-full h-1/5 flex justify-center items-center py-4 sm:py-0">
-            <button class="button_bg item h-14 rounded-full px-8  mais_resultados_font">
-                Mais resultados
+        <div class="w-full h-1/5 flex justify-center items-center py-4 sm:py-0 gap-4" id="pages">
+            <button class="button_bg item h-4 w-4 rounded-full rounded-full  mais_resultados_font page" id='0'>
+
             </button>
         </div>
 
