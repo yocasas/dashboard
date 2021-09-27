@@ -203,7 +203,7 @@
 
             $("#contactNameChat").text(fullChatInfo.contactName)
             $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
-            $(`#homeNickName`).text(`(${fullChatInfo.homeNickName})`)
+            $(`#homeNickName`).text(fullChatInfo.isHost ? "" :`(${fullChatInfo.homeNickName})`)
             if (requestedDates == undefined || requestedDates == "[]") {
 
                 $(`.fas`).addClass(`fa-info-circle`)
@@ -918,10 +918,10 @@
 
 
                                 <button onclick="resolveChat(1)" href="#"
-                                    class="sm:-inset-16 left-0 relative hostOnly hidden  cadastro-button header_color sm:px-10 px-1 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 flex  justify-center itens-center text-center  text-white">Recusar
+                                    class="sm:-inset-12 h-10 left-0  relative hostOnly hidden cadastro-button header_color text-white px-1 sm:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
                                     Reserva</button>
                                 <button onclick="resolveChat(2)" href="#"
-                                    class="sm:-inset-16 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10 py-2 sm:py-4 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                                    class="sm:-inset-12 h-10 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
                                     Reserva</button>
 
 

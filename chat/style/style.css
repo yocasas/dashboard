@@ -53,26 +53,26 @@ div {
 }
 
 #avaliableChats:-webkit-scrollbar {
-  width: 2px !important;
-  height: 2px !important;
+  width: 3px !important;
+  height: 3px !important;
   background-color: #aaa !important; /* or add it to the track */
 }
 
 #avaliableChats:-webkit-scrollbar-thumb  {
-  width: 2px !important;
-  height: 1px !important;
+  width: 3px !important;
+  height: 3px !important;
   background-color: #C0E5D8 !important; /* or add it to the track */
 }
 
 div::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
+  width: 3px;
+  height: 3px;
   background-color: #aaa; /* or add it to the track */
 }
 
 div::-webkit-scrollbar-thumb {
-  width: 1px;
-  height: 1px;
+  width: 3px;
+  height: 3px;
   background-color: #C0E5D8; /* or add it to the track */
 }
 
