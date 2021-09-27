@@ -183,7 +183,7 @@
             //setup current element
             fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
             fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName);
-            fullMessage.find("#contactDateChatInternal").text(msgTime.getFullYear() + "-" + (msgTime.getMonth() + 1) + "-" + (msgTime.getDate()))
+            fullMessage.find("#contactDateChatInternal").text(toHumanDate(msgTime))
             fullMessage.find("#content").text(element.content);
             fullMessage.prop('id', 'itemChat' + id)
 
@@ -442,13 +442,18 @@
                 },
                 data: JSON.stringify({
                     clientId: clientInfo.ClientId,
-                    ending: 0
+                    ending: -1
                 }),
                 contentType: "application/json",
 
                 success: (msgsString) => {
 
                     let msgs = JSON.parse(msgsString)
+
+                    console.log(msgs)
+
+                    msgs.sort((a, b) => (a.lastDate > b.lastDate) ? -1 : 1)
+
                     msgs.forEach(msg => {
                         addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
                     });
