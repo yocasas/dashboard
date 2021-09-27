@@ -21,52 +21,7 @@
         }
     </style>
 
-    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
-        id="showWarn">
-        <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
-            <div class="flex justify-end items-end h-10 w-full removeWarn">
-                <div class="">
-                    <i class="fas fa-times"></i>
-                </div>
 
-
-            </div>
-
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que pena! você recusou a oferta do
-                hóspede.<br> caso queira entrar em contato conosco.</h1>
-
-
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Podem nos contatar através do email
-                <a href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
-            </h1>
-
-        </div>
-    </div>
-
-
-    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
-        id="showWarn1">
-
-        <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
-            <div class="flex justify-end items-start w-full h-10  removeWarn">
-                <div class="h-2">
-                    <i class="fas fa-times"></i>
-                </div>
-
-            </div>
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que legal! Voce aceitou a oferta do
-                hospede.<br> Esperamos que tenha tido uma otima experiencia ate agora.</h1>
-
-
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
-                importante não deixe de nos contatar em <a
-                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
-            </h1>
-
-        </div>
-    </div>
 
     <link href="style/style.css" rel="stylesheet">
     <link href="style/loading.css" rel="stylesheet">
@@ -203,7 +158,7 @@
 
             $("#contactNameChat").text(fullChatInfo.contactName)
             $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
-            $(`#homeNickName`).text(fullChatInfo.isHost ? "" :`(${fullChatInfo.homeNickName})`)
+            $(`#homeNickName`).text(fullChatInfo.isHost ? "" : `(${fullChatInfo.homeNickName})`)
             if (requestedDates == undefined || requestedDates == "[]") {
 
                 $(`.fas`).addClass(`fa-info-circle`)
@@ -485,6 +440,53 @@
         });
 
     </script>
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+        id="showWarn">
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <div class="flex justify-end items-end h-10 w-full removeWarn">
+                <div class="">
+                    <i class="fas fa-times"></i>
+                </div>
+
+
+            </div>
+
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que pena! você recusou a oferta do
+                hóspede.<br> caso queira entrar em contato conosco.</h1>
+
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Podem nos contatar através do email
+                <a href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            </h1>
+
+        </div>
+    </div>
+
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+        id="showWarn1">
+
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <div class="flex justify-end items-start w-full h-10  removeWarn">
+                <div class="h-2">
+                    <i class="fas fa-times"></i>
+                </div>
+
+            </div>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que legal! Voce aceitou a oferta do
+                hospede.<br> Esperamos que tenha tido uma otima experiencia ate agora.</h1>
+
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
+                importante não deixe de nos contatar em <a
+                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            </h1>
+
+        </div>
+    </div>
 
     <div class="flex flex-col">
         <div class="sm:h-screen">
