@@ -27,8 +27,8 @@
 
         function fixTimeZone(date) {
             let dateSave = new Date(date.getTime())
-            return dateSave.addHours(dateSave.getTimezoneOffset()/60)
-            
+            return dateSave.addHours(dateSave.getTimezoneOffset() / 60)
+
         }
 
         function generateAvaliableObj(sortedDatesJSON) {
@@ -468,6 +468,38 @@
     <script>
         function redirectChat() {
             //alert(currentHomeInfo.clientId)
+
+
+            let chatSettings = {
+                "hostId": currentHomeInfo.clientId,
+                "guestId": clientInfo.ClientId,
+                "guestPicture": "chat_con.png",
+                "hostPicture": "chat_con.png",
+                "requestedDate": [],
+                "hostName": currentHomeInfo.contactName,
+                "guestName": clientInfo.nickName,
+                "homeNickName": currentHomeInfo.nickName
+            }
+
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify(chatSettings),
+                contentType: "application/json",
+
+                success: (resp) => {
+                    window.scrollTo(0, 0);
+                    $('#showWarn').removeClass('hidden')
+                    $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+                }
+            })
+
             window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
         }
     </script>
@@ -498,7 +530,7 @@
         </div>
     </div>
 
-    <div id="headers" class="px-10 sm:px-16 sm:py-5" >
+    <div id="headers" class="px-10 sm:px-16 sm:py-5">
         <script>
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
@@ -541,7 +573,8 @@
             </div>
 
 
-            <div id="buscador" class="row-start-1 col-start-3 remove_cel" onclick="window.location.href='/dashboard/buscador'">
+            <div id="buscador" class="row-start-1 col-start-3 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
@@ -584,7 +617,8 @@
                 </div>
             </div>
 
-            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel" onclick="window.location.href='/dashboard/buscador'">
+            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-full">
                     <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                         <div class="w-full h-full grid grid-cols-7">
@@ -659,7 +693,8 @@
             </div>
 
 
-            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel" onclick="window.location.href='/dashboard/buscador'">
+            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                     <a onclick="changeVisibilityUser()"
@@ -700,7 +735,8 @@
                 </div>
             </div>
 
-            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc" onclick="window.location.href='/dashboard/buscador'">
+            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc"
+                onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-2/3">
 
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
@@ -751,7 +787,8 @@
             </div>
 
 
-            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc" onclick="window.location.href='/dashboard/buscador'">
+            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc"
+                onclick="window.location.href='/dashboard/buscador'">
 
                 <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
                     <div class="flex items-center remove_pc justify-center">
@@ -1632,7 +1669,7 @@
                             selectedDates = [startDate, endDate]
                             let days = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24))
                             $('#dataReserva').text(`${toHumanDate(startDate)} a ${toHumanDate(endDate)}`)
-                            $('#totalCost').text(multiplier * 1000 * days)
+                            $('#totalCost').text(starsToPointsPerNight(multiplier) * days)
                         }
                     </script>
 
@@ -1677,7 +1714,7 @@
                         <div class="w-full h-1/3  items-start flex justify-start">
                             <input class="hidden" id="contactId">
                             <button class="header_color_bt w-3/5 sm:w-2/5 h-1/2 rounded-full button_text"
-                                onclick="abrirChat()" id="openChat">
+                                onclick="redirectChat()" id="openChat">
                                 Contato
                             </button>
                         </div>
@@ -1689,7 +1726,8 @@
 
             <div class="sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-4 sm:row-span-1 p-8 sm:p-14 sm:p-0  flex justify-center items-center  sm:flex"
                 id="curation">
-                <div class="button_bg_background_only rounded-full sm:w-96 w-80 h-64 sm:h-96 flex flex-col gap-y-2 sm:gap-y-6">
+                <div
+                    class="button_bg_background_only rounded-full sm:w-96 w-80 h-64 sm:h-96 flex flex-col gap-y-2 sm:gap-y-6">
 
                     <div class="mt-7 sm:h-1/3 w-full flex justify-center items-end">
                         <div>
