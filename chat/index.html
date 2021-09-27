@@ -95,7 +95,7 @@
 
             let nameSplit = chatInfo.contactName.split(' ')
 
-            ChatModel.find(`#contactName`).text(nameSplit[0] + " " + nameSplit[nameSplit.length - 1]) //change informatio TODO fix name (using for marcello)
+            ChatModel.find(`#contactName`).text("Oi, " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1]) //change informatio TODO fix name (using for marcello)
             ChatModel.prop("chatId", chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
