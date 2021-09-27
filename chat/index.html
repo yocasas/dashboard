@@ -350,7 +350,8 @@
             let messageContent = messageElement.val()
             $(`#loadMSg`).removeClass('hidden')
             let chInfo = chatsInfos[currentChatInfo.chatId]
-            addNewMsg({ messageTime: toHumanDate(new Date()), isHost: clientInfo.ClientId == chInfo.hostId, content: messageContent }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
+            let nowDate = new Date()
+            addNewMsg({ messageTime: nowDate.toString(), isHost: clientInfo.ClientId == chInfo.hostId, content: messageContent }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
 
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
@@ -374,7 +375,6 @@
 
                     let msgs = JSON.parse(msgsString)
                     $(`#loadMSg`).addClass('hidden')
-                    console.log(444)
                 }
             })
 
