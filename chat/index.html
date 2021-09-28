@@ -185,6 +185,11 @@
 
             allMessages.find(".chatMessage").slice(1).remove();
 
+            if (messages.length == 0) {
+                
+                $('#showWarnNoChat').removeClass('hidden')
+            }
+
             messages.forEach(element => {
 
 
@@ -453,8 +458,10 @@
 
             </div>
 
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que pena! Você recusou a solicitação do hóspede.
-                <br> Gostaria de nos dizer o motivo?</h1>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que pena! Você recusou a solicitação do
+                hóspede.
+                <br> Gostaria de nos dizer o motivo?
+            </h1>
 
 
             <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Podem nos contatar através do email
@@ -476,12 +483,36 @@
                 </div>
 
             </div>
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Ótimo! Você aceitou a solicitação do hóspede.
-                <br>Esperamos que tenha tido uma excelente experiência até agora.</h1>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Ótimo! Você aceitou a solicitação do
+                hóspede.
+                <br>Esperamos que tenha tido uma excelente experiência até agora.
+            </h1>
 
 
             <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
                 importante não deixe de nos contatar em <a
+                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            </h1>
+
+        </div>
+    </div>
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+        id="showWarnNoChat">
+
+        <div
+            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            <div class="flex justify-end items-start w-full h-10  removeWarn">
+                <div class="h-2">
+                    <i class="fas fa-times"></i>
+                </div>
+
+            </div>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Você ainda não possui nenhum chat, <a>Explore</a> nossas casas e iniciel um chat
+            </h1>
+
+
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Qualquer dúvida não deixe de nos contatar em <a
                     href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
             </h1>
 
@@ -588,8 +619,15 @@
                     <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
                         onclick="window.location.href='/dashboard/buscador'">
                         <div class=" flex justify-center items-center w-full h-full">
-                            <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
-                                <div class="w-full h-full grid grid-cols-7">
+                            <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel flex justify-center items-center">
+                                <!--TODO make usefull-->
+                                <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                        onclick="location.href='/dashboard/dashboard/buscador'">
+                                        Explorar
+                                    </button>
+                                </div>
+                                <div class="w-full h-full grid grid-cols-7 hidden">
                                     <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
                                         <button class="busca_font text-xl ml-10" id="locationType"
                                             onclick="dropLocationShow()">
@@ -707,8 +745,15 @@
                         onclick="window.location.href='/dashboard/buscador'">
                         <div class=" flex justify-center items-center w-full h-2/3">
 
-                            <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
-                                <div class="w-full h-full grid grid-cols-7">
+                            <div class="w-full gap-2 h-full header_color rounded-full remove_pc flex justify-center items-center">
+                                <!--TODO make usefull-->
+                                <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
+                                    <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                        onclick="location.href='/dashboard/dashboard/buscador'">
+                                        Explorar
+                                    </button>
+                                </div>
+                                <div class="w-full h-full grid grid-cols-7 hidden">
                                     <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
                                         <button class="text-sm busca_font" contenteditable="true"
                                             onclick="dropLocationShow()" id="locationType">

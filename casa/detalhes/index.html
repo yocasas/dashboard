@@ -670,8 +670,15 @@
             <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
                 onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-full">
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
-                        <div class="w-full h-full grid grid-cols-7">
+                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel flex justify-center items-center">
+                        <!--TODO make usefull-->
+                        <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
+                            <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                onclick="location.href='/dashboard/dashboard/buscador'">
+                                Explorar
+                            </button>
+                        </div>
+                        <div class="w-full h-full grid grid-cols-7 hidden">
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
                                 <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
                                     Praia
@@ -787,12 +794,19 @@
             <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc"
                 onclick="window.location.href='/dashboard/buscador'">
                 <div class=" flex justify-center items-center w-full h-2/3">
-
-                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-7">
+                    
+                    <div class="w-full gap-2 h-full header_color rounded-full remove_pc flex justify-center items-center">
+                        <!--TODO make usefull-->
+                        <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
+                            <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
+                                onclick="location.href='/dashboard/dashboard/buscador'">
+                                Explorar
+                            </button>
+                        </div>
+                        <div class="w-full h-full grid grid-cols-7 hidden">
                             <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
-                                    id="locationType">
+                                <button class="text-sm busca_font" contenteditable="true"
+                                    onclick="dropLocationShow()" id="locationType">
                                     Praia
                                 </button>
                             </div>
@@ -813,7 +827,8 @@
                                 </button>
 
                             </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
+                            <div
+                                class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
                                 <button
                                     class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
                                     onclick="changeVisibility('more_filters', 'more_filters_filter')">
