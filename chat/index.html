@@ -476,8 +476,8 @@
                 </div>
 
             </div>
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que legal! Voce aceitou a oferta do
-                hospede.<br> Esperamos que tenha tido uma otima experiencia ate agora.</h1>
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que legal! Você aceitou a oferta do
+                hóspede.<br> Esperamos que tenha tido uma ótima experiência até agora.</h1>
 
 
             <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
@@ -490,7 +490,7 @@
 
     <div class="flex flex-col">
         <div class="sm:h-screen">
-            <div id="headers" class="sm:py-5 h-1/5">
+            <div id="headers" class="sm:py-5 px-10 sm:px-16 h-1/5">
                 <script>
                     $(document).ready(function () {
                         $('.minus-guests').click(function () {
@@ -527,16 +527,17 @@
                     }
                 </script>
                 <div id="header_pc"
-                    class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel px-10">
+                    class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
                     <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
-                        onclick="location.href='https://yocasas.com.br/home'">
+                        onclick="location.href='/home'">
                         <div id="logo" class="py-8 w-36 remove_cel">
                             <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
                         </div>
                     </div>
 
 
-                    <div id="buscador" class="row-start-1 col-start-3 remove_cel">
+                    <div id="buscador" class="row-start-1 col-start-3 remove_cel"
+                        onclick="window.location.href='/dashboard/buscador'">
                         <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
                             id="locationDropdown">
                             <a href="#"
@@ -565,7 +566,8 @@
 
                     </div>
 
-                    <div class="col-start-4 row-start-1 remove_cel -mx-24">
+                    <div class="col-start-4 row-start-1 remove_cel -mx-24"
+                        onclick="window.location.href='/dashboard/buscador'">
                         <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
                             id="guestsDropdown">
                             <div class="number  header_color_alpha p-4 rounded-lg" id="">
@@ -583,7 +585,8 @@
                         </div>
                     </div>
 
-                    <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel">
+                    <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
+                        onclick="window.location.href='/dashboard/buscador'">
                         <div class=" flex justify-center items-center w-full h-full">
                             <div class="w-full gap-2 h-2/3 header_color rounded-full remove_cel">
                                 <div class="w-full h-full grid grid-cols-7">
@@ -613,7 +616,7 @@
                                     </div>
                                     <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
                                         <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                            onclick="location.href='/dashboard/buscador'">
+                                            onclick="location.href='/dashboard/dashboard/buscador'">
                                             Explorar
                                         </button>
                                     </div>
@@ -658,7 +661,8 @@
                     </div>
 
 
-                    <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
+                    <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel"
+                        onclick="window.location.href='/dashboard/buscador'">
                         <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                             <a onclick="changeVisibilityUser()"
@@ -699,7 +703,8 @@
                         </div>
                     </div>
 
-                    <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc">
+                    <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc"
+                        onclick="window.location.href='/dashboard/buscador'">
                         <div class=" flex justify-center items-center w-full h-2/3">
 
                             <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
