@@ -116,10 +116,16 @@
 
     function populateHomes(e) {
 
+        $('.checkbox-round:checked').each(x => {
+            console.log(x)
+            console.log(123)
+        })
+
+        console.log(123)
+
         if (e == undefined) {
 
             e = traduzirLocation($("#locationType").text())
-            console.log($("#locationType").text().replace(/\s+/g, ''))
         }
 
         let locationType = e//$("#locationType")[0].innerHTML.replace(/\s+/g, '')
@@ -130,6 +136,7 @@
 
         let maxGuests = parseInt($(`#totalGuests`).text())
 
+        
 
 
         let data = {
@@ -365,7 +372,7 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography  ">Ar condicionado</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " value="air" />
 
                     </div>
 
@@ -374,70 +381,70 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra/Campo Futebol</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " value="soccerField" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Wi-fi</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " value="wifi" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Churrasqueira</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="grill"/>
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Piscina</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="pool" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Adega</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-wineHouse" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Sauna</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value='sauna'/>
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadoura de roupas</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-washingMachine" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Jacuzzi/Ofuro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="jacuzzi" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadora de louca</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-dishwasher" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quarto extra ajudante/baba</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-extraRoom"/>
                     </div>
 
                 </div>
@@ -452,28 +459,28 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Vaga para carros</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-carParking" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Academia</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="gym" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Cozinha casher</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-kitchenKosher" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra de tenis / beach tennis</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="tennisCourt" />
                     </div>
 
                 </div>
