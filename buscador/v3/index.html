@@ -67,7 +67,7 @@
                     }),
                     contentType: "application/json",
                     success: (x) => {
-                        image.find(".loader").addClass("hidden")
+                        image.parent().find(".loader").addClass("hidden")
                         imgSrc.removeClass("hidden")
                         element.b64img = `data:image/png;base64,${x}`
                         imgSrc.attr("src", element.b64img)
@@ -944,25 +944,25 @@
                 id="homes_show">
                 <div class="hidden h-full cursor-pointer " id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
-                    <div id="imagem_casa" class="object-center flex justify-center h-64 md:h-auto w-full   zoom">
-                        <!--md:h-80 2xl:h-96-->
+                    <div class="flex w-full h-full items-center justify-center loader ">
+                        <div class="dot-pulse">
 
-                        <div class="flex w-full h-64 items-center justify-center loader">
-                            <div class="dot-pulse">
-
-                            </div>
                         </div>
+                    </div>
+                    <div id="imagem_casa" class="object-center flex justify-center h-64 md:h-auto w-full   zoom">
+
+                        
 
                         <div class="w-full">
-                            <img  src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
+                            <img  src=""
                             alt="Imagem- Casa" id="img_source"
-                            class="object-fit h-full rounded-md">
+                            class="object-fit h-full rounded-md hidden">
                         </div>
                         
                             
                     </div>
 
-                    <div class="object-center sm:h-3/6 md:h-auto  w-auto ">
+                    <div class="object-center sm:h-3/6 md:h-auto  w-auto self-end mt-auto ">
                         <div class=" h-1/2">
                             <h1 class="nome_casa_warp pt-2 text-2xl md:text-3xl font-extrabold leading-snug"
                                 id="nickName">
