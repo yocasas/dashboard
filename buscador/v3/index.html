@@ -306,7 +306,7 @@
                 <div class="w-full items-end flex justify-end">
                     <button class=" item self-end px-8 py-2"
                         onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                        X
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
                 <div class="w-full flex items-center justify-center">
@@ -318,7 +318,7 @@
 
             </div>
             <div class="w-full flex items-center justify-center py-5">
-                <div id="hr" class="w-11/12 h-px header_color "></div>
+                <div id="hr" class="w-full h-px header_color "></div>
             </div>
             <div class="grid grid-rows-3 grid-cols-2 gap-y-10" id="filtros_quartos">
                 <div class="col-span-2 flex ">
@@ -353,7 +353,7 @@
                 </div>
             </div>
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-11/12 h-px header_color"></div>
+                <div id="hr" class="w-full h-px header_color"></div>
             </div>
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_facilidades">
                 <div class="col-span-2 flex ">
@@ -479,7 +479,7 @@
                 </div>
             </div>
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-11/12 h-px header_color"></div>
+                <div id="hr" class="w-full h-px header_color"></div>
             </div>
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_funcionarios">
                 <div class="md:col-span-2 flex ">
@@ -528,7 +528,7 @@
             </div>
 
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-11/12 h-px header_color"></div>
+                <div id="hr" class="w-full h-px header_color"></div>
             </div>
             <div class="grid grid-cols-2">
                 <div class="grid-col-1 filter_typography underline" ">
@@ -579,6 +579,15 @@
                     $("#locationDropdown").removeClass("hidden")
                 }
             }
+
+            function dropLocationShowFilters() {
+                if ($("#locationDropdownFilters").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#locationDropdownFilters").addClass("hidden")
+                } else {
+                    $("#locationDropdownFilters").removeClass("hidden")
+                }
+            }
+
         </script>
         <div id="header_pc" class="h-1/6 grid grid-flow-col grid-rows-1 grid-cols-7 gap-4 remove_cel">
             <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell">
@@ -832,9 +841,33 @@
                     <div class="h-full flex-initial flex justify-around items-center  gap-11">
                         <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
-                                id="filtro_busca">
+                                id="filtro_busca" onclick="dropLocationShowFilters()">
                                 Destinos de Praia
                             </button>
+                            <div class="absolute mt-2 py-2 w-3/6  sm:w-40 top-86 bg-white rounded-lg hidden shadow-xl z-20"
+                                id="locationDropdownFilters">
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                    onclick="populateHomes(`beach`);dropLocationShowFilters()">
+                                    Praia
+                                </a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                    onclick="populateHomes(`country`);dropLocationShowFilters()">
+                                    Campo
+                                </a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                    onclick="populateHomes(`mountain`);dropLocationShowFilters()">
+                                    Montanha
+                                </a>
+                                <a href="#"
+                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                    onclick="populateHomes(`city`);dropLocationShowFilters()">
+                                    Cidade
+                                </a>
+                            </div>
+
 
                         </div>
 
