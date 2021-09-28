@@ -69,6 +69,12 @@ let checkCurrentUser = function () {
     } else {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
+        let currentDate = new Date()
+
+
+        if (clientInfo.exp < (currentDate.getTime()/1000)) {
+            window.onload(window.location.replace("/home"))
+        }
     }
 
 
@@ -92,10 +98,6 @@ function toHumanDate(x) {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
 
-}
-
-function removeCookie() {
-    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }
 
 
