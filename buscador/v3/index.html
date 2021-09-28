@@ -724,7 +724,7 @@
 
                 </div>
 
-                <div class="absolute mt-2 py-2 w-3/6 right-2 sm:w-1/6 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6 right-28 sm:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -950,21 +950,17 @@
             </div>
         </div>
 
-        <div id="casas_resultantes" class=" ">
+        <div id="casas_resultantes" class="my-10 ">
             <div class="flex flex-col gap-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:grid-rows-auto gap-7 h-auto w-full justify-around sm:min-h-screen"
                 id="homes_show">
-                <div class="hidden h-full sm:h-1/2 cursor-pointer" id="show_home_default"
+                <div class="hidden h-full cursor-pointer md:w-9/12 mx-auto" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
                     <div id="imagem_casa"
-                        class="object-center flex justify-center h-auto w-auto md:h-80 2xl:h-96  zoom">
-                        <div class="flex w-full h-64 items-center justify-center loader">
-                            <div class="dot-pulse">
+                        class="object-center flex justify-center h-auto w-full   zoom"> <!--md:h-80 2xl:h-96-->
 
-                            </div>
-                        </div>
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                            alt="Imagem- Casa" id="img_source" class=" sm:max-h-full max-h-44 hidden rounded">
+                            alt="Imagem- Casa" id="img_source" class="object-cover sm:max-h-full max-h-44 hidden rounded">
                     </div>
 
                     <div class="object-center sm:h-3/6 md:h-auto  w-auto ">
