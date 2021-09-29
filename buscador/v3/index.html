@@ -308,7 +308,7 @@
 
     <div class="absolute z-30 w-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
         id="more_filters">
-        <div class="w-full sm:w-1/3  bg-white rounded-xl  flex flex-col p-10">
+        <div class="w-full md:w-1/3  bg-white rounded-xl  flex flex-col p-10">
             <div class='quartos_filter flex flex-col justify-center'>
                 <div class="w-full items-end flex justify-end">
                     <button class=" item self-end px-8 py-2"
@@ -552,7 +552,7 @@
             </div>
         </div>
     </div>
-    <div id="headers" class="px-10 sm:px-16 sm:py-5">
+    <div id="headers" class="px-10 md:px-16 md:py-5">
         <script>
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
@@ -605,7 +605,7 @@
 
 
             <div id="buscador" class="row-start-1 col-start-3 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
@@ -630,7 +630,7 @@
             </div>
 
             <div class="col-start-4 row-start-1 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
+                <div class="absolute mt-2 py-2 w-3/6 md:ml-32 lg:ml-44 hidden   md:w-1/6 top-32 rounded-lg  z-20"
                     id="guestsDropdown">
                     <div class="number  header_color_alpha p-4 rounded-lg" id="">
                         <div class="flex justify-end contador gap-x-4">
@@ -726,7 +726,7 @@
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                     <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">
+                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                         <p id='userNameDrop' class="white-space: nowrap;">Usuário</p>
                         <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
@@ -734,7 +734,7 @@
 
                 </div>
 
-                <div class="absolute mt-2 py-2 w-3/6 right-28 sm:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6 right-28 md:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -834,8 +834,8 @@
 
 
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
-            <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
-                <!--sm:block para cel magicamente funcionou-->
+            <div id="qnt_resultados" class="md:block row-start-1 grid grid-cols-3 row-span-2 items-center">
+                <!--md:block para cel magicamente funcionou-->
                 <div class="item col-start-2 text-3xl text-center resultado_busca remove_cel font-bold"
                     id="result_quantity">
 
@@ -851,7 +851,7 @@
                                 id="filtro_busca" onclick="dropLocationShowFilters()">
                                 Destinos de Praia
                             </button>
-                            <div class="absolute mt-2 py-2 w-3/6  sm:w-40 top-86 bg-white rounded-lg hidden shadow-xl z-20"
+                            <div class="absolute mt-2 py-2 w-3/6  md:w-40 top-86 bg-white rounded-lg hidden shadow-xl z-20"
                                 id="locationDropdownFilters">
                                 <a href="#"
                                     class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
@@ -985,14 +985,14 @@
         </div>
 
         <div id="casas_resultantes" class=" ">
-            <div class="flex flex-col gap-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:grid-rows-auto gap-7 h-auto w-full justify-around sm:min-h-screen"
+            <div class="flex flex-col gap-y-4 md:grid md:grid-cols-2 md:grid-cols-3 md:grid-rows-auto gap-7 h-auto w-full justify-around md:min-h-screen"
                 id="homes_show">
                 <div class="hidden h-full cursor-pointer flex flex-col" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
                     <div id="imagem_casa" class="object-center flex justify-start md:h-96 ws:h-32rem w-full   zoom">
                         <!--md:h-80 2xl:h-96-->
 
-                        <div class="flex w-full h-64 sm:h-96  items-center justify-center loader">
+                        <div class="flex w-full h-64 md:h-96  items-center justify-center loader">
                             <div class="dot-pulse">
 
                             </div>
@@ -1000,10 +1000,10 @@
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
                             alt="Imagem- Casa" id="img_source"
-                            class="object-cover sm:max-h-full max-h-44 hidden rounded">
+                            class="object-cover md:max-h-full max-h-44 hidden rounded">
                     </div>
 
-                    <div class="object-center sm:h-3/6 md:h-auto  w-auto ">
+                    <div class="object-center md:h-3/6 md:h-auto  w-auto ">
                         <div class=" h-1/2">
                             <h1 class="nome_casa_warp pt-2 text-2xl md:text-3xl font-extrabold leading-snug"
                                 id="nickName">
@@ -1018,7 +1018,7 @@
 
 
                             <div id="description" class="w-full flex justify-between items-end">
-                                <div class="w-1/2 sm:h-full items-end flex">
+                                <div class="w-1/2 md:h-full items-end flex">
                                     <h1 class="text-sm md:text-lg usuario_font" id="rank">
                                         <i class="far fa-star " id="1" aria-hidden="true"></i>
                                         <i class="far fa-star " id="2" aria-hidden="true"></i>
@@ -1030,7 +1030,7 @@
                                 </div>
 
 
-                                <div class="pontos_text self-end flex sm:justify-end font-extrabold text-lg md:text-3xl leading-snug"
+                                <div class="pontos_text self-end flex md:justify-end font-extrabold text-lg md:text-3xl leading-snug"
                                     id="points">
                                     <p>
                                         2.000
@@ -1045,7 +1045,7 @@
                                     Classificação
                                 </div>
                                 <div
-                                    class=" classificacao_texto self-end flex sm:justify-end text-md md:text-xl leading-snug">
+                                    class=" classificacao_texto self-end flex md:justify-end text-md md:text-xl leading-snug">
                                     <p>
                                         Pontos por noite
                                     </p>
@@ -1065,7 +1065,7 @@
             </div>
 
         </div>
-        <div class="w-full h-1/5 flex justify-center items-center py-4 sm:py-0 gap-4" id="pages">
+        <div class="w-full h-1/5 flex justify-center items-center py-4 md:py-0 gap-4" id="pages">
             <button class="button_bg item h-4 w-4 rounded-full rounded-full  mais_resultados_font page" id='0'>
 
             </button>

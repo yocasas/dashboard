@@ -449,7 +449,7 @@
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn">
         <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
             <div class="flex justify-end items-end h-10 w-full removeWarn">
                 <div class="">
                     <i class="fas fa-times"></i>
@@ -476,7 +476,7 @@
         id="showWarn1">
 
         <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
             <div class="flex justify-end items-start w-full h-10  removeWarn">
                 <div class="h-2">
                     <i class="fas fa-times"></i>
@@ -501,7 +501,7 @@
         id="showWarnNoChat">
 
         <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
             <div class="flex justify-end items-start w-full h-10  removeWarn">
                 <div class="h-2">
                     <i class="fas fa-times"></i>
@@ -521,8 +521,8 @@
     </div>
 
     <div class="flex flex-col">
-        <div class="sm:h-screen">
-            <div id="headers" class="sm:py-5 px-10 sm:px-16 h-1/5">
+        <div class="md:h-screen">
+            <div id="headers" class="md:py-5 px-10 md:px-16 h-1/5">
                 <script>
                     $(document).ready(function () {
                         $('.minus-guests').click(function () {
@@ -559,7 +559,7 @@
                     }
                 </script>
                 <div id="header_pc"
-                    class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
+                    class="h-full hidden md:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
                     <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
                         onclick="location.href='/home'">
                         <div id="logo" class="py-8 w-36 remove_cel">
@@ -570,7 +570,7 @@
 
                     <div id="buscador" class="row-start-1 col-start-3 remove_cel"
                         onclick="window.location.href='/dashboard/buscador'">
-                        <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
+                        <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
                             id="locationDropdown">
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
@@ -600,7 +600,7 @@
 
                     <div class="col-start-4 row-start-1 remove_cel -mx-24"
                         onclick="window.location.href='/dashboard/buscador'">
-                        <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
+                        <div class="absolute mt-2 py-2 w-3/6 md:ml-32 lg:ml-44 hidden   md:w-1/6 top-32 rounded-lg  z-20"
                             id="guestsDropdown">
                             <div class="number  header_color_alpha p-4 rounded-lg" id="">
                                 <div class="flex justify-center contador gap-x-4">
@@ -705,7 +705,7 @@
                         <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                             <a onclick="changeVisibilityUser()"
-                                class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">
+                                class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                                 <p id='userNameDrop' class="white-space: nowrap;">Usuário</p>
                                 <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                             </a>
@@ -713,7 +713,7 @@
 
                         </div>
 
-                        <div class="absolute mt-2 py-2 w-3/6 right-18 sm:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                        <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                             id="userPanel">
                             <a onclick="location.href='/onboarding'"
                                 class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -817,16 +817,16 @@
                 </div>
 
             </div>
-            <div class="px-10 sm:px-16 sm:h-3/4">
+            <div class="px-10 md:px-16 md:h-3/4">
 
 
-                <div class="w-full sm:h-full h-auto grid sm:grid-cols-4 sm:grid-rows-1" id="chats">
-                    <div class="block sm:flex flex-col " id="">
+                <div class="w-full md:h-full h-auto grid md:grid-cols-4 md:grid-rows-1" id="chats">
+                    <div class="block md:flex flex-col " id="">
                         <div class="w-11/12 flex justify-start flex-col">
-                            <h1 id="Message" class="p-3 text-4xl sm:text-4xl font-extrabold usuario_font_warp">
+                            <h1 id="Message" class="p-3 text-4xl md:text-4xl font-extrabold usuario_font_warp">
                                 Mensagens
                             </h1>
-                            <p id="HelpMessage" class="p-3 text-xs sm:text-xs  usuario_font_warp">
+                            <p id="HelpMessage" class="p-3 text-xs md:text-xs  usuario_font_warp">
                                 Você tem alguma dúvida? Estamos aqui para te ajudar. Entre em contato com o nosso
                                 serviço de
                                 assistência enviando um e-mail para <a class="font-extrabold"
@@ -835,7 +835,7 @@
                                 tirar suas dúvidas.
                             </p>
                         </div>
-                        <div class="sm:overflow-y-scroll h-4/5" id="avaliableChats">
+                        <div class="md:overflow-y-scroll h-4/5" id="avaliableChats">
                             <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer "
                                 id="itemChat">
                                 <div class="w-full flex rounded-lg p-4" id="information">
@@ -847,10 +847,10 @@
                                     </div>
                                     <div class=" w-7/12 " id="chatInfo">
                                         <div class="flex flex-col">
-                                            <i class="w-full font-extrabold text-1xl sm:text-xs usuario_font_warp "
+                                            <i class="w-full font-extrabold text-1xl md:text-xs usuario_font_warp "
                                                 id="isHost"></i>
                                             <h1 id="contactName"
-                                                class="select-none w-full font-extrabold  text-1xl sm:text-2xl usuario_font_warp">
+                                                class="select-none w-full font-extrabold  text-1xl md:text-2xl usuario_font_warp">
                                                 Julio
                                                 L.
                                             </h1>
@@ -882,22 +882,22 @@
                         </div>
 
                     </div>
-                    <div class="sm:col-span-3 w-full h-full hidden sm:flex sm:flex-col " id="fullChatBLockCel">
+                    <div class="md:col-span-3 w-full h-full hidden md:flex md:flex-col " id="fullChatBLockCel">
                         <div class="w-full h-20 ">
                             <div class="p-2 ">
-                                <div class="w-full flex flex-col justify-center sm:justify-center">
+                                <div class="w-full flex flex-col justify-center md:justify-center">
                                     <h1 id="contactNameChat"
-                                        class="pt-3 text-3xl sm:text-3x1 usuario_font_warp min-full stage flex items-center justify-center">
+                                        class="pt-3 text-3xl md:text-3x1 usuario_font_warp min-full stage flex items-center justify-center">
                                         Nenhum chat selecionado
                                     </h1>
                                     <div class="flex items-center justify-center">
-                                        <h1 id="homeNickName" class=" text-sm sm:text-sm usuario_font_warp stage ">
+                                        <h1 id="homeNickName" class=" text-sm md:text-sm usuario_font_warp stage ">
 
                                         </h1>
 
                                     </div>
                                     <div class="flex items-center justify-center">
-                                        <h1 id="datesChat" class=" text-xs sm:text-xs usuario_font_warp stage ">
+                                        <h1 id="datesChat" class=" text-xs md:text-xs usuario_font_warp stage ">
 
                                         </h1>
                                         <div class="tooltip text-xs fas fa-info-circle ml-2">
@@ -916,11 +916,11 @@
 
 
                         </div>
-                        <div class=" overflow-y-scroll sm:h-full  " id="fullChat">
+                        <div class=" overflow-y-scroll md:h-full  " id="fullChat">
 
                             <div id="messages">
                                 <div class="w-full hidden  flex py-3 px-6 chatMessage" id="chatMessage">
-                                    <div class="hidden sm:block w-1/12 flex justify-center items-start">
+                                    <div class="hidden md:block w-1/12 flex justify-center items-start">
                                         <!--less -->
                                         <div class="h-14 w-14 rounded-full" id="imgChat">
                                             <img class="object-cover h-full w-full rounded-full "
@@ -929,11 +929,11 @@
                                     </div>
                                     <div class=" w-11/12" id="chatInfo">
                                         <div class="flex w-full">
-                                            <h1 class="text-xl sm:text-2xl usuario_font_warp"
+                                            <h1 class="text-xl md:text-2xl usuario_font_warp"
                                                 id="contactNameChatInternal">
                                                 Lucas L.
                                             </h1>
-                                            <h1 class=" align-bottom text-sm  sm:text-sm usuario_font_warp ml-20"
+                                            <h1 class=" align-bottom text-sm  md:text-sm usuario_font_warp ml-20"
                                                 id="contactDateChatInternal">
                                                 2019
                                             </h1>
@@ -973,24 +973,24 @@
 
 
                                 <button onclick="resolveChat(1)" href="#"
-                                    class=" h-10 left-0  relative hostOnly hidden cadastro-button header_color text-white px-1 sm:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
+                                    class=" h-10 left-0  relative hostOnly hidden cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
                                     reserva</button>
                                 <button onclick="resolveChat(2)" href="#"
-                                    class=" h-10 left-0 mx-2 sm:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 sm:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                                    class=" h-10 left-0 mx-2 md:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
                                     reserva</button>
 
 
                             </div>
 
                         </div>
-                        <div class=" w-full h-auto justify-center sm:px-10" id="sendBar">
+                        <div class=" w-full h-auto justify-center md:px-10" id="sendBar">
                             <!-- relative: -->
                             <div class="w-full h-4 flex justify-center items-center">
                                 <div class=" bg-grey-400 dot-elastic hidden" id="loadMSg"></div>
                             </div>
-                            <div class="z-30 mt-10 sm:mt-0  w-full flex">
+                            <div class="z-30 mt-10 md:mt-0  w-full flex">
                                 <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 sm:pl-12 borda_filtro rounded-full h-10">
+                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 md:pl-12 borda_filtro rounded-full h-10">
                                 <div class="w-20 flex items-center justify-center">
                                     <button class=" w-2/3 h-full rounded-full button_bg"
                                         onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"

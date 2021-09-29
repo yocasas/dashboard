@@ -490,20 +490,20 @@
             let facilities = $('.facility')
 
             if (qnt < 8) {
-                facilities.addClass('sm:w-3/12')
-                facilities.removeClass('sm:w-2/12')
-                facilities.parent().removeClass('sm:py-3')
-                facilities.parent().addClass('sm:py-14')
+                facilities.addClass('md:w-3/12')
+                facilities.removeClass('md:w-2/12')
+                facilities.parent().removeClass('md:py-3')
+                facilities.parent().addClass('md:py-14')
             } else if (qnt > 8 && qnt < 12) {
-                facilities.removeClass('sm:w-3/12')
-                facilities.addClass('sm:w-2/12')
-                facilities.parent().removeClass('sm:py-3')
-                facilities.parent().addClass('sm:py-14')
+                facilities.removeClass('md:w-3/12')
+                facilities.addClass('md:w-2/12')
+                facilities.parent().removeClass('md:py-3')
+                facilities.parent().addClass('md:py-14')
             } else if (qnt > 12 && qnt < 16) {
-                facilities.removeClass('sm:w-3/12')
-                facilities.addClass('sm:w-2/12')
-                facilities.parent().removeClass('sm:py-14')
-                facilities.parent().addClass('sm:py-3')
+                facilities.removeClass('md:w-3/12')
+                facilities.addClass('md:w-2/12')
+                facilities.parent().removeClass('md:py-14')
+                facilities.parent().addClass('md:py-3')
             }
 
 
@@ -560,17 +560,17 @@
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn">
         <div
-            class="flex flex-col shadow-2xl bg-white h-4/6 sm:h-auto w-11/12 sm:w-2/6 rounded-md items-center p-10 justify-between">
+            class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
             <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Obrigado! Seu pedido de hospedagem foi
                 enviado.<br> Aguarde a resposta do anfitrião.</h1>
             <p class="font-normal text-md usuario_font_warp pt-10">Datas solicitadas de </p>
-            <p class="font-normal text-xl sm:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
+            <p class="font-normal text-xl md:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
 
             <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o anfitrião, acesse o
                 chat
                 clicando
             </h1>
-            <button onclick="redirectChat()" class="header_color_bt w-2/5 sm:w-2/5 h-1/6 rounded-full button_text"
+            <button onclick="redirectChat()" class="header_color_bt w-2/5 md:w-2/5 h-1/6 rounded-full button_text"
                 id="openChatC">
                 Aqui
             </button>
@@ -578,7 +578,7 @@
     </div>
 
 
-    <div id="headers" class="px-10 sm:px-16 sm:py-5">
+    <div id="headers" class="px-10 md:px-16 md:py-5">
         <script>
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
@@ -614,7 +614,7 @@
                 }
             }
         </script>
-        <div id="header_pc" class="h-full hidden sm:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
+        <div id="header_pc" class="h-full hidden md:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
             <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
                 onclick="location.href='/home'">
                 <div id="logo" class="py-8 w-36 remove_cel">
@@ -625,7 +625,7 @@
 
             <div id="buscador" class="row-start-1 col-start-3 remove_cel"
                 onclick="window.location.href='/dashboard/buscador'">
-                <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
+                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
@@ -650,7 +650,7 @@
             </div>
 
             <div class="col-start-4 row-start-1 remove_cel -mx-24" onclick="window.location.href='/dashboard/buscador'">
-                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
+                <div class="absolute mt-2 py-2 w-3/6 md:ml-32 lg:ml-44 hidden   md:w-1/6 top-32 rounded-lg  z-20"
                     id="guestsDropdown">
                     <div class="number  header_color_alpha p-4 rounded-lg" id="">
                         <div class="flex justify-center contador gap-x-4">
@@ -753,7 +753,7 @@
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                     <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">
+                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                         <p id='userNameDrop' class="white-space: nowrap;">Usuário</p>
                         <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
@@ -761,7 +761,7 @@
 
                 </div>
 
-                <div class="absolute mt-2 py-2 w-3/6 right-18 sm:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -866,7 +866,7 @@
     </div>
 
 
-    <div class="px-10 sm:px-16 sm:py-5 hidden" id="main">
+    <div class="px-10 md:px-16 md:py-5 hidden" id="main">
 
 
 
@@ -874,11 +874,11 @@
             class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5  w-full h-1/5">
 
             <div class="grid-row-start-1 flex justify-start items-center md:h-20">
-                <h1 id="nickName" class=" text-2xl sm:text-5xl usuario_font_warp font-extrabold">Casa</h1>
+                <h1 id="nickName" class=" text-2xl md:text-5xl usuario_font_warp font-extrabold">Casa</h1>
 
 
             </div>
-            <div class="grid-row-start-1 flex sm:justify-start md:justify-end items-center md:h-20">
+            <div class="grid-row-start-1 flex md:justify-start md:justify-end items-center md:h-20">
                 <h1 id="location" class="text-2xl usuario_font_warp ">-</h1>
             </div>
 
@@ -887,12 +887,12 @@
             <div class="slider hidden" id="slider">
             </div>
         </div>
-        <div class="grid sm:grid-cols-5 grid-rows-auto sm:grid-rows-1 w-full sm:h-1/5 gap-5 sm:gap-0"
+        <div class="grid md:grid-cols-5 grid-rows-auto md:grid-rows-1 w-full md:h-1/5 gap-5 md:gap-0"
             id="homeBasicInformation">
             <div
-                class="sm:col-start-1 flex flex-col sm:flex-row justify-center sm:justify-start sm:gap-5 sm:items-center sm:h-20">
+                class="md:col-start-1 flex flex-col md:flex-row justify-center md:justify-start md:gap-5 md:items-center md:h-20">
 
-                <div class="w-1/2 sm:h-full items-center flex justify-start">
+                <div class="w-1/2 md:h-full items-center flex justify-start">
                     <h1 class="text-lg usuario_font" id="rank">
                         <i class="far fa-star " id="1" aria-hidden="true"></i>
                         <i class="far fa-star " id="2" aria-hidden="true"></i>
@@ -905,26 +905,26 @@
             </div>
 
             <div
-                class="sm:col-start-3 sm:gap-10  flex flex-col sm:flex-row justify-center sm:items-center sm:h-20 hidden">
-                <div class=" w-1/2 items-center sm:h-full flex sm:justify-end">
-                    <h1 class="text-lg sm:text-2x1 usuario_font">
+                class="md:col-start-3 md:gap-10  flex flex-col md:flex-row justify-center md:items-center md:h-20 hidden">
+                <div class=" w-1/2 items-center md:h-full flex md:justify-end">
+                    <h1 class="text-lg md:text-2x1 usuario_font">
                         4,5
                     </h1>
                 </div>
-                <div class=" w-1/2 sm:h-full items-center  flex justify-start">
+                <div class=" w-1/2 md:h-full items-center  flex justify-start">
                     <h1 class="text-5x1 usuario_font">
                         (20 opiniões)
                     </h1>
                 </div>
             </div>
 
-            <div class="sm:col-start-5 flex justify-end sm:gap-2 flex-col sm:flex-row  sm:items-center sm:h-20">
-                <div class=" w-1/2 items-center sm:h-full flex sm:justify-end">
-                    <h1 class="text-lg sm:text-3xl font-black points_font align-text-bottom" id="points">
+            <div class="md:col-start-5 flex justify-end md:gap-2 flex-col md:flex-row  md:items-center md:h-20">
+                <div class=" w-1/2 items-center md:h-full flex md:justify-end">
+                    <h1 class="text-lg md:text-3xl font-black points_font align-text-bottom" id="points">
                         2.000
                     </h1>
                 </div>
-                <div class="w-1/2 sm:h-full items-center  flex justify-start pb-10 sm:pb-0">
+                <div class="w-1/2 md:h-full items-center  flex justify-start pb-10 md:pb-0">
                     <h1 class="text-lg usuario_font align-text-bottom">
                         Pontos por noite
                     </h1>
@@ -937,13 +937,13 @@
         <div class="w-full  md:grid md:grid-cols-5 md:grid-rows-auto home_show_homes_big">
             <!--OKK-->
             <div class="w-full col-span-3" id="homeDescription">
-                <div class=" w-full h-full sm:grid sm:grid-rows-3 flex flex-col">
-                    <div class="flex items-center pt-10 sm:pt-0" id="DescriptionTitle">
+                <div class=" w-full h-full md:grid md:grid-rows-3 flex flex-col">
+                    <div class="flex items-center pt-10 md:pt-0" id="DescriptionTitle">
                         <h1 id="title" class="font-black text-3xl usuario_font_warp">
                             Descrição
                         </h1>
                     </div>
-                    <div class="flex items-top py-3 sm:py-3">
+                    <div class="flex items-top py-3 md:py-3">
                         <p id="description" class="text-base usuario_font_warp">
                             Os hóspedes poderão usufruir da fogueira, deck panorâmico com hidromassagem, sauna seca e
                             uma vista inigualável. Todos os amenities são privativos da casa. Os hóspedes poderão
@@ -954,17 +954,17 @@
                         </p>
                     </div>
 
-                    <div class="flex description_icons flex-row flex-wrap justify-start sm:justify-between py-10 sm:py-0 sm:mx-10"
+                    <div class="flex description_icons flex-row flex-wrap justify-start md:justify-between py-10 md:py-0 md:mx-10"
                         id="description_icons">
 
 
-                        <div class="h-20  flex justify-start sm:justify-start  items-start  sm:gap-1">
+                        <div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
                             <img src="Assets/caracteristicas/CAPACIDADE-PESSOAS.svg" alt="" class="h-14">
                             <!--TODO fix responsivity-->
 
 
                             <div class="flex justify-start items-start w-auto h-full">
-                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="maxCapacity">
+                                <p class="w-28 text-md md:text-lg align-top usuario_font_warp " id="maxCapacity">
                                     Capacidade:
                                     <!--TODO check break line 24 -->
                                     8 pessoas
@@ -974,7 +974,7 @@
 
 
 
-                        <!--<div class="h-20  flex justify-start sm:justify-start  items-start  sm:gap-1">
+                        <!--<div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
                             <img src="Assets/caracteristicas/SUITES.svg" alt="" class="h-14">
                             TODO fix responsivity
 
@@ -986,18 +986,18 @@
 
 
 
-                        <div class="h-20  flex justify-start sm:justify-start  items-start  sm:gap-1">
+                        <div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
                             <img src="Assets/caracteristicas/QUARTOS.svg" alt="" class="h-14">
                             <!--TODO fix responsivity-->
 
 
                             <div class="flex justify-start items-start w-auto h-full flex-col">
-                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBedRooms">
+                                <p class="w-28 text-md md:text-lg align-top usuario_font_warp " id="totalBedRooms">
                                     3
                                     <!--TODO check break line 24 -->
                                     Quartos
                                 </p>
-                                <p class="w-28 text-md sm:text-sm align-top usuario_font_warp " id="totalSuits">
+                                <p class="w-28 text-md md:text-sm align-top usuario_font_warp " id="totalSuits">
                                     (2
                                     <!--TODO check break line 24 -->
                                     Suites)
@@ -1009,13 +1009,13 @@
 
 
 
-                        <div class="h-20  flex justify-start sm:justify-start  items-start sm:gap-1">
+                        <div class="h-20  flex justify-start md:justify-start  items-start md:gap-1">
                             <img src="Assets/caracteristicas/BANHEIROS.svg" alt="" class="h-14">
                             <!--TODO fix responsivity-->
 
 
                             <div class="flex justify-start items-start w-auto h-full">
-                                <p class="w-28 text-md sm:text-lg align-top usuario_font_warp " id="totalBathRooms">
+                                <p class="w-28 text-md md:text-lg align-top usuario_font_warp " id="totalBathRooms">
                                     1
                                     <!--TODO check break line 24 -->
                                     Banheiro
@@ -1030,218 +1030,218 @@
                 </div>
             </div>
 
-            <div class="w-full sm:col-span-3 sm:block" id="homefacilities">
+            <div class="w-full md:col-span-3 md:block" id="homefacilities">
                 <div class="w-full flex items-center justify-center">
                     <div id="hr" class="w-full h-px header_color_alpha"></div>
                 </div>
                 <div class=" w-full h-full flex flex-col">
                     <!--py-14 eh o normal dos outros-->
 
-                    <div class="flex items-center justify-start sm:py-14" id="DescriptionTitle">
-                        <h1 id="title" class="font-black pt-10 sm:pt-0 text-3xl usuario_font_warp">
+                    <div class="flex items-center justify-start md:py-14" id="DescriptionTitle">
+                        <h1 id="title" class="font-black pt-10 md:pt-0 text-3xl usuario_font_warp">
                             Facilidades
                         </h1>
                     </div>
 
                     <div class="h-full w-full flex justify-center items-center">
-                        <div class="flex w-full description_icons flex-row flex-wrap gap-x-10 sm:gap-x-20 gap-y-3 justify-start sm:justify-start sm:grid sm:grid-rows-auto sm:grid-cols-3"
+                        <div class="flex w-full description_icons flex-row flex-wrap gap-x-10 md:gap-x-20 gap-y-3 justify-start md:justify-start md:grid md:grid-rows-auto md:grid-cols-3"
                             id="description_icons">
 
-                            <!-- gap-y-8 text-lg sm:w-3/12 py-14  8 itens -->
-                            <!-- gap-y-8 text-lg sm:w-2/12 py-14  12 itens -->
-                            <!-- gap-y-3 text-lg sm:w-2/12 py-3   16 itens -->
-                            <div class="h-20  flex justify-center sm:justify-start  items-center gap-x-10 sm:gap-x-1 hidden  sm:gap-y-1"
+                            <!-- gap-y-8 text-lg md:w-3/12 py-14  8 itens -->
+                            <!-- gap-y-8 text-lg md:w-2/12 py-14  12 itens -->
+                            <!-- gap-y-3 text-lg md:w-2/12 py-3   16 itens -->
+                            <div class="h-20  flex justify-center md:justify-start  items-center gap-x-10 md:gap-x-1 hidden  md:gap-y-1"
                                 id="facility-air">
                                 <img src="Assets/facilidades/AR-CONDICIONADO.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Ar-condicionado
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-wifi">
                                 <img src="Assets/facilidades/WIFI.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Wifi
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="h-20  flex justify-start w-full sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
+                            <div class="h-20  flex justify-start w-full md:justify-start  items-center  gap-x-10 md:gap-x-1 hidden   md:gap-y-1"
                                 id="facility-pool">
                                 <img src="Assets/facilidades/PISCINA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Piscina
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-sauna">
                                 <img src="Assets/facilidades/SAUNA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Sauna
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1 hidden   md:gap-y-1"
                                 id="facility-jacuzzi">
                                 <img src="Assets/facilidades/JACUZZI.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Jacuzzi
                                     </p>
                                 </div>
                             </div>
 
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-bathtub">
                                 <img src="Assets/facilidades/BANHEIRA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Banheira
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1 hidden   md:gap-y-1"
                                 id="facility-gym">
                                 <img src="Assets/facilidades/ACADEMIA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Academia
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-tennisCourt">
                                 <img src="Assets/facilidades/QUADRA-TENIS.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Quadra de tênis
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-soccerField">
                                 <img src="Assets/facilidades/QUADRA-FUTEBOL.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Futebol
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-grill">
                                 <img src="Assets/facilidades/CHURRASQUEIRA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Churrasqueira
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-wineHouse">
                                 <img src="Assets/facilidades/ADEGA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Adega
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-washingMachine">
                                 <img src="Assets/facilidades/LAVAROUPA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Lava-roupas
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-dishwasher">
                                 <img src="Assets/facilidades/LAVALOUÇA.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Lava-louças
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-extraRoom">
                                 <img src="Assets/facilidades/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Quarto extra (ajudante)
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1  hidden  sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1  hidden  md:gap-y-1"
                                 id="facility-kitchenKosher">
                                 <img src="Assets/facilidades/COZINHA-CASHER.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Cozinha Casher
                                     </p>
                                 </div>
                             </div>
-                            <div class="h-20  flex justify-center sm:justify-start  items-center  gap-x-10 sm:gap-x-1 hidden   sm:gap-y-1"
+                            <div class="h-20  flex justify-center md:justify-start  items-center  gap-x-10 md:gap-x-1 hidden   md:gap-y-1"
                                 id="facility-carParking">
                                 <img src="Assets/facilidades/VAGAS-CARROS.svg" alt="" class="h-14">
                                 <!--TODO fix responsivity-->
 
 
                                 <div class="flex justify-center items-center w-auto h-full">
-                                    <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                    <p class="text-md md:text-lg align-top usuario_font_warp ">
                                         Garagem
                                     </p>
                                 </div>
@@ -1255,14 +1255,14 @@
                         </div>
                     </div>
 
-                    <div id="funcionario_desc" class="self-end sm:py-10 sm:mt-auto w-full">
+                    <div id="funcionario_desc" class="self-end md:py-10 md:mt-auto w-full">
                         <div class="flex items-center" id="DescriptionTitle">
                             <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
                                 Se tem ar-condicionado, em quais cômodos
                             </h1>
                         </div>
 
-                        <div class="flex items-center w-full pb-10 sm:pb-0" id="DescriptionTitle">
+                        <div class="flex items-center w-full pb-10 md:pb-0" id="DescriptionTitle">
                             <h1 id="infoAC" class="text-ls usuario_font_warp">
                                 Sem Informações
                             </h1>
@@ -1408,19 +1408,19 @@
 
 
             <!--OKK-->
-            <div class="w-full col-span-3 sm:block" id="homeWorkers">
+            <div class="w-full col-span-3 md:block" id="homeWorkers">
                 <div class="w-full flex items-center justify-center">
                     <div id="hr" class="w-full h-px header_color"></div>
                 </div>
-                <div class=" w-full h-full sm:flex sm:flex-col">
+                <div class=" w-full h-full md:flex md:flex-col">
 
                     <div class="flex items-center w-full py-10" id="DescriptionTitle">
-                        <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 sm:pt-0">
+                        <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 md:pt-0">
                             Funcionários
                         </h1>
                     </div>
 
-                    <div class="flex flex-col items-start description_icons h-auto  sm:grid sm:grid-cols-3 sm:grid-rows-auto gap-x-8 gap-y-2 sm:gap-y-5  sm:gap-x-6 "
+                    <div class="flex flex-col items-start description_icons h-auto  md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-2 md:gap-y-5  md:gap-x-6 "
                         id="description_icons">
 
 
@@ -1428,55 +1428,55 @@
 
 
 
-                        <div class="h-20  flex justify-center sm:justify-start  items-center  sm:gap-1 hidden"
+                        <div class="h-20  flex justify-center md:justify-start  items-center  md:gap-1 hidden"
                             id="worker-housekeeper">
                             <img src="Assets/funcionarios/CASEIRO.svg" alt="" class="h-14">
                             <!--TODO fix responsivity-->
 
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-md sm:text-lg align-top usuario_font_warp ">
+                                <p class="text-md md:text-lg align-top usuario_font_warp ">
                                     Caseiro
                                 </p>
                             </div>
                         </div>
 
-                        <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1 hidden"
+                        <div class="h-20 flex justify-center md:justify-start  items-center  md:gap-1 hidden"
                             id="worker-cooker">
                             <img src="Assets/funcionarios/CAZINHEIRO.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-md sm:text-lg align-top usuario_font_warp" id="authorized-kids">
+                                <p class="text-md md:text-lg align-top usuario_font_warp" id="authorized-kids">
                                     Cozinheiro
                                 </p>
                             </div>
                         </div>
-                        <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1 hidden"
+                        <div class="h-20 flex justify-center md:justify-start  items-center  md:gap-1 hidden"
                             id="worker-janitor">
                             <img src="Assets/funcionarios/FAXINEIRO.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-md sm:text-lg align-top usuario_font_warp" id="authorized-kids">
+                                <p class="text-md md:text-lg align-top usuario_font_warp" id="authorized-kids">
                                     Faxineiro
                                 </p>
                             </div>
                         </div>
-                        <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1 hidden"
+                        <div class="h-20 flex justify-center md:justify-start  items-center  md:gap-1 hidden"
                             id="worker-poolkeeper">
                             <img src="Assets/funcionarios/PISCINEIRO.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-md sm:text-lg align-top usuario_font_warp" id="authorized-kids">
+                                <p class="text-md md:text-lg align-top usuario_font_warp" id="authorized-kids">
                                     Piscineiro
                                 </p>
                             </div>
                         </div>
-                        <div class="h-20 flex justify-center sm:justify-start  items-center  sm:gap-1 hidden"
+                        <div class="h-20 flex justify-center md:justify-start  items-center  md:gap-1 hidden"
                             id="worker-security">
                             <img src="Assets/funcionarios/SEGURANÇA.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="text-md sm:text-lg align-top usuario_font_warp" id="authorized-kids">
+                                <p class="text-md md:text-lg align-top usuario_font_warp" id="authorized-kids">
                                     Segurança
                                 </p>
                             </div>
@@ -1539,7 +1539,7 @@
 
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp "
+                                <p class="line-through text-md md:text-lg align-top usuario_font_warp "
                                     id="authorized-smokers">
                                     Fumantes
                                 </p>
@@ -1550,7 +1550,7 @@
                             <img src="Assets/regras/FAMILIA.svg" alt="" class="h-14">
 
                             <div class="flex justify-center items-center w-auto h-full">
-                                <p class="line-through text-md sm:text-lg align-top usuario_font_warp leading-none"
+                                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
                                     id="authorized-kids">
                                     Familia com criança(s) pequena(s)
                                 </p>
@@ -1666,16 +1666,16 @@
 
 
 
-            <div class="h-auto sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-2 sm:row-span-2  flex justify-center items-center  sm:flex"
+            <div class="h-auto md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-2 md:row-span-2  flex justify-center items-center  md:flex"
                 id="calendar">
                 <div
-                    class="button_bg_background_only rounded-3xl sm:w-11/12 h-5/6 sm:h-5/6 flex flex-col justify-between">
+                    class="button_bg_background_only rounded-3xl md:w-11/12 h-5/6 md:h-5/6 flex flex-col justify-between">
 
                     <div class="flex justify-center items-center">
                         <p class="text-4xl font-black usuario_font_warp mt-10">Calendário</p>
                     </div>
 
-                    <div id='app' class="w-full h-auto flex sm:pt-10 pb-2 justify-center items-center">
+                    <div id='app' class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
 
                         <v-date-picker v-model="range" is-range :available-dates='avbldates' @dayclick="onDayClick" />
 
@@ -1692,9 +1692,9 @@
                         <h1 class="text-6x1 font-bold usuario_font" id="totalCost">0 </h1>
 
                     </div>
-                    <div class="w-full h-24 sm:h-1/6 flex justify-center items-center gap-4">
+                    <div class="w-full h-24 md:h-1/6 flex justify-center items-center gap-4">
                         <button onclick="abrirChat()"
-                            class="header_color_bt w-2/5 sm:w-2/5 h-14 rounded-full button_text" id="openChat">
+                            class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text" id="openChat">
                             Quero me hospedar
                         </button>
                     </div>
@@ -1739,12 +1739,12 @@
                 </div>
             </div>
 
-            <div class="sm:w-full h-72 sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-1 justify-center items-center flex my-0 sm:my-10 md:my-0"
+            <div class="md:w-full h-72 md:h-full md:col-start-4 md:col-span-2 md:row-start-1 justify-center items-center flex my-0 md:my-10 md:my-0"
                 id="contactInfo">
                 <div class="button_bg_background_only rounded-3xl w-11/12 h-5/6 flex">
                     <div class="w-2/5 h-full flex items-center justify-center" id="contactPhoto">
                         <div class="  md:w-6/12 h-auto  flex justify-center items-center">
-                            <div class="h-full w-20 sm:h-auto sm:w-full items-start header_color rounded-full">
+                            <div class="h-full w-20 md:h-auto md:w-full items-start header_color rounded-full">
                                 <img class="object-cover h-20 w-20 md:h-full md:w-full rounded-full "
                                     src="Assets/PERFIL.svg" id="contactPhoto">
                             </div>
@@ -1754,7 +1754,7 @@
                     </div>
                     <div class="w-3/5 h-full items-start " id="contactText">
                         <div class="w-full h-2/3">
-                            <div class="w-full h-2/3 items-end flex pb-10 sm:pb-0">
+                            <div class="w-full h-2/3 items-end flex pb-10 md:pb-0">
                                 <div class="h-2/4 ">
                                     <h1 class="font-extrabold text-2xl usuario_font_warp" id="contactName">
                                         -
@@ -1775,7 +1775,7 @@
 
                         <div class="w-full h-1/3  items-start flex justify-start">
                             <input class="hidden" id="contactId">
-                            <button class="header_color_bt w-3/5 sm:w-2/5 h-1/2 rounded-full button_text"
+                            <button class="header_color_bt w-3/5 md:w-2/5 h-1/2 rounded-full button_text"
                                 onclick="redirectChatCreate()" id="openChat">
                                 Contato
                             </button>
@@ -1786,14 +1786,14 @@
                 </div>
             </div>
 
-            <div class="sm:w-full sm:h-full sm:col-start-4 sm:col-span-2 sm:row-start-4 sm:row-span-1 p-8 sm:p-14 sm:p-0  flex justify-center items-center  sm:flex"
+            <div class="md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-4 md:row-span-1 p-8 md:p-14 md:p-0  flex justify-center items-center  md:flex"
                 id="curation">
                 <div
-                    class="button_bg_background_only rounded-full sm:w-96 w-80 h-64 sm:h-96 flex flex-col gap-y-2 sm:gap-y-6">
+                    class="button_bg_background_only rounded-full md:w-96 w-80 h-64 md:h-96 flex flex-col gap-y-2 md:gap-y-6">
 
-                    <div class="mt-7 sm:h-1/3 w-full flex justify-center items-end">
+                    <div class="mt-7 md:h-1/3 w-full flex justify-center items-end">
                         <div>
-                            <p class="font-black text-2xl sm:text-3xl usuario_font_warp">
+                            <p class="font-black text-2xl md:text-3xl usuario_font_warp">
                                 Curadoria Yô
                             </p>
                         </div>
@@ -1802,7 +1802,7 @@
 
                     <div class="h-2/3 w-full flex justify-center items-start">
                         <div class="w-3/4">
-                            <p class="text-center font-black text-sm sm:text-md usuario_font_warp" id="curatedDetails">
+                            <p class="text-center font-black text-sm md:text-md usuario_font_warp" id="curatedDetails">
                                 Sem Informações
                             </p>
                         </div>
