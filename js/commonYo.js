@@ -72,7 +72,7 @@ let checkCurrentUser = function () {
         let currentDate = new Date()
 
 
-        if (clientInfo.exp < (currentDate.getTime()/1000)) {
+        if (clientInfo.exp < (currentDate.getTime()/1000) | clientInfo.clientType < 2) {
             window.onload(window.location.replace("/home"))
         }
     }
