@@ -670,7 +670,7 @@
                                 <button id='totalGuestFilter'
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
                                     <h1 class="busca_font text-xl" id="totalGuests">
-                                        2 hóspedes
+                                        1 hóspede
                                     </h1>
                                 </button>
 
@@ -845,8 +845,8 @@
             <div id="filtros" class="row-start-3 row-span-2 remove_cel">
                 <div class="flex flex-row h-full">
 
-                    <div class="h-full flex-initial flex justify-around items-center  gap-11">
-                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
+                    <div class="h-full flex-initial flex justify-around items-center  gap-11 ">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                 id="filtro_busca" onclick="dropLocationShowFilters()">
                                 Destinos de Praia
@@ -879,7 +879,7 @@
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border  filtro_busca rounded-full "
+                            <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden"
                                 id="classificacao_counter_filter">
                                 <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
@@ -892,7 +892,7 @@
 
                             </div>
 
-                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg " id="classificacao_counter">
+                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg hidden" id="classificacao_counter">
                                 <div class="flex justify-end contador gap-x-4 hidden">
                                     <!--OLD METHOD-->
                                     <div
@@ -969,7 +969,7 @@
                         </div>-->
 
 
-                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
                                 onclick="changeVisibility('more_filters', 'more_filters_filter')">
 
