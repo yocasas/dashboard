@@ -608,6 +608,14 @@
                 }
             }
 
+            function changeVisibilityUserCel() {
+                if ($("#userPanelCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#userPanelCel").addClass("hidden")
+                } else {
+                    $("#userPanelCel").removeClass("hidden")
+                }
+            }
+
             function dropLocationShow() {
                 if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#locationDropdown").addClass("hidden")
@@ -801,7 +809,7 @@
                     <div
                         class="w-full gap-2 h-full header_color rounded-full remove_pc flex justify-center items-center">
                         <!--TODO make usefull-->
-                        <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
+                        <div class="col-start-6 col-span-2 w-11/12 md:w-4/12 h-full flex items-center justify-center">
                             <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
                                 onclick="location.href='/dashboard/dashboard/buscador'">
                                 Explorar
@@ -855,13 +863,33 @@
 
             <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
 
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc" onclick="changeVisibilityUserCel()">
                     <div class="flex items-center remove_pc justify-center">
                         <i class="fas fa-bars fa-lg remove_pc"></i>
                     </div>
 
 
                 </button>
+
+                <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
+                    id="userPanelCel">
+                    <a onclick="location.href='/onboarding'"
+                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Configurações
+                    </a>
+                    <a href="/dashboard/chat"
+                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Mensagens
+                    </a>
+                    <!-- <a href="#"
+                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Painel
+                    </a> -->
+                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
+                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
+                        Log out
+                    </a>
+                </div>
 
             </div>
         </div>

@@ -136,7 +136,7 @@
 
         let maxGuests = parseInt($(`#totalGuests`).text())
 
-        
+
 
 
         let data = {
@@ -395,7 +395,7 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Churrasqueira</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="grill"/>
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="grill" />
                     </div>
 
                 </div>
@@ -416,7 +416,7 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Sauna</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value='sauna'/>
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value='sauna' />
                     </div>
 
                 </div>
@@ -444,7 +444,7 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quarto extra ajudante/baba</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-extraRoom"/>
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-extraRoom" />
                     </div>
 
                 </div>
@@ -576,6 +576,14 @@
                     $("#userPanel").addClass("hidden")
                 } else {
                     $("#userPanel").removeClass("hidden")
+                }
+            }
+
+            function changeVisibilityUserCel() {
+                if ($("#userPanelCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#userPanelCel").addClass("hidden")
+                } else {
+                    $("#userPanelCel").removeClass("hidden")
                 }
             }
 
@@ -817,13 +825,33 @@
 
             <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
 
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc" onclick="changeVisibilityUserCel()">
                     <div class="flex items-center remove_pc justify-center">
                         <i class="fas fa-bars fa-lg remove_pc"></i>
                     </div>
 
 
                 </button>
+
+                <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
+                    id="userPanelCel">
+                    <a onclick="location.href='/onboarding'"
+                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Configurações
+                    </a>
+                    <a href="/dashboard/chat"
+                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Mensagens
+                    </a>
+                    <!-- <a href="#"
+                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
+                        Painel
+                    </a> -->
+                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
+                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
+                        Log out
+                    </a>
+                </div>
 
             </div>
         </div>
@@ -847,8 +875,8 @@
 
                     <div class="h-full flex-initial flex justify-around items-center  gap-11 ">
                         <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
-                                id="filtro_busca" onclick="dropLocationShowFilters()">
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography " id="filtro_busca"
+                                onclick="dropLocationShowFilters()">
                                 Destinos de Praia
                             </button>
                             <div class="absolute mt-2 py-2 w-3/6  md:w-40 top-86 bg-white rounded-lg hidden shadow-xl z-20"
@@ -892,7 +920,8 @@
 
                             </div>
 
-                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg hidden" id="classificacao_counter">
+                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg hidden"
+                                id="classificacao_counter">
                                 <div class="flex justify-end contador gap-x-4 hidden">
                                     <!--OLD METHOD-->
                                     <div
