@@ -267,7 +267,7 @@
                     currentHomeInfo = element
                     $("#nickName").text(`${element["nickName"]}`)
                     $("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
-                    $("#locationTypeHost").text(traduzirLocation(element["locationType"]))
+                    $("#locationTypeHost").text(element["locationType"])
                     $(".locationType").text(traduzirLocation(element["locationType"]))
                     $(".locationTypeMobile").text(traduzirLocation(element["locationType"], 1))
 
@@ -278,12 +278,12 @@
                     $("#coveredParking").text(element[`coveredParking`])
                     $("#map").prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element["zipCode"]}"">
             </iframe>`)
-                    $(`#infoWorkers`).text(checkData(element[`infoWorkers`]) ? element[`infoWorkers`] : "Sem Informações")
-                    $(`#infoAC`).text(checkData(element[`totalAc`]) ? element[`totalAc`] : "Sem Informações")
-                    $(`#carEntrance`).text(checkData(element[`accessPath`]) ? element[`accessPath`] : "Sem Informações")
+                    $(`#infoWorkers`).text(checkData(element[`infoWorkers`]) ? element[`infoWorkers`] : "Sem informações")
+                    $(`#infoAC`).text(checkData(element[`totalAc`]) ? element[`totalAc`] : "Sem informações")
+                    $(`#carEntrance`).text(checkData(element[`accessPath`]) ? element[`accessPath`] : "Sem informações")
                     $(`#description`).text(element[`description`])
-                    $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[`curatedDetails`] : "Sem Informações")
-                    $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[`extraRestriction`] : "Sem Informações")
+                    $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[`curatedDetails`] : "Sem informações")
+                    $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[`extraRestriction`] : "Sem informações")
 
 
                     contactId = element["clientId"]
@@ -566,7 +566,7 @@
             <p class="font-normal text-md usuario_font_warp pt-10">Datas solicitadas de </p>
             <p class="font-normal text-xl sm:text-2xl usuario_font_warp" id="dataReserva">2021-09-09 a 2021-09-21</p>
 
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o anfitrião acesse o
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para falar com o anfitrião, acesse o
                 chat
                 clicando
             </h1>
@@ -1058,7 +1058,7 @@
 
                                 <div class="flex justify-center items-center w-auto h-full">
                                     <p class="text-md sm:text-lg align-top usuario_font_warp ">
-                                        Ar-Condicionado
+                                        Ar-condicionado
                                     </p>
                                 </div>
                             </div>
@@ -1146,7 +1146,7 @@
 
                                 <div class="flex justify-center items-center w-auto h-full">
                                     <p class="text-md sm:text-lg align-top usuario_font_warp ">
-                                        Quadra de tenis
+                                        Quadra de tênis
                                     </p>
                                 </div>
                             </div>
@@ -1194,7 +1194,7 @@
 
                                 <div class="flex justify-center items-center w-auto h-full">
                                     <p class="text-md sm:text-lg align-top usuario_font_warp ">
-                                        Lava Roupa
+                                        Lava-roupas
                                     </p>
                                 </div>
                             </div>
@@ -1206,7 +1206,7 @@
 
                                 <div class="flex justify-center items-center w-auto h-full">
                                     <p class="text-md sm:text-lg align-top usuario_font_warp ">
-                                        Lava Louça
+                                        Lava-louças
                                     </p>
                                 </div>
                             </div>
@@ -1258,7 +1258,7 @@
                     <div id="funcionario_desc" class="self-end sm:py-10 sm:mt-auto w-full">
                         <div class="flex items-center" id="DescriptionTitle">
                             <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
-                                Se tem ar-condicionado, em quais comodos
+                                Se tem ar-condicionado, em quais cômodos
                             </h1>
                         </div>
 
@@ -1313,7 +1313,7 @@
                         <div class="h-full w-full flex flex-col" id="description-icon">
                             <div class="">
                                 <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
-                                    Sua casa fica no condomínio?
+                                    Sua casa fica em condomínio?
                                 </p>
                             </div>
 
@@ -1327,7 +1327,7 @@
                         <div class="h-full w-full flex flex-col" id="description-icon">
                             <div class="w-full">
                                 <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
-                                    Metragens aproximadas (terreno/área construída)
+                                    Metragens aproximadas <br> (terreno/área construída)
                                 </p>
                             </div>
 
@@ -1356,7 +1356,7 @@
                         <div class="h-full w-full flex flex-col" id="description-icon">
                             <div class="w-full ">
                                 <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
-                                    Vagas para carros cobertas
+                                    Vagas cobertas para carros 
                                 </p>
                             </div>
 
@@ -1370,7 +1370,7 @@
                         <div class="h-full w-full flex flex-col" id="description-icon">
                             <div class="w-full ">
                                 <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
-                                    Vagas para carros descobertas
+                                    Vagas descobertas para carros 
                                 </p>
                             </div>
 
@@ -1682,7 +1682,7 @@
                     </div>
                     <div class="flex justify-center items-center">
                         <p class="text-xs usuario_font_warp">Adicione suas datas de viagem para ver os pontos
-                            necessarios</p>
+                            necessários</p>
                     </div>
 
 
