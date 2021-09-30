@@ -31,6 +31,9 @@
 
         checkCurrentUser()
         changeUserName($(`#userNameDrop`))
+        getUserPoints().then(userPoints => {
+            $("#pointsUser").text(userPoints)
+        })
         populateHomes()
     });
 
@@ -735,7 +738,7 @@
 
                     <a onclick="changeVisibilityUser()"
                         class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
-                        <p id='userNameDrop' class="white-space: nowrap;">Usuário</p>
+                        <p id='userNameDrop' style="white-space: nowrap;">Usuário</p>
                         <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
 
@@ -760,6 +763,10 @@
                         class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
                         Log out
                     </a>
+                    <div id="parentPoints"
+                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
+                        Pontuação: <div id="pointsUser" class="font-bold text-green_light text-xl"></div>
+                    </div>
                 </div>
 
             </div>
@@ -851,6 +858,10 @@
                         class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
                         Log out
                     </a>
+                    <div id="parentPoints"
+                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
+                        Pontuação: <div id="pointsUser" class="font-bold text-green_light text-xl"></div>
+                    </div>
                 </div>
 
             </div>
@@ -1028,8 +1039,7 @@
                         </div>
 
                         <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                            alt="Imagem- Casa" id="img_source"
-                            class="object-cover h-64 md:h-96 w-full hidden rounded">
+                            alt="Imagem- Casa" id="img_source" class="object-cover h-64 md:h-96 w-full hidden rounded">
                     </div>
 
                     <div class="object-center md:h-3/6 md:h-auto  w-auto ">
@@ -1105,55 +1115,61 @@
     </div>
     <footer class="bg-green_medium py-10 text-sm">
         <div class=" mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
-          <div class="flex flex-col flex-wrap items-start justify-start w-full">
-    
-    
-            <h5 class="text-green_light mb-5 sm:mb-2 text-lg">Você tem alguma dúvida? Estamos aqui para ajudar.</h5>
-    
-            <div class="flex sm:flex-row flex-col items-center sm:justify-between w-full">
-    
-              <div class="sm:flex sm:flex-row mb-10">
-                <h5 class="text-green_light mb-2 text-lg">Entre em contato com nosso serviço de assistência enviando um
-                  email para &nbsp;<h5 class="text-green_light font-bold underline text-lg">contato@yocasas.com.br</h5>
-                </h5>
-              </div>
-    
-              <div class="flex sm:flex-row flex-col justify-center sm:justify-between sm:w-1/12">
-              <a class="my-6 mx-1 sm:my-0 sm:mx-0" href="https://wa.me/5511991379972">
-                <h1>
-                  <span class="sr-only">Whats App</span>
-                  <img src="Assets/whatsapp.svg" class="h-10 ">
-                </h1>
-              </a>
-    
-              <a class="sm:-my-1 " href="https://www.instagram.com/yo_trocadecasas/">
-                <h1>
-                  <span class="sr-only">Instagram</span>
-                  <img src="Assets/instagram.svg" class="h-16 ">
-                </h1>
-              </a>
-              </div>
-    
+            <div class="flex flex-col flex-wrap items-start justify-start w-full">
+
+
+                <h5 class="text-green_light mb-5 sm:mb-2 text-lg">Você tem alguma dúvida? Estamos aqui para ajudar.</h5>
+
+                <div class="flex sm:flex-row flex-col items-center sm:justify-between w-full">
+
+                    <div class="sm:flex sm:flex-row mb-10">
+                        <h5 class="text-green_light mb-2 text-lg">Entre em contato com nosso serviço de assistência
+                            enviando um
+                            email para &nbsp;<h5 class="text-green_light font-bold underline text-lg">
+                                contato@yocasas.com.br</h5>
+                        </h5>
+                    </div>
+
+                    <div class="flex sm:flex-row flex-col justify-center sm:justify-between sm:w-1/12">
+                        <a class="my-6 mx-1 sm:my-0 sm:mx-0" href="https://wa.me/5511991379972">
+                            <h1>
+                                <span class="sr-only">Whats App</span>
+                                <img src="Assets/whatsapp.svg" class="h-10 ">
+                            </h1>
+                        </a>
+
+                        <a class="sm:-my-1 " href="https://www.instagram.com/yo_trocadecasas/">
+                            <h1>
+                                <span class="sr-only">Instagram</span>
+                                <img src="Assets/instagram.svg" class="h-16 ">
+                            </h1>
+                        </a>
+                    </div>
+
+                </div>
+
+                <ul class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full">
+                    <li><a onclick="location.href='/onboarding'"
+                            class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline"
+                            href="#">Cadastro</a></li>
+                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                            href="yocasas.com.br/home/assets/tabela.pdf" target="_blank">Regras
+                            e pontuação Yô</a></li>
+                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                            href="yocasas.com.br/legal/terms" target="_blank">Política de privacidade</a></li>
+                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                            href="yocasas.com.br/legal/privacy" target="_blank">Termos e Condições</a></li>
+
+                </ul>
+
+
+
             </div>
-    
-            <ul class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full">
-              <li><a onclick="location.href='/onboarding'" class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline"
-                  href="#">Cadastro</a></li>
-              <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="yocasas.com.br/home/assets/tabela.pdf" target="_blank">Regras
-                  e pontuação Yô</a></li>
-              <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="yocasas.com.br/legal/terms" target="_blank">Política de privacidade</a></li>
-              <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="yocasas.com.br/legal/privacy" target="_blank">Termos e Condições</a></li>
-    
-            </ul>
-    
-    
-    
-          </div>
         </div>
         <div class="justify-end flex items-center px-4 mx-10 lg:px-0">
-          <p class="text-green_light text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
+            <p class="text-green_light text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
         </div>
-      </footer>
+    </footer>
     <!-- <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
         <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
             <div class="flex flex-wrap items-start justify-start">

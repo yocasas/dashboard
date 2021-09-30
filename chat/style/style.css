@@ -64,6 +64,17 @@ div {
   background-color: #C0E5D8 !important; /* or add it to the track */
 }
 
+
+#parentPoints:hover #pointsUser {
+  --text-opacity: 1;
+  color: #698D86;
+  color: rgba(105, 141, 134, var(--text-opacity));
+}
+
+.border-t-1{
+  border-top-width: 1px;
+}
+
 div::-webkit-scrollbar {
   width: 3px;
   height: 3px;
@@ -86,6 +97,11 @@ div::-webkit-scrollbar-thumb {
   .h-90\%-screen {
     height: 70vh;
   }
+}
+
+.hover\:button_bg:hover {
+  background-color: rgba(192, 229, 216, 1);
+  border-color: rgba(192, 229, 216, 1);
 }
 
 @media screen and (min-width: 640px) {
@@ -187,6 +203,11 @@ div::-webkit-scrollbar-thumb {
 
 .button_bg {
   background-color: rgba(192, 229, 216, 1);
+}
+
+
+#parentPoints {
+  border-color: rgba(192, 229, 216, 1);
 }
 
 .button_text {

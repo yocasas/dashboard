@@ -114,6 +114,26 @@
     background-color: rgba(192, 229, 216, 1);
 }
 
+#parentPoints:hover #pointsUser {
+--text-opacity: 1;
+color: #698D86;
+color: rgba(105, 141, 134, var(--text-opacity));
+}
+
+#parentPoints {
+    border-color: rgba(192, 229, 216, 1);
+}
+
+.hover\:button_bg:hover {
+    background-color: rgba(192, 229, 216, 1);
+    border-color: rgba(192, 229, 216, 1);
+  }
+
+
+.border-t-1{
+    border-top-width: 1px;
+  }
+
 
 
 .button_text {

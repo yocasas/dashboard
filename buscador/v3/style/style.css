@@ -9,6 +9,12 @@
   }
 }
 
+#parentPoints:hover #pointsUser {
+  --text-opacity: 1;
+  color: #698D86;
+  color: rgba(105, 141, 134, var(--text-opacity));
+}
+
 @media screen and (min-width: 2000px) {
 
   .ws\:h-32rem {
@@ -192,6 +198,10 @@ input[type='range']::-webkit-slider-thumb {
   background-color: rgba(192, 229, 216, 1);
 }
 
+.border-t-1{
+  border-top-width: 1px;
+}
+
 .border-green_light {
   --border-opacity: 1;
   border-color: #c0e5d8;
@@ -200,6 +210,7 @@ input[type='range']::-webkit-slider-thumb {
 
 .hover\:button_bg:hover {
   background-color: rgba(192, 229, 216, 1);
+  border-color: rgba(192, 229, 216, 1);
 }
 
 .checkbox-round {
