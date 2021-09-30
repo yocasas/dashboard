@@ -189,7 +189,8 @@
                 "requestedDate": selectedDates,
                 "hostName": currentHomeInfo.contactName,
                 "guestName": clientInfo.nickName,
-                "homeNickName": currentHomeInfo.nickName
+                "homeNickName": currentHomeInfo.nickName,
+                "homeId": currentHomeInfo.homeId
             }
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat",
@@ -531,7 +532,8 @@
                 "requestedDate": [],
                 "hostName": currentHomeInfo.contactName,
                 "guestName": clientInfo.nickName,
-                "homeNickName": currentHomeInfo.nickName
+                "homeNickName": currentHomeInfo.nickName,
+                "homeId": currentHomeInfo.homeId
             }
 
             $.ajax({
