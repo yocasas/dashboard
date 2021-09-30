@@ -13,6 +13,12 @@
     src: url("NiveauGroteskRegular.otf")
 }
 
+.border-green_light {
+    --border-opacity: 1;
+    border-color: #C0E5D8;
+    border-color: rgba(192, 229, 216, var(--border-opacity));
+  }
+
 .bg-green_medium {
     --bg-opacity: 1;
     background-color: #698D86;
