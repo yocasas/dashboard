@@ -47,6 +47,12 @@
 
         }
 
+        async function defineReadChat(msgs) {
+            let maxLastSeen = Math.max(msgs.map(x => new Date(x.lastDate).getTime()))
+            
+            window.localStorage.lastDate = maxLastSeen
+        }
+
 
 
     </script>
@@ -102,10 +108,18 @@
         let avaliableChats = {}
 
         function addChat(chatInfo, fullInfo) { //add chat infomation miniature
+
+
+            let lastSeenChat = new Date(window.localStorage.lastDate)
+
             let avaliableChats = $("#avaliableChats")
             let ChatModel = $("#itemChat").clone() //clone dafault chat
 
             let nameSplit = chatInfo.contactName.split(' ')
+
+            if (fullInfo.lastDate == undefined || new Date(fullInfo.lastDate).getTime() > lastSeenChat.getTime()){
+                ChatModel.addClass('animate-pulse')
+            }
 
             ChatModel.find(`#contactName`).text("Oi, " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1]) //change informatio TODO fix name (using for marcello)
             ChatModel.prop("chatId", chatInfo.chatId)
@@ -427,6 +441,8 @@
 
                     let msgs = JSON.parse(msgsString)
 
+                    
+
                     msgs.sort((a, b) => (a.lastDate > b.lastDate) ? -1 : 1)
 
                     if (msgs.length == 0) {
@@ -436,6 +452,8 @@
                     msgs.forEach(msg => {
                         addChat({ contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }, msg) //TODO get from server
                     });
+
+                    defineReadChat(msgs)
 
                     if (clientId != undefined && clientId.length > 0) {
                         let homesArray = Object.values(chatsInfos)
@@ -529,7 +547,7 @@
 
             </div>
             <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Você ainda não possui nenhum chat,
-                <a>Explore</a> nossas casas e iniciel um chat
+                <a href="/dashboard/buscador">explore</a> nossas casas e iniciel um chat
             </h1>
 
 
