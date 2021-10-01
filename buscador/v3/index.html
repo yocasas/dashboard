@@ -170,6 +170,9 @@
 
             success: function (x) {
 
+                maxPage = 0
+                currentPage = 0
+
                 if (window.innerWidth >= 640 && window.innerWidth < 767) {
                     pageSize = x.length
                 }
@@ -185,13 +188,16 @@
 
 
                 let pages = $(`#pages`)
+                
 
                 //pages.slice(1).remove()
 
 
                 let pageIcon = pages.find('#0')
 
-                console.log(maxPage)
+                $(`.page`).slice(1).remove()
+
+
 
                 for (let index = 0; index < maxPage - 1; index++) {
                     let pageClone = pageIcon.clone()
@@ -201,6 +207,15 @@
                     pageClone.attr('id', index + 1)
                     pages.append(pageClone)
                 }
+
+                let allPages = $(`.page`) //TODO set click on first page
+
+                
+                allPages.removeClass('button_bg')
+                allPages.addClass('border')
+                allPages.addClass('borda_filtro')
+                allPages.eq(0).removeClass('border')
+                allPages.eq(0).addClass('button_bg')
 
 
 
