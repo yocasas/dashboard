@@ -15,7 +15,6 @@
 
 
     <script>
-
         let currentHomeInfo
 
         let contactId
@@ -64,7 +63,8 @@
                 sortedDates.forEach((lastDate) => {
                     initDate = new Date(endDate.getTime())
                     initDate.setDate(initDate.getDate() + 1)
-                    if (initDate.getDate() == lastDate.getDate() && initDate.getFullYear() == lastDate.getFullYear() && initDate.getMonth() == lastDate.getMonth()) {
+                    if (initDate.getDate() == lastDate.getDate() && initDate.getFullYear() == lastDate
+                        .getFullYear() && initDate.getMonth() == lastDate.getMonth()) {
                         endDate = new Date(lastDate.getTime())
                     } else {
                         if (endDate > (new Date())) {
@@ -136,6 +136,7 @@
 
         let multiplier
         let vue
+
         function logKey(e) {
             console.log(` ${e.code}`);
         }
@@ -154,15 +155,14 @@
                         autoplay: true,
                         autoplaySpeed: 2000,
                         arrows: true,
-                        responsive: [
-                            {
-                                breakpoint: 640,
-                                settings: {
-                                    arrows: false,
-                                    slidesToShow: 1,
-                                    slidesToScroll: 1
-                                }
-                            }]
+                        responsive: [{
+                            breakpoint: 640,
+                            settings: {
+                                arrows: false,
+                                slidesToShow: 1,
+                                slidesToScroll: 1
+                            }
+                        }]
                     });
                 });
             });
@@ -280,12 +280,17 @@
                     $("#coveredParking").text(element[`coveredParking`])
                     $("#map").prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element["zipCode"]}"">
             </iframe>`)
-                    $(`#infoWorkers`).text(checkData(element[`infoWorkers`]) ? element[`infoWorkers`] : "Sem informações")
-                    $(`#infoAC`).text(checkData(element[`totalAc`]) ? element[`totalAc`] : "Sem informações")
-                    $(`#carEntrance`).text(checkData(element[`accessPath`]) ? element[`accessPath`] : "Sem informações")
+                    $(`#infoWorkers`).text(checkData(element[`infoWorkers`]) ? element[`infoWorkers`] :
+                        "Sem informações")
+                    $(`#infoAC`).text(checkData(element[`totalAc`]) ? element[`totalAc`] :
+                        "Sem informações")
+                    $(`#carEntrance`).text(checkData(element[`accessPath`]) ? element[`accessPath`] :
+                        "Sem informações")
                     $(`#description`).text(element[`description`])
-                    $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[`curatedDetails`] : "Sem informações")
-                    $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[`extraRestriction`] : "Sem informações")
+                    $(`#curatedDetails`).text(checkData(element[`curatedDetails`]) ? element[
+                        `curatedDetails`] : "Sem informações")
+                    $(`#extraRestriction`).text(checkData(element[`extraRestriction`]) ? element[
+                        `extraRestriction`] : "Sem informações")
 
 
                     contactId = element["clientId"]
@@ -332,27 +337,28 @@
                         files.push(getS3file(x, $("#slider"), element["picturesS3Urls"].length, y));
                     })
 
-                    Promise.all(files.slice(0, files.length < 3 ? files.length - 1 : 3)).then((sourceList) => {
+                    Promise.all(files.slice(0, files.length < 3 ? files.length - 1 : 3)).then((
+                        sourceList) => {
 
 
-                        sourceList.forEach(source => {
-                            let element = `<div class="bg-white px-1 ">
+                            sourceList.forEach(source => {
+                                let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
 
 
 
-                            $(".slider").slick('slickAdd', element)
+                                $(".slider").slick('slickAdd', element)
+                            })
+
+                            $(".loading").parent().addClass('hidden')
+                            $('html, body').css({
+                                overflow: 'auto',
+                                height: 'auto'
+                            });
+
+
                         })
-
-                        $(".loading").parent().addClass('hidden')
-                        $('html, body').css({
-                            overflow: 'auto',
-                            height: 'auto'
-                        });
-
-
-                    })
 
 
                     if (files.length > 3) {
@@ -373,11 +379,18 @@
 
 
 
-                    $("#maxCapacity").text(`${element['maxPeople'] > 1 ? element['maxPeople'] + " Hóspedes" : element['maxPeople'] + " Hóspede"}`)
+                    $("#maxCapacity").text(
+                        `${element['maxPeople'] > 1 ? element['maxPeople'] + " Hóspedes" : element['maxPeople'] + " Hóspede"}`
+                        )
 
-                    $("#totalBathRooms").text(`${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`)
-                    $("#totalBedRooms").text(`${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`)
-                    $("#totalSuits").text(element['totalSuites'] > 1 ? `( ${element['totalSuites']} Suítes )` : `( ${element['totalSuites']} Suíte )`)
+                    $("#totalBathRooms").text(
+                        `${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`
+                        )
+                    $("#totalBedRooms").text(
+                        `${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`
+                        )
+                    $("#totalSuits").text(element['totalSuites'] > 1 ?
+                        `( ${element['totalSuites']} Suítes )` : `( ${element['totalSuites']} Suíte )`)
 
 
                     facilitiesFormat(element.facilities.length)
@@ -428,7 +441,6 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <script>
-
         let openChat = () => {
             window.hred = `/dashboard/chat`
         }
@@ -453,9 +465,6 @@
             })
             startCarrousel()
         });
-
-
-
     </script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
@@ -491,7 +500,6 @@
     </script>
 
     <script>
-
         function facilitiesFormat(qnt) {
 
             let facilities = $('.facility')
@@ -590,13 +598,16 @@
 
 
 
-    
+
 
 
 
 
     <div id="headers" class="px-10 md:px-16 md:py-5">
         <script>
+            function removeCookie() {
+                document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            }
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
@@ -890,7 +901,7 @@
 
                 </button>
 
-                <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
+                <div class="absolute mt-2 py-2 w-9/12 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
                     id="userPanelCel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -1760,7 +1771,6 @@
                     <!--3. Create the Vue instance-->
 
                     <script>
-
                         vue = new Vue({
                             el: '#app',
                             data() {
@@ -1769,16 +1779,21 @@
                                         start: new Date(0),
                                         end: new Date(0)
                                     },
-                                    avbldates: [{ start: new Date(), end: new Date("2021-09-30") }]
+                                    avbldates: [{
+                                        start: new Date(),
+                                        end: new Date("2021-09-30")
+                                    }]
 
 
                                 };
-                            }, methods: {
+                            },
+                            methods: {
                                 onDayClick(day) {
                                     updateCalendarData(day)
                                 }
                             },
                         })
+
                         function updateCalendarData(days1) {
                             let startDate = vue.$data.range.start
                             let endDate = vue.$data.range.end

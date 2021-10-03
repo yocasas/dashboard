@@ -52,12 +52,10 @@
 
             window.localStorage.lastDate = maxLastSeen
         }
-
-
-
     </script>
 
-    <script id="chatFunctionality"> //all db communication and chat functionality
+    <script id="chatFunctionality">
+        //all db communication and chat functionality
 
 
         function timesClick() {
@@ -121,7 +119,8 @@
                 ChatModel.addClass('animate-pulse')
             }
 
-            ChatModel.find(`#contactName`).text("Oi, " + nameSplit[0] + " " + nameSplit[nameSplit.length - 1]) //change informatio TODO fix name (using for marcello)
+            ChatModel.find(`#contactName`).text("Oi, " + nameSplit[0] + " " + nameSplit[nameSplit.length -
+                1]) //change informatio TODO fix name (using for marcello)
             ChatModel.prop("chatId", chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
@@ -148,7 +147,9 @@
 
 
             allMessages.append(generateElementMessage(fullInfo, fullChat, msg, allMessages.children().length + 1))
-            fullChat.animate({ scrollTop: allMessages.height() }, 1000)
+            fullChat.animate({
+                scrollTop: allMessages.height()
+            }, 1000)
 
         }
 
@@ -162,8 +163,10 @@
 
 
             //setup current element
-            fullMessage.find("#contactPhoto").attr("src", `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
-            fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName);
+            fullMessage.find("#contactPhoto").attr("src",
+                `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
+            fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo
+                .guestName);
             fullMessage.find("#contactDateChatInternal").text(toHumanDate(msgTime))
             fullMessage.find("#content").text(element.content);
             fullMessage.prop('id', 'itemChat' + id)
@@ -183,7 +186,8 @@
 
 
             $("#contactNameChat").text(fullChatInfo.contactName)
-            $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ? "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
+            $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ?
+                "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
             $(`#homeNickName`).text(fullChatInfo.isHost ? "" : `(${fullChatInfo.homeNickName})`)
             if (requestedDates == undefined || requestedDates == "[]") {
 
@@ -217,10 +221,13 @@
 
 
                 //add element to array
-                allMessages.append(generateElementMessage(fullChatInfo, fullChatElement, element, allMessages.children().length + 1))
+                allMessages.append(generateElementMessage(fullChatInfo, fullChatElement, element, allMessages
+                    .children().length + 1))
             });
 
-            fullChatElement.animate({ scrollTop: allMessages.height() }, 1000)
+            fullChatElement.animate({
+                scrollTop: allMessages.height()
+            }, 1000)
         }
 
         function appendChat(e) {
@@ -278,7 +285,8 @@
                 contentType: "application/json",
 
                 success: (msgsString) => {
-                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(msgsString), fullChat, clickedBtnID))
+                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
+                        msgsString), fullChat, clickedBtnID))
                 }
             })
         }
@@ -318,7 +326,8 @@
                 contentType: "application/json",
 
                 success: (msgsString) => {
-                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(msgsString), fullChat, clickedBtnID))
+                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
+                        msgsString), fullChat, clickedBtnID))
                 }
             })
         });
@@ -342,7 +351,11 @@
             $(`#loadMSg`).removeClass('hidden')
             let chInfo = chatsInfos[currentChatInfo.chatId]
             let nowDate = new Date()
-            addNewMsg({ messageTime: nowDate.toString(), isHost: clientInfo.ClientId == chInfo.hostId, content: messageContent }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
+            addNewMsg({
+                messageTime: nowDate.toString(),
+                isHost: clientInfo.ClientId == chInfo.hostId,
+                content: messageContent
+            }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
 
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
@@ -351,11 +364,11 @@
                     "Authorization": authCookie
                 },
                 data: JSON.stringify({
-                    "chatId": currentChatInfo.chatId,
-                    "messageContent": messageContent,
-                    "clientId": clientInfo.clientId,
-                    "isHost": currentChatInfo.isHost
-                }
+                        "chatId": currentChatInfo.chatId,
+                        "messageContent": messageContent,
+                        "clientId": clientInfo.clientId,
+                        "isHost": currentChatInfo.isHost
+                    }
 
 
 
@@ -416,10 +429,10 @@
                 }
             })
         }
-
     </script>
 
-    <script> //load chats from tokenn
+    <script>
+        //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
             const urlParams = new URLSearchParams(window.location.search);
@@ -450,7 +463,12 @@
                         $('#showWarnNoChat').removeClass('hidden')
                     }
                     msgs.forEach(msg => {
-                        let chatInfo = { contactName: clientInfo.ClientId == msg.hostId ? msg.guestName : msg.hostName, lastMessage: "...", chatId: msg.chatId }
+                        let chatInfo = {
+                            contactName: clientInfo.ClientId == msg.hostId ? msg.guestName :
+                                msg.hostName,
+                            lastMessage: "...",
+                            chatId: msg.chatId
+                        }
                         console.log(msg.hostName)
                         addChat(chatInfo, msg) //TODO get from server
                     });
@@ -473,12 +491,9 @@
 
 
         }
-
     </script>
 
     <script>
-
-
         $(document).ready(() => {
             checkCurrentUser()
             changeUserName($(`#userNameDrop`))
@@ -488,7 +503,6 @@
 
             })
         });
-
     </script>
 
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
@@ -569,6 +583,9 @@
         <div class="md:h-screen">
             <div id="headers" class="md:py-5 px-10 md:px-16 h-1/5">
                 <script>
+                    function removeCookie() {
+                        document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                    }
                     $(document).ready(function () {
                         $('.minus-guests').click(function () {
                             var $input = $(this).parent().find('.input');
@@ -792,7 +809,7 @@
 
                     </div>
 
-                    
+
 
                 </div>
                 <div id="header_cel" class="h-full grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
@@ -864,15 +881,16 @@
 
                     <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
 
-                        <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc" onclick="changeVisibilityUserCel()">
+                        <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc"
+                            onclick="changeVisibilityUserCel()">
                             <div class="flex items-center remove_pc justify-center">
                                 <i class="fas fa-bars fa-lg remove_pc"></i>
                             </div>
-        
-        
+
+
                         </button>
-        
-                        <div class="absolute mt-2 py-2 w-3/6 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
+
+                        <div class="absolute mt-2 py-2 w-9/12 right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
                             id="userPanelCel">
                             <a onclick="location.href='/onboarding'"
                                 class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -895,7 +913,7 @@
                                 Pontuação: <div id="pointsUserCel" class="font-bold text-green_light text-xl"></div>
                             </div>
                         </div>
-        
+
                     </div>
 
 

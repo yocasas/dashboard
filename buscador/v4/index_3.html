@@ -25,17 +25,15 @@
 <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
 
 <script>
+
+
     $(document).ready(() => {
 
         checkCurrentUser()
         changeUserName($(`#userNameDrop`))
-        getUserPoints().then(userPoints => {
-            $("#pointsUser").text(userPoints)
-            $("#pointsUserCel").text(userPoints)
-
-        })
         populateHomes()
     });
+
 </script>
 <script>
     let activeFilters = {
@@ -118,33 +116,21 @@
 
     function populateHomes(e) {
 
-        $('.checkbox-round:checked').each(x => {
-            console.log(x)
-            console.log(123)
-        })
-
-        console.log(123)
-
         if (e == undefined) {
 
-            e = traduzirLocation($("#locationType").text())
+            e = traduzirLocation($("#locationType").text().replace(/\s+/g, ''))
         }
 
-        let locationType = e //$("#locationType")[0].innerHTML.replace(/\s+/g, '')
+        let locationType = e//$("#locationType")[0].innerHTML.replace(/\s+/g, '')
         $("#filtro_busca").text(traduzirLocation(locationType))
         $("#locationType").text(traduzirLocation(locationType))
 
         $("#filtro_busca_mobile").text(traduzirLocation(locationType))
 
-        let maxGuests = parseInt($(`#totalGuests`).text())
-
-
 
 
         let data = {
-            "LocationType": e,
-            "maxPeople": maxGuests,
-
+            "LocationType": e
         }
 
 
@@ -169,9 +155,6 @@
 
             success: function (x) {
 
-                maxPage = 0
-                currentPage = 0
-
                 if (window.innerWidth >= 640 && window.innerWidth < 767) {
                     pageSize = x.length
                 }
@@ -188,15 +171,12 @@
 
                 let pages = $(`#pages`)
 
-
                 //pages.slice(1).remove()
 
 
                 let pageIcon = pages.find('#0')
 
-                $(`.page`).slice(1).remove()
-
-
+                console.log(maxPage)
 
                 for (let index = 0; index < maxPage - 1; index++) {
                     let pageClone = pageIcon.clone()
@@ -206,15 +186,6 @@
                     pageClone.attr('id', index + 1)
                     pages.append(pageClone)
                 }
-
-                let allPages = $(`.page`) //TODO set click on first page
-
-
-                allPages.removeClass('button_bg')
-                allPages.addClass('border')
-                allPages.addClass('borda_filtro')
-                allPages.eq(0).removeClass('border')
-                allPages.eq(0).addClass('button_bg')
 
 
 
@@ -235,8 +206,7 @@
 
                     nextItem = (currentPage + 1) * pageSize
 
-                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
-                        resultFromApi.length ? resultFromApi.length : nextItem)
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi.length ? resultFromApi.length : nextItem)
 
                     createAndPopulate(locationType, dbResponse)
 
@@ -245,8 +215,7 @@
 
                 nextItem = (currentPage + 1) * pageSize
 
-                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
-                    .length ? resultFromApi.length : nextItem)
+                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi.length ? resultFromApi.length : nextItem)
 
                 createAndPopulate(locationType, dbResponse)
 
@@ -327,12 +296,12 @@
 
     <div class="absolute z-30 w-full bg-gray-900 bg-opacity-50 flex justify-center items-center hidden py-10"
         id="more_filters">
-        <div class="w-full md:w-1/3  bg-white rounded-xl  flex flex-col p-10">
+        <div class="w-full sm:w-1/3  bg-white rounded-xl  flex flex-col p-10">
             <div class='quartos_filter flex flex-col justify-center'>
                 <div class="w-full items-end flex justify-end">
                     <button class=" item self-end px-8 py-2"
                         onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                        <i class="fas fa-times"></i>
+                        X
                     </button>
                 </div>
                 <div class="w-full flex items-center justify-center">
@@ -344,7 +313,7 @@
 
             </div>
             <div class="w-full flex items-center justify-center py-5">
-                <div id="hr" class="w-full h-px header_color "></div>
+                <div id="hr" class="w-11/12 h-px header_color "></div>
             </div>
             <div class="grid grid-rows-3 grid-cols-2 gap-y-10" id="filtros_quartos">
                 <div class="col-span-2 flex ">
@@ -379,7 +348,7 @@
                 </div>
             </div>
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-full h-px header_color"></div>
+                <div id="hr" class="w-11/12 h-px header_color"></div>
             </div>
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_facilidades">
                 <div class="col-span-2 flex ">
@@ -391,7 +360,7 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography  ">Ar condicionado</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " value="air" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " />
 
                     </div>
 
@@ -400,70 +369,70 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra/Campo Futebol</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " value="soccerField" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Wi-fi</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " value="wifi" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Churrasqueira</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="grill" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Piscina</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="pool" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Adega</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-wineHouse" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Sauna</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value='sauna' />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadoura de roupas</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-washingMachine" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Jacuzzi/Ofuro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="jacuzzi" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Lavadora de louca</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-dishwasher" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quarto extra ajudante/baba</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-extraRoom" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
@@ -478,34 +447,34 @@
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Vaga para carros</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-carParking" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Academia</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="gym" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Cozinha casher</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="facility-kitchenKosher" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
                 <div class="col-span-1 flex items-center">
                     <div class="flex gap-4 w-full flex justify-end items-end">
                         <h1 class="filter_typography">Quadra de tenis / beach tennis</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="tennisCourt" />
+                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
                     </div>
 
                 </div>
             </div>
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-full h-px header_color"></div>
+                <div id="hr" class="w-11/12 h-px header_color"></div>
             </div>
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_funcionarios">
                 <div class="md:col-span-2 flex ">
@@ -554,7 +523,7 @@
             </div>
 
             <div class="w-full flex items-center justify-center  py-5">
-                <div id="hr" class="w-full h-px header_color"></div>
+                <div id="hr" class="w-11/12 h-px header_color"></div>
             </div>
             <div class="grid grid-cols-2">
                 <div class="grid-col-1 filter_typography underline" ">
@@ -571,72 +540,21 @@
             </div>
         </div>
     </div>
-
-
-
-    <!-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-      <div x-data="{ dropdownOpen: false }" class="usuario-button hidden relative">
-        <a href="#" @click="dropdownOpen = !dropdownOpen"
-          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-4 border-green_light text-green_dark hidden md:inline-flex items-center"
-          id="userNameDrop">Usuário
-        </a>
-
-        <a href="#" @click="dropdownOpen = !dropdownOpen"
-          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-gray-300 hover:border-gray-300 border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
-          <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
-        </a>
-
-
-
-        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-
-        <div x-show="dropdownOpen"
-          class="absolute mt-2 py-2 bg-white rounded-md shadow-xl z-20">
-          
-
-          <a onclick="location.href='/onboarding'"
-            class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Editar Cadastro
-          </a>
-          <a onclick="location.href='/dashboard/chat'"
-            class="block cursor-pointer px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Mensagens
-          </a>
-      
-
-          <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-            class="block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Log out
-          </a>
-
-          <div id="parentPoints"
-          class="flex justify-between text-base  border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-          Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-        </div>
-
-        </div>
-      </div> -->
-
-
-
-    <div id="headers" class="px-10 md:px-16 md:py-5">
+    <div id="headers" class="px-10 sm:px-16 sm:py-5">
         <script>
-            function removeCookie() {
-                document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-            }
             $(document).ready(function () {
                 $('.minus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
                     var count = parseInt($input.text()) - 1;
                     count = count < 1 ? 1 : count;
                     $input.text(count);
-                    $(`#totalGuests`).text(`${count} Hóspedes`)
+                    $(`#totalGuests`).text(`${count} Hospedes`)
                     return false;
                 });
                 $('.plus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
                     $input.text(parseInt($input.text()) + 1);
-                    $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
+                    $(`#totalGuests`).text(`${$input.text()} Hospedes`)
                     return false;
                 });
             });
@@ -649,27 +567,11 @@
                 }
             }
 
-            function changeVisibilityUserCel() {
-                if ($("#userPanelCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#userPanelCel").addClass("hidden")
-                } else {
-                    $("#userPanelCel").removeClass("hidden")
-                }
-            }
-
             function dropLocationShow() {
                 if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#locationDropdown").addClass("hidden")
                 } else {
                     $("#locationDropdown").removeClass("hidden")
-                }
-            }
-
-            function dropLocationShowFilters() {
-                if ($("#locationDropdownFilters").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#locationDropdownFilters").addClass("hidden")
-                } else {
-                    $("#locationDropdownFilters").removeClass("hidden")
                 }
             }
         </script>
@@ -682,7 +584,7 @@
 
 
             <div id="buscador" class="row-start-1 col-start-3 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6  sm:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20"
                     id="locationDropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
@@ -707,7 +609,7 @@
             </div>
 
             <div class="col-start-4 row-start-1 remove_cel">
-                <div class="absolute mt-2 py-2 w-3/6 md:ml-32 lg:ml-44 hidden   md:w-1/6 top-32 rounded-lg  z-20"
+                <div class="absolute mt-2 py-2 w-3/6 sm:ml-32 lg:ml-44 hidden   sm:w-1/6 top-32 rounded-lg  z-20"
                     id="guestsDropdown">
                     <div class="number  header_color_alpha p-4 rounded-lg" id="">
                         <div class="flex justify-end contador gap-x-4">
@@ -731,7 +633,7 @@
                             <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
                                 <button class="busca_font text-xl ml-10 locationType" id="locationType"
                                     onclick="dropLocationShow()">
-                                    Destinos de Praia
+                                    Praia
                                 </button>
                             </div>
 
@@ -747,14 +649,14 @@
                                 <button id='totalGuestFilter'
                                     onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
                                     <h1 class="busca_font text-xl" id="totalGuests">
-                                        1 hóspede
+                                        2 hóspedes
                                     </h1>
                                 </button>
 
                             </div>
                             <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
                                 <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                    onclick="populateHomes()">
+                                    onclick="location.href='/home'">
                                     Explorar
                                 </button>
                             </div>
@@ -803,15 +705,15 @@
                 <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
 
                     <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
-                        <p id='userNameDrop' style="white-space: nowrap;">Usuário</p>
+                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 sm:inline-flex items-center">
+                        <p id='userNameDrop'>Usuário</p>
                         <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                     </a>
 
 
                 </div>
 
-                <div class="absolute mt-2 py-2 w-6/12 right-28 md:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6 right-28 sm:w-1/12 top-32 bg-white rounded-lg hidden shadow-xl z-20"
                     id="userPanel">
                     <a onclick="location.href='/onboarding'"
                         class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
@@ -829,10 +731,6 @@
                         class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
                         Log out
                     </a>
-                    <div id="parentPoints"
-                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Pontuação: <div id="pointsUser" class="font-bold text-green_light text-xl"></div>
-                    </div>
                 </div>
 
             </div>
@@ -898,37 +796,13 @@
 
             <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
 
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc" onclick="changeVisibilityUserCel()">
+                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc">
                     <div class="flex items-center remove_pc justify-center">
                         <i class="fas fa-bars fa-lg remove_pc"></i>
                     </div>
 
 
                 </button>
-
-                <div class="absolute mt-2 py-2 w-auto right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
-                    id="userPanelCel">
-                    <a onclick="location.href='/onboarding'"
-                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Configurações
-                    </a>
-                    <a href="/dashboard/chat"
-                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Mensagens
-                    </a>
-                    <!-- <a href="#"
-                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Painel
-                    </a> -->
-                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Log out
-                    </a>
-                    <div id="parentPoints"
-                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Pontuação: <div id="pointsUserCel" class="font-bold text-green_light text-xl pl-2 pr-10"></div>
-                    </div>
-                </div>
 
             </div>
         </div>
@@ -939,8 +813,8 @@
 
 
         <div id="resultados" class="grid grid-flow-col grid-rows-5 h-1/5">
-            <div id="qnt_resultados" class="md:block row-start-1 grid grid-cols-3 row-span-2 items-center">
-                <!--md:block para cel magicamente funcionou-->
+            <div id="qnt_resultados" class="sm:block row-start-1 grid grid-cols-3 row-span-2 items-center">
+                <!--sm:block para cel magicamente funcionou-->
                 <div class="item col-start-2 text-3xl text-center resultado_busca remove_cel font-bold"
                     id="result_quantity">
 
@@ -950,41 +824,17 @@
             <div id="filtros" class="row-start-3 row-span-2 remove_cel">
                 <div class="flex flex-row h-full">
 
-                    <div class="h-full flex-initial flex justify-around items-center  gap-11 ">
-                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography " id="filtro_busca"
-                                onclick="dropLocationShowFilters()">
+                    <div class="h-full flex-initial flex justify-around items-center  gap-11">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
+                                id="filtro_busca">
                                 Destinos de Praia
                             </button>
-                            <div class="absolute mt-2 py-2 w-3/6  md:w-40 top-86 bg-white rounded-lg hidden shadow-xl z-20"
-                                id="locationDropdownFilters">
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                    onclick="populateHomes(`beach`);dropLocationShowFilters()">
-                                    Praia
-                                </a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                    onclick="populateHomes(`country`);dropLocationShowFilters()">
-                                    Campo
-                                </a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                    onclick="populateHomes(`mountain`);dropLocationShowFilters()">
-                                    Montanha
-                                </a>
-                                <a href="#"
-                                    class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                    onclick="populateHomes(`city`);dropLocationShowFilters()">
-                                    Cidade
-                                </a>
-                            </div>
-
 
                         </div>
 
                         <div>
-                            <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden"
+                            <div class="flex-initial  borda_filtro border  filtro_busca rounded-full "
                                 id="classificacao_counter_filter">
                                 <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
                                     id="filtro_busca"
@@ -997,8 +847,7 @@
 
                             </div>
 
-                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg hidden"
-                                id="classificacao_counter">
+                            <div class="number hidden bg-white shadow-2xl p-4 rounded-lg " id="classificacao_counter">
                                 <div class="flex justify-end contador gap-x-4 hidden">
                                     <!--OLD METHOD-->
                                     <div
@@ -1075,7 +924,7 @@
                         </div>-->
 
 
-                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
+                        <div class="flex-initial  borda_filtro border  filtro_busca rounded-full">
                             <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
                                 onclick="changeVisibility('more_filters', 'more_filters_filter')">
 
@@ -1091,24 +940,27 @@
         </div>
 
         <div id="casas_resultantes" class=" ">
-            <div class="flex flex-col gap-y-4 md:grid md:grid-cols-2 md:grid-cols-3 md:grid-rows-auto gap-7 h-auto w-full justify-around md:min-h-screen"
+            <div class="flex flex-col gap-y-4 sm:grid sm:grid-cols-2 md:grid-cols-3 sm:grid-rows-auto gap-7 h-auto w-full justify-around sm:min-h-screen"
                 id="homes_show">
-                <div class="hidden h-full cursor-pointer flex flex-col" id="show_home_default"
+                <div class="hidden h-full cursor-pointer flex flex-col justify-center items-center" id="show_home_default"
                     onclick="location.href='/dashboard/casa/detalhes/'">
-                    <div id="imagem_casa" class="object-center flex justify-start md:h-96 ws:h-32rem w-full   zoom">
+                    <div id="imagem_casa" class="object-center flex justify-center h-64 md:h-96 w-11/12   zoom">
                         <!--md:h-80 2xl:h-96-->
 
-                        <div class="flex w-full h-64 md:h-96  items-center justify-center loader">
+                        <div class="flex w-full h-64 items-center justify-center loader">
                             <div class="dot-pulse">
 
                             </div>
                         </div>
 
-                        <img src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                            alt="Imagem- Casa" id="img_source" class="object-cover h-64 md:h-96 w-full hidden rounded">
+
+                        <img  src="https://www.escritoriodominio.com.br/wp-content/themes/consultix/images/no-image-found-360x260.png"
+                            alt="Imagem- Casa" id="img_source"
+                            class="object-cover sm:max-h-full max-h-44 hidden rounded">
+                            
                     </div>
 
-                    <div class="object-center md:h-3/6 md:h-auto  w-auto ">
+                    <div class="object-center sm:h-2/3 md:h-auto  w-11/12 ">
                         <div class=" h-1/2">
                             <h1 class="nome_casa_warp pt-2 text-2xl md:text-3xl font-extrabold leading-snug"
                                 id="nickName">
@@ -1123,7 +975,7 @@
 
 
                             <div id="description" class="w-full flex justify-between items-end">
-                                <div class="w-1/2 md:h-full items-end flex">
+                                <div class="w-1/2 sm:h-full items-end flex">
                                     <h1 class="text-sm md:text-lg usuario_font" id="rank">
                                         <i class="far fa-star " id="1" aria-hidden="true"></i>
                                         <i class="far fa-star " id="2" aria-hidden="true"></i>
@@ -1135,7 +987,7 @@
                                 </div>
 
 
-                                <div class="pontos_text self-end flex md:justify-end font-extrabold text-lg md:text-3xl leading-snug"
+                                <div class="pontos_text self-end flex sm:justify-end font-extrabold text-lg md:text-3xl leading-snug"
                                     id="points">
                                     <p>
                                         2.000
@@ -1150,7 +1002,7 @@
                                     Classificação
                                 </div>
                                 <div
-                                    class=" classificacao_texto self-end flex md:justify-end text-md md:text-xl leading-snug">
+                                    class=" classificacao_texto self-end flex sm:justify-end text-md md:text-xl leading-snug">
                                     <p>
                                         Pontos por noite
                                     </p>
@@ -1170,7 +1022,7 @@
             </div>
 
         </div>
-        <div class="w-full h-1/5 flex justify-center items-center py-4 md:py-0 gap-4" id="pages">
+        <div class="w-full h-1/5 flex justify-center items-center py-4 sm:py-0 gap-4" id="pages">
             <button class="button_bg item h-4 w-4 rounded-full rounded-full  mais_resultados_font page" id='0'>
 
             </button>
@@ -1179,62 +1031,7 @@
 
 
     </div>
-    <footer class="bg-green_medium py-10 text-sm">
-        <div class=" mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
-            <div class="flex flex-col flex-wrap items-start justify-start w-full">
-
-
-                <h5 class="text-green_light mb-5 sm:mb-2 text-lg">Você tem alguma dúvida? Estamos aqui para ajudar.</h5>
-
-                <div class="flex sm:flex-row flex-col items-center sm:justify-between w-full">
-
-                    <div class="sm:flex sm:flex-row mb-10">
-                        <h5 class="text-green_light mb-2 text-lg">Entre em contato conosco através do email:&nbsp;<h5
-                                class="text-green_light font-bold text-lg">contato@yocasas.com.br</h5>
-                        </h5>
-                    </div>
-
-                    <div class="flex sm:flex-row flex-col justify-center sm:justify-between sm:w-1/12">
-                        <a class="my-6 mx-1 sm:my-0 sm:mx-0" href="https://wa.me/5511991379972">
-                            <h1>
-                                <span class="sr-only">Whats App</span>
-                                <img src="Assets/whatsapp.svg" class="h-10 ">
-                            </h1>
-                        </a>
-
-                        <a class="sm:-my-1 " href="https://www.instagram.com/yo_trocadecasas/">
-                            <h1>
-                                <span class="sr-only">Instagram</span>
-                                <img src="Assets/instagram.svg" class="h-16 ">
-                            </h1>
-                        </a>
-                    </div>
-
-                </div>
-
-                <ul class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full">
-                    <li><a onclick="location.href='/onboarding'"
-                            class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline"
-                            href="#">Cadastro</a></li>
-                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                            href="/home/assets/tabela.pdf" target="_blank">Regras
-                            e pontuação Yô</a></li>
-                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                            href="/legal/privacy" target="_blank">Política de privacidade</a></li>
-                    <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                            href="/legal/terms" target="_blank">Termos e Condições</a></li>
-
-                </ul>
-
-
-
-            </div>
-        </div>
-        <div class="justify-end flex items-center px-4 mx-10 lg:px-0">
-            <p class="text-green_light text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
-        </div>
-    </footer>
-    <!-- <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
+    <footer class="footer_bg border-t border-gray-300 py-10 text-sm">
         <div class="max-w-5xl mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
             <div class="flex flex-wrap items-start justify-start">
                 <div class="lg:w-1/5 w-full lg:mb-0 mb-6">
@@ -1266,7 +1063,7 @@
         <div class="max-w-6xl mx-auto justify-end flex items-center px-4 lg:px-0">
             <p class="footer_typography text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
         </div>
-    </footer> -->
+    </footer>
 </body>
 
 </html>
