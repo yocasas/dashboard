@@ -332,6 +332,13 @@
 
                     let files = []
 
+                    $(".loading").parent().addClass('hidden')
+                    $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+                    //TODO check loading
+
                     element["picturesS3Urls"].forEach(x => {
                         let y = 0
                         files.push(getS3file(x, $("#slider"), element["picturesS3Urls"].length, y));
@@ -341,24 +348,20 @@
                         sourceList) => {
 
 
-                            sourceList.forEach(source => {
-                                let element = `<div class="bg-white px-1 ">
+                        sourceList.forEach(source => {
+                            let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
 
 
 
-                                $(".slider").slick('slickAdd', element)
-                            })
-
-                            $(".loading").parent().addClass('hidden')
-                            $('html, body').css({
-                                overflow: 'auto',
-                                height: 'auto'
-                            });
-
-
+                            $(".slider").slick('slickAdd', element)
                         })
+
+
+
+
+                    })
 
 
                     if (files.length > 3) {
@@ -381,14 +384,14 @@
 
                     $("#maxCapacity").text(
                         `${element['maxPeople'] > 1 ? element['maxPeople'] + " Hóspedes" : element['maxPeople'] + " Hóspede"}`
-                        )
+                    )
 
                     $("#totalBathRooms").text(
                         `${element['totalBathRooms'] > 1 ? element['totalBathRooms'] + " Banheiros" : element['totalBathRooms'] + " Banheiro"}`
-                        )
+                    )
                     $("#totalBedRooms").text(
                         `${element['totalBedRooms'] > 1 ? element['totalBedRooms'] + " Quartos" : element['totalBedRooms'] + " Quarto"}`
-                        )
+                    )
                     $("#totalSuits").text(element['totalSuites'] > 1 ?
                         `( ${element['totalSuites']} Suítes )` : `( ${element['totalSuites']} Suíte )`)
 
