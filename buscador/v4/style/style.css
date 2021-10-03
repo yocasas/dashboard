@@ -58,7 +58,6 @@
 .text-green_light {
   --text-opacity: 1;
   color: #698D86;
-  color: rgba(192, 229, 216, var(--text-opacity));
 }
 
 
