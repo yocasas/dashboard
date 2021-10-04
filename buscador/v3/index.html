@@ -103,7 +103,7 @@
             } else {
                 homeClone.find('#Location').text(`${element["city"]}, ${element["country"]}`);
             }
-            
+
             let stars = range(element["multiplier"], 1)
             homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
             stars.forEach(startId => {
@@ -138,6 +138,8 @@
         let locationType = e //$("#locationType")[0].innerHTML.replace(/\s+/g, '')
         $("#filtro_busca").text(traduzirLocation(locationType))
         $("#locationType").text(traduzirLocation(locationType))
+        $("#locationTypeCel").text(traduzirLocation(locationType, 1))
+        
 
         $("#filtro_busca_mobile").text(traduzirLocation(locationType))
 
@@ -636,12 +638,14 @@
                     count = count < 1 ? 1 : count;
                     $input.text(count);
                     $(`#totalGuests`).text(`${count} Hóspedes`)
+                    $(`#totalGuestsCel`).text(`${count}`)
                     return false;
                 });
                 $('.plus-guests').click(function () {
                     var $input = $(this).parent().find('.input');
                     $input.text(parseInt($input.text()) + 1);
                     $(`#totalGuests`).text(`${$input.text()} Hóspedes`)
+                    $(`#totalGuestsCel`).text(`${$input.text()}`)
                     return false;
                 });
             });
@@ -663,6 +667,15 @@
             }
 
             function dropLocationShow() {
+
+
+
+                
+                if ($("#locationDropdownFiltersCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
+                    $("#locationDropdownFiltersCel").addClass("hidden")
+                } else {
+                    $("#locationDropdownFiltersCel").removeClass("hidden")
+                }
                 if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#locationDropdown").addClass("hidden")
                 } else {
@@ -855,11 +868,35 @@
 
                     <div class="w-full gap-2 h-full header_color rounded-full remove_pc">
                         <div class="w-full h-full grid grid-cols-7">
-                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
+                            <div class="col-start-1  col-span-2 w-full h-full flex items-center justify-center">
                                 <button class="text-sm busca_font locationTypeMobile" contenteditable="true"
-                                    onclick="dropLocationShow()" id="locationType">
+                                    onclick="dropLocationShow()" id="locationTypeCel">
                                     Praia
                                 </button>
+                                <div class="absolute mt-2 ml-24 py-2 w-3/6 top-32  md:w-40 bg-white rounded-lg hidden shadow-xl z-20"
+                                    id="locationDropdownFiltersCel">
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                        onclick="populateHomes(`beach`);dropLocationShowFilters()">
+                                        Praia
+                                    </a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                        onclick="populateHomes(`country`);dropLocationShowFilters()">
+                                        Campo
+                                    </a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                        onclick="populateHomes(`mountain`);dropLocationShowFilters()">
+                                        Montanha
+                                    </a>
+                                    <a href="#"
+                                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                                        onclick="populateHomes(`city`);dropLocationShowFilters()">
+                                        Cidade
+                                    </a>
+                                </div>
+
                             </div>
 
 
@@ -871,12 +908,30 @@
 
                             <div class="col-start-4 w-full h-full flex items-center   justify-center">
                                 <button id='totalGuestFilter' class=" flex justify-center items-center gap-x-5"
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="text-sm busca_font h-full" id="totalGuests">
+                                    onclick="changeVisibility('guestsDropdownCel', 'guestsDropdown_filter')">
+                                    <h1 class="text-sm busca_font h-full" id="totalGuestsCel">
                                         2
                                     </h1>
                                     <i class="fas fa-user text-white"></i>
                                 </button>
+                                <div class="absolute w-full flex justify-center items-center top-28">
+                                    <div class="relative mt-2 py-2 w-full left-24 hidden   md:w-1/6 rounded-lg  z-20"
+                                        id="guestsDropdownCel">
+                                        <div class="number  header_color_alpha p-4 rounded-lg" id="">
+                                            <div class="flex justify-end contador gap-x-4">
+                                                <div
+                                                    class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
+                                                    -</div>
+                                                <h1 class="input text-white">1</h1>
+                                                <div
+                                                    class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
+                                                    +</div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                             </div>
                             <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
