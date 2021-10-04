@@ -268,7 +268,12 @@
                     let element = x[0]
                     currentHomeInfo = element
                     $("#nickName").text(`${element["nickName"]}`)
-                    $("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
+                    if (element[`state`] != "" && element[`state`] != undefined) {
+                        homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
+                    } else {
+                        homeClone.find('#Location').text(`${element["city"]}, ${element["country"]}`);
+                    }
+
                     $("#locationTypeHost").text(element["locationType"])
                     $(".locationType").text(traduzirLocation(element["locationType"]))
                     $(".locationTypeMobile").text(traduzirLocation(element["locationType"], 1))

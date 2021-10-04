@@ -98,7 +98,12 @@
                 0
             ], homeClone.find("#imagem_casa"), element)
             homeClone.find('#nickName').text(element["nickName"]);
-            homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}`);
+            if (element[`state`] != "" && element[`state`] != undefined) {
+                homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
+            } else {
+                homeClone.find('#Location').text(`${element["city"]}, ${element["country"]}`);
+            }
+            
             let stars = range(element["multiplier"], 1)
             homeClone.attr("onclick", `location.href='/dashboard/casa/detalhes/?homeId=${element['homeId']}'`)
             stars.forEach(startId => {
