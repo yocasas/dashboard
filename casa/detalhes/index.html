@@ -269,9 +269,10 @@
                     currentHomeInfo = element
                     $("#nickName").text(`${element["nickName"]}`)
                     if (element[`state`] != "" && element[`state`] != undefined) {
-                        homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
+                        //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
+                        $('#location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
                     } else {
-                        homeClone.find('#Location').text(`${element["city"]}, ${element["country"]}`);
+                        $('#location').text(`${element["city"]}, ${element["country"]}`);
                     }
 
                     $("#locationTypeHost").text(element["locationType"])
