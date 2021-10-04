@@ -160,9 +160,14 @@ div::-webkit-scrollbar-thumb {
   background-color: rgba(105, 141, 134, var(--bg-opacity));
 }
 
-.text-green_light {
+.text-green_dark {
   --text-opacity: 1;
   color: #698D86;
+}
+
+.text-green_light {
+  --text-opacity: 1;
+  color: rgba(192, 229, 216, var(--text-opacity));
 }
 
 .footer_typography {

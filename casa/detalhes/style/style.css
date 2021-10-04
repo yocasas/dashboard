@@ -19,13 +19,18 @@
     border-color: rgba(192, 229, 216, var(--border-opacity));
   }
 
+  .text-green_light {
+    --text-opacity: 1;
+    color: rgba(192, 229, 216, var(--text-opacity));
+  }
+
 .bg-green_medium {
     --bg-opacity: 1;
     background-color: #698D86;
     background-color: rgba(105, 141, 134, var(--bg-opacity));
   }
   
-  .text-green_light {
+  .text-green_dark {
     --text-opacity: 1;
     color: #698D86;
   }
