@@ -19,6 +19,50 @@
 
         let contactId
 
+        function curateHome() {
+
+            window.scrollTo(0, 0);
+            $(".loading").parent().removeClass('hidden')
+            $('html, body').css({
+                overflow: 'hidden',
+                height: '100%'
+            });
+
+            console.log($(`#homeStars`).val())
+
+
+            let curateSettings = {
+                "zipCode": currentHomeInfo.zipCode,
+                "clientId": currentHomeInfo.clientId,
+                "multiplier": parseInt($(`#homeStars`).val()),
+                "curatedDetails": $(`#curatedDetails`).text(),
+            }
+
+            console.log(curateSettings)
+            $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify(curateSettings),
+                contentType: "application/json",
+
+                success: (resp) => {
+                    window.scrollTo(0, 0);//LOADINGG
+                    $(".loading").parent().addClass('hidden')
+                    $('html, body').css({
+                        overflow: 'auto',
+                        height: 'auto'
+                    });
+                    //$('#showWarn').removeClass('hidden')
+                    //window.location.href = "/dashboard/chat"
+                }
+            })
+        }
+
+
+
 
         Date.prototype.addHours = function (h) {
             this.setTime(this.getTime() + (h * 60 * 60 * 1000));
@@ -49,8 +93,6 @@
             let sortedDates1 = sortedDatesString.map(x => new Date(x))
             //console.log(typeof sortedDates[0])
 
-            console.log(555, sortedDates1)
-            console.log(444, sortedDates)
 
 
             let fullDates = []
@@ -343,6 +385,11 @@
                         overflow: 'auto',
                         height: 'auto'
                     });
+
+                    if (clientInfo.clientType > 3) {
+                        $('.adminOnly').removeClass('hidden')
+                        $('#curatedDetails').attr('contenteditable', 'true');
+                    }
                     //TODO check loading
 
                     element["picturesS3Urls"].forEach(x => {
@@ -509,7 +556,21 @@
             <img src="Assets/badge_beta.svg" class="h-32">
         </h1>
     </div>
-    
+
+    <div class="flex justify-end adminOnly hidden">
+
+        <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
+            <div>
+                <h1> Quantidade de estrelas</h1>
+                <input type="number" value="3" id="homeStars" name="quantity" min="3" max="6">
+            </div>
+
+            <button onclick="curateHome()" href="#"
+                class=" h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Curar
+                casa</button>
+        </h1>
+    </div>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const homeId = urlParams.get('homeId');
