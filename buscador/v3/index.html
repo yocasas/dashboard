@@ -139,7 +139,7 @@
         $("#filtro_busca").text(traduzirLocation(locationType))
         $("#locationType").text(traduzirLocation(locationType))
         $("#locationTypeCel").text(traduzirLocation(locationType, 1))
-        
+
 
         $("#filtro_busca_mobile").text(traduzirLocation(locationType))
 
@@ -579,6 +579,13 @@
         </div>
     </div>
 
+    <div class="flex justify-end">
+
+        <h1 class="fixed z-50 my-64">
+            <span class="sr-only">Badge Beta</span>
+            <img src="Assets/badge_beta.svg" class="h-32">
+        </h1>
+    </div>
 
 
     <!-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -670,7 +677,7 @@
 
 
 
-                
+
                 if ($("#locationDropdownFiltersCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
                     $("#locationDropdownFiltersCel").addClass("hidden")
                 } else {
