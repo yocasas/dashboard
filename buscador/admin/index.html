@@ -61,7 +61,7 @@
 
 
                     x.forEach(element => {
-                        $(`#homes`).append(`<li class="${element['curated'] ? "text-green-400" : "text-red-400"}"><a href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab">${element['nickName']}</span></a></li>`)
+                        $(`#homes`).append(`<li class="${element['curated'] ?  "text-green-400"   : "text-red-400"  }"><a href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab">${element['nickName']} ${element['done'] || element['done']==undefined ? "(Terminou de preencher)" : "(Não terminou de preencher)"}</span></a></li>`)
                     });
 
 
