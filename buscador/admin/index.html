@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+    <script>
+        $(document).ready(() => {
+            checkCurrentUser()
+            populateHomes()
+        });
+        function populateHomes() {
+
+
+
+
+
+
+
+            let data = {
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
+                type: "POST",
+                data: JSON.stringify(data),
+
+                headers: {
+                    "Authorization": authCookie
+                },
+                contentType: "application/json",
+
+
+
+                success: function (x) {
+
+                    console.log(x.length)
+
+
+                    x.forEach(element => {
+                        $(`#homes`).append(`<li class="${element['curated'] ? "text-green-400" : "text-red-400"}"><a href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab">${element['nickName']}</span></a></li>`)
+                    });
+
+
+
+
+                }
+            })
+        }
+
+
+    </script>
+    <div class="w-screen h-sreen bg-grey-300 flex justify-center items-center">
+        <ul class="tabs" id="homes">
+            
+        </ul>
+    </div>
+</body>
+
+</html>

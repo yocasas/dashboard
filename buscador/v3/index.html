@@ -170,6 +170,10 @@
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
             type: "POST",
             data: JSON.stringify(data),
+
+            headers: {
+                "Authorization": authCookie
+            },
             contentType: "application/json",
 
 
