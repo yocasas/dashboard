@@ -47,7 +47,13 @@
                 "curatedDetails": $(`#curatedDetails`).text(),
             }
 
-            console.log(curateSettings)
+            let curateUserSettings = {
+                "clientType":2,
+                "clientId": currentHomeInfo.clientId,
+               
+            }
+
+            
             $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate",
                 type: "POST",
@@ -64,6 +70,27 @@
                         overflow: 'auto',
                         height: 'auto'
                     });
+                    //$('#showWarn').removeClass('hidden')
+                    //window.location.href = "/dashboard/chat"
+                }
+            })
+
+            $.ajax({
+                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify(curateUserSettings),
+                contentType: "application/json",
+
+                success: (resp) => {
+                    // window.scrollTo(0, 0);//LOADINGG
+                    // $(".loading").parent().addClass('hidden')
+                    // $('html, body').css({
+                    //     overflow: 'auto',
+                    //     height: 'auto'
+                    // });
                     //$('#showWarn').removeClass('hidden')
                     //window.location.href = "/dashboard/chat"
                 }
