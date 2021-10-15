@@ -92,9 +92,6 @@
 
                     
 
-
-
-
                 }
             })
 
@@ -105,9 +102,45 @@
 
     </script>
     <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
+        <div class="flex flex-col">
+
+        <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">
+        <h1>Nome da casa</h1>
+        <h1>Situação de preenchimento</h1>
+        <h1>Nome da pessoa</h1>
+        <h1>Email</h1>
+        <h1>Telefone</h1>
+
+
+        </div>
         <ul class="tabs" id="homes">
             
         </ul>
+    </div>
+
+        <div class="flex flex-col items-center">
+        <h1 class="font-bold text-2xl mr-10">Legenda</h1>
+
+        <div class="flex">
+
+
+            <div class="flex items-center mr-10">
+            <svg width="70" height="70">
+                <rect width="70" height="70" class="fill-current text-green-400" style="stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg>
+              <h1 class="font-bold">Casa já foi curada</h1>
+              </div>
+
+            <div class="flex items-center">
+              <svg width="70" height="70">
+                <rect width="70" height="70" class="fill-current text-red-400" style="stroke-width:3;stroke:rgb(0,0,0)" />
+              </svg>
+              <h1 class="font-bold">Casa ainda não foi curada</h1>
+            </div>
+
+
+        </div>
+    </div>
     </div>
 </body>
 
