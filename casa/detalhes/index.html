@@ -9,18 +9,23 @@
     <style>
     </style>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
     <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
+
         gtag('config', 'G-V0C85S2RG3');
+        checkCurrentUser()
+        gtag('set', { 'id': clientInfo.ClientId.substring(7) });
+
+
     </script>
 
     <script>
@@ -48,12 +53,12 @@
             }
 
             let curateUserSettings = {
-                "clientType":2,
+                "clientType": 2,
                 "clientId": currentHomeInfo.clientId,
-               
+
             }
 
-            
+
             $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate",
                 type: "POST",

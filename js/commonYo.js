@@ -78,7 +78,7 @@ let checkCurrentUser = function () {
     }
 
 
-    return clientInfo
+    
 
 }
 

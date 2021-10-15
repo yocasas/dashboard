@@ -10,13 +10,19 @@
     <title>Yô Chat</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
+
         gtag('config', 'G-V0C85S2RG3');
+        checkCurrentUser()
+        gtag('set', { 'id': clientInfo.ClientId.substring(7) });
+
+
     </script>
 
 
@@ -53,7 +59,6 @@
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
 
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
 
     <script>
         function changeVisibility(e) {
