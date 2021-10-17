@@ -184,6 +184,11 @@
 
 
 
+            } else {
+                fullDates.push({
+                    start: new Date(0),
+                    end: new Date(0),
+                })
             }
 
 
@@ -522,10 +527,10 @@
 
                     let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-                    console.log(totalDates)
+                    vue.$data.avbldates = totalDates
 
                     //vue.$data.attrs[0].dates = totalDates
-                    vue.$data.avbldates = totalDates
+                    
 
 
 
