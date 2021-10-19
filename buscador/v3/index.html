@@ -77,7 +77,7 @@
             let imgSrc = image.find("#img_source")
             if (element.b64img == undefined) {
                 $.ajax({
-                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3",
                     type: "POST",
                     data: JSON.stringify({
                         "pic-name": name
@@ -86,7 +86,8 @@
                     success: (x) => {
                         image.find(".loader").addClass("hidden")
                         imgSrc.removeClass("hidden")
-                        element.b64img = `data:image/png;base64,${x}`
+                        //element.b64img = `data:image/png;base64,${x}`
+                        element.b64img = `${x}`
                         imgSrc.attr("src", element.b64img)
 
                     },
@@ -1256,7 +1257,7 @@
             </div>
 
         </div>
-        <div class="w-full h-1/5 flex justify-center items-center py-4 md:py-0 gap-4" id="pages">
+        <div class="w-full h-1/5 flex justify-center items-center py-4 md:py-4 gap-4" id="pages">
             <button class="button_bg item h-4 w-4 rounded-full rounded-full  mais_resultados_font page" id='0'>
 
             </button>

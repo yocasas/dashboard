@@ -321,14 +321,14 @@
             function getS3file(name, image, total, y) {
                 return new Promise((resolve, reject) => {
                     $.ajax({
-                        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3",
                         type: "POST",
                         data: JSON.stringify({
                             "pic-name": name
                         }),
                         contentType: "application/json",
                         success: (x) => {
-                            let source = `data:image/png;base64,${x}`
+                            let source = `${x}`
                             let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
