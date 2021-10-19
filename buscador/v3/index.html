@@ -84,12 +84,17 @@
                     }),
                     contentType: "application/json",
                     success: (x) => {
-                        image.find(".loader").addClass("hidden")
-                        imgSrc.removeClass("hidden")
+                        //image.find(".loader").addClass("hidden")
+                        //imgSrc.removeClass("hidden")
+                        //imgSrc.addClass("dot-pulse")
                         //element.b64img = `data:image/png;base64,${x}`
                         element.b64img = `${x}`
                         imgSrc.attr("src", element.b64img)
-
+                        imgSrc.on('load',function(){
+                            $(this).parent().find(".loader").addClass("hidden")
+                            $(this).removeClass("hidden")
+                            console.log($(this).parent().find(".loader"))//fires this function when it appears
+                        });
                     },
                 })
             } else {
@@ -144,7 +149,6 @@
             console.log(123)
         })
 
-        console.log(123)
 
         if (e == undefined) {
 
