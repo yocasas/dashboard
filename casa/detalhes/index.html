@@ -530,7 +530,7 @@
                     vue.$data.avbldates = totalDates
 
                     //vue.$data.attrs[0].dates = totalDates
-                    
+
 
 
 
@@ -722,12 +722,84 @@
 
 
 
+    <header class="relative bg-no-repeat bg-cover p-10 md:p-4  z-5 bg-bottom lg:bg-center">
+
+        <link rel="stylesheet" href="./style/header.css">
+
+        <div class="flex items-center flex-wrap justify-between mb-6 md:mb-0">
+            <a href="yocasas.com.br/home">
+                <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
+                    <div id="logo" class=" w-36" onclick="window.location.href='/home'">
+                        <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+            </a>
 
 
 
 
 
-    <div id="headers" class="px-10 md:px-16 md:py-5">
+
+
+
+            <script>
+                function removeCookie() {
+                    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                }
+            </script>
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+            <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
+                <a href="#" @click="dropdownOpen = !dropdownOpen"
+                    class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
+                    <p id="userNameDrop" class="text-green_dark font-semibold">Usuário</p>
+                    <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                </a>
+
+                <a href="#" @click="dropdownOpen = !dropdownOpen"
+                    class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
+                    <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
+                </a>
+
+
+
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+                <div x-show="dropdownOpen"
+                    class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
+
+                    <a onclick="location.href='/onboarding'"
+                        class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Editar Cadastro
+                    </a>
+                    <a onclick="location.href='/dashboard/chat'"
+                        class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Mensagens
+                    </a>
+
+                    <a href="/home" onclick="removeCookie()"
+                        class="block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Log out
+                    </a>
+
+                    <div id="parentPoints"
+                        class="flex justify-between text-base font-normal  border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </header>
+
+
+
+
+    <div id="headers" class="px-10 md:px-16 md:py-5 hidden">
         <script>
             function removeCookie() {
                 document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
