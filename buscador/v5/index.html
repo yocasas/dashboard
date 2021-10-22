@@ -155,9 +155,8 @@
             }
         })
 
-        console.log(searchWorkers)
-
-        console.log(searchFacilities)
+        let bathrooms = parseInt($(`#bathrooms`).text())
+        let bedrooms = parseInt($(`#bedrooms`).text())
 
         if (e == undefined) {
             e = traduzirLocation($("#location_type").text())
@@ -176,13 +175,16 @@
             "LocationType": e,
             "maxPeople": maxGuests,
             "facilities": searchFacilities,
-            "workers": searchWorkers
+            "workers": searchWorkers,
+            "minBathrooms": bathrooms,
+            "minBedrooms": bedrooms,
+            "nAdm":true
         }
 
 
 
         $.ajax({
-            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes",
+            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
             type: "POST",
             data: JSON.stringify(data),
 
@@ -390,7 +392,7 @@
                 </div>
                 <div class="col-start-2 flex justify-end contador gap-x-4">
                     <div class="h-full w-10 minus cursor-pointer   rounded-full button_bg flex justify-center">-</div>
-                    <h1 class="input">1</h1>
+                    <h1 class="input" id='bedrooms'>1</h1>
                     <div class="h-full w-10 plus cursor-pointer  rounded-full button_bg flex justify-center">+</div>
 
                 </div>
@@ -402,7 +404,7 @@
                 </div>
                 <div class="col-start-2 flex justify-end contador gap-x-4">
                     <div class="h-full w-10 minus cursor-pointer   rounded-full button_bg flex justify-center">-</div>
-                    <h1 class="input">1</h1>
+                    <h1 class="input" id='bathrooms'>1</h1>
                     <div class="h-full w-10 plus cursor-pointer  rounded-full button_bg flex justify-center">+</div>
 
                 </div>
