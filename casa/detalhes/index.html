@@ -772,7 +772,7 @@
                 class="absolute top-28 md:top-0 md:relative w-auto h-16 md:h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full">
 
 
-                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
+                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20 hidden"
                     id="location_dropdown">
                     <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);dropLocationShow()">
@@ -792,22 +792,23 @@
                     </a>
                 </div>
 
-                <div class="absolute ml-auto mr-auto  h-full col-span-2  z-20 flex justify-center items-center"
+                <div class="absolute ml-auto mr-auto  h-full col-span-2  z-20 flex justify-center items-center hidden"
                     id="mid_division">
                     <div class="h-2/3 w-px button_bg_meio_alpha "></div>
                 </div>
-                <div class=" h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold"
+                <div class=" h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold hidden"
                     id="location_type" onclick="toggle(`location_dropdown`)">
                     Praaia
                 </div>
-                <div class=" h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
+                <div class=" h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 hidden">
                     <div class="flex flex-row gap-2" onclick="toggle(`total_guests_dropdown`)">
                         <p class="text-white font-semibold ml-10" id="total_guests">1 </p>
                         <p class="text-white font-semibold hidden md:block">hóspede(s) </p>
                         <div class="flex justify-center items-center md:hidden">
                             <i class=" fas fa-user text-white"></i>
                         </div>
-                        <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-16 rounded-lg hidden  z-20" id="total_guests_dropdown">
+                        <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-16 rounded-lg hidden  z-20"
+                            id="total_guests_dropdown">
                             <div class="number  header_color_alpha p-4 rounded-lg" id="">
                                 <div class="flex justify-end contador gap-x-4">
                                     <div
@@ -836,6 +837,12 @@
                         <i class="fas fa-search fa-sm"></i>
                     </button>
                 </div>
+
+                <a
+                    class="hidden md:block my-2 mx-72 col-span-2  cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                    <p class="text-black font-semibold">Explorar</p>
+
+                </a>
             </div>
 
 
@@ -893,319 +900,6 @@
     </header>
 
 
-
-
-    <div id="headers" class="px-10 md:px-16 md:py-5 hidden">
-        <script>
-            function removeCookie() {
-                document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-            }
-
-
-            function changeVisibilityUser() {
-                console.log($("#userPanel"))
-                if ($("#userPanel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#userPanel").addClass("hidden")
-                } else {
-                    $("#userPanel").removeClass("hidden")
-                }
-            }
-
-            function changeVisibilityUserCel() {
-                if ($("#userPanelCel").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#userPanelCel").addClass("hidden")
-                } else {
-                    $("#userPanelCel").removeClass("hidden")
-                }
-            }
-
-            function dropLocationShow() {
-                if ($("#locationDropdown").attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                    $("#locationDropdown").addClass("hidden")
-                } else {
-                    $("#locationDropdown").removeClass("hidden")
-                }
-            }
-        </script>
-        <div id="header_pc" class="h-full hidden md:grid grid-flow-col grid-rows-1 grid-cols-6 gap-4 remove_cel">
-            <div class="flex cursor-pointer row-start-1 col-start-1 items-center remove_cell"
-                onclick="location.href='/home'">
-                <div id="logo" class="py-8 w-36 remove_cel">
-                    <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
-                </div>
-            </div>
-
-
-            <div id="buscador" class="row-start-1 col-start-3 remove_cel"
-                onclick="window.location.href='/dashboard/buscador'">
-                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-32 bg-white rounded-lg hidden  shadow-xl z-20 -mx-10"
-                    id="locationDropdown">
-                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`beach`);dropLocationShow()">
-                        Praia
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`country`);dropLocationShow()">
-                        Campo
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`mountain`);dropLocationShow()">
-                        Montanha
-                    </a>
-                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                        onclick="populateHomes(`city`);dropLocationShow()">
-                        Cidade
-                    </a>
-                </div>
-
-
-
-            </div>
-
-            <div class="col-start-4 row-start-1 remove_cel -mx-24" onclick="window.location.href='/dashboard/buscador'">
-                <div class="absolute mt-2 py-2 w-3/6 md:ml-32 lg:ml-44 hidden   md:w-1/6 top-32 rounded-lg  z-20"
-                    id="guestsDropdown">
-                    <div class="number  header_color_alpha p-4 rounded-lg" id="">
-                        <div class="flex justify-center contador gap-x-4">
-                            <div
-                                class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
-                                -</div>
-                            <h1 class="input text-white">2</h1>
-                            <div
-                                class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
-                                +</div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="buscador" class="row-start-1 col-start-3 -mx-20 col-span-3 remove_cel"
-                onclick="window.location.href='/dashboard/buscador'">
-                <div class=" flex justify-center items-center w-full h-full">
-                    <div
-                        class="w-full gap-2 h-2/3 header_color rounded-full remove_cel flex justify-center items-center">
-                        <!--TODO make usefull-->
-                        <div class="col-start-6 col-span-2 w-4/12 h-full flex items-center justify-center">
-                            <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                onclick="location.href='/dashboard/dashboard/buscador'">
-                                Explorar
-                            </button>
-                        </div>
-                        <div class="w-full h-full grid grid-cols-7 hidden">
-                            <div class="col-start-1 w-full h-full flex items-center justify-start ml-6">
-                                <button class="busca_font text-xl ml-10" id="locationType" onclick="dropLocationShow()">
-                                    Praia
-                                </button>
-                            </div>
-
-
-
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-5 w-full h-full flex items-center justify-center ">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="busca_font text-xl" id="totalGuests">
-                                        2 hóspedes
-                                    </h1>
-                                </button>
-
-                            </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                    onclick="location.href='/dashboard/dashboard/buscador'">
-                                    Explorar
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="w-full gap-2 h-2/3 header_color rounded-full remove_pc">
-                        <div class="w-full h-full grid grid-cols-8 grid-rows-2">
-                            <div class="col-start-2 w-full h-full flex items-center justify-end"
-                                onclick="dropLocationShow()">
-                                <p class="busca_font " id="filtro_busca_mobile">
-                                    -
-                                </p>
-                            </div>
-
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-5 w-full h-full flex items-center justify-center text-xl">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="busca_font" id="totalGuests">
-                                        2 hóspedes
-                                    </h1>
-                                </button>
-
-                            </div>
-                            <div class="col-start-7 col-span-1 w-full h-full flex items-center justify-center">
-                                <button class="rounded-full h-1/4 w-full button_bg usuario_font">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class=" flex flex-col justify-center items-center w-full h-full col-start-7 remove_cel">
-                <div class="col-start-6 col-span-2 w-full h-2/3 flex items-center justify-center remove_cel">
-
-                    <a onclick="changeVisibilityUser()"
-                        class=" cursor-pointer border-green_light px-5 py-2 rounded-full button_bg hidden hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
-                        <p id='userNameDrop' class="white-space: nowrap;">Usuário</p>
-                        <div class="hidden flex-wrap md:flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
-                    </a>
-
-
-                </div>
-
-                <div class="absolute mt-2 py-2 w-auto right-18 md:w-auto top-32 bg-white rounded-lg hidden shadow-xl z-20"
-                    id="userPanel">
-                    <a onclick="location.href='/onboarding'"
-                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Configurações
-                    </a>
-                    <a href="/dashboard/chat"
-                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Mensagens
-                    </a>
-                    <!-- <a href="#"
-                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Painel
-                    </a> -->
-                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Log out
-                    </a>
-                    <div id="parentPoints"
-                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Pontuação: <div id="pointsUser" class="font-bold text-green_dark text-xl"></div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-        <div id="header_cel" class="h-full grid grid-flow-col grid-rows-2 grid-cols-2 gap-4 remove_pc">
-            <div class="flex row-start-1 col-start-1 items-center remove_pc" onclick="location.href='aaa'">
-                <div id="logo" class="h-16 w-16  remove_pc">
-                    <img src="Assets/LOGO.svg" alt="Kiwi standing on oval">
-                </div>
-            </div>
-
-            <div id="buscador" class="row-start-2 col-start-1 col-span-2 remove_pc"
-                onclick="window.location.href='/dashboard/buscador'">
-                <div class=" flex justify-center items-center w-full h-2/3">
-
-                    <div
-                        class="w-full gap-2 h-full header_color rounded-full remove_pc flex justify-center items-center">
-                        <!--TODO make usefull-->
-                        <div class="col-start-6 col-span-2 w-11/12 md:w-4/12 h-full flex items-center justify-center">
-                            <button class="rounded-full h-2/3 w-3/4 button_bg usuario_font text-xl"
-                                onclick="location.href='/dashboard/dashboard/buscador'">
-                                Explorar
-                            </button>
-                        </div>
-                        <div class="w-full h-full grid grid-cols-7 hidden">
-                            <div class="col-start-1 col-span-2 w-full h-full flex items-center justify-center">
-                                <button class="text-sm busca_font" contenteditable="true" onclick="dropLocationShow()"
-                                    id="locationType">
-                                    Praia
-                                </button>
-                            </div>
-
-
-                            <div class="col-start-3 w-full h-full flex items-center justify-center">
-                                <div id="central_line" class="h-3/5 w-0.5 button_bg_meio_alpha">
-
-                                </div>
-                            </div>
-
-                            <div class="col-start-4 w-full h-full flex items-center justify-center">
-                                <button id='totalGuestFilter'
-                                    onclick="changeVisibility('guestsDropdown', 'guestsDropdown_filter')">
-                                    <h1 class="text-sm busca_font w-12" id="totalGuests">
-                                        2 hospedes
-                                    </h1>
-                                </button>
-
-                            </div>
-                            <div class="col-start-6 col-span-2 w-full h-full flex items-center justify-center gap-1">
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="changeVisibility('more_filters', 'more_filters_filter')">
-                                    <i class="fas fa-sliders-h text-xs"></i>
-                                </button>
-
-                                <button
-                                    class="rounded-full h-2/3 w-5/12 button_bg usuario_font flex items-center justify-center"
-                                    onclick="populateHomes()">
-                                    <i class="text-xs fas fa-search"></i>
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-
-            <div class=" flex justify-end items-center w-full h-full col-start-2 remove_pc">
-
-                <button class="rounded-full h-2/3 w-2/3 button_bg remove_pc" onclick="changeVisibilityUserCel()">
-                    <div class="flex items-center remove_pc justify-center">
-                        <i class="fas fa-bars fa-lg remove_pc"></i>
-                    </div>
-
-
-                </button>
-
-                <div class="absolute mt-2 py-2 w-auto right-18 md:w-1/12 top-16 bg-white rounded-lg shadow-xl z-20 hidden"
-                    id="userPanelCel">
-                    <a onclick="location.href='/onboarding'"
-                        class="block cursor-pointer px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Configurações
-                    </a>
-                    <a href="/dashboard/chat"
-                        class="block px-4 cursor-pointer py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Mensagens
-                    </a>
-                    <!-- <a href="#"
-                        class="block px-4 py-2 cursor-pointer text-sm capitalize usuario_font hover:button_bg hover:text-black">
-                        Painel
-                    </a> -->
-                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
-                        class="block px-4 py-2 text-sm capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Log out
-                    </a>
-                    <div id="parentPoints"
-                        class="flex justify-between text-base  border-t-1  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:button_bg hover:text-black">
-                        Pontuação: <div id="pointsUserCel" class="font-bold text-green_dark text-xl ml-2"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-    </div>
 
 
     <div class="px-10 md:px-16 md:py-5 hidden" id="main">
