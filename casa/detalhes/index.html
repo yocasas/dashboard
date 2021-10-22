@@ -724,6 +724,12 @@
 
     <header class="relative bg-no-repeat bg-cover p-10 md:p-4  z-5 bg-bottom lg:bg-center">
 
+        <script>
+            function removeCookie() {
+                document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
         <link rel="stylesheet" href="./style/header.css">
 
         <div class="flex items-center flex-wrap justify-between mb-6 md:mb-0">
@@ -737,17 +743,29 @@
 
 
 
+            <div id="buscador"
+                class="relative w-auto h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full">
+                <div class="absolute ml-auto mr-auto  h-full col-span-2  z-20 flex justify-center items-center">
+                    <div class="h-2/3 w-px button_bg_meio_alpha "></div>
+                </div>
+                <div class=" h-full col-span-1 py-10 flex justify-start items-center mr-72 text-white">
+                    Destinos de Praia
+                </div>
+                <div class=" h-full col-span-1 py-10 flex justify-end items-center gap-x-20 text-white">
+                    <h1>2 hóspedes</h1>
+                    <a
+                        class=" cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                        <p class="text-black">Explorar</p>
+
+                    </a>
+                </div>
+            </div>
 
 
 
 
 
-            <script>
-                function removeCookie() {
-                    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                }
-            </script>
-            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+
             <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
                 <a href="#" @click="dropdownOpen = !dropdownOpen"
                     class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">

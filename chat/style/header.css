@@ -63,3 +63,7 @@
     color: #000;
     color: rgba(0, 0, 0, var(--text-opacity));
 }
+
+.button_bg_meio_alpha {
+  background-color: rgba(192, 229, 216, 0.5);
+}
