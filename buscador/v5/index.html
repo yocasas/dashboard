@@ -646,7 +646,7 @@
 
         </script>
 
-        <div class="relative flex items-center flex-wrap justify-between mb-20 md:mb-0">
+        <div class="relative flex items-center justify-between mb-20 md:mb-0">
             <a href="/home">
                 <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
                     <div id="logo" class=" w-36" onclick="window.location.href='/home'">
@@ -682,16 +682,14 @@
                     </a>
                 </div>
 
-                <div class="absolute ml-auto mr-auto  h-full col-span-2  z-20 flex justify-center items-center"
-                    id="mid_division">
-                    <div class="h-2/3 w-px button_bg_meio_alpha "></div>
-                </div>
                 <div class=" h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold cursor-pointer"
                     id="location_type" onclick="toggle(`location_dropdown`)">
                     Todos os destinos
                 </div>
                 <div class=" h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
-                    <div class="flex flex-row gap-2 cursor-pointer" onclick="toggle(`total_guests_dropdown`)">
+                    
+                    <div class="flex flex-row gap-2 cursor-pointer justify-center items-center onclick="toggle(`total_guests_dropdown`)">
+                        <div class="h-10 w-px button_bg_meio_alpha "></div>
                         <p class="text-white font-semibold ml-10" id="total_guests">1 </p>
                         <p class="text-white font-semibold hidden md:block">hóspede(s) </p>
                         <div class="flex justify-center items-center md:hidden">
@@ -736,7 +734,7 @@
             <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
                 <a href="#" @click="dropdownOpen = !dropdownOpen"
                     class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
-                    <p id="userNameDrop" class="text-green_dark font-semibold">Usuário</p>
+                    <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">Usuário</p>
                     <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                 </a>
 
