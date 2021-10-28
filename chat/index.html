@@ -601,6 +601,7 @@
 
     <div class="flex flex-col">
         <div class="md:h-screen">
+
             <header class="relative bg-no-repeat bg-cover p-10 md:p-4  z-5 bg-bottom lg:bg-center">
 
                 <script>
@@ -651,41 +652,40 @@
                         class="absolute top-28 md:top-0 md:relative w-auto h-16 md:h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full">
 
 
-                        <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20 hidden"
+                        <div class="hidden absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
                             id="location_dropdown">
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                onclick="populateHomes(`beach`);dropLocationShow()">
+                                onclick="populateHomes(`beach`);toggle(`location_dropdown`)">
                                 Praia
                             </a>
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                onclick="populateHomes(`country`);dropLocationShow()">
+                                onclick="populateHomes(`country`);toggle(`location_dropdown`)">
                                 Campo
                             </a>
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                onclick="populateHomes(`mountain`);dropLocationShow()">
+                                onclick="populateHomes(`mountain`);toggle(`location_dropdown`)">
                                 Montanha
                             </a>
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-                                onclick="populateHomes(`city`);dropLocationShow()">
+                                onclick="populateHomes(`city`);toggle(`location_dropdown`)">
                                 Cidade
                             </a>
                         </div>
 
-                        <div class="absolute ml-auto mr-auto  h-full col-span-2  z-20 flex justify-center items-center hidden"
-                            id="mid_division">
-                            <div class="h-2/3 w-px button_bg_meio_alpha "></div>
-                        </div>
-                        <div class=" h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold hidden"
+                        <div class="hidden h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold cursor-pointer"
                             id="location_type" onclick="toggle(`location_dropdown`)">
-                            Praaia
+                            Todos os destinos
                         </div>
                         <div
-                            class=" h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 hidden">
-                            <div class="flex flex-row gap-2" onclick="toggle(`total_guests_dropdown`)">
+                            class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
+
+                            <div class="flex flex-row gap-2 cursor-pointer justify-center items-center" onclick="
+                                toggle(`total_guests_dropdown`)">
+                                <div class="h-10 w-px button_bg_meio_alpha "></div>
                                 <p class="text-white font-semibold ml-10" id="total_guests">1 </p>
                                 <p class="text-white font-semibold hidden md:block">hóspede(s) </p>
                                 <div class="flex justify-center items-center md:hidden">
@@ -711,7 +711,7 @@
 
 
 
-                            <a href="/dashboard/buscador"
+                            <a onclick="populateHomes()"
                                 class="hidden md:block  cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                                 <p class="text-black font-semibold">Explorar</p>
 
@@ -722,11 +722,18 @@
                             </button>
                         </div>
 
-                        <a
-                            class="hidden md:block my-2 mx-72 col-span-2  cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
-                            <p class="text-black font-semibold">Explorar</p>
+                        <div class="w-full h-full flex justify-center col-span-2 items-center px-72">
+                            <a
+                                class="hidden md:block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                                <p class="text-black font-semibold">Explorar</p>
 
-                        </a>
+                            </a>
+                        </div>
+
+
+
+
+
                     </div>
 
 
@@ -736,7 +743,7 @@
                     <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
                         <a href="#" @click="dropdownOpen = !dropdownOpen"
                             class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
-                            <p id="userNameDrop" class="text-green_dark font-semibold">Usuário</p>
+                            <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">Usuário</p>
                             <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                         </a>
 
