@@ -142,16 +142,19 @@
                 ChatModel.addClass('animate-pulse')
             }
 
-            ChatModel.find(`#contactName`).text("Oi, " + nameSplit[0] + " " + nameSplit[nameSplit.length -
-                1]) //change informatio TODO fix name (using for marcello)
+            
             ChatModel.prop("chatId", chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
             ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
             if (fullInfo.isHost) {
                 ChatModel.find('#isHost').text('Sou anfitrião')
+                ChatModel.find(`#contactName`).text("Hóspede: " + nameSplit[0] + " " + nameSplit[nameSplit.length -
+                1])
             } else {
                 ChatModel.find('#isHost').text('Sou hóspede')
+                ChatModel.find(`#contactName`).text("Anfitrião: " + nameSplit[0] + " " + nameSplit[nameSplit.length -
+                1])
             }
 
             ChatModel.removeClass('hidden') //show element
