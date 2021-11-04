@@ -228,10 +228,12 @@
             currentChatInfo.hostId = fullChatInfo.hostId
             currentChatInfo.guestId = fullChatInfo.guestId
             currentChatInfo.isHost = fullChatInfo.isHost
+            currentChatInfo.ending = fullChatInfo.ending
+            
 
-            //console.log(fullChatInfo)
+            console.log(fullChatInfo)
 
-            if (currentChatInfo.isHost && (requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0)) {
+            if (currentChatInfo.isHost && (requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) && currentChatInfo.ending == 0) {
                 $('.hostOnly').removeClass('hidden')
             } else {
                 $('.hostOnly').addClass('hidden')
@@ -243,7 +245,9 @@
 
             allMessages.find(".chatMessage").slice(1).remove();
 
+            messages.sort((a, b) => (a.messageTime > b.messageTime) ? -1 : 1)
 
+            //messagesTODOTODO
 
             messages.forEach(element => {
 
