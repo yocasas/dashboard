@@ -733,7 +733,7 @@
                         </div>
 
                         <div class="w-full h-full flex justify-center col-span-2 items-center px-72">
-                            <a
+                            <a  href="/dashboard/buscador"
                                 class="hidden md:block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                                 <p class="text-black font-semibold">Explorar</p>
 
@@ -980,14 +980,14 @@
                                 <div class=" bg-grey-400 dot-elastic hidden" id="loadMSg"></div>
                             </div>
                             <div class="z-30 mt-10 md:mt-0  w-full flex pb-10 sm:pb-0">
-                                <input type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 md:pl-12 borda_filtro rounded-full h-10">
+                                <textarea type="text" placeholder="Escreva uma mensagem" id="inputMessage"
+                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 md:pl-12 borda_filtro rounded-full h-12"></textarea>
                                 <div class="w-20 flex items-center justify-center">
                                     <button class=" w-2/3 h-full rounded-full button_bg"
                                         onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
                                             aria-hidden="true"></i></button>
                                 </div>
-                                <div class="absolute w-8/12 h-10 z-10 button_bg opacity-70 rounded-full flex items-center justify-center"
+                                <div class="absolute w-8/12 h-12 z-10 button_bg opacity-70 rounded-full flex items-center justify-center"
                                     id="chatBlock">
                                     <!--TODO remove chat block-->
                                     <p class="classificacao_texto font-normal">Escolha um chat ao lado para enviar

@@ -87,6 +87,18 @@ div::-webkit-scrollbar-thumb {
   background-color: #C0E5D8; /* or add it to the track */
 }
 
+textarea::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background-color: #aaa; /* or add it to the track */
+}
+
+textarea::-webkit-scrollbar-thumb {
+  width: 0px;
+  height: 0px;
+  background-color: #C0E5D8; /* or add it to the track */
+}
+
 @media screen and (min-width: 640px) {
   .sm\:h-90\% {
     height: 85%;
@@ -288,7 +300,6 @@ div::-webkit-scrollbar-thumb {
 }
 
 .classificacao_texto {
-  white-space: nowrap;
   text-align: left;
   font-family: Niveau Grotesk;
   font-style: normal;
@@ -351,4 +362,25 @@ div::-webkit-scrollbar-thumb {
   .remove_pc {
     display: none;
   }
+}
+
+
+::-webkit-input-placeholder {
+  color: black;
+  line-height:45px;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: black;
+  line-height:45px;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: black;
+  line-height:45px;
+
+}
+:-ms-input-placeholder {
+  color: black;
+  line-height:45px;
 }
