@@ -264,6 +264,38 @@
 
         let selectedDates
 
+        async function addMessage(chatId, messageContent, hostId) {
+            return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
+                type: "POST",
+                headers: {
+                    "Authorization": authCookie
+                },
+                data: JSON.stringify({
+                    "chatId": chatId,
+                    "messageContent": messageContent,
+                    "clientId": clientInfo.ClientId,
+                    "isHost": false,
+                    "clientIdHost": hostId,
+                }
+
+
+
+                ),
+                contentType: "application/json",
+
+                success: (msgsString) => {
+
+                    let msgs = JSON.parse(msgsString)
+                    resolve(msgsString)
+                }
+            })
+        })
+
+
+        }
+
         function abrirChat(messageId) { //TODO send new message
 
 
@@ -290,12 +322,16 @@
                 contentType: "application/json",
 
                 success: (resp) => {
-                    window.scrollTo(0, 0);
-                    $('#showWarn').removeClass('hidden')
-                    $('html, body').css({
-                        overflow: 'hidden',
-                        height: '100%'
-                    });
+                    respObj = JSON.parse(resp)
+                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em ir para sua casa entre as datas ${toHumanDate(selectedDates[0])} ${toHumanDate(selectedDates[1])}`, currentHomeInfo.clientId).then((x) => {
+                        window.scrollTo(0, 0);
+                        $('#showWarn').removeClass('hidden')
+                        $('html, body').css({
+                            overflow: 'hidden',
+                            height: '100%'
+                        });
+                    })
+
                     //$('#showWarn').removeClass('hidden')
                     //window.location.href = "/dashboard/chat"
                 }
@@ -683,7 +719,13 @@
                 contentType: "application/json",
 
                 success: (resp) => {
-                    window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
+                    respObj = JSON.parse(resp)
+
+                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em saber mais sobre sua casa`, currentHomeInfo.clientId).then((x) => {
+                        window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
+                    })
+
+                    //window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
                 }
             })
 
@@ -774,23 +816,19 @@
 
                 <div class="hidden absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
                     id="location_dropdown">
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`beach`);toggle(`location_dropdown`)">
                         Praia
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`country`);toggle(`location_dropdown`)">
                         Campo
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`mountain`);toggle(`location_dropdown`)">
                         Montanha
                     </a>
-                    <a href="#"
-                        class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+                    <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
                         onclick="populateHomes(`city`);toggle(`location_dropdown`)">
                         Cidade
                     </a>
@@ -800,8 +838,7 @@
                     id="location_type" onclick="toggle(`location_dropdown`)">
                     Todos os destinos
                 </div>
-                <div
-                    class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
+                <div class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
 
                     <div class="flex flex-row gap-2 cursor-pointer justify-center items-center" onclick="
                         toggle(`total_guests_dropdown`)">
@@ -843,7 +880,7 @@
                 </div>
 
                 <div class="w-full h-full flex justify-center col-span-2 items-center px-72">
-                    <a  href="/dashboard/buscador"
+                    <a href="/dashboard/buscador"
                         class="hidden md:block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                         <p class="text-black font-semibold">Explorar</p>
 
@@ -874,8 +911,7 @@
 
 
 
-                <div x-show="dropdownOpen" @click="dropdownOpen = false"
-                    class="fixed inset-0 h-full w-full z-10"></div>
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
                 <div x-show="dropdownOpen"
                     class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
@@ -896,8 +932,7 @@
 
                     <div id="parentPoints"
                         class="flex justify-between text-base font-normal  border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                        Pontuação: <div id="pointsUser"
-                            class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                        Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
                     </div>
 
                 </div>
