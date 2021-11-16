@@ -192,33 +192,6 @@
             }
 
 
-
-            /*let latestStartDate = sortedDates[0]
-            let tempDate = sortedDates[0]
-            let latestEndDate = sortedDates[0]
-
-            sortedDates.forEach((lastDate) => {
-
-                
-                let nextStartDate = new Date(tempDate)
-                nextStartDate.setDate(nextStartDate.getDate() + 1)
-                tempDate = new Date(nextStartDate)
-                if (nextStartDate.getDate() == lastDate.getDate() && nextStartDate.getFullYear() == lastDate.getFullYear() && nextStartDate.getMonth() == lastDate.getMonth()) {
-                    latestEndDate = lastDate
-                    console.log(lastDate)
-                } else {
-                    fullDates.push({
-                        start: latestStartDate,
-                        end: latestEndDate
-                    })
-                    console.log(latestStartDate + ":" + latestEndDate)
-                    latestStartDate = lastDate
-                    latestEndDate = lastDate
-                    tempDate = lastDate
-                }
-
-            })*/
-
             return fullDates
         }
 
@@ -323,7 +296,7 @@
 
                 success: (resp) => {
                     respObj = JSON.parse(resp)
-                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em ir para sua casa entre as datas ${toHumanDate(selectedDates[0])} ${toHumanDate(selectedDates[1])}`, currentHomeInfo.clientId).then((x) => {
+                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(selectedDates[0])} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`, currentHomeInfo.clientId).then((x) => {
                         window.scrollTo(0, 0);
                         $('#showWarn').removeClass('hidden')
                         $('html, body').css({
@@ -721,7 +694,7 @@
                 success: (resp) => {
                     respObj = JSON.parse(resp)
 
-                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em saber mais sobre sua casa`, currentHomeInfo.clientId).then((x) => {
+                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`, currentHomeInfo.clientId).then((x) => {
                         window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
                     })
 
