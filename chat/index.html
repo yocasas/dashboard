@@ -229,9 +229,7 @@
             currentChatInfo.guestId = fullChatInfo.guestId
             currentChatInfo.isHost = fullChatInfo.isHost
             currentChatInfo.ending = fullChatInfo.ending
-            
 
-            console.log(fullChatInfo)
 
             if (currentChatInfo.isHost && (requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) && currentChatInfo.ending == 0) {
                 $('.hostOnly').removeClass('hidden')
@@ -469,6 +467,7 @@
             checkCurrentUser()
             const urlParams = new URLSearchParams(window.location.search);
             const clientId = urlParams.get('chat');
+            const chatId = urlParams.get('chatId');
 
             $.ajax({
                 url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/getChats",
@@ -513,7 +512,10 @@
                         //console.log(localChatInfo)
                         clickItemChat($(`#${chatHostId[0].chatId}`))
                         //clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
-                    } else {
+                    } else if (chatId != undefined && chatId.length > 0) {
+                        clickItemChat($(`#${chatId}`))
+                    } else
+                    {
                         clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
                     }
 
