@@ -18,6 +18,7 @@
         $(document).ready(() => {
             checkCurrentUser()
             populateUsers()
+            $("#token_h1").text(authCookie)
         });
         function populateHomes() {
             return new Promise((resolve, reject) => {
@@ -101,6 +102,7 @@
 
 
     </script>
+    <div class="flex justify-between">
     <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
         <div class="flex flex-col">
 
@@ -111,12 +113,15 @@
         <h1>Email</h1>
         <h1>Telefone</h1>
 
-
+            
         </div>
+
         <ul class="tabs" id="homes">
             
         </ul>
+        
     </div>
+    
 
         <div class="flex flex-col items-center">
         <h1 class="font-bold text-2xl mr-10">Legenda</h1>
@@ -140,7 +145,12 @@
 
 
         </div>
+
     </div>
+
+    
+    </div>
+    <h1 class="break-all " id="token_h1"></h1>
     </div>
 </body>
 
