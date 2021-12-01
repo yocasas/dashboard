@@ -36,7 +36,7 @@
 
         let contactId
 
-        function curateHome(curateStatus) {
+        function curateHome(curateStatus, featured = false) {
 
             window.scrollTo(0, 0);
             $(".loading").parent().removeClass('hidden')
@@ -53,7 +53,8 @@
                 "clientId": currentHomeInfo.clientId,
                 "multiplier": parseInt($(`#homeStars`).val()),
                 "curatedDetails": $(`#curatedDetails`).text(),
-                "curateStatus": curateStatus
+                "curateStatus": curateStatus,
+                "featured": featured
             }
 
             let curateUserSettings = {
@@ -627,13 +628,18 @@
                 <input type="number" value="3" id="homeStars" name="quantity" min="3" max="6">
             </div>
 
-            <button onclick="curateHome(true)" href="#"
+            <button onclick="curateHome(true, false)" href="#"
                 class=" h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Adicionar/Curar
                 casa</button>
 
-            <button onclick="curateHome(false)" href="#"
+            <button onclick="curateHome(false, false)" href="#"
                 class=" h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Remover
                 Casa</button>
+
+            <button onclick="curateHome(true, true)" href="#"
+                class=" h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Adicionar/Curar
+                casa (em destaque)</button>
+
         </h1>
     </div>
 
