@@ -47,6 +47,7 @@
                     x.forEach(element => {
                         $(`#homes`).append(`<li class="${element['curated'] ?  "bg-green-400"   : "bg-red-400"  } border-4 hover:bg-gray-200 font-semibold flex"><a class="underline" id=${element['clientId']} href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab font-bold">${element['nickName']} ${element['done'] || element['done']==undefined ? "(Terminou de preencher)" : "(Não terminou de preencher)"}</span></a></li>`)
                         clientIdArray.push(`${element['clientId']}`)
+                        
                         // console.log($(`li > a > span#${element['clientId']}`))
 
                         
@@ -87,7 +88,7 @@
 
 
                     x.forEach(element => {               
-                        $(`li > #${element['ClientId']}`).after(`&emsp;<h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1>`)
+                        $(`li > #${element['ClientId']}`).after(`&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1>`)
                         
                     });
 
