@@ -439,6 +439,7 @@
 
 
                     let points = starsToPointsPerNight(element["multiplier"])
+                    $(`#homeStars`).val(element["multiplier"])
                     $('#points').text(numberWithCommas(points));
 
                     let files = []
