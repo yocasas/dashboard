@@ -17,15 +17,18 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
 
         gtag('config', 'G-V0C85S2RG3');
         checkCurrentUser()
-        gtag('set', { 'id': clientInfo.ClientId.substring(7) });
-
-
+        gtag('set', {
+            'id': clientInfo.ClientId.substring(7)
+        });
     </script>
 
     <script>
@@ -33,7 +36,7 @@
 
         let contactId
 
-        function curateHome() {
+        function curateHome(curateStatus, featured = false) {
 
             window.scrollTo(0, 0);
             $(".loading").parent().removeClass('hidden')
@@ -50,6 +53,8 @@
                 "clientId": currentHomeInfo.clientId,
                 "multiplier": parseInt($(`#homeStars`).val()),
                 "curatedDetails": $(`#curatedDetails`).text(),
+                "curateStatus": curateStatus,
+                "featured": featured
             }
 
             let curateUserSettings = {
@@ -69,7 +74,7 @@
                 contentType: "application/json",
 
                 success: (resp) => {
-                    window.scrollTo(0, 0);//LOADINGG
+                    window.scrollTo(0, 0); //LOADINGG
                     $(".loading").parent().addClass('hidden')
                     $('html, body').css({
                         overflow: 'auto',
@@ -239,32 +244,32 @@
 
         async function addMessage(chatId, messageContent, hostId) {
             return new Promise((resolve, reject) => {
-            $.ajax({
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
-                type: "POST",
-                headers: {
-                    "Authorization": authCookie
-                },
-                data: JSON.stringify({
-                    "chatId": chatId,
-                    "messageContent": messageContent,
-                    "clientId": clientInfo.ClientId,
-                    "isHost": false,
-                    "clientIdHost": hostId,
-                }
+                $.ajax({
+                    url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
+                    type: "POST",
+                    headers: {
+                        "Authorization": authCookie
+                    },
+                    data: JSON.stringify({
+                            "chatId": chatId,
+                            "messageContent": messageContent,
+                            "clientId": clientInfo.ClientId,
+                            "isHost": false,
+                            "clientIdHost": hostId,
+                        }
 
 
 
-                ),
-                contentType: "application/json",
+                    ),
+                    contentType: "application/json",
 
-                success: (msgsString) => {
+                    success: (msgsString) => {
 
-                    let msgs = JSON.parse(msgsString)
-                    resolve(msgsString)
-                }
+                        let msgs = JSON.parse(msgsString)
+                        resolve(msgsString)
+                    }
+                })
             })
-        })
 
 
         }
@@ -296,7 +301,9 @@
 
                 success: (resp) => {
                     respObj = JSON.parse(resp)
-                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(selectedDates[0])} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`, currentHomeInfo.clientId).then((x) => {
+                    addMessage(respObj['data']["chatId"],
+                        `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(selectedDates[0])} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+                        currentHomeInfo.clientId).then((x) => {
                         window.scrollTo(0, 0);
                         $('#showWarn').removeClass('hidden')
                         $('html, body').css({
@@ -367,7 +374,8 @@
                     $("#nickName").text(`${element["nickName"]}`)
                     if (element[`state`] != "" && element[`state`] != undefined) {
                         //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
-                        $('#location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
+                        $('#location').text(
+                            `${element["city"]}, ${element["state"]}, ${element["country"]}`);
                     } else {
                         $('#location').text(`${element["city"]}, ${element["country"]}`);
                     }
@@ -620,9 +628,18 @@
                 <input type="number" value="3" id="homeStars" name="quantity" min="3" max="6">
             </div>
 
-            <button onclick="curateHome()" href="#"
-                class=" h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Curar
+            <button onclick="curateHome(true, false)" href="#"
+                class=" h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Adicionar/Curar
                 casa</button>
+
+            <button onclick="curateHome(false, false)" href="#"
+                class=" h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Remover
+                Casa</button>
+
+            <button onclick="curateHome(true, true)" href="#"
+                class=" h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Adicionar/Curar
+                casa (em destaque)</button>
+
         </h1>
     </div>
 
@@ -694,7 +711,9 @@
                 success: (resp) => {
                     respObj = JSON.parse(resp)
 
-                    addMessage(respObj['data']["chatId"], `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`, currentHomeInfo.clientId).then((x) => {
+                    addMessage(respObj['data']["chatId"],
+                        `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`,
+                        currentHomeInfo.clientId).then((x) => {
                         window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
                     })
 
@@ -768,7 +787,6 @@
                     return false;
                 });
             });
-
         </script>
 
         <div class="relative flex items-center justify-between mb-20 md:mb-0">
@@ -852,10 +870,16 @@
                     </button>
                 </div>
 
-                <div class="w-full h-full flex justify-center col-span-2 items-center px-72">
+                <div class="w-full h-full flex justify-center col-span-2 items-center">
                     <a href="/dashboard/buscador"
-                        class="hidden md:block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                        class="block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                         <p class="text-black font-semibold">Explorar</p>
+
+                    </a>
+                </div>
+
+                <div class=" w-full h-px flex justify-center md:col-span-2 items-center md:px-72">
+                    <a class="block h-px px-14 hover:border-gray-300  md:inline-flex items-center">
 
                     </a>
                 </div>

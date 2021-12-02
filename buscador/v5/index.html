@@ -16,15 +16,18 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
 
         gtag('config', 'G-V0C85S2RG3');
         checkCurrentUser()
-        gtag('set', { 'id': clientInfo.ClientId.substring(7) });
-
-
+        gtag('set', {
+            'id': clientInfo.ClientId.substring(7)
+        });
     </script>
 
 </head>
@@ -105,7 +108,9 @@
         let homesShow = $("#homes_show")
         let defaultHome = $("#show_home_default")
         homesShow.find(".show_home").remove()
-        $("#result_quantity").text(`${locationType != undefined ? "" + traduzirLocation(locationType) : "Destinos"}: ${resultFromApi.length} casas encontradas`)
+        $("#result_quantity").text(
+            `${locationType != undefined ? "" + traduzirLocation(locationType) : "Destinos"}: ${resultFromApi.length} casas encontradas`
+        )
         dbResponse.forEach(element => {
 
             let homeClone = defaultHome.clone()
@@ -114,7 +119,8 @@
             ], homeClone.find("#imagem_casa"), element)
             homeClone.find('#nickName').text(element["nickName"]);
             if (element[`state`] != "" && element[`state`] != undefined) {
-                homeClone.find('#Location').text(`${element["city"]}, ${element["state"]}, ${element["country"]}`);
+                homeClone.find('#Location').text(
+                    `${element["city"]}, ${element["state"]}, ${element["country"]}`);
             } else {
                 homeClone.find('#Location').text(`${element["city"]}, ${element["country"]}`);
             }
@@ -146,7 +152,7 @@
         let searchWorkers = []
 
         let searchFacilities = []
-        
+
         $('.checkbox-round:checked').each((x, ele) => {
             if (workers.includes(ele.value)) {
                 searchWorkers.push(ele.value)
@@ -178,7 +184,7 @@
             "workers": searchWorkers,
             "minBathrooms": bathrooms,
             "minBedrooms": bedrooms,
-            "nAdm":true
+            "nAdm": true
         }
 
 
@@ -380,13 +386,16 @@
             <div class="grid grid-rows-3 grid-cols-2 gap-y-10" id="filtros_quartos">
                 <div class="col-span-2 flex ">
                     <div>
-                        <h1 class="text-xl font-extrabold filter_typography">Quartos</h1>
+                        <h1
+                            class="text-xl font-extrabold filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">
+                            Quartos</h1>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div>
-                        <h1 class="filter_typography">Número de dormitórios</h1>
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Número de
+                            dormitórios</h1>
                     </div>
 
                 </div>
@@ -396,9 +405,10 @@
                     <div class="h-full w-10 plus cursor-pointer  rounded-full button_bg flex justify-center">+</div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div>
-                        <h1 class="filter_typography">Número de banheiros</h1>
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Número de
+                            banheiros</h1>
                     </div>
 
                 </div>
@@ -415,122 +425,135 @@
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_facilidades">
                 <div class="md:col-span-2 flex ">
                     <div>
-                        <h1 class="text-xl font-extrabold filter_typography">Facilidades</h1>
+                        <h1
+                            class="text-xl font-extrabold filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">
+                            Facilidades</h1>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography  ">Ar condicionado</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " value="air" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden ">Ar
+                            condicionado</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round  " value="air" /></div>
 
                     </div>
 
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Quadra/Campo Futebol</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " value="soccerField" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Quadra/Campo
+                            Futebol</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round  " value="soccerField" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Wi-fi</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " value="wifi" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Wi-fi</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round " value="wifi" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Churrasqueira</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="grill" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Churrasqueira
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="grill" /></div>
+
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Piscina</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="pool" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Piscina</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="pool" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Adega</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="wineHouse" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Adega</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="wineHouse" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Sauna</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value='sauna' />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Sauna</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value='sauna' /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Lavadoura de roupas</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="washingMachine" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Lavadoura de
+                            roupas</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="washingMachine" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Jacuzzi/Ofuro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="jacuzzi" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Jacuzzi/Ofuro
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="jacuzzi" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Lavadora de louca</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="dishwasher" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Lavadora de
+                            louca</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="dishwasher" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Quarto extra ajudante/baba</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="extraRoom" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Quarto extra
+                            ajudante/baba</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="extraRoom" /></div>
                     </div>
 
                 </div>
 
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Lareira</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Lareira</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Vaga para carros</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="carParking" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Vaga para
+                            carros</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="carParking" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Academia</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="gym" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Academia</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="gym" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Cozinha casher</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="kitchenKosher" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Cozinha
+                            casher</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="kitchenKosher" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Quadra de tenis / beach tennis</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="tennisCourt" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Quadra de
+                            tenis / beach tennis</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="tennisCourt" /></div>
                     </div>
 
                 </div>
@@ -541,44 +564,52 @@
             <div class="grid grid-rows-autos grid-cols-1 md:grid-cols-2 gap-y-10" id="filtros_funcionarios">
                 <div class="md:col-span-2 flex ">
                     <div>
-                        <h1 class="text-xl font-extrabold filter_typography">Funcionarios</h1>
+                        <h1
+                            class="text-xl font-extrabold filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">
+                            Funcionarios</h1>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center w-full md:w-auto">
+                <div class="col-span-1 flex items-center h-8 w-full md:w-auto">
                     <div class="flex gap-4 w-full flex justify-end items-end ">
-                        <h1 class="filter_typography  ">Caseiro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  ml-auto  " value="housekeeper" />
+                        <h1
+                            class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden overflow-ellipsis overflow-hidden ">
+                            Caseiro</h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round  " value="housekeeper" /></div>
 
                     </div>
 
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Piscineiro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10  " value="poolkeeper" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Piscineiro
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round  " value="poolkeeper" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Cozinheiro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10 " value="cooker" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Cozinheiro
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round " value="cooker" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Segurança</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="security" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Segurança
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="security" /></div>
                     </div>
 
                 </div>
-                <div class="col-span-1 flex items-center">
+                <div class="col-span-1 flex items-center h-8">
                     <div class="flex gap-4 w-full flex justify-end items-end">
-                        <h1 class="filter_typography">Faxineiro</h1>
-                        <input type="checkbox" class="checkbox-round  ml-auto mr-10" value="janitor" />
+                        <h1 class="filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden">Faxineiro
+                        </h1>
+                        <div class="w-1/3"><input type="checkbox" class="checkbox-round" value="janitor" /></div>
                     </div>
 
                 </div>
@@ -643,7 +674,6 @@
                     return false;
                 });
             });
-
         </script>
 
         <div class="relative flex items-center justify-between mb-20 md:mb-0">
@@ -687,8 +717,9 @@
                     Todos os destinos
                 </div>
                 <div class=" h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
-                    
-                    <div class="flex flex-row gap-2 cursor-pointer justify-center items-center" onclick="toggle(`total_guests_dropdown`)">
+
+                    <div class="flex flex-row gap-2 cursor-pointer justify-center items-center"
+                        onclick="toggle(`total_guests_dropdown`)">
                         <div class="h-10 w-px button_bg_meio_alpha "></div>
                         <p class="text-white font-semibold ml-10" id="total_guests">1 </p>
                         <p class="text-white font-semibold hidden md:block">hóspede(s) </p>
@@ -799,7 +830,7 @@
 
                     <div class="h-full flex-initial flex justify-around items-center ">
                         <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden">
-                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography " id="filtro_busca"
+                            <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography" id="filtro_busca"
                                 onclick="dropLocationShowFilters()">
                                 Destinos de Praia
                             </button>
@@ -833,7 +864,7 @@
                         <div>
                             <div class="flex-initial  borda_filtro border  filtro_busca rounded-full hidden"
                                 id="classificacao_counter_filter">
-                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography"
                                     id="filtro_busca"
                                     onclick="changeVisibility('classificacao_counter', 'classificacao_counter_filter')">
                                     Classificação
@@ -900,7 +931,7 @@
                         <!-- https://codepen.io/t7team/pen/abNGeXB TODO olha esse seletor<div>
                             <div class="flex-initial  borda_filtro border-2  rounded-full filtro_busca"
                                 id="points_counter_filter">
-                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography "
+                                <button class="place-self-center pt-4 pb-4 pl-12 pr-12 filter_typography w-3/4 flex-initial overflow-ellipsis overflow-hidden overflow-ellipsis overflow-hidden"
                                     id="filtro_busca"
                                     onclick="changeVisibility('points_counter', 'points_counter_filter')">
                                     Pontos
