@@ -9,6 +9,21 @@
   }
 }
 
+#parentPoints:hover #pointsUser {
+  --text-opacity: 1;
+  color: #698D86;
+  color: rgba(105, 141, 134, var(--text-opacity));
+}
+
+@media screen and (min-width: 2000px) {
+
+  .ws\:h-32rem {
+    height: 32rem !important;
+  }
+}
+
+
+
 
 @media screen and (min-width: 1700px) and (max-width: 1999px) {
 
@@ -34,7 +49,16 @@
   }
 }
 
+.bg-green_medium {
+  --bg-opacity: 1;
+  background-color: #698D86;
+  background-color: rgba(105, 141, 134, var(--bg-opacity));
+}
 
+.text-green_light {
+  --text-opacity: 1;
+  color: #698D86;
+}
 
 
 .rating {
@@ -173,6 +197,10 @@ input[type='range']::-webkit-slider-thumb {
   background-color: rgba(192, 229, 216, 1);
 }
 
+.border-t-1{
+  border-top-width: 1px;
+}
+
 .border-green_light {
   --border-opacity: 1;
   border-color: #c0e5d8;
@@ -181,6 +209,7 @@ input[type='range']::-webkit-slider-thumb {
 
 .hover\:button_bg:hover {
   background-color: rgba(192, 229, 216, 1);
+  border-color: rgba(192, 229, 216, 1);
 }
 
 .checkbox-round {
@@ -214,6 +243,14 @@ input[type='range']::-webkit-slider-thumb {
 
 .barra_meio {
   background-color: rgba(192, 229, 216, 1);
+}
+
+.zoom:hover {
+  transform: scale(1.02); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.zoom {
+  transition: transform .2s; /* Animation */
 }
 
 .resultado_busca {

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" type="image/svg" sizes="32x32" href="LOGO.svg" />
+    <link rel="icon" type="image/svg" sizes="16x16" href="LOGO.svg" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./build/tailwind.css" />
+    <link rel="stylesheet" href="./assets/loading.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
+    <title>Yô</title>
+
+    <script type="text/javascript" src="scripts/commonYo.js"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-V0C85S2RG3');
+    </script>
+
+    <script>
+        let selectedModal = ""
+
+        function getCookie(name) {
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+            if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                    end = dc.length;
+                }
+            }
+            // because unescape has been deprecated, replaced with decodeURI
+            //return unescape(dc.substring(begin + prefix.length, end));
+            return decodeURI(dc.substring(begin + prefix.length, end));
+        }
+
+        $(document).ready(function () {
+
+            var myCookie = getCookie("login_session");
+
+
+
+            if (myCookie == null) {
+            }
+            else {
+
+                var tokens = myCookie.split(".");
+
+                getUserInfo(myCookie).then(userPoints => {
+                    $("#pointsUser").text(userPoints)
+                })
+
+                // console.log(atob(tokens[0])); //Alg, Type
+                var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+                var clientType = clientObject.clientType
+
+                //Adiciona nome de usuario
+                $('#userNameDrop').text(decodeURIComponent(escape(clientObject.nickName)))
+                $('#userNameDrop').append('<div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>')
+
+
+
+                $("#infoRegister").hide()
+
+                if (clientType < 2) { //TODO: Popups avisando terminar cadastro ou aguardar aprovacao
+
+                    $('.usuario-button').removeClass('hidden');
+                    $(".login-button").hide()
+                    $(".usuario-button").show()
+
+
+                    selectedModal = '.modalWarning' //TODO: POPUP - arrumar
+                    toggleModal(selectedModal) //TODO: POPUP - arrumar
+
+                } else if (clientType >= 2) {
+                    $('.usuario-button').removeClass('hidden');
+                    $('.explorar-button').removeClass('hidden');
+
+                    $(".login-button, .cadastro-button").hide()
+                    $(".usuario-button, .explorar-button").show()
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+            }
+
+
+
+        });
+
+
+        function getUserInfo(token) {
+            return new Promise((resolve, reject) => {
+
+
+
+                let data = {}
+                let clientObject = {}
+                if (token) {
+                    if (typeof (token) === typeof ("string")) {
+                        var tokens = token.split(".");
+
+                        // console.log(atob(tokens[0])); //Alg, Type
+                        clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+
+
+                    }
+
+
+                    var clientId = clientObject.ClientId
+                    // objFormUser["ClientId"] = clientId
+                    data = {
+                        "ClientId": clientId
+                    }
+
+                }
+
+                //TODO: Usar os headers e nao clientid como argumento
+                data = JSON.stringify(data)
+
+                $.ajax({
+                    url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+                    type: 'POST',
+                    data: data,
+                    headers: {
+                        'Authorization': token,
+                    },
+                    "contentType": "application/json",
+                    success: function (data1, textStatus, jqXHR) {
+                        let element = data1
+                        if (`${element["terms"]}` == 'undefined' || `${element["privacy"]}` == 'undefined') {
+                            window.location.href = "https://yocasas.com.br/onboarding/";
+
+
+
+                        }
+                        resolve(`${element["points"]}`)
+
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+
+                    },
+                })
+
+
+            })
+        }
+
+    </script>
+
+
+</head>
+
+<body class="antialiased text-gray-800 font-niveau">
+
+    <div class="flex justify-end">
+        <h1 class="fixed z-50 my-64">
+            <span class="sr-only">Badge Beta</span>
+            <img src="assets/badge_beta.svg" class="h-32">
+        </h1>
+    </div>
+
+
+
+    <header class="relative bg-no-repeat bg-cover p-10 md:p-4  z-5 bg-bottom lg:bg-center">
+
+
+        <div class="flex items-center flex-wrap justify-between mb-6 md:mb-0">
+            <a href="yocasas.com.br/home">
+                <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
+                    <div id="logo" class=" w-36" onclick="window.location.href='/home'">
+                        <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
+                    </div>
+                </div>
+            </a>
+
+            <!--Modal-->
+            <style>
+                .modal {
+                    transition: opacity 0.25s ease;
+                }
+
+                body.modal-active {
+                    overflow-x: hidden;
+                    overflow-y: visible !important;
+                }
+            </style>
+
+
+            <script>
+                function onSubmit(form) {
+                    var dataFormArray = $(form).serializeArray()
+
+                    var objForm = {}
+
+                    dataFormArray.forEach(x => {
+                        objForm[x.name] = x.value
+                    })
+
+                    data = JSON.stringify(objForm)
+
+
+                    $('html, body').css({
+                        overflow: 'hidden',
+                        height: '100%'
+                    });
+
+                    $(".loading").parent().removeClass('hidden')
+
+                    $.ajax({
+                        url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/login",
+                        type: 'POST',
+                        data: data,
+                        "contentType": "application/json",
+                        success: function (data1, textStatus, jqXHR) {
+                            document.cookie = `login_session=${data1.token}; max-age=86400; path=/`;
+                            $('html, body').css({
+                                overflow: 'auto',
+                                height: 'auto'
+                            });
+                            $(".loading").parent().addClass('hidden')
+
+
+                            window.location.reload();
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            $('html, body').css({
+                                overflow: 'auto',
+                                height: 'auto'
+                            });
+                            $(".loading").parent().addClass('hidden')
+                            document.getElementById("error").innerHTML = "Email ou senha incorretos."
+
+
+                        },
+
+
+
+
+
+                    })
+
+                    return false //don't submit
+                }
+            </script>
+            <div
+                class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+                <div
+                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
+
+
+
+                    <!-- Add margin if you want to see some of the overlay behind the modal-->
+                    <div class="modal-content py-4 text-left px-6">
+
+                        <div class="flex justify-between items-center pb-3">
+                            <p class="text-sm font-bold text-green_dark mx-auto">Entrar</p>
+                            <div class="modal-close cursor-pointer z-50">
+                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+
+
+                        <form class="space-y-4" action="#" method="POST" onsubmit="return onSubmit(this)">
+                            <input type="hidden" name="remember" value="true">
+                            <div class="rounded-md  -space-y-px">
+                                <div class="grid gap-6">
+                                    <div class="col-span-12">
+                                        <input placeholder="Email" type="text" name="email" id="email"
+                                            autocomplete="email"
+                                            class="text-green_dark border-b-2 border-gray-500 mt-1 h-10 outline-none block w-full  sm:text-sm ">
+                                    </div>
+
+                                    <div class="col-span-12">
+                                        <input placeholder="Senha" type="password" name="password" id="password"
+                                            autocomplete="current-password"
+                                            class="mb-4 text-green_dark border-b-2 outline-none border-gray-500 mt-1 h-10 block w-full sm:text-sm ">
+                                        <div id="error" class="text-red-400"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <button type="submit"
+                                    class="mb-2 text-green_dark group relative flex mx-auto justify-center px-10 py-1 rounded-full hover:bg-green_detail hover:border-green_detail text-center border-4 border-green_light text-sm bg-green_light">
+
+                                    Login
+                                </button>
+                            </div>
+
+
+                        </form>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+            <script>
+                var openmodal = document.querySelectorAll('.modal-open')
+                for (var i = 0; i < openmodal.length; i++) {
+                    openmodal[i].addEventListener('click', function (event) {
+                        event.preventDefault()
+                        toggleModal()
+                    })
+                }
+
+                const overlay = document.querySelector('.modal-overlay')
+                overlay.addEventListener('click', toggleModal)
+
+                var closemodal = document.querySelectorAll('.modal-close')
+                for (var i = 0; i < closemodal.length; i++) {
+                    closemodal[i].addEventListener('click', toggleModal)
+                }
+
+                document.onkeydown = function (evt) {
+                    evt = evt || window.event
+                    var isEscape = false
+                    if ("key" in evt) {
+                        isEscape = (evt.key === "Escape" || evt.key === "Esc")
+                    } else {
+                        isEscape = (evt.keyCode === 27)
+                    }
+                    if (isEscape && document.body.classList.contains('modal-active')) {
+                        toggleModal()
+                    }
+                };
+
+
+                function toggleModal(modalArgs) {
+                    if (selectedModal != '.modal') {
+                        modalArgs = selectedModal
+                    }
+
+
+                    console.log(modalArgs)
+
+
+                    if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
+                        modalArgs = '.modal'
+
+                    }
+
+                    const body = document.querySelector('body')
+                    const modal = document.querySelector(modalArgs)
+                    modal.classList.toggle('opacity-0')
+                    modal.classList.toggle('pointer-events-none')
+                    body.classList.toggle('modal-active')
+
+                    if (typeof (modalArgs) != "object") selectedModal = modalArgs
+
+
+                }
+
+
+            </script>
+            <script>
+                function removeCookie() {
+                    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                }
+            </script>
+            <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+            <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
+                <a href="#" @click="dropdownOpen = !dropdownOpen"
+                    class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark hidden md:inline-flex items-center"></a>
+                    <p id="userNameDrop">Usuário</p>
+                    <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+                </a>
+
+                <a href="#" @click="dropdownOpen = !dropdownOpen"
+                    class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
+                    <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
+                </a>
+
+
+
+                <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+                <div x-show="dropdownOpen"
+                    class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
+
+                    <a onclick="location.href='/onboarding'"
+                        class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Editar Cadastro
+                    </a>
+                    <a onclick="location.href='/dashboard/chat'"
+                        class="block cursor-pointer px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Mensagens
+                    </a>
+
+                    <a href="https://yocasas.com.br/home/index.html" onclick="removeCookie()"
+                        class="block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Log out
+                    </a>
+
+                    <div id="parentPoints"
+                        class="flex justify-between text-base  border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+    </header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

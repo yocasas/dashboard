@@ -7,6 +7,10 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+function changeUserName(element) {
+    element.text(clientInfo.nickName)
+}
+
 
 
 function traduzirLocation(location, tiny) {
@@ -65,10 +69,16 @@ let checkCurrentUser = function () {
     } else {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
+        let currentDate = new Date()
+
+
+        if (clientInfo.exp < (currentDate.getTime()/1000) | clientInfo.clientType < 2) {
+            window.onload(window.location.replace("/home"))
+        }
     }
 
 
-    return clientInfo
+    
 
 }
 
@@ -88,10 +98,6 @@ function toHumanDate(x) {
     return date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
 
 
-}
-
-function removeCookie() {
-    document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 }
 
 
@@ -117,4 +123,60 @@ let starsToPointsPerNight = function (multiplier) {
     }
 
 
+}
+
+
+
+function getUserPoints() {
+    token = authCookie
+    return new Promise((resolve, reject) => {
+
+
+
+        let data = {}
+        let clientObject = {}
+        if (token) {
+            if (typeof (token) === typeof ("string")) {
+                var tokens = token.split(".");
+
+                // console.log(atob(tokens[0])); //Alg, Type
+                clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+
+
+            }
+
+
+            var clientId = clientObject.ClientId
+            // objFormUser["ClientId"] = clientId
+            data = {
+                "ClientId": clientId
+            }
+
+        }
+
+        //TODO: Usar os headers e nao clientid como argumento
+        data = JSON.stringify(data)
+
+        $.ajax({
+            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+            type: 'POST',
+            data: data,
+            headers: {
+                'Authorization': token,
+            },
+            "contentType": "application/json",
+            success: function (data1, textStatus, jqXHR) {
+                let element = data1
+                resolve(`${element["points"]}`)
+
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+
+            },
+        })
+
+
+    })
 }

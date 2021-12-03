@@ -4,6 +4,14 @@
   src: url('NiveauGroteskRegular.otf');
 }
 
+.borda_filtro {
+  border-width: 1px;
+  border-color: rgba(74, 94, 93, 1);
+}
+.header_color_bt {
+  background-color: rgba(74, 94, 93, 1);
+}
+
 #logo_yo {
   margin: 0;
   padding: 0;
@@ -45,26 +53,49 @@ div {
 }
 
 #avaliableChats:-webkit-scrollbar {
-  width: 2px !important;
-  height: 2px !important;
+  width: 3px !important;
+  height: 3px !important;
   background-color: #aaa !important; /* or add it to the track */
 }
 
 #avaliableChats:-webkit-scrollbar-thumb  {
-  width: 2px !important;
-  height: 1px !important;
+  width: 3px !important;
+  height: 3px !important;
   background-color: #C0E5D8 !important; /* or add it to the track */
 }
 
+
+#parentPoints:hover #pointsUser {
+  --text-opacity: 1;
+  color: #698D86;
+  color: rgba(105, 141, 134, var(--text-opacity));
+}
+
+.border-t-1{
+  border-top-width: 1px;
+}
+
 div::-webkit-scrollbar {
-  width: 1px;
-  height: 1px;
+  width: 3px;
+  height: 3px;
   background-color: #aaa; /* or add it to the track */
 }
 
 div::-webkit-scrollbar-thumb {
-  width: 1px;
-  height: 1px;
+  width: 3px;
+  height: 3px;
+  background-color: #C0E5D8; /* or add it to the track */
+}
+
+textarea::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  background-color: #aaa; /* or add it to the track */
+}
+
+textarea::-webkit-scrollbar-thumb {
+  width: 0px;
+  height: 0px;
   background-color: #C0E5D8; /* or add it to the track */
 }
 
@@ -72,6 +103,17 @@ div::-webkit-scrollbar-thumb {
   .sm\:h-90\% {
     height: 85%;
   }
+}
+
+@media screen and (max-width: 640px) {
+  .h-90\%-screen {
+    height: 70vh;
+  }
+}
+
+.hover\:button_bg:hover {
+  background-color: rgba(192, 229, 216, 1);
+  border-color: rgba(192, 229, 216, 1);
 }
 
 @media screen and (min-width: 640px) {
@@ -124,6 +166,22 @@ div::-webkit-scrollbar-thumb {
   height: 150vh;
 }
 
+.bg-green_medium {
+  --bg-opacity: 1;
+  background-color: #698D86;
+  background-color: rgba(105, 141, 134, var(--bg-opacity));
+}
+
+.text-green_dark {
+  --text-opacity: 1;
+  color: #698D86;
+}
+
+.text-green_light {
+  --text-opacity: 1;
+  color: rgba(192, 229, 216, var(--text-opacity));
+}
+
 .footer_typography {
   overflow: visible;
   white-space: nowrap;
@@ -161,6 +219,11 @@ div::-webkit-scrollbar-thumb {
 
 .button_bg {
   background-color: rgba(192, 229, 216, 1);
+}
+
+
+#parentPoints {
+  border-color: rgba(192, 229, 216, 1);
 }
 
 .button_text {
@@ -237,7 +300,6 @@ div::-webkit-scrollbar-thumb {
 }
 
 .classificacao_texto {
-  white-space: nowrap;
   text-align: left;
   font-family: Niveau Grotesk;
   font-style: normal;
@@ -300,4 +362,25 @@ div::-webkit-scrollbar-thumb {
   .remove_pc {
     display: none;
   }
+}
+
+
+::-webkit-input-placeholder {
+  color: black;
+  line-height:45px;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: black;
+  line-height:45px;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: black;
+  line-height:45px;
+
+}
+:-ms-input-placeholder {
+  color: black;
+  line-height:45px;
 }
