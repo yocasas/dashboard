@@ -247,14 +247,13 @@
 
             allMessages.find(".chatMessage").slice(1).remove();
 
-            messages.sort((a, b) => (a.messageTime > b.messageTime) ? -1 : 1)
+            messagesSort = messages.sort((a, b) => (new Date(a.messageTime) <= new Date(b.messageTime)) ? -1 : 1)
 
-            //messagesTODOTODO
+            console.log(messagesSort)
+            console.log(messages)
 
             messages.forEach(element => {
 
-
-                //add element to array
                 allMessages.append(generateElementMessage(fullChatInfo, fullChatElement, element, allMessages
                     .children().length + 1))
             });
