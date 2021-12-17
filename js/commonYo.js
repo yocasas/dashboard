@@ -70,8 +70,6 @@ let checkCurrentUser = function () {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
         let currentDate = new Date()
-
-
         if (clientInfo.exp < (currentDate.getTime()/1000) | clientInfo.clientType < 2) {
             window.location.href =`https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
         }
