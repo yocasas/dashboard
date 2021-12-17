@@ -65,7 +65,7 @@ let checkCurrentUser = function () {
     authCookie = myCookie
 
     if (myCookie == null) {
-        window.location.href =`https://${window.location.hostname}/home?redirectUrl=${window.location.href}`
+        let teste =`https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
     } else {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
@@ -73,7 +73,7 @@ let checkCurrentUser = function () {
 
 
         if (clientInfo.exp < (currentDate.getTime()/1000) | clientInfo.clientType < 2) {
-            window.location.href =`https://${window.location.hostname}/home?redirectUrl=${window.location.href}`
+            window.location.href =`https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
         }
     }
 
