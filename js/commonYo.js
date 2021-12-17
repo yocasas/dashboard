@@ -65,7 +65,7 @@ let checkCurrentUser = function () {
     authCookie = myCookie
 
     if (myCookie == null) {
-        let teste =`https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
+        window.location.href =`https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
     } else {
         //console.log(`cliente ja esta logado ${myCookie}`)
         clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
