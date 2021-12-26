@@ -2,6 +2,8 @@ let clientInfo
 
 let authCookie
 
+let userPointsInfo
+
 function capitalizeFirstLetter(string) {
     console.log(string)
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -166,8 +168,8 @@ function getUserPoints() {
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
                 let element = data1
+                userPointsInfo = element["points"]
                 resolve(`${element["points"]}`)
-
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
