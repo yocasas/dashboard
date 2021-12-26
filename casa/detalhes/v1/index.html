@@ -599,7 +599,9 @@
         <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
             <div>
                 <h1>Quantidade de estrelas</h1>
-                <input type="number" value="3" id="homeStars" name="quantity" min="3" max="6" />
+                <p>2 - Experiencia
+                </p>
+                <input type="number" value="3" id="homeStars" name="quantity" min="2" max="7" />
             </div>
 
             <button onclick="curateHome(true, false)" href="#"
@@ -1668,7 +1670,8 @@
                             $('#totalCost').text("- " + numberWithCommas(starsToPointsPerNight(multiplier) * days))
                             $('#totalNights').text(days)
 
-                            $('#totalPointsAfter').text(numberWithCommas(userPointsInfo - starsToPointsPerNight(multiplier) * days))
+                            $('#totalPointsAfter').text(numberWithCommas(userPointsInfo - starsToPointsPerNight(
+                                multiplier) * days))
 
                             $('#nightsTax').text("R$ " + numberWithCommas(days * 100))
 

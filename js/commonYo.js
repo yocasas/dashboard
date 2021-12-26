@@ -105,7 +105,7 @@ let starsToPointsPerNight = function (multiplier) {
 
     const basePoint = 400
     switch (multiplier) {
-        case -1:
+        case 2:
             return basePoint * (Math.pow(2, 0))
         case 3:
             return basePoint * (Math.pow(2, 1))
@@ -115,7 +115,7 @@ let starsToPointsPerNight = function (multiplier) {
             return basePoint * (Math.pow(2, 3))
         case 6:
             return basePoint * (Math.pow(2, 4))
-        case -2:
+        case 7:
             return basePoint * (Math.pow(2, 4)) * 1.5
 
         default:
