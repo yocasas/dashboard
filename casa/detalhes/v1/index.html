@@ -1,1184 +1,1028 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Yô Detalhes</title>
-    <style></style>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-    />
-    <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
-    <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yô Detalhes</title>
+  <style></style>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
+  <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
 
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || []
 
-      gtag('config', 'G-V0C85S2RG3')
-      checkCurrentUser()
-      gtag('set', {
-        id: clientInfo.ClientId.substring(7),
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+
+    gtag('config', 'G-V0C85S2RG3')
+    checkCurrentUser()
+    gtag('set', {
+      id: clientInfo.ClientId.substring(7),
+    })
+  </script>
+
+  <script>
+    let currentHomeInfo
+
+    let contactId
+
+    function curateHome(curateStatus, featured = false) {
+      window.scrollTo(0, 0)
+      $('.loading').parent().removeClass('hidden')
+      $('html, body').css({
+        overflow: 'hidden',
+        height: '100%',
       })
-    </script>
 
-    <script>
-      let currentHomeInfo
+      console.log($(`#homeStars`).val())
 
-      let contactId
-
-      function curateHome(curateStatus, featured = false) {
-        window.scrollTo(0, 0)
-        $('.loading').parent().removeClass('hidden')
-        $('html, body').css({
-          overflow: 'hidden',
-          height: '100%',
-        })
-
-        console.log($(`#homeStars`).val())
-
-        let curateSettings = {
-          zipCode: currentHomeInfo.zipCode,
-          clientId: currentHomeInfo.clientId,
-          multiplier: parseInt($(`#homeStars`).val()),
-          curatedDetails: $(`#curatedDetails`).text(),
-          curateStatus: curateStatus,
-          featured: featured,
-        }
-
-        let curateUserSettings = {
-          clientType: 2,
-          clientId: currentHomeInfo.clientId,
-        }
-
-        $.ajax({
-          url:
-            'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
-          type: 'POST',
-          headers: {
-            Authorization: authCookie,
-          },
-          data: JSON.stringify(curateSettings),
-          contentType: 'application/json',
-
-          success: (resp) => {
-            window.scrollTo(0, 0) //LOADINGG
-            $('.loading').parent().addClass('hidden')
-            $('html, body').css({
-              overflow: 'auto',
-              height: 'auto',
-            })
-            //$('#showWarn').removeClass('hidden')
-            //window.location.href = "/dashboard/chat"
-          },
-        })
-
-        $.ajax({
-          url:
-            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate',
-          type: 'POST',
-          headers: {
-            Authorization: authCookie,
-          },
-          data: JSON.stringify(curateUserSettings),
-          contentType: 'application/json',
-
-          success: (resp) => {
-            // window.scrollTo(0, 0);//LOADINGG
-            // $(".loading").parent().addClass('hidden')
-            // $('html, body').css({
-            //     overflow: 'auto',
-            //     height: 'auto'
-            // });
-            //$('#showWarn').removeClass('hidden')
-            //window.location.href = "/dashboard/chat"
-          },
-        })
+      let curateSettings = {
+        zipCode: currentHomeInfo.zipCode,
+        clientId: currentHomeInfo.clientId,
+        multiplier: parseInt($(`#homeStars`).val()),
+        curatedDetails: $(`#curatedDetails`).text(),
+        curateStatus: curateStatus,
+        featured: featured,
       }
 
-      Date.prototype.addHours = function (h) {
-        this.setTime(this.getTime() + h * 60 * 60 * 1000)
-        return this
+      let curateUserSettings = {
+        clientType: 2,
+        clientId: currentHomeInfo.clientId,
       }
 
-      function fixTimeZone(date) {
-        let dateSave = new Date(date.getTime())
-        return dateSave.addHours(dateSave.getTimezoneOffset() / 60)
-      }
+      $.ajax({
+        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
+        type: 'POST',
+        headers: {
+          Authorization: authCookie,
+        },
+        data: JSON.stringify(curateSettings),
+        contentType: 'application/json',
 
-      function generateAvaliableObj(sortedDatesJSON) {
-        let sortedDatesString = JSON.parse(JSON.stringify(sortedDatesJSON))
+        success: (resp) => {
+          window.scrollTo(0, 0) //LOADINGG
+          $('.loading').parent().addClass('hidden')
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto',
+          })
+          //$('#showWarn').removeClass('hidden')
+          //window.location.href = "/dashboard/chat"
+        },
+      })
 
-        if (sortedDatesString.length == 0) {
-          return {
-            start: new Date(0),
-            end: new Date(0),
-          }
+      $.ajax({
+        url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate',
+        type: 'POST',
+        headers: {
+          Authorization: authCookie,
+        },
+        data: JSON.stringify(curateUserSettings),
+        contentType: 'application/json',
+
+        success: (resp) => {
+          // window.scrollTo(0, 0);//LOADINGG
+          // $(".loading").parent().addClass('hidden')
+          // $('html, body').css({
+          //     overflow: 'auto',
+          //     height: 'auto'
+          // });
+          //$('#showWarn').removeClass('hidden')
+          //window.location.href = "/dashboard/chat"
+        },
+      })
+    }
+
+    Date.prototype.addHours = function (h) {
+      this.setTime(this.getTime() + h * 60 * 60 * 1000)
+      return this
+    }
+
+    function fixTimeZone(date) {
+      let dateSave = new Date(date.getTime())
+      return dateSave.addHours(dateSave.getTimezoneOffset() / 60)
+    }
+
+    function generateAvaliableObj(sortedDatesJSON) {
+      let sortedDatesString = JSON.parse(JSON.stringify(sortedDatesJSON))
+
+      if (sortedDatesString.length == 0) {
+        return {
+          start: new Date(0),
+          end: new Date(0),
         }
+      }
 
-        let sortedDates = sortedDatesString.map((x) => new Date(x))
-        let sortedDates1 = sortedDatesString.map((x) => new Date(x))
-        //console.log(typeof sortedDates[0])
+      let sortedDates = sortedDatesString.map((x) => new Date(x))
+      let sortedDates1 = sortedDatesString.map((x) => new Date(x))
+      //console.log(typeof sortedDates[0])
 
-        let fullDates = []
+      let fullDates = []
 
-        if (sortedDates.length > 1) {
-          let initDate = new Date(0)
-          let startDate = new Date(0)
-          let endDate = new Date(0)
+      if (sortedDates.length > 1) {
+        let initDate = new Date(0)
+        let startDate = new Date(0)
+        let endDate = new Date(0)
 
-          sortedDates.forEach((lastDate) => {
-            initDate = new Date(endDate.getTime())
-            initDate.setDate(initDate.getDate() + 1)
-            if (
-              initDate.getDate() == lastDate.getDate() &&
-              initDate.getFullYear() == lastDate.getFullYear() &&
-              initDate.getMonth() == lastDate.getMonth()
-            ) {
-              endDate = new Date(lastDate.getTime())
-            } else {
-              if (endDate > new Date()) {
-                let startDateSave = fixTimeZone(startDate)
-                let endDateSave = fixTimeZone(endDate)
+        sortedDates.forEach((lastDate) => {
+          initDate = new Date(endDate.getTime())
+          initDate.setDate(initDate.getDate() + 1)
+          if (
+            initDate.getDate() == lastDate.getDate() &&
+            initDate.getFullYear() == lastDate.getFullYear() &&
+            initDate.getMonth() == lastDate.getMonth()
+          ) {
+            endDate = new Date(lastDate.getTime())
+          } else {
+            if (endDate > new Date()) {
+              let startDateSave = fixTimeZone(startDate)
+              let endDateSave = fixTimeZone(endDate)
 
-                fullDates.push({
-                  start: startDateSave,
-                  end: endDateSave,
-                })
-              }
-
-              startDate = new Date(lastDate.getTime())
-              endDate = new Date(lastDate.getTime())
-
-              console.log('end:' + endDate)
+              fullDates.push({
+                start: startDateSave,
+                end: endDateSave,
+              })
             }
-          })
 
-          let startDateSave = fixTimeZone(startDate)
-          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+            startDate = new Date(lastDate.getTime())
+            endDate = new Date(lastDate.getTime())
 
-          fullDates.push({
-            start: startDateSave,
-            end: endDateSave,
-          })
+            console.log('end:' + endDate)
+          }
+        })
 
-          //console.log(arr)
-        } else {
-          fullDates.push({
-            start: new Date(0),
-            end: new Date(0),
-          })
-        }
+        let startDateSave = fixTimeZone(startDate)
+        let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
 
-        return fullDates
-      }
+        fullDates.push({
+          start: startDateSave,
+          end: endDateSave,
+        })
 
-      let multiplier
-      let vue
-
-      function logKey(e) {
-        console.log(` ${e.code}`)
-      }
-
-      function startCarrousel() {
-        $('.slider').removeClass('hidden')
-        $(document).ready(function () {
-          jQuery(document).ready(function ($) {
-            $('.slider').slick({
-              lazyLoad: 'ondemand',
-              dots: false,
-              infinite: true,
-              speed: 500,
-              slidesToShow: 3,
-              slidesToScroll: 1,
-              autoplay: true,
-              autoplaySpeed: 2000,
-              arrows: true,
-              responsive: [
-                {
-                  breakpoint: 640,
-                  settings: {
-                    arrows: false,
-                    slidesToShow: 1,
-                    slidesToScroll: 1,
-                  },
-                },
-              ],
-            })
-          })
+        //console.log(arr)
+      } else {
+        fullDates.push({
+          start: new Date(0),
+          end: new Date(0),
         })
       }
 
-      function checkData(data) {
-        return data != undefined && data.length > 0
+      return fullDates
+    }
+
+    let multiplier
+    let vue
+
+    function logKey(e) {
+      console.log(` ${e.code}`)
+    }
+
+    function startCarrousel() {
+      $('.slider').removeClass('hidden')
+      $(document).ready(function () {
+        jQuery(document).ready(function ($) {
+          $('.slider').slick({
+            lazyLoad: 'ondemand',
+            dots: false,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+            arrows: true,
+            responsive: [{
+              breakpoint: 640,
+              settings: {
+                arrows: false,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            }, ],
+          })
+        })
+      })
+    }
+
+    function checkData(data) {
+      return data != undefined && data.length > 0
+    }
+
+    let selectedDates
+
+    async function addMessage(chatId, messageContent, hostId) {
+      return new Promise((resolve, reject) => {
+        $.ajax({
+          url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add',
+          type: 'POST',
+          headers: {
+            Authorization: authCookie,
+          },
+          data: JSON.stringify({
+            chatId: chatId,
+            messageContent: messageContent,
+            clientId: clientInfo.ClientId,
+            isHost: false,
+            clientIdHost: hostId,
+          }),
+          contentType: 'application/json',
+
+          success: (msgsString) => {
+            let msgs = JSON.parse(msgsString)
+            resolve(msgsString)
+          },
+        })
+      })
+    }
+
+    function abrirChat(messageId) {
+      //TODO send new message
+
+      let chatSettings = {
+        hostId: currentHomeInfo.clientId,
+        guestId: clientInfo.ClientId,
+        guestPicture: 'chat_con.png',
+        hostPicture: 'chat_con.png',
+        requestedDate: selectedDates,
+        hostName: currentHomeInfo.contactName,
+        guestName: clientInfo.nickName,
+        homeNickName: currentHomeInfo.nickName,
+        homeId: currentHomeInfo.homeId,
+      }
+      $.ajax({
+        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        type: 'POST',
+        headers: {
+          Authorization: authCookie,
+        },
+        data: JSON.stringify(chatSettings),
+        contentType: 'application/json',
+
+        success: (resp) => {
+          respObj = JSON.parse(resp)
+          addMessage(
+            respObj['data']['chatId'],
+            `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
+                selectedDates[0],
+              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+            currentHomeInfo.clientId,
+          ).then((x) => {
+            window.scrollTo(0, 0)
+            $('#showWarn').removeClass('hidden')
+            $('html, body').css({
+              overflow: 'hidden',
+              height: '100%',
+            })
+          })
+
+          //$('#showWarn').removeClass('hidden')
+          //window.location.href = "/dashboard/chat"
+        },
+      })
+    }
+
+    function populateHomes(e) {
+      let data = {
+        HomeId: e,
       }
 
-      let selectedDates
+      function range(size, startAt = 0) {
+        return [...Array(size).keys()].map((i) => i + startAt)
+      }
 
-      async function addMessage(chatId, messageContent, hostId) {
+      function getS3file(name, image, total, y) {
         return new Promise((resolve, reject) => {
           $.ajax({
-            url:
-              'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add',
+            url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3',
+            type: 'POST',
+            data: JSON.stringify({
+              'pic-name': name,
+            }),
+            contentType: 'application/json',
+            success: (x) => {
+              let source = `${x}`
+              let element = `<div class="bg-white px-1 ">
+                                        <img class="object-cover h-96 w-full " src="${source}">
+                                        </div>`
+
+              //$(".slider").slick('slickAdd', element)
+              //image.prepend(`<img id="theImg" src= />`);
+              resolve(source)
+            },
+          })
+        })
+      }
+
+      let homesShow = $('#homes_show')
+      checkCurrentUser()
+      $.ajax({
+        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        headers: {
+          Authorization: authCookie,
+        },
+        success: function (x) {
+          let element = x[0]
+          currentHomeInfo = element
+          $('#nickName').text(`${element['nickName']}`)
+          if (element['underReview'] != undefined && element['underReview']) {
+            $('#openChat').text('Sob consulta')
+            $('#reservationCalculator').toggleClass('hidden')
+          }
+          if (element[`state`] != '' && element[`state`] != undefined) {
+            //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
+            $('#location').text(
+              `${element['city']}, ${element['state']}, ${element['country']}`,
+            )
+          } else {
+            $('#location').text(`${element['city']}, ${element['country']}`)
+          }
+
+          $('#locationTypeHost').text(element['locationType'])
+          $('.locationType').text(traduzirLocation(element['locationType']))
+          $('.locationTypeMobile').text(
+            traduzirLocation(element['locationType'], 1),
+          )
+
+          $('#inCondominium').text(element[`inCondominium`] ? 'Sim' : 'Não')
+          $('#floorSpace').text(element[`floorSpace`])
+          $('#airportDistance').text(element[`airportDistance`])
+          $('#uncoveredParking').text(element[`uncoveredParking`])
+          $('#coveredParking').text(element[`coveredParking`])
+          $('#map')
+            .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
+            </iframe>`)
+          $(`#infoWorkers`).text(
+            checkData(element[`infoWorkers`]) ?
+            element[`infoWorkers`] :
+            'Sem informações',
+          )
+          $(`#infoAC`).text(
+            checkData(element[`totalAc`]) ?
+            element[`totalAc`] :
+            'Sem informações',
+          )
+          $(`#carEntrance`).text(
+            checkData(element[`accessPath`]) ?
+            element[`accessPath`] :
+            'Sem informações',
+          )
+          $(`#description`).text(element[`description`])
+          $(`#curatedDetails`).text(
+            checkData(element[`curatedDetails`]) ?
+            element[`curatedDetails`] :
+            'Sem informações',
+          )
+          $(`#extraRestriction`).text(
+            checkData(element[`extraRestriction`]) ?
+            element[`extraRestriction`] :
+            'Sem informações',
+          )
+
+          contactId = element['clientId']
+
+          $.ajax({
+            url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
             type: 'POST',
             headers: {
               Authorization: authCookie,
             },
             data: JSON.stringify({
-              chatId: chatId,
-              messageContent: messageContent,
-              clientId: clientInfo.ClientId,
-              isHost: false,
-              clientIdHost: hostId,
+              ClientId: element['clientId'],
             }),
             contentType: 'application/json',
 
-            success: (msgsString) => {
-              let msgs = JSON.parse(msgsString)
-              resolve(msgsString)
+            success: (client) => {
+              console.log(client)
+              currentHomeInfo.contactName = client[`nickName`]
+              $(`#contactName`).text(client[`nickName`])
+              //$(".loading").removeClass('dot-pulse')
             },
           })
-        })
-      }
 
-      function abrirChat(messageId) {
-        //TODO send new message
+          multiplier = element['multiplier']
 
-        let chatSettings = {
-          hostId: currentHomeInfo.clientId,
-          guestId: clientInfo.ClientId,
-          guestPicture: 'chat_con.png',
-          hostPicture: 'chat_con.png',
-          requestedDate: selectedDates,
-          hostName: currentHomeInfo.contactName,
-          guestName: clientInfo.nickName,
-          homeNickName: currentHomeInfo.nickName,
-          homeId: currentHomeInfo.homeId,
-        }
-        $.ajax({
-          url:
-            'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
-          type: 'POST',
-          headers: {
-            Authorization: authCookie,
-          },
-          data: JSON.stringify(chatSettings),
-          contentType: 'application/json',
+          let stars = range(element['multiplier'], 1)
 
-          success: (resp) => {
-            respObj = JSON.parse(resp)
-            addMessage(
-              respObj['data']['chatId'],
-              `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                selectedDates[0],
-              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
-              currentHomeInfo.clientId,
-            ).then((x) => {
-              window.scrollTo(0, 0)
-              $('#showWarn').removeClass('hidden')
-              $('html, body').css({
-                overflow: 'hidden',
-                height: '100%',
-              })
+          if (element["multiplier"] < 7 && element["multiplier"] > 2) {
+            let dft = $('#3-6')
+            dft.removeClass('hidden')
+            let stars = range(element["multiplier"], 1)
+            stars.forEach(startId => {
+              let rank = dft.find('#rank')
+              rank.find(`#${startId}`).removeClass("far");
+              rank.find(`#${startId}`).addClass("fas");
             })
+          } else if (element["multiplier"] == 7) {
+            let dft = $('#7')
+            dft.removeClass('hidden')
+          } else if (element["multiplier"] == 2) {
+            let dft = $('#2')
+            dft.removeClass('hidden')
+          }
 
-            //$('#showWarn').removeClass('hidden')
-            //window.location.href = "/dashboard/chat"
-          },
-        })
-      }
 
-      function populateHomes(e) {
-        let data = {
-          HomeId: e,
-        }
 
-        function range(size, startAt = 0) {
-          return [...Array(size).keys()].map((i) => i + startAt)
-        }
+          let points = starsToPointsPerNight(element['multiplier'])
+          $(`#homeStars`).val(element['multiplier'])
+          $('#points').text(numberWithCommas(points))
 
-        function getS3file(name, image, total, y) {
-          return new Promise((resolve, reject) => {
-            $.ajax({
-              url:
-                'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3',
-              type: 'POST',
-              data: JSON.stringify({
-                'pic-name': name,
-              }),
-              contentType: 'application/json',
-              success: (x) => {
-                let source = `${x}`
-                let element = `<div class="bg-white px-1 ">
+          let files = []
+
+          $('.loading').parent().addClass('hidden')
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto',
+          })
+
+          if (clientInfo.clientType > 3) {
+            $('.adminOnly').removeClass('hidden')
+            $('#curatedDetails').attr('contenteditable', 'true')
+          }
+          //TODO check loading
+
+          element['picturesS3Urls'].forEach((x) => {
+            let y = 0
+            files.push(
+              getS3file(x, $('#slider'), element['picturesS3Urls'].length, y),
+            )
+          })
+
+          Promise.all(
+            files.slice(0, files.length < 3 ? files.length - 1 : 3),
+          ).then((sourceList) => {
+            sourceList.forEach((source) => {
+              let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
 
-                //$(".slider").slick('slickAdd', element)
-                //image.prepend(`<img id="theImg" src= />`);
-                resolve(source)
-              },
+              $('.slider').slick('slickAdd', element)
             })
           })
-        }
 
-        let homesShow = $('#homes_show')
-        checkCurrentUser()
-        $.ajax({
-          url:
-            'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
-          type: 'POST',
-          data: JSON.stringify(data),
-          contentType: 'application/json',
-          headers: {
-            Authorization: authCookie,
-          },
-          success: function (x) {
-            let element = x[0]
-            currentHomeInfo = element
-            $('#nickName').text(`${element['nickName']}`)
-            if (element['underReview'] != undefined && element['underReview']) {
-              $('#openChat').text('Sob consulta')
-              $('#reservationCalculator').toggleClass('hidden')
-            }
-            if (element[`state`] != '' && element[`state`] != undefined) {
-              //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
-              $('#location').text(
-                `${element['city']}, ${element['state']}, ${element['country']}`,
-              )
-            } else {
-              $('#location').text(`${element['city']}, ${element['country']}`)
-            }
-
-            $('#locationTypeHost').text(element['locationType'])
-            $('.locationType').text(traduzirLocation(element['locationType']))
-            $('.locationTypeMobile').text(
-              traduzirLocation(element['locationType'], 1),
-            )
-
-            $('#inCondominium').text(element[`inCondominium`] ? 'Sim' : 'Não')
-            $('#floorSpace').text(element[`floorSpace`])
-            $('#airportDistance').text(element[`airportDistance`])
-            $('#uncoveredParking').text(element[`uncoveredParking`])
-            $('#coveredParking').text(element[`coveredParking`])
-            $('#map')
-              .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
-            </iframe>`)
-            $(`#infoWorkers`).text(
-              checkData(element[`infoWorkers`])
-                ? element[`infoWorkers`]
-                : 'Sem informações',
-            )
-            $(`#infoAC`).text(
-              checkData(element[`totalAc`])
-                ? element[`totalAc`]
-                : 'Sem informações',
-            )
-            $(`#carEntrance`).text(
-              checkData(element[`accessPath`])
-                ? element[`accessPath`]
-                : 'Sem informações',
-            )
-            $(`#description`).text(element[`description`])
-            $(`#curatedDetails`).text(
-              checkData(element[`curatedDetails`])
-                ? element[`curatedDetails`]
-                : 'Sem informações',
-            )
-            $(`#extraRestriction`).text(
-              checkData(element[`extraRestriction`])
-                ? element[`extraRestriction`]
-                : 'Sem informações',
-            )
-
-            contactId = element['clientId']
-
-            $.ajax({
-              url:
-                'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
-              type: 'POST',
-              headers: {
-                Authorization: authCookie,
-              },
-              data: JSON.stringify({
-                ClientId: element['clientId'],
-              }),
-              contentType: 'application/json',
-
-              success: (client) => {
-                console.log(client)
-                currentHomeInfo.contactName = client[`nickName`]
-                $(`#contactName`).text(client[`nickName`])
-                //$(".loading").removeClass('dot-pulse')
-              },
-            })
-
-            multiplier = element['multiplier']
-
-            let stars = range(element['multiplier'], 1)
-
-            stars.forEach((startId) => {
-              $('#rank').find(`#${startId}`).removeClass('far')
-              $('#rank').find(`#${startId}`).addClass('fas')
-            })
-
-            let points = starsToPointsPerNight(element['multiplier'])
-            $(`#homeStars`).val(element['multiplier'])
-            $('#points').text(numberWithCommas(points))
-
-            let files = []
-
-            $('.loading').parent().addClass('hidden')
-            $('html, body').css({
-              overflow: 'auto',
-              height: 'auto',
-            })
-
-            if (clientInfo.clientType > 3) {
-              $('.adminOnly').removeClass('hidden')
-              $('#curatedDetails').attr('contenteditable', 'true')
-            }
-            //TODO check loading
-
-            element['picturesS3Urls'].forEach((x) => {
-              let y = 0
-              files.push(
-                getS3file(x, $('#slider'), element['picturesS3Urls'].length, y),
-              )
-            })
-
-            Promise.all(
-              files.slice(0, files.length < 3 ? files.length - 1 : 3),
-            ).then((sourceList) => {
-              sourceList.forEach((source) => {
-                let element = `<div class="bg-white px-1 ">
-                                        <img class="object-cover h-96 w-full " src="${source}">
-                                        </div>`
-
-                $('.slider').slick('slickAdd', element)
-              })
-            })
-
-            if (files.length > 3) {
-              Promise.all(files.slice(3, files.length - 1)).then(
-                (sourceList) => {
-                  sourceList.forEach((source) => {
-                    let element = `<div class="bg-white px-1 ">
+          if (files.length > 3) {
+            Promise.all(files.slice(3, files.length - 1)).then(
+              (sourceList) => {
+                sourceList.forEach((source) => {
+                  let element = `<div class="bg-white px-1 ">
                                                 <img class="object-cover h-96 w-full " src="${source}">
                                                 </div>`
 
-                    $('.slider').slick('slickAdd', element)
-                  })
-                },
-              )
-            }
+                  $('.slider').slick('slickAdd', element)
+                })
+              },
+            )
+          }
 
-            $('#maxCapacity').text(
-              `${
+          $('#maxCapacity').text(
+            `${
                 element['maxPeople'] > 1
                   ? element['maxPeople'] + ' Hóspedes'
                   : element['maxPeople'] + ' Hóspede'
               }`,
-            )
+          )
 
-            $('#totalBathRooms').text(
-              `${
+          $('#totalBathRooms').text(
+            `${
                 element['totalBathRooms'] > 1
                   ? element['totalBathRooms'] + ' Banheiros'
                   : element['totalBathRooms'] + ' Banheiro'
               }`,
-            )
-            $('#totalBedRooms').text(
-              `${
+          )
+          $('#totalBedRooms').text(
+            `${
                 element['totalBedRooms'] > 1
                   ? element['totalBedRooms'] + ' Quartos'
                   : element['totalBedRooms'] + ' Quarto'
               }`,
-            )
-            $('#totalSuits').text(
-              element['totalSuites'] > 1
-                ? `( ${element['totalSuites']} Suítes )`
-                : `( ${element['totalSuites']} Suíte )`,
-            )
+          )
+          $('#totalSuits').text(
+            element['totalSuites'] > 1 ?
+            `( ${element['totalSuites']} Suítes )` :
+            `( ${element['totalSuites']} Suíte )`,
+          )
 
-            facilitiesFormat(element.facilities.length)
-            element.facilities.forEach((e) => {
-              $(`#facility-${e}`).removeClass('hidden')
-            })
+          facilitiesFormat(element.facilities.length)
+          element.facilities.forEach((e) => {
+            $(`#facility-${e}`).removeClass('hidden')
+          })
 
-            element.workers.forEach((e) => {
-              $(`#worker-${e}`).removeClass('hidden')
-            })
+          element.workers.forEach((e) => {
+            $(`#worker-${e}`).removeClass('hidden')
+          })
 
-            element.authorizatedTo.forEach((e) => {
-              console.log($(`#authorized-${e}`)) //TIRAR
-              console.log(`#authorized-${e}`)
-              $(`#authorized-${e}`).removeClass('line-through')
-            })
+          element.authorizatedTo.forEach((e) => {
+            console.log($(`#authorized-${e}`)) //TIRAR
+            console.log(`#authorized-${e}`)
+            $(`#authorized-${e}`).removeClass('line-through')
+          })
 
-            let totalAvaliableDates = []
-            element.availableDates.forEach((e) => {
-              let localDate = new Date(e)
-              totalAvaliableDates.push(localDate)
-            })
+          let totalAvaliableDates = []
+          element.availableDates.forEach((e) => {
+            let localDate = new Date(e)
+            totalAvaliableDates.push(localDate)
+          })
 
-            totalAvaliableDates.sort(function (a, b) {
-              // Turn your strings into dates, and then subtract them
-              // to get a value that is either negative, positive, or zero.
-              return a - b
-            })
+          totalAvaliableDates.sort(function (a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return a - b
+          })
 
-            let totalDates = generateAvaliableObj(totalAvaliableDates)
+          let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-            vue.$data.avbldates = totalDates
+          vue.$data.avbldates = totalDates
 
-            //vue.$data.attrs[0].dates = totalDates
-          },
-        })
+          //vue.$data.attrs[0].dates = totalDates
+        },
+      })
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script>
+    let openChat = () => {
+      window.hred = `/dashboard/chat`
+    }
+    let teste = []
+
+    $(document).ready(() => {
+      $('#main').removeClass('hidden')
+
+      window.scrollTo(0, 0)
+      /*$('html, body').css({
+                  overflow: 'hidden',
+                  height: '100%'
+              });*/
+
+      checkCurrentUser()
+      changeUserName($(`#userNameDrop`))
+      getUserPoints().then((userPoints) => {
+        $('#pointsUser').text(userPoints)
+        $('#pointsUserCel').text(userPoints)
+        $('#totalPoints').text(userPoints)
+      })
+      startCarrousel()
+    })
+  </script>
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+</head>
+
+<body>
+  <style>
+    .dark_green {
+      color: rgba(69, 95, 93, 1);
+    }
+  </style>
+  <link href="https://kenwheeler.github.io/slick/slick/slick.css" rel="stylesheet" />
+  <link href="https://kenwheeler.github.io/slick/slick/slick-theme.css" rel="stylesheet" />
+
+  <link href="style/style.css" rel="stylesheet" />
+  <link href="style/loading.css" rel="stylesheet" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+  <div class="flex justify-end">
+    <h1 class="fixed z-50 my-64">
+      <span class="sr-only">Badge Beta</span>
+      <img src="Assets/badge_beta.svg" class="h-32" />
+    </h1>
+  </div>
+
+  <div class="flex justify-end adminOnly hidden">
+    <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
+      <div>
+        <h1>Quantidade de estrelas</h1>
+        <p>
+          2 - Experiencia
+          <br />
+          7 - 6+
+        </p>
+        <input type="number" value="3" id="homeStars" name="quantity" min="2" max="7" />
+      </div>
+
+      <button onclick="curateHome(true, false)" href="#"
+        class="h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Adicionar/Curar casa
+      </button>
+
+      <button onclick="curateHome(false, false)" href="#"
+        class="h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Remover Casa
+      </button>
+
+      <button onclick="curateHome(true, true)" href="#"
+        class="h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Adicionar/Curar casa (em destaque)
+      </button>
+    </h1>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search)
+    const homeId = urlParams.get('homeId')
+    populateHomes(homeId)
+  </script>
+
+  <script>
+    function facilitiesFormat(qnt) {
+      let facilities = $('.facility')
+
+      if (qnt < 8) {
+        facilities.addClass('md:w-3/12')
+        facilities.removeClass('md:w-2/12')
+        facilities.parent().removeClass('md:py-3')
+        facilities.parent().addClass('md:py-14')
+      } else if (qnt > 8 && qnt < 12) {
+        facilities.removeClass('md:w-3/12')
+        facilities.addClass('md:w-2/12')
+        facilities.parent().removeClass('md:py-3')
+        facilities.parent().addClass('md:py-14')
+      } else if (qnt > 12 && qnt < 16) {
+        facilities.removeClass('md:w-3/12')
+        facilities.addClass('md:w-2/12')
+        facilities.parent().removeClass('md:py-14')
+        facilities.parent().addClass('md:py-3')
+      }
+    }
+  </script>
+
+  <script>
+    function redirectChat() {
+      window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
+    }
+
+    function redirectChatCreate() {
+      //alert(currentHomeInfo.clientId)
+
+      let chatSettings = {
+        hostId: currentHomeInfo.clientId,
+        guestId: clientInfo.ClientId,
+        guestPicture: 'chat_con.png',
+        hostPicture: 'chat_con.png',
+        requestedDate: [],
+        hostName: currentHomeInfo.contactName,
+        guestName: clientInfo.nickName,
+        homeNickName: currentHomeInfo.nickName,
+        homeId: currentHomeInfo.homeId,
+      }
+
+      $.ajax({
+        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        type: 'POST',
+        headers: {
+          Authorization: authCookie,
+        },
+        data: JSON.stringify(chatSettings),
+        contentType: 'application/json',
+
+        success: (resp) => {
+          respObj = JSON.parse(resp)
+
+          addMessage(
+            respObj['data']['chatId'],
+            `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`,
+            currentHomeInfo.clientId,
+          ).then((x) => {
+            window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
+          })
+
+          //window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
+        },
+      })
+    }
+  </script>
+
+  <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
+    <div class="loading dot-pulse"></div>
+  </div>
+
+  <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
+    id="showWarn">
+    <div
+      class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
+      <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
+        Obrigado! Seu pedido de hospedagem foi enviado.
+        <br />
+        Aguarde a resposta do anfitrião.
+      </h1>
+      <p class="font-normal text-md usuario_font_warp pt-10">
+        Datas solicitadas de
+      </p>
+      <p class="font-normal text-xl md:text-2xl usuario_font_warp" id="dataReserva">
+        2021-09-09 a 2021-09-21
+      </p>
+
+      <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">
+        Para falar com o anfitrião, acesse o chat clicando
+      </h1>
+      <button onclick="redirectChat()" class="header_color_bt w-2/5 md:w-2/5 h-1/6 rounded-full button_text"
+        id="openChatC">
+        Aqui
+      </button>
+    </div>
+  </div>
+
+  <header class="relative bg-no-repeat bg-cover p-10 md:p-4 z-5 bg-bottom lg:bg-center">
+    <script>
+      function removeCookie() {
+        document.cookie =
+          'login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
       }
     </script>
-
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
-
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <link rel="stylesheet" href="./style/header.css" />
     <script>
-      let openChat = () => {
-        window.hred = `/dashboard/chat`
+      function toggle(id) {
+        $(`#${id}`).toggleClass('hidden')
       }
-      let teste = []
-
-      $(document).ready(() => {
-        $('#main').removeClass('hidden')
-
-        window.scrollTo(0, 0)
-        /*$('html, body').css({
-                    overflow: 'hidden',
-                    height: '100%'
-                });*/
-
-        checkCurrentUser()
-        changeUserName($(`#userNameDrop`))
-        getUserPoints().then((userPoints) => {
-          $('#pointsUser').text(userPoints)
-          $('#pointsUserCel').text(userPoints)
-          $('#totalPoints').text(userPoints)
+    </script>
+    <script>
+      $(document).ready(function () {
+        $('.minus-guests').click(function () {
+          var $input = $(this).parent().find('.input')
+          var count = parseInt($input.text()) - 1
+          count = count < 1 ? 1 : count
+          $input.text(count)
+          $(`#total_guests`).text(`${count}`)
+          return false
         })
-        startCarrousel()
+        $('.plus-guests').click(function () {
+          var $input = $(this).parent().find('.input')
+          $input.text(parseInt($input.text()) + 1)
+          $(`#total_guests`).text(`${$input.text()}`)
+          return false
+        })
       })
     </script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-    />
-  </head>
 
-  <body>
-    <style>
-      .dark_green {
-        color: rgba(69, 95, 93, 1);
-      }
-    </style>
-    <link
-      href="https://kenwheeler.github.io/slick/slick/slick.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://kenwheeler.github.io/slick/slick/slick-theme.css"
-      rel="stylesheet"
-    />
+    <div class="relative flex items-center justify-between mb-20 md:mb-0">
+      <a href="/home">
+        <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
+          <div id="logo" class="w-36" onclick="window.location.href='/home'">
+            <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval" />
+          </div>
+        </div>
+      </a>
 
-    <link href="style/style.css" rel="stylesheet" />
-    <link href="style/loading.css" rel="stylesheet" />
-    <link
-      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-    ></script>
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-    />
-
-    <script
-      type="text/javascript"
-      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-    ></script>
-
-    <div class="flex justify-end">
-      <h1 class="fixed z-50 my-64">
-        <span class="sr-only">Badge Beta</span>
-        <img src="Assets/badge_beta.svg" class="h-32" />
-      </h1>
-    </div>
-
-    <div class="flex justify-end adminOnly hidden">
-      <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
-        <div>
-          <h1>Quantidade de estrelas</h1>
-          <p>
-            2 - Experiencia
-            <br />
-            7 - 6+
-          </p>
-          <input
-            type="number"
-            value="3"
-            id="homeStars"
-            name="quantity"
-            min="2"
-            max="7"
-          />
+      <!-- remove absolute and relative-->
+      <div id="buscador"
+        class="absolute top-28 md:top-0 md:relative w-auto h-16 md:h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full">
+        <div class="hidden absolute mt-2 py-2 w-3/6 md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
+          id="location_dropdown">
+          <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+            onclick="populateHomes(`beach`);toggle(`location_dropdown`)">
+            Praia
+          </a>
+          <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+            onclick="populateHomes(`country`);toggle(`location_dropdown`)">
+            Campo
+          </a>
+          <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+            onclick="populateHomes(`mountain`);toggle(`location_dropdown`)">
+            Montanha
+          </a>
+          <a href="#" class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
+            onclick="populateHomes(`city`);toggle(`location_dropdown`)">
+            Cidade
+          </a>
         </div>
 
-        <button
-          onclick="curateHome(true, false)"
-          href="#"
-          class="h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light"
-        >
-          Adicionar/Curar casa
-        </button>
-
-        <button
-          onclick="curateHome(false, false)"
-          href="#"
-          class="h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light"
-        >
-          Remover Casa
-        </button>
-
-        <button
-          onclick="curateHome(true, true)"
-          href="#"
-          class="h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light"
-        >
-          Adicionar/Curar casa (em destaque)
-        </button>
-      </h1>
-    </div>
-
-    <script>
-      const urlParams = new URLSearchParams(window.location.search)
-      const homeId = urlParams.get('homeId')
-      populateHomes(homeId)
-    </script>
-
-    <script>
-      function facilitiesFormat(qnt) {
-        let facilities = $('.facility')
-
-        if (qnt < 8) {
-          facilities.addClass('md:w-3/12')
-          facilities.removeClass('md:w-2/12')
-          facilities.parent().removeClass('md:py-3')
-          facilities.parent().addClass('md:py-14')
-        } else if (qnt > 8 && qnt < 12) {
-          facilities.removeClass('md:w-3/12')
-          facilities.addClass('md:w-2/12')
-          facilities.parent().removeClass('md:py-3')
-          facilities.parent().addClass('md:py-14')
-        } else if (qnt > 12 && qnt < 16) {
-          facilities.removeClass('md:w-3/12')
-          facilities.addClass('md:w-2/12')
-          facilities.parent().removeClass('md:py-14')
-          facilities.parent().addClass('md:py-3')
-        }
-      }
-    </script>
-
-    <script>
-      function redirectChat() {
-        window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
-      }
-
-      function redirectChatCreate() {
-        //alert(currentHomeInfo.clientId)
-
-        let chatSettings = {
-          hostId: currentHomeInfo.clientId,
-          guestId: clientInfo.ClientId,
-          guestPicture: 'chat_con.png',
-          hostPicture: 'chat_con.png',
-          requestedDate: [],
-          hostName: currentHomeInfo.contactName,
-          guestName: clientInfo.nickName,
-          homeNickName: currentHomeInfo.nickName,
-          homeId: currentHomeInfo.homeId,
-        }
-
-        $.ajax({
-          url:
-            'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
-          type: 'POST',
-          headers: {
-            Authorization: authCookie,
-          },
-          data: JSON.stringify(chatSettings),
-          contentType: 'application/json',
-
-          success: (resp) => {
-            respObj = JSON.parse(resp)
-
-            addMessage(
-              respObj['data']['chatId'],
-              `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`,
-              currentHomeInfo.clientId,
-            ).then((x) => {
-              window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
-            })
-
-            //window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
-          },
-        })
-      }
-    </script>
-
-    <div
-      class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center"
-    >
-      <div class="loading dot-pulse"></div>
-    </div>
-
-    <div
-      class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
-      id="showWarn"
-    >
-      <div
-        class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between"
-      >
-        <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
-          Obrigado! Seu pedido de hospedagem foi enviado.
-          <br />
-          Aguarde a resposta do anfitrião.
-        </h1>
-        <p class="font-normal text-md usuario_font_warp pt-10">
-          Datas solicitadas de
-        </p>
-        <p
-          class="font-normal text-xl md:text-2xl usuario_font_warp"
-          id="dataReserva"
-        >
-          2021-09-09 a 2021-09-21
-        </p>
-
-        <h1
-          class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center"
-        >
-          Para falar com o anfitrião, acesse o chat clicando
-        </h1>
-        <button
-          onclick="redirectChat()"
-          class="header_color_bt w-2/5 md:w-2/5 h-1/6 rounded-full button_text"
-          id="openChatC"
-        >
-          Aqui
-        </button>
-      </div>
-    </div>
-
-    <header
-      class="relative bg-no-repeat bg-cover p-10 md:p-4 z-5 bg-bottom lg:bg-center"
-    >
-      <script>
-        function removeCookie() {
-          document.cookie =
-            'login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
-        }
-      </script>
-      <script
-        src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
-        defer
-      ></script>
-      <link rel="stylesheet" href="./style/header.css" />
-      <script>
-        function toggle(id) {
-          $(`#${id}`).toggleClass('hidden')
-        }
-      </script>
-      <script>
-        $(document).ready(function () {
-          $('.minus-guests').click(function () {
-            var $input = $(this).parent().find('.input')
-            var count = parseInt($input.text()) - 1
-            count = count < 1 ? 1 : count
-            $input.text(count)
-            $(`#total_guests`).text(`${count}`)
-            return false
-          })
-          $('.plus-guests').click(function () {
-            var $input = $(this).parent().find('.input')
-            $input.text(parseInt($input.text()) + 1)
-            $(`#total_guests`).text(`${$input.text()}`)
-            return false
-          })
-        })
-      </script>
-
-      <div class="relative flex items-center justify-between mb-20 md:mb-0">
-        <a href="/home">
-          <div
-            class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10"
-          >
-            <div id="logo" class="w-36" onclick="window.location.href='/home'">
-              <img
-                src="Assets/LOGO.svg"
-                class="h-20 flex-1"
-                alt="Kiwi standing on oval"
-              />
-            </div>
-          </div>
-        </a>
-
-        <!-- remove absolute and relative-->
         <div
-          id="buscador"
-          class="absolute top-28 md:top-0 md:relative w-auto h-16 md:h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full"
-        >
-          <div
-            class="hidden absolute mt-2 py-2 w-3/6 md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
-            id="location_dropdown"
-          >
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-              onclick="populateHomes(`beach`);toggle(`location_dropdown`)"
-            >
-              Praia
-            </a>
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-              onclick="populateHomes(`country`);toggle(`location_dropdown`)"
-            >
-              Campo
-            </a>
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-              onclick="populateHomes(`mountain`);toggle(`location_dropdown`)"
-            >
-              Montanha
-            </a>
-            <a
-              href="#"
-              class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
-              onclick="populateHomes(`city`);toggle(`location_dropdown`)"
-            >
-              Cidade
-            </a>
-          </div>
-
-          <div
-            class="hidden h-full col-span-1 md:py-10 flex justify-start items-center text-white font-semibold cursor-pointer"
-            id="location_type"
-            onclick="toggle(`location_dropdown`)"
-          >
-            Todos os destinos
-          </div>
-          <div
-            class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20"
-          >
-            <div
-              class="flex flex-row gap-2 cursor-pointer justify-center items-center"
-              onclick="
-                        toggle(`total_guests_dropdown`)"
-            >
-              <div class="h-10 w-px button_bg_meio_alpha"></div>
-              <p class="text-white font-semibold ml-10" id="total_guests">1</p>
-              <p class="text-white font-semibold hidden md:block">hóspede(s)</p>
-              <div class="flex justify-center items-center md:hidden">
-                <i class="fas fa-user text-white"></i>
-              </div>
-              <div
-                class="absolute mt-2 py-2 w-3/6 md:w-1/6 top-16 rounded-lg hidden z-20"
-                id="total_guests_dropdown"
-              >
-                <div class="number header_color_alpha p-4 rounded-lg" id="">
-                  <div class="flex justify-end contador gap-x-4">
-                    <div
-                      class="h-full w-10 minus-guests cursor-pointer rounded-full button_bg flex justify-center"
-                    >
-                      -
-                    </div>
-                    <h1 class="input text-white">1</h1>
-                    <div
-                      class="h-full w-10 plus-guests cursor-pointer rounded-full button_bg flex justify-center"
-                    >
-                      +
-                    </div>
+          class="hidden h-full col-span-1 md:py-10 flex justify-start items-center text-white font-semibold cursor-pointer"
+          id="location_type" onclick="toggle(`location_dropdown`)">
+          Todos os destinos
+        </div>
+        <div class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20">
+          <div class="flex flex-row gap-2 cursor-pointer justify-center items-center" onclick="
+                        toggle(`total_guests_dropdown`)">
+            <div class="h-10 w-px button_bg_meio_alpha"></div>
+            <p class="text-white font-semibold ml-10" id="total_guests">1</p>
+            <p class="text-white font-semibold hidden md:block">hóspede(s)</p>
+            <div class="flex justify-center items-center md:hidden">
+              <i class="fas fa-user text-white"></i>
+            </div>
+            <div class="absolute mt-2 py-2 w-3/6 md:w-1/6 top-16 rounded-lg hidden z-20" id="total_guests_dropdown">
+              <div class="number header_color_alpha p-4 rounded-lg" id="">
+                <div class="flex justify-end contador gap-x-4">
+                  <div class="h-full w-10 minus-guests cursor-pointer rounded-full button_bg flex justify-center">
+                    -
+                  </div>
+                  <h1 class="input text-white">1</h1>
+                  <div class="h-full w-10 plus-guests cursor-pointer rounded-full button_bg flex justify-center">
+                    +
                   </div>
                 </div>
               </div>
             </div>
-
-            <a
-              onclick="populateHomes()"
-              class="hidden md:block cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center"
-            >
-              <p class="text-black font-semibold">Explorar</p>
-            </a>
-
-            <button class="md:hidden rounded-full px-2 button_bg usuario_font">
-              <i class="fas fa-search fa-sm"></i>
-            </button>
           </div>
 
-          <div
-            class="w-full h-full flex justify-center col-span-2 items-center"
-          >
-            <a
-              href="/dashboard/buscador"
-              class="block my-2 cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center"
-            >
-              <p class="text-black font-semibold">Explorar</p>
-            </a>
-          </div>
+          <a onclick="populateHomes()"
+            class="hidden md:block cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+            <p class="text-black font-semibold">Explorar</p>
+          </a>
 
-          <div
-            class="w-full h-px flex justify-center md:col-span-2 items-center md:px-72"
-          >
-            <a
-              class="block h-px px-14 hover:border-gray-300 md:inline-flex items-center"
-            ></a>
-          </div>
+          <button class="md:hidden rounded-full px-2 button_bg usuario_font">
+            <i class="fas fa-search fa-sm"></i>
+          </button>
         </div>
 
-        <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
-          <a
-            href="#"
-            @click="dropdownOpen = !dropdownOpen"
-            class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light hidden md:inline-flex items-center"
-          >
-            <p
-              id="userNameDrop"
-              class="text-green_dark font-semibold whitespace-nowrap"
-            >
-              Usuário
-            </p>
-            <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+        <div class="w-full h-full flex justify-center col-span-2 items-center">
+          <a href="/dashboard/buscador"
+            class="block my-2 cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+            <p class="text-black font-semibold">Explorar</p>
+          </a>
+        </div>
+
+        <div class="w-full h-px flex justify-center md:col-span-2 items-center md:px-72">
+          <a class="block h-px px-14 hover:border-gray-300 md:inline-flex items-center"></a>
+        </div>
+      </div>
+
+      <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
+        <a href="#" @click="dropdownOpen = !dropdownOpen"
+          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light hidden md:inline-flex items-center">
+          <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">
+            Usuário
+          </p>
+          <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
+        </a>
+
+        <a href="#" @click="dropdownOpen = !dropdownOpen"
+          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
+          <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
+        </a>
+
+        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+
+        <div x-show="dropdownOpen"
+          class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
+          <a onclick="location.href='/onboarding'"
+            class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Editar Cadastro
+          </a>
+          <a onclick="location.href='/residence/calendar'"
+            class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Adicionar Datas
+          </a>
+          <a onclick="location.href='/dashboard/chat'"
+            class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Mensagens
           </a>
 
-          <a
-            href="#"
-            @click="dropdownOpen = !dropdownOpen"
-            class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center"
-          >
-            <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
+          <a href="/home" onclick="removeCookie()"
+            class="block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Log out
           </a>
 
-          <div
-            x-show="dropdownOpen"
-            @click="dropdownOpen = false"
-            class="fixed inset-0 h-full w-full z-10"
-          ></div>
-
-          <div
-            x-show="dropdownOpen"
-            class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20"
-          >
-            <a
-              onclick="location.href='/onboarding'"
-              class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black"
-            >
-              Editar Cadastro
-            </a>
-            <a
-              onclick="location.href='/residence/calendar'"
-              class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black"
-            >
-              Adicionar Datas
-            </a>
-            <a
-              onclick="location.href='/dashboard/chat'"
-              class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black"
-            >
-              Mensagens
-            </a>
-
-            <a
-              href="/home"
-              onclick="removeCookie()"
-              class="block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black"
-            >
-              Log out
-            </a>
-
-            <div
-              id="parentPoints"
-              class="flex justify-between text-base font-normal border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black"
-            >
-              Pontuação:
-              <div
-                id="pointsUser"
-                class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"
-              ></div>
-            </div>
+          <div id="parentPoints"
+            class="flex justify-between text-base font-normal border-t border-green_light cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Pontuação:
+            <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
           </div>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <div class="px-10 md:px-16 md:py-5 hidden" id="main">
+  <div class="px-10 md:px-16 md:py-5 hidden" id="main">
+    <div id="basic_home_info" class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5 w-full h-1/5">
+      <div class="grid-row-start-1 flex justify-start items-center md:h-20">
+        <h1 id="nickName" class="text-2xl md:text-5xl usuario_font_warp font-extrabold">
+          Casa
+        </h1>
+      </div>
+      <div class="grid-row-start-1 flex md:justify-start md:justify-end items-center md:h-20">
+        <h1 id="location" class="text-2xl usuario_font_warp">-</h1>
+      </div>
+    </div>
+    <div class="relative shadow-2xl bg-white">
+      <div class="slider hidden" id="slider"></div>
+    </div>
+    <div class="grid md:grid-cols-5 grid-rows-auto md:grid-rows-1 w-full md:h-1/5 gap-5 md:gap-0"
+      id="homeBasicInformation">
+
       <div
-        id="basic_home_info"
-        class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5 w-full h-1/5"
-      >
-        <div class="grid-row-start-1 flex justify-start items-center md:h-20">
-          <h1
-            id="nickName"
-            class="text-2xl md:text-5xl usuario_font_warp font-extrabold"
-          >
-            Casa
+        class="md:col-start-1 flex flex-col md:flex-row justify-center md:justify-start md:gap-5 md:items-center md:h-20">
+
+
+        <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="3-6">
+          <h1 class="text-sm md:text-lg usuario_font" id="rank">
+            <i class="far fa-star " id="1" aria-hidden="true"></i>
+            <i class="far fa-star " id="2" aria-hidden="true"></i>
+            <i class="far fa-star " id="3" aria-hidden="true"></i>
+            <i class="far fa-star " id="4" aria-hidden="true"></i>
+            <i class="far fa-star " id="5" aria-hidden="true"></i>
+            <i class="far fa-star " id="6" aria-hidden="true"></i>
           </h1>
         </div>
-        <div
-          class="grid-row-start-1 flex md:justify-start md:justify-end items-center md:h-20"
-        >
-          <h1 id="location" class="text-2xl usuario_font_warp">-</h1>
-        </div>
-      </div>
-      <div class="relative shadow-2xl bg-white">
-        <div class="slider hidden" id="slider"></div>
-      </div>
-      <div
-        class="grid md:grid-cols-5 grid-rows-auto md:grid-rows-1 w-full md:h-1/5 gap-5 md:gap-0"
-        id="homeBasicInformation"
-      >
-        <div
-          class="md:col-start-1 flex flex-col md:flex-row justify-center md:justify-start md:gap-5 md:items-center md:h-20"
-        >
-          <div class="w-1/2 md:h-full items-center flex justify-start">
-            <h1 class="text-lg usuario_font" id="rank">
-              <i class="far fa-star" id="1" aria-hidden="true"></i>
-              <i class="far fa-star" id="2" aria-hidden="true"></i>
-              <i class="far fa-star" id="3" aria-hidden="true"></i>
-              <i class="far fa-star" id="4" aria-hidden="true"></i>
-              <i class="far fa-star" id="5" aria-hidden="true"></i>
-              <i class="far fa-star" id="6" aria-hidden="true"></i>
-            </h1>
-          </div>
+
+        <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="7">
+          <h1 class="text-sm md:text-lg usuario_font" id="rank">
+            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star text-lg md:text-2xl" aria-hidden="true"></i>
+          </h1>
         </div>
 
-        <div
-          class="md:col-start-3 md:gap-10 flex flex-col md:flex-row justify-center md:items-center md:h-20 hidden"
-        >
-          <div class="w-1/2 items-center md:h-full flex md:justify-end">
-            <h1 class="text-lg md:text-2x1 usuario_font">
-              4,5
-            </h1>
-          </div>
-          <div class="w-1/2 md:h-full items-center flex justify-start">
-            <h1 class="text-5x1 usuario_font">
-              (20 opiniões)
-            </h1>
-          </div>
+        <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="2">
+          <h1 class="text-md md:text-xl usuario_font font-black" id="rank">
+            EXPERIENCIA
+          </h1>
         </div>
 
-        <div
-          class="md:col-start-5 flex justify-end md:gap-2 flex-col md:flex-row md:items-center md:h-20"
-        >
-          <div class="w-1/2 items-center md:h-full flex md:justify-end">
-            <h1
-              class="text-lg md:text-3xl font-black points_font align-text-bottom"
-              id="points"
-            >
-              2.000
-            </h1>
-          </div>
-          <div
-            class="w-1/2 md:h-full items-center flex justify-start pb-10 md:pb-0"
-          >
-            <h1 class="text-lg usuario_font align-text-bottom">
-              Pontos por noite
-            </h1>
-          </div>
+      </div>
+
+      <div class="md:col-start-3 md:gap-10 flex flex-col md:flex-row justify-center md:items-center md:h-20 hidden">
+        <div class="w-1/2 items-center md:h-full flex md:justify-end">
+          <h1 class="text-lg md:text-2x1 usuario_font">
+            4,5
+          </h1>
+        </div>
+        <div class="w-1/2 md:h-full items-center flex justify-start">
+          <h1 class="text-5x1 usuario_font">
+            (20 opiniões)
+          </h1>
         </div>
       </div>
-      <div
-        class="w-full md:flex items-center justify-center"
-        id="lineSeparator"
-      >
-        <div id="hr" class="w-full h-px header_color"></div>
+
+      <div class="md:col-start-5 flex justify-end md:gap-2 flex-col md:flex-row md:items-center md:h-20">
+        <div class="w-1/2 items-center md:h-full flex md:justify-end">
+          <h1 class="text-lg md:text-3xl font-black points_font align-text-bottom" id="points">
+            2.000
+          </h1>
+        </div>
+        <div class="w-1/2 md:h-full items-center flex justify-start pb-10 md:pb-0">
+          <h1 class="text-lg usuario_font align-text-bottom">
+            Pontos por noite
+          </h1>
+        </div>
       </div>
-      <div
-        class="w-full md:grid md:grid-cols-5 md:grid-rows-auto home_show_homes_big"
-      >
-        <!--OKK-->
-        <div class="w-full col-span-3" id="homeDescription">
-          <div class="w-full h-full md:grid md:grid-rows-3 flex flex-col">
-            <div class="flex items-center pt-10 md:pt-0" id="DescriptionTitle">
-              <h1 id="title" class="font-black text-3xl usuario_font_warp">
-                Descrição
-              </h1>
-            </div>
-            <div class="flex items-top py-3 md:py-3">
-              <p id="description" class="text-base usuario_font_warp">
-                Os hóspedes poderão usufruir da fogueira, deck panorâmico com
-                hidromassagem, sauna seca e uma vista inigualável. Todos os
-                amenities são privativos da casa. Os hóspedes poderão usufruir
-                da fogueira, deck panorâmico com hidromassagem, sauna seca e uma
-                vista inigualável. Todos os amenities são privativos da casa. Os
-                hóspedes poderão usufruir da fogueira, deck panorâmico com
-                hidromassagem, sauna seca e uma vista inigualável. Todos os
-                amenities são privativos da casa.
-              </p>
-            </div>
+    </div>
+    <div class="w-full md:flex items-center justify-center" id="lineSeparator">
+      <div id="hr" class="w-full h-px header_color"></div>
+    </div>
+    <div class="w-full md:grid md:grid-cols-5 md:grid-rows-auto home_show_homes_big">
+      <!--OKK-->
+      <div class="w-full col-span-3" id="homeDescription">
+        <div class="w-full h-full md:grid md:grid-rows-3 flex flex-col">
+          <div class="flex items-center pt-10 md:pt-0" id="DescriptionTitle">
+            <h1 id="title" class="font-black text-3xl usuario_font_warp">
+              Descrição
+            </h1>
+          </div>
+          <div class="flex items-top py-3 md:py-3">
+            <p id="description" class="text-base usuario_font_warp">
+              Os hóspedes poderão usufruir da fogueira, deck panorâmico com
+              hidromassagem, sauna seca e uma vista inigualável. Todos os
+              amenities são privativos da casa. Os hóspedes poderão usufruir
+              da fogueira, deck panorâmico com hidromassagem, sauna seca e uma
+              vista inigualável. Todos os amenities são privativos da casa. Os
+              hóspedes poderão usufruir da fogueira, deck panorâmico com
+              hidromassagem, sauna seca e uma vista inigualável. Todos os
+              amenities são privativos da casa.
+            </p>
+          </div>
 
-            <div
-              class="flex description_icons flex-row flex-wrap justify-start md:justify-between py-10 md:py-0 md:mx-10"
-              id="description_icons"
-            >
-              <div
-                class="h-20 flex justify-start md:justify-start items-start md:gap-1"
-              >
-                <img
-                  src="Assets/caracteristicas/CAPACIDADE-PESSOAS.svg"
-                  alt=""
-                  class="h-14"
-                />
-                <!--TODO fix responsivity-->
+          <div class="flex description_icons flex-row flex-wrap justify-start md:justify-between py-10 md:py-0 md:mx-10"
+            id="description_icons">
+            <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
+              <img src="Assets/caracteristicas/CAPACIDADE-PESSOAS.svg" alt="" class="h-14" />
+              <!--TODO fix responsivity-->
 
-                <div class="flex justify-start items-start w-auto h-full">
-                  <p
-                    class="w-28 text-md md:text-lg align-top usuario_font_warp"
-                    id="maxCapacity"
-                  >
-                    Capacidade:
-                    <!--TODO check break line 24 -->
-                    8 pessoas
-                  </p>
-                </div>
+              <div class="flex justify-start items-start w-auto h-full">
+                <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="maxCapacity">
+                  Capacidade:
+                  <!--TODO check break line 24 -->
+                  8 pessoas
+                </p>
               </div>
+            </div>
 
-              <!--<div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
+            <!--<div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
                             <img src="Assets/caracteristicas/SUITES.svg" alt="" class="h-14">
                             TODO fix responsivity
 
@@ -1188,1170 +1032,841 @@
                             </div>
                         </div>-->
 
-              <div
-                class="h-20 flex justify-start md:justify-start items-start md:gap-1"
-              >
-                <img
-                  src="Assets/caracteristicas/QUARTOS.svg"
-                  alt=""
-                  class="h-14"
-                />
-                <!--TODO fix responsivity-->
+            <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
+              <img src="Assets/caracteristicas/QUARTOS.svg" alt="" class="h-14" />
+              <!--TODO fix responsivity-->
 
-                <div
-                  class="flex justify-start items-start w-auto h-full flex-col"
-                >
-                  <p
-                    class="w-28 text-md md:text-lg align-top usuario_font_warp"
-                    id="totalBedRooms"
-                  >
-                    3
-                    <!--TODO check break line 24 -->
-                    Quartos
-                  </p>
-                  <p
-                    class="w-28 text-md md:text-sm align-top usuario_font_warp"
-                    id="totalSuits"
-                  >
-                    (2
-                    <!--TODO check break line 24 -->
-                    Suites)
-                  </p>
-                </div>
+              <div class="flex justify-start items-start w-auto h-full flex-col">
+                <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="totalBedRooms">
+                  3
+                  <!--TODO check break line 24 -->
+                  Quartos
+                </p>
+                <p class="w-28 text-md md:text-sm align-top usuario_font_warp" id="totalSuits">
+                  (2
+                  <!--TODO check break line 24 -->
+                  Suites)
+                </p>
               </div>
+            </div>
 
-              <div
-                class="h-20 flex justify-start md:justify-start items-start md:gap-1"
-              >
-                <img
-                  src="Assets/caracteristicas/BANHEIROS.svg"
-                  alt=""
-                  class="h-14"
-                />
-                <!--TODO fix responsivity-->
+            <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
+              <img src="Assets/caracteristicas/BANHEIROS.svg" alt="" class="h-14" />
+              <!--TODO fix responsivity-->
 
-                <div class="flex justify-start items-start w-auto h-full">
-                  <p
-                    class="w-28 text-md md:text-lg align-top usuario_font_warp"
-                    id="totalBathRooms"
-                  >
-                    1
-                    <!--TODO check break line 24 -->
-                    Banheiro
-                  </p>
-                </div>
+              <div class="flex justify-start items-start w-auto h-full">
+                <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="totalBathRooms">
+                  1
+                  <!--TODO check break line 24 -->
+                  Banheiro
+                </p>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="w-full md:col-span-3 md:block" id="homefacilities">
-          <div class="w-full flex items-center justify-center">
-            <div id="hr" class="w-full h-px header_color_alpha"></div>
-          </div>
-          <div class="w-full h-full flex flex-col">
-            <!--py-14 eh o normal dos outros-->
-
-            <div
-              class="flex items-center justify-start md:py-14"
-              id="DescriptionTitle"
-            >
-              <h1
-                id="title"
-                class="font-black pt-10 md:pt-0 text-3xl usuario_font_warp"
-              >
-                Facilidades
-              </h1>
-            </div>
-
-            <div class="h-full w-full flex justify-center items-center">
-              <div
-                class="flex w-full description_icons flex-row flex-wrap gap-x-10 md:gap-x-20 gap-y-3 justify-start md:justify-start md:grid md:grid-rows-auto md:grid-cols-3"
-                id="description_icons"
-              >
-                <!-- gap-y-8 text-lg md:w-3/12 py-14  8 itens -->
-                <!-- gap-y-8 text-lg md:w-2/12 py-14  12 itens -->
-                <!-- gap-y-3 text-lg md:w-2/12 py-3   16 itens -->
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-air"
-                >
-                  <img
-                    src="Assets/facilidades/AR-CONDICIONADO.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Ar-condicionado
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-wifi"
-                >
-                  <img src="Assets/facilidades/WIFI.svg" alt="" class="h-14" />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Wifi
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="h-20 flex justify-start w-full md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-pool"
-                >
-                  <img
-                    src="Assets/facilidades/PISCINA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Piscina
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-sauna"
-                >
-                  <img src="Assets/facilidades/SAUNA.svg" alt="" class="h-14" />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Sauna
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-jacuzzi"
-                >
-                  <img
-                    src="Assets/facilidades/JACUZZI.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Jacuzzi
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-bathtub"
-                >
-                  <img
-                    src="Assets/facilidades/BANHEIRA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Banheira
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-gym"
-                >
-                  <img
-                    src="Assets/facilidades/ACADEMIA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Academia
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-tennisCourt"
-                >
-                  <img
-                    src="Assets/facilidades/QUADRA-TENIS.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Quadra de tênis
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-soccerField"
-                >
-                  <img
-                    src="Assets/facilidades/QUADRA-FUTEBOL.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Futebol
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-grill"
-                >
-                  <img
-                    src="Assets/facilidades/CHURRASQUEIRA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Churrasqueira
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-wineHouse"
-                >
-                  <img src="Assets/facilidades/ADEGA.svg" alt="" class="h-14" />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Adega
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-washingMachine"
-                >
-                  <img
-                    src="Assets/facilidades/LAVAROUPA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Lava-roupas
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-dishwasher"
-                >
-                  <img
-                    src="Assets/facilidades/LAVALOUÇA.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Lava-louças
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-extraRoom"
-                >
-                  <img
-                    src="Assets/facilidades/QUARTO-EXTRA-AJUDANTE.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Quarto extra (ajudante)
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-kitchenKosher"
-                >
-                  <img
-                    src="Assets/facilidades/COZINHA-CASHER.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Cozinha Casher
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
-                  id="facility-carParking"
-                >
-                  <img
-                    src="Assets/facilidades/VAGAS-CARROS.svg"
-                    alt=""
-                    class="h-14"
-                  />
-                  <!--TODO fix responsivity-->
-
-                  <div class="flex justify-center items-center w-auto h-full">
-                    <p class="text-md md:text-lg align-top usuario_font_warp">
-                      Garagem
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div
-              id="funcionario_desc"
-              class="self-end md:py-10 md:mt-auto w-full"
-            >
-              <div class="flex items-center" id="DescriptionTitle">
-                <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
-                  Se tem ar-condicionado, em quais cômodos
-                </h1>
-              </div>
-
-              <div
-                class="flex items-center w-full pb-10 md:pb-0"
-                id="DescriptionTitle"
-              >
-                <h1 id="infoAC" class="text-ls usuario_font_warp">
-                  Sem Informações
-                </h1>
-              </div>
-            </div>
-          </div>
+      <div class="w-full md:col-span-3 md:block" id="homefacilities">
+        <div class="w-full flex items-center justify-center">
+          <div id="hr" class="w-full h-px header_color_alpha"></div>
         </div>
+        <div class="w-full h-full flex flex-col">
+          <!--py-14 eh o normal dos outros-->
 
-        <!--OKK-->
-        <div
-          class="w-full col-span-3 h-auto md:block"
-          id="importantInformation"
-        >
-          <div class="w-full flex items-center justify-center">
-            <div id="hr" class="w-full h-px header_color"></div>
+          <div class="flex items-center justify-start md:py-14" id="DescriptionTitle">
+            <h1 id="title" class="font-black pt-10 md:pt-0 text-3xl usuario_font_warp">
+              Facilidades
+            </h1>
           </div>
-          <div class="w-full h-full">
-            <div class="flex items-center w-full py-10" id="DescriptionTitle">
-              <h1
-                id="title"
-                class="font-black text-3xl usuario_font_warp pt-10 md:pt-0"
-              >
-                Informações importantes
-              </h1>
-            </div>
 
+          <div class="h-full w-full flex justify-center items-center">
             <div
-              class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-10 md:gap-y-5 md:gap-x-6"
-              id="description_icons"
-            >
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Sua casa fica no(a)
-                  </p>
-                </div>
-
-                <div class="">
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType"
-                    id="locationTypeHost"
-                  >
-                    Praia
-                  </p>
-                </div>
-              </div>
-
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Sua casa fica em condomínio?
-                  </p>
-                </div>
-
-                <div class="">
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp w-full mt-2"
-                    id="inCondominium"
-                  >
-                    Sim
-                  </p>
-                </div>
-              </div>
-
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="w-full">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Metragens aproximadas
-                    <br />
-                    (terreno/área construída)
-                  </p>
-                </div>
-
-                <div
-                  class="flex justify-start mt-auto items-start w-auto h-full justify-self-end"
-                >
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp mt-2"
-                    id="floorSpace"
-                  >
-                    50/2500
-                  </p>
-                </div>
-              </div>
-
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="w-full">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Aeroporto mais proximo
-                  </p>
-                </div>
-
-                <div class="">
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp w-full mt-2"
-                    id="airportDistance"
-                  >
-                    Gaviao
-                  </p>
-                </div>
-              </div>
-
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="w-full">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Vagas cobertas para carros
-                  </p>
-                </div>
-
-                <div class="flex justify-start items-start w-auto h-full">
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp mt-2"
-                    id="coveredParking"
-                  >
-                    2
-                  </p>
-                </div>
-              </div>
-
-              <div class="h-full w-full flex flex-col" id="description-icon">
-                <div class="w-full">
-                  <p
-                    class="font-extrabold text-lg md:text-sm usuario_font_warp"
-                  >
-                    Vagas descobertas para carros
-                  </p>
-                </div>
-
-                <div class="w-full">
-                  <p
-                    class="text-lg md:text-sm usuario_font_warp mt-2"
-                    id="uncoveredParking"
-                  >
-                    3
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div id="authorize_desc" class="my-10 w-full">
-              <div class="flex items-center" id="DescriptionTitle">
-                <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
-                  Dicas de como chegar (ponto de referência, melhor estrada...)
-                </h1>
-              </div>
-
-              <div class="flex items-center w-full" id="DescriptionTitle">
-                <h1 id="carEntrance" class="text-ls usuario_font_warp">
-                  Sem Informações
-                </h1>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--OKK-->
-        <div class="w-full col-span-3 md:block" id="homeWorkers">
-          <div class="w-full flex items-center justify-center">
-            <div id="hr" class="w-full h-px header_color"></div>
-          </div>
-          <div class="w-full h-full md:flex md:flex-col">
-            <div class="flex items-center w-full py-10" id="DescriptionTitle">
-              <h1
-                id="title"
-                class="font-black text-3xl usuario_font_warp pt-10 md:pt-0"
-              >
-                Funcionários
-              </h1>
-            </div>
-
-            <div
-              class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-2 md:gap-y-5 md:gap-x-6"
-              id="description_icons"
-            >
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden"
-                id="worker-housekeeper"
-              >
-                <img
-                  src="Assets/funcionarios/CASEIRO.svg"
-                  alt=""
-                  class="h-14"
-                />
+              class="flex w-full description_icons flex-row flex-wrap gap-x-10 md:gap-x-20 gap-y-3 justify-start md:justify-start md:grid md:grid-rows-auto md:grid-cols-3"
+              id="description_icons">
+              <!-- gap-y-8 text-lg md:w-3/12 py-14  8 itens -->
+              <!-- gap-y-8 text-lg md:w-2/12 py-14  12 itens -->
+              <!-- gap-y-3 text-lg md:w-2/12 py-3   16 itens -->
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-air">
+                <img src="Assets/facilidades/AR-CONDICIONADO.svg" alt="" class="h-14" />
                 <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
                   <p class="text-md md:text-lg align-top usuario_font_warp">
-                    Caseiro
+                    Ar-condicionado
                   </p>
                 </div>
               </div>
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden"
-                id="worker-cooker"
-              >
-                <img
-                  src="Assets/funcionarios/CAZINHEIRO.svg"
-                  alt=""
-                  class="h-14"
-                />
-
-                <div class="flex justify-center items-center w-auto h-full">
-                  <p class="text-md md:text-lg align-top usuario_font_warp">
-                    Cozinheiro
-                  </p>
-                </div>
-              </div>
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden"
-                id="worker-janitor"
-              >
-                <img
-                  src="Assets/funcionarios/FAXINEIRO.svg"
-                  alt=""
-                  class="h-14"
-                />
-
-                <div class="flex justify-center items-center w-auto h-full">
-                  <p class="text-md md:text-lg align-top usuario_font_warp">
-                    Faxineiro
-                  </p>
-                </div>
-              </div>
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden"
-                id="worker-poolkeeper"
-              >
-                <img
-                  src="Assets/funcionarios/PISCINEIRO.svg"
-                  alt=""
-                  class="h-14"
-                />
-
-                <div class="flex justify-center items-center w-auto h-full">
-                  <p class="text-md md:text-lg align-top usuario_font_warp">
-                    Piscineiro
-                  </p>
-                </div>
-              </div>
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden"
-                id="worker-security"
-              >
-                <img
-                  src="Assets/funcionarios/SEGURANÇA.svg"
-                  alt=""
-                  class="h-14"
-                />
-
-                <div class="flex justify-center items-center w-auto h-full">
-                  <p class="text-md md:text-lg align-top usuario_font_warp">
-                    Segurança
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="flex items-end h-full">
-              <div id="funcionario_desc" class="my-10 w-full">
-                <div class="flex items-center" id="DescriptionTitle">
-                  <h1
-                    id="title"
-                    class="font-extrabold text-ls usuario_font_warp"
-                  >
-                    Se conta com funcionários, quais orientações importantes
-                  </h1>
-                </div>
-
-                <div class="flex items-center w-full" id="DescriptionTitle">
-                  <h1 id="infoWorkers" class="text-ls usuario_font_warp">
-                    Sem Informações
-                  </h1>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--OKK-->
-        <div class="w-full col-span-3 md:block" id="homeRules">
-          <div class="w-full flex items-center justify-center">
-            <div id="hr" class="w-full h-px header_color"></div>
-          </div>
-          <div class="w-full h-full md:flex md:flex-col">
-            <div class="flex items-center w-full py-10" id="DescriptionTitle">
-              <h1
-                id="title"
-                class="font-black text-3xl usuario_font_warp pt-10 md:pt-0"
-              >
-                Autorizo
-              </h1>
-            </div>
-
-            <div
-              class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-2 md:gap-y-5 md:gap-x-6"
-              id="description_icons"
-            >
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img src="Assets/regras/FUMANTES.svg" alt="" class="h-14" />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-wifi">
+                <img src="Assets/facilidades/WIFI.svg" alt="" class="h-14" />
                 <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp"
-                    id="authorized-smokers"
-                  >
-                    Fumantes
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Wifi
                   </p>
                 </div>
               </div>
 
               <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img src="Assets/regras/FAMILIA.svg" alt="" class="h-14" />
+                class="h-20 flex justify-start w-full md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-pool">
+                <img src="Assets/facilidades/PISCINA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-kids"
-                  >
-                    Familia com criança(s) pequena(s)
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Piscina
                   </p>
                 </div>
               </div>
 
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img src="Assets/regras/PETS.svg" alt="" class="h-14" />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-sauna">
+                <img src="Assets/facilidades/SAUNA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-pets"
-                  >
-                    Pets
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Sauna
                   </p>
                 </div>
               </div>
 
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img src="Assets/regras/MENORES-23.svg" alt="" class="h-14" />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-jacuzzi">
+                <img src="Assets/facilidades/JACUZZI.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-minor"
-                  >
-                    Menores de 23 anos desacompanhados
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Jacuzzi
                   </p>
                 </div>
               </div>
 
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img
-                  src="Assets/regras/USO-SUIT-MASTER.svg"
-                  alt=""
-                  class="h-14"
-                />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-bathtub">
+                <img src="Assets/facilidades/BANHEIRA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-masterSuite"
-                  >
-                    Uso da suíte master
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Banheira
                   </p>
                 </div>
               </div>
-
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img src="Assets/regras/USO-ADEGA.svg" alt="" class="h-14" />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-gym">
+                <img src="Assets/facilidades/ACADEMIA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-wineUse"
-                  >
-                    Uso da adega
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Academia
                   </p>
                 </div>
               </div>
-
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img
-                  src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg"
-                  alt=""
-                  class="h-14"
-                />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-tennisCourt">
+                <img src="Assets/facilidades/QUADRA-TENIS.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-poolHeatingNoRefund"
-                  >
-                    Aquecimento da piscina (sem reembolso)
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Quadra de tênis
                   </p>
                 </div>
               </div>
-
-              <div
-                class="h-20 flex justify-center md:justify-start items-center md:gap-1"
-              >
-                <img
-                  src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg"
-                  alt=""
-                  class="h-14"
-                />
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-soccerField">
+                <img src="Assets/facilidades/QUADRA-FUTEBOL.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
                 <div class="flex justify-center items-center w-auto h-full">
-                  <p
-                    class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
-                    id="authorized-poolHeatingRefund"
-                  >
-                    Aquecimento da piscina (com reembolso)
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Futebol
                   </p>
                 </div>
               </div>
-            </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-grill">
+                <img src="Assets/facilidades/CHURRASQUEIRA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
-            <div id="authorize_desc" class="my-10 w-full">
-              <div class="flex items-center" id="DescriptionTitle">
-                <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
-                  Restrições
-                </h1>
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Churrasqueira
+                  </p>
+                </div>
               </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-wineHouse">
+                <img src="Assets/facilidades/ADEGA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
 
-              <div class="flex items-center w-full" id="DescriptionTitle">
-                <h1 id="extraRestriction" class="text-ls usuario_font_warp">
-                  Sem Informações
-                </h1>
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Adega
+                  </p>
+                </div>
+              </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-washingMachine">
+                <img src="Assets/facilidades/LAVAROUPA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
+
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Lava-roupas
+                  </p>
+                </div>
+              </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-dishwasher">
+                <img src="Assets/facilidades/LAVALOUÇA.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
+
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Lava-louças
+                  </p>
+                </div>
+              </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-extraRoom">
+                <img src="Assets/facilidades/QUARTO-EXTRA-AJUDANTE.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
+
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Quarto extra (ajudante)
+                  </p>
+                </div>
+              </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-kitchenKosher">
+                <img src="Assets/facilidades/COZINHA-CASHER.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
+
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Cozinha Casher
+                  </p>
+                </div>
+              </div>
+              <div class="h-20 flex justify-center md:justify-start items-center gap-x-10 md:gap-x-1 hidden md:gap-y-1"
+                id="facility-carParking">
+                <img src="Assets/facilidades/VAGAS-CARROS.svg" alt="" class="h-14" />
+                <!--TODO fix responsivity-->
+
+                <div class="flex justify-center items-center w-auto h-full">
+                  <p class="text-md md:text-lg align-top usuario_font_warp">
+                    Garagem
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div
-          class="h-auto md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-2 md:row-span-2 flex justify-center items-center md:flex"
-          id="calendar"
-        >
+          <div id="funcionario_desc" class="self-end md:py-10 md:mt-auto w-full">
+            <div class="flex items-center" id="DescriptionTitle">
+              <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
+                Se tem ar-condicionado, em quais cômodos
+              </h1>
+            </div>
+
+            <div class="flex items-center w-full pb-10 md:pb-0" id="DescriptionTitle">
+              <h1 id="infoAC" class="text-ls usuario_font_warp">
+                Sem Informações
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--OKK-->
+      <div class="w-full col-span-3 h-auto md:block" id="importantInformation">
+        <div class="w-full flex items-center justify-center">
+          <div id="hr" class="w-full h-px header_color"></div>
+        </div>
+        <div class="w-full h-full">
+          <div class="flex items-center w-full py-10" id="DescriptionTitle">
+            <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 md:pt-0">
+              Informações importantes
+            </h1>
+          </div>
+
           <div
-            class="button_bg_background_only rounded-3xl md:w-11/12 h-5/6 md:h-5/6 flex flex-col justify-between"
-          >
-            <div class="flex justify-center items-center">
-              <p class="text-4xl font-black usuario_font_warp mt-10">
-                Calendário
+            class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-10 md:gap-y-5 md:gap-x-6"
+            id="description_icons">
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Sua casa fica no(a)
+                </p>
+              </div>
+
+              <div class="">
+                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType" id="locationTypeHost">
+                  Praia
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Sua casa fica em condomínio?
+                </p>
+              </div>
+
+              <div class="">
+                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2" id="inCondominium">
+                  Sim
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="w-full">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Metragens aproximadas
+                  <br />
+                  (terreno/área construída)
+                </p>
+              </div>
+
+              <div class="flex justify-start mt-auto items-start w-auto h-full justify-self-end">
+                <p class="text-lg md:text-sm usuario_font_warp mt-2" id="floorSpace">
+                  50/2500
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="w-full">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Aeroporto mais proximo
+                </p>
+              </div>
+
+              <div class="">
+                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2" id="airportDistance">
+                  Gaviao
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="w-full">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Vagas cobertas para carros
+                </p>
+              </div>
+
+              <div class="flex justify-start items-start w-auto h-full">
+                <p class="text-lg md:text-sm usuario_font_warp mt-2" id="coveredParking">
+                  2
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="w-full">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Vagas descobertas para carros
+                </p>
+              </div>
+
+              <div class="w-full">
+                <p class="text-lg md:text-sm usuario_font_warp mt-2" id="uncoveredParking">
+                  3
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="authorize_desc" class="my-10 w-full">
+            <div class="flex items-center" id="DescriptionTitle">
+              <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
+                Dicas de como chegar (ponto de referência, melhor estrada...)
+              </h1>
+            </div>
+
+            <div class="flex items-center w-full" id="DescriptionTitle">
+              <h1 id="carEntrance" class="text-ls usuario_font_warp">
+                Sem Informações
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--OKK-->
+      <div class="w-full col-span-3 md:block" id="homeWorkers">
+        <div class="w-full flex items-center justify-center">
+          <div id="hr" class="w-full h-px header_color"></div>
+        </div>
+        <div class="w-full h-full md:flex md:flex-col">
+          <div class="flex items-center w-full py-10" id="DescriptionTitle">
+            <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 md:pt-0">
+              Funcionários
+            </h1>
+          </div>
+
+          <div
+            class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-2 md:gap-y-5 md:gap-x-6"
+            id="description_icons">
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden" id="worker-housekeeper">
+              <img src="Assets/funcionarios/CASEIRO.svg" alt="" class="h-14" />
+              <!--TODO fix responsivity-->
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="text-md md:text-lg align-top usuario_font_warp">
+                  Caseiro
+                </p>
+              </div>
+            </div>
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden" id="worker-cooker">
+              <img src="Assets/funcionarios/CAZINHEIRO.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="text-md md:text-lg align-top usuario_font_warp">
+                  Cozinheiro
+                </p>
+              </div>
+            </div>
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden" id="worker-janitor">
+              <img src="Assets/funcionarios/FAXINEIRO.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="text-md md:text-lg align-top usuario_font_warp">
+                  Faxineiro
+                </p>
+              </div>
+            </div>
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden" id="worker-poolkeeper">
+              <img src="Assets/funcionarios/PISCINEIRO.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="text-md md:text-lg align-top usuario_font_warp">
+                  Piscineiro
+                </p>
+              </div>
+            </div>
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1 hidden" id="worker-security">
+              <img src="Assets/funcionarios/SEGURANÇA.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="text-md md:text-lg align-top usuario_font_warp">
+                  Segurança
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-end h-full">
+            <div id="funcionario_desc" class="my-10 w-full">
+              <div class="flex items-center" id="DescriptionTitle">
+                <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
+                  Se conta com funcionários, quais orientações importantes
+                </h1>
+              </div>
+
+              <div class="flex items-center w-full" id="DescriptionTitle">
+                <h1 id="infoWorkers" class="text-ls usuario_font_warp">
+                  Sem Informações
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--OKK-->
+      <div class="w-full col-span-3 md:block" id="homeRules">
+        <div class="w-full flex items-center justify-center">
+          <div id="hr" class="w-full h-px header_color"></div>
+        </div>
+        <div class="w-full h-full md:flex md:flex-col">
+          <div class="flex items-center w-full py-10" id="DescriptionTitle">
+            <h1 id="title" class="font-black text-3xl usuario_font_warp pt-10 md:pt-0">
+              Autorizo
+            </h1>
+          </div>
+
+          <div
+            class="flex flex-col items-start description_icons h-auto md:grid md:grid-cols-3 md:grid-rows-auto gap-x-8 gap-y-2 md:gap-y-5 md:gap-x-6"
+            id="description_icons">
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/FUMANTES.svg" alt="" class="h-14" />
+              <!--TODO fix responsivity-->
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp" id="authorized-smokers">
+                  Fumantes
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/FAMILIA.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-kids">
+                  Familia com criança(s) pequena(s)
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/PETS.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-pets">
+                  Pets
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/MENORES-23.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-minor">
+                  Menores de 23 anos desacompanhados
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/USO-SUIT-MASTER.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-masterSuite">
+                  Uso da suíte master
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/USO-ADEGA.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-wineUse">
+                  Uso da adega
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-poolHeatingNoRefund">
+                  Aquecimento da piscina (sem reembolso)
+                </p>
+              </div>
+            </div>
+
+            <div class="h-20 flex justify-center md:justify-start items-center md:gap-1">
+              <img src="Assets/regras/AQUECIMENTO-PISCINA-REEMBOLSO.svg" alt="" class="h-14" />
+
+              <div class="flex justify-center items-center w-auto h-full">
+                <p class="line-through text-md md:text-lg align-top usuario_font_warp leading-none"
+                  id="authorized-poolHeatingRefund">
+                  Aquecimento da piscina (com reembolso)
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div id="authorize_desc" class="my-10 w-full">
+            <div class="flex items-center" id="DescriptionTitle">
+              <h1 id="title" class="font-extrabold text-ls usuario_font_warp">
+                Restrições
+              </h1>
+            </div>
+
+            <div class="flex items-center w-full" id="DescriptionTitle">
+              <h1 id="extraRestriction" class="text-ls usuario_font_warp">
+                Sem Informações
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="h-auto md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-2 md:row-span-2 flex justify-center items-center md:flex"
+        id="calendar">
+        <div class="button_bg_background_only rounded-3xl md:w-11/12 h-5/6 md:h-5/6 flex flex-col justify-between">
+          <div class="flex justify-center items-center">
+            <p class="text-4xl font-black usuario_font_warp mt-10">
+              Calendário
+            </p>
+          </div>
+
+          <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
+            <v-date-picker v-model="range" is-range :available-dates="avbldates" @dayclick="onDayClick" />
+          </div>
+
+          <div class="w-full h-24 md:h-32 flex justify-center items-center">
+            <button onclick="abrirChat()" class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text"
+              id="openChat">
+              Reservar
+            </button>
+          </div>
+
+          <div class="w-full flex justify-center items-center flex-col h-1/3" id="reservationCalculator">
+            <div class="w-10/12 flex flex-row gap-y-1">
+              <p class="text-lg usuario_font mr-auto align-top">
+                Pontos disponíveis:
               </p>
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="totalPoints">
+                0
+              </h1>
+            </div>
+            <div class="w-10/12 flex flex-row gap-y-1">
+              <p class="text-lg usuario_font mr-auto align-top">
+                Noites selecionadas:
+              </p>
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="totalNights">
+                0
+              </h1>
+            </div>
+            <div class="w-10/12 flex flex-row gap-y-1">
+              <p class="text-lg usuario_font mr-auto align-top">
+                Pontos necessários:
+              </p>
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="totalCost">
+                0
+              </h1>
+            </div>
+            <div class="w-full flex items-center justify-center py-5">
+              <div id="hr-calendar" class="w-full h-px header_color"></div>
+            </div>
+            <div class="w-10/12 flex flex-row gap-y-1">
+              <p class="text-lg usuario_font mr-auto align-top">
+                SALDO DE PONTOS:
+              </p>
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="totalPointsAfter">
+                0
+              </h1>
+            </div>
+            <div class="w-full flex items-center justify-center py-5">
+              <div id="hr-calendar" class="w-full h-px header_color"></div>
+            </div>
+            <div class="w-10/12 flex flex-row gap-y-1">
+              <p class="text-lg usuario_font mr-auto align-top">
+                TAXA DE TROCA:
+              </p>
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="nightsTax">
+                0
+              </h1>
+            </div>
+          </div>
+
+          <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+          <!-- 2. Link VCalendar Javascript (Plugin automatically installed) -->
+          <script src="https://unpkg.com/v-calendar"></script>
+
+          <!--3. Create the Vue instance-->
+
+          <script>
+            vue = new Vue({
+              el: '#app',
+              data() {
+                return {
+                  range: {
+                    start: new Date(0),
+                    end: new Date(0),
+                  },
+                  avbldates: [{
+                    start: new Date(),
+                    end: new Date('2021-09-30'),
+                  }, ],
+                }
+              },
+              methods: {
+                onDayClick(day) {
+                  updateCalendarData(day)
+                },
+              },
+            })
+
+            function updateCalendarData(days1) {
+              let startDate = vue.$data.range.start
+              let endDate = vue.$data.range.end
+              selectedDates = [startDate, endDate]
+              let days = Math.round(
+                (endDate - startDate) / (1000 * 60 * 60 * 24),
+              )
+              $('#dataReserva').text(
+                `${toHumanDate(startDate)} a ${toHumanDate(endDate)}`,
+              )
+              $('#totalCost').text(
+                '- ' +
+                numberWithCommas(starsToPointsPerNight(multiplier) * days),
+              )
+              $('#totalNights').text(days)
+
+              $('#totalPointsAfter').text(
+                numberWithCommas(
+                  userPointsInfo - starsToPointsPerNight(multiplier) * days,
+                ),
+              )
+
+              $('#nightsTax').text(
+                'R$ ' + numberWithCommas(days * 100 * (multiplier - 1)),
+              )
+            }
+          </script>
+        </div>
+      </div>
+
+      <div
+        class="md:w-full h-72 md:h-full md:col-start-4 md:col-span-2 md:row-start-1 justify-center items-center flex my-0 md:my-10 md:my-0"
+        id="contactInfo">
+        <div class="button_bg_background_only rounded-3xl w-11/12 h-5/6 flex">
+          <div class="w-2/5 h-full flex items-center justify-center" id="contactPhoto">
+            <div class="md:w-6/12 h-auto flex justify-center items-center">
+              <div class="h-full w-20 md:h-auto md:w-full items-start header_color rounded-full">
+                <img class="object-cover h-20 w-20 md:h-full md:w-full rounded-full" src="Assets/PERFIL.svg"
+                  id="contactPhoto" />
+              </div>
+            </div>
+          </div>
+          <div class="w-3/5 h-full items-start" id="contactText">
+            <div class="w-full h-2/3">
+              <div class="w-full h-2/3 items-end flex pb-10 md:pb-0">
+                <div class="h-2/4">
+                  <h1 class="font-extrabold text-2xl usuario_font_warp" id="contactName">
+                    -
+                  </h1>
+                </div>
+              </div>
+
+              <div class="w-full h-1/3 items-start flex">
+                <div>
+                  <h1 class="text-sm usuario_font_warp" id="memberSince">
+                    Membro desde Setembro 2021
+                  </h1>
+                </div>
+              </div>
             </div>
 
-            <div
-              id="app"
-              class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center"
-            >
-              <v-date-picker
-                v-model="range"
-                is-range
-                :available-dates="avbldates"
-                @dayclick="onDayClick"
-              />
-            </div>
-
-            <div class="w-full h-24 md:h-32 flex justify-center items-center">
-              <button
-                onclick="abrirChat()"
-                class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text"
-                id="openChat"
-              >
-                Reservar
+            <div class="w-full h-1/3 items-start flex justify-start">
+              <input class="hidden" id="contactId" />
+              <button class="header_color_bt w-3/5 md:w-2/5 h-1/2 rounded-full button_text"
+                onclick="redirectChatCreate()" id="openChat">
+                Contato
               </button>
             </div>
-
-            <div
-              class="w-full flex justify-center items-center flex-col h-1/3"
-              id="reservationCalculator"
-            >
-              <div class="w-10/12 flex flex-row gap-y-1">
-                <p class="text-lg usuario_font mr-auto align-top">
-                  Pontos disponíveis:
-                </p>
-                <h1
-                  class="text-xl font-bold usuario_font ml-auto align-top"
-                  id="totalPoints"
-                >
-                  0
-                </h1>
-              </div>
-              <div class="w-10/12 flex flex-row gap-y-1">
-                <p class="text-lg usuario_font mr-auto align-top">
-                  Noites selecionadas:
-                </p>
-                <h1
-                  class="text-xl font-bold usuario_font ml-auto align-top"
-                  id="totalNights"
-                >
-                  0
-                </h1>
-              </div>
-              <div class="w-10/12 flex flex-row gap-y-1">
-                <p class="text-lg usuario_font mr-auto align-top">
-                  Pontos necessários:
-                </p>
-                <h1
-                  class="text-xl font-bold usuario_font ml-auto align-top"
-                  id="totalCost"
-                >
-                  0
-                </h1>
-              </div>
-              <div class="w-full flex items-center justify-center py-5">
-                <div id="hr-calendar" class="w-full h-px header_color"></div>
-              </div>
-              <div class="w-10/12 flex flex-row gap-y-1">
-                <p class="text-lg usuario_font mr-auto align-top">
-                  SALDO DE PONTOS:
-                </p>
-                <h1
-                  class="text-xl font-bold usuario_font ml-auto align-top"
-                  id="totalPointsAfter"
-                >
-                  0
-                </h1>
-              </div>
-              <div class="w-full flex items-center justify-center py-5">
-                <div id="hr-calendar" class="w-full h-px header_color"></div>
-              </div>
-              <div class="w-10/12 flex flex-row gap-y-1">
-                <p class="text-lg usuario_font mr-auto align-top">
-                  TAXA DE TROCA:
-                </p>
-                <h1
-                  class="text-xl font-bold usuario_font ml-auto align-top"
-                  id="nightsTax"
-                >
-                  0
-                </h1>
-              </div>
-            </div>
-
-            <script src="https://unpkg.com/vue/dist/vue.js"></script>
-
-            <!-- 2. Link VCalendar Javascript (Plugin automatically installed) -->
-            <script src="https://unpkg.com/v-calendar"></script>
-
-            <!--3. Create the Vue instance-->
-
-            <script>
-              vue = new Vue({
-                el: '#app',
-                data() {
-                  return {
-                    range: {
-                      start: new Date(0),
-                      end: new Date(0),
-                    },
-                    avbldates: [
-                      {
-                        start: new Date(),
-                        end: new Date('2021-09-30'),
-                      },
-                    ],
-                  }
-                },
-                methods: {
-                  onDayClick(day) {
-                    updateCalendarData(day)
-                  },
-                },
-              })
-
-              function updateCalendarData(days1) {
-                let startDate = vue.$data.range.start
-                let endDate = vue.$data.range.end
-                selectedDates = [startDate, endDate]
-                let days = Math.round(
-                  (endDate - startDate) / (1000 * 60 * 60 * 24),
-                )
-                $('#dataReserva').text(
-                  `${toHumanDate(startDate)} a ${toHumanDate(endDate)}`,
-                )
-                $('#totalCost').text(
-                  '- ' +
-                    numberWithCommas(starsToPointsPerNight(multiplier) * days),
-                )
-                $('#totalNights').text(days)
-
-                $('#totalPointsAfter').text(
-                  numberWithCommas(
-                    userPointsInfo - starsToPointsPerNight(multiplier) * days,
-                  ),
-                )
-
-                $('#nightsTax').text(
-                  'R$ ' + numberWithCommas(days * 100 * (multiplier - 1)),
-                )
-              }
-            </script>
-          </div>
-        </div>
-
-        <div
-          class="md:w-full h-72 md:h-full md:col-start-4 md:col-span-2 md:row-start-1 justify-center items-center flex my-0 md:my-10 md:my-0"
-          id="contactInfo"
-        >
-          <div class="button_bg_background_only rounded-3xl w-11/12 h-5/6 flex">
-            <div
-              class="w-2/5 h-full flex items-center justify-center"
-              id="contactPhoto"
-            >
-              <div class="md:w-6/12 h-auto flex justify-center items-center">
-                <div
-                  class="h-full w-20 md:h-auto md:w-full items-start header_color rounded-full"
-                >
-                  <img
-                    class="object-cover h-20 w-20 md:h-full md:w-full rounded-full"
-                    src="Assets/PERFIL.svg"
-                    id="contactPhoto"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="w-3/5 h-full items-start" id="contactText">
-              <div class="w-full h-2/3">
-                <div class="w-full h-2/3 items-end flex pb-10 md:pb-0">
-                  <div class="h-2/4">
-                    <h1
-                      class="font-extrabold text-2xl usuario_font_warp"
-                      id="contactName"
-                    >
-                      -
-                    </h1>
-                  </div>
-                </div>
-
-                <div class="w-full h-1/3 items-start flex">
-                  <div>
-                    <h1 class="text-sm usuario_font_warp" id="memberSince">
-                      Membro desde Setembro 2021
-                    </h1>
-                  </div>
-                </div>
-              </div>
-
-              <div class="w-full h-1/3 items-start flex justify-start">
-                <input class="hidden" id="contactId" />
-                <button
-                  class="header_color_bt w-3/5 md:w-2/5 h-1/2 rounded-full button_text"
-                  onclick="redirectChatCreate()"
-                  id="openChat"
-                >
-                  Contato
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-4 md:row-span-1 p-8 md:p-14 md:p-0 flex justify-center items-center md:flex"
-          id="curation"
-        >
-          <div
-            class="button_bg_background_only rounded-full md:w-96 w-80 h-64 md:h-96 flex flex-col gap-y-2 md:gap-y-6"
-          >
-            <div class="mt-7 md:h-1/3 w-full flex justify-center items-end">
-              <div>
-                <p class="font-black text-2xl md:text-3xl usuario_font_warp">
-                  Curadoria Yô
-                </p>
-              </div>
-            </div>
-
-            <div class="h-2/3 w-full flex justify-center items-start">
-              <div class="w-3/4">
-                <p
-                  class="text-center font-black text-sm md:text-md usuario_font_warp"
-                  id="curatedDetails"
-                >
-                  Sem Informações
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
-      <div id="map"></div>
-    </div>
-    <footer class="bg-green_medium py-10 text-sm">
+
       <div
-        class="mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0"
-      >
-        <div class="flex flex-col flex-wrap items-start justify-start w-full">
-          <h5 class="text-green_light mb-5 sm:mb-2 text-lg">
-            Você tem alguma dúvida? Estamos aqui para ajudar.
-          </h5>
-
-          <div
-            class="flex sm:flex-row flex-col items-center sm:justify-between w-full"
-          >
-            <div class="sm:flex sm:flex-row mb-10">
-              <h5 class="text-green_light mb-2 text-lg">
-                Entre em contato conosco através do email:&nbsp;
-                <h5 class="text-green_light font-bold text-lg">
-                  contato@yocasas.com.br
-                </h5>
-              </h5>
-            </div>
-
-            <div
-              class="flex sm:flex-row flex-col justify-center sm:justify-between sm:w-1/12"
-            >
-              <a
-                class="my-6 mx-1 sm:my-0 sm:mx-0"
-                href="https://wa.me/5511991379972"
-              >
-                <h1>
-                  <span class="sr-only">Whats App</span>
-                  <img src="Assets/whatsapp.svg" class="h-10" />
-                </h1>
-              </a>
-
-              <a
-                class="sm:-my-1"
-                href="https://www.instagram.com/yo_trocadecasas/"
-              >
-                <h1>
-                  <span class="sr-only">Instagram</span>
-                  <img src="Assets/instagram.svg" class="h-16" />
-                </h1>
-              </a>
+        class="md:w-full md:h-full md:col-start-4 md:col-span-2 md:row-start-4 md:row-span-1 p-8 md:p-14 md:p-0 flex justify-center items-center md:flex"
+        id="curation">
+        <div class="button_bg_background_only rounded-full md:w-96 w-80 h-64 md:h-96 flex flex-col gap-y-2 md:gap-y-6">
+          <div class="mt-7 md:h-1/3 w-full flex justify-center items-end">
+            <div>
+              <p class="font-black text-2xl md:text-3xl usuario_font_warp">
+                Curadoria Yô
+              </p>
             </div>
           </div>
 
-          <ul
-            class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full"
-          >
-            <li>
-              <a
-                onclick="location.href='/onboarding'"
-                class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline"
-                href="#"
-              >
-                Cadastro
-              </a>
-            </li>
-            <li>
-              <a
-                class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                href="/home/assets/tabela.pdf"
-                target="_blank"
-              >
-                Regras e pontuação Yô
-              </a>
-            </li>
-            <li>
-              <a
-                class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                href="/legal/privacy"
-                target="_blank"
-              >
-                Política de privacidade
-              </a>
-            </li>
-            <li>
-              <a
-                class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                href="/legal/terms"
-                target="_blank"
-              >
-                Termos e Condições
-              </a>
-            </li>
-          </ul>
+          <div class="h-2/3 w-full flex justify-center items-start">
+            <div class="w-3/4">
+              <p class="text-center font-black text-sm md:text-md usuario_font_warp" id="curatedDetails">
+                Sem Informações
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="justify-end flex items-center px-4 mx-10 lg:px-0">
-        <p class="text-green_light text-sm pl-2">
-          Copyright &copy; 2021 Yô. All rights reserved.
-        </p>
+    </div>
+    <div id="map"></div>
+  </div>
+  <footer class="bg-green_medium py-10 text-sm">
+    <div class="mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
+      <div class="flex flex-col flex-wrap items-start justify-start w-full">
+        <h5 class="text-green_light mb-5 sm:mb-2 text-lg">
+          Você tem alguma dúvida? Estamos aqui para ajudar.
+        </h5>
+
+        <div class="flex sm:flex-row flex-col items-center sm:justify-between w-full">
+          <div class="sm:flex sm:flex-row mb-10">
+            <h5 class="text-green_light mb-2 text-lg">
+              Entre em contato conosco através do email:&nbsp;
+              <h5 class="text-green_light font-bold text-lg">
+                contato@yocasas.com.br
+              </h5>
+            </h5>
+          </div>
+
+          <div class="flex sm:flex-row flex-col justify-center sm:justify-between sm:w-1/12">
+            <a class="my-6 mx-1 sm:my-0 sm:mx-0" href="https://wa.me/5511991379972">
+              <h1>
+                <span class="sr-only">Whats App</span>
+                <img src="Assets/whatsapp.svg" class="h-10" />
+              </h1>
+            </a>
+
+            <a class="sm:-my-1" href="https://www.instagram.com/yo_trocadecasas/">
+              <h1>
+                <span class="sr-only">Instagram</span>
+                <img src="Assets/instagram.svg" class="h-16" />
+              </h1>
+            </a>
+          </div>
+        </div>
+
+        <ul class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full">
+          <li>
+            <a onclick="location.href='/onboarding'"
+              class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline" href="#">
+              Cadastro
+            </a>
+          </li>
+          <li>
+            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="/home/assets/tabela.pdf"
+              target="_blank">
+              Regras e pontuação Yô
+            </a>
+          </li>
+          <li>
+            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="/legal/privacy"
+              target="_blank">
+              Política de privacidade
+            </a>
+          </li>
+          <li>
+            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl" href="/legal/terms"
+              target="_blank">
+              Termos e Condições
+            </a>
+          </li>
+        </ul>
       </div>
-    </footer>
-  </body>
+    </div>
+    <div class="justify-end flex items-center px-4 mx-10 lg:px-0">
+      <p class="text-green_light text-sm pl-2">
+        Copyright &copy; 2021 Yô. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+
 </html>
