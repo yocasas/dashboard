@@ -89,14 +89,6 @@
         contentType: 'application/json',
 
         success: (resp) => {
-          // window.scrollTo(0, 0);//LOADINGG
-          // $(".loading").parent().addClass('hidden')
-          // $('html, body').css({
-          //     overflow: 'auto',
-          //     height: 'auto'
-          // });
-          //$('#showWarn').removeClass('hidden')
-          //window.location.href = "/dashboard/chat"
         },
       })
     }
@@ -541,7 +533,16 @@
 
           let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-          vue.$data.avbldates = totalDates
+          console.log(currentHomeInfo['underReview'] + "TESTE")
+
+          if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
+            vue.$data.avbldates = undefined
+            vue.$data.attr[0].dates = totalDates
+          } else {
+            vue.$data.avbldates = totalDates
+          }
+          
+
 
           //vue.$data.attrs[0].dates = totalDates
         },
@@ -1615,7 +1616,7 @@
           </div>
 
           <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
-            <v-date-picker v-model="range" is-range :available-dates="avbldates" @dayclick="onDayClick" />
+            <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes='attr' @dayclick="onDayClick" />
           </div>
 
           <div class="w-full h-24 md:h-32 flex justify-center items-center">
@@ -1686,6 +1687,13 @@
               el: '#app',
               data() {
                 return {
+                  attr: [
+      {
+        key: 'today',
+        highlight: 'green',
+        dates: new Date()
+      }
+    ],
                   range: {
                     start: new Date(0),
                     end: new Date(0),
