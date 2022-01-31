@@ -77,6 +77,13 @@ let checkCurrentUser = function () {
         }
     }
 
+}
+
+let checkCurrentUserNoBlock = function () {
+
+    let myCookie = getCookie("login_session");
+
+    authCookie = myCookie
 
     
 

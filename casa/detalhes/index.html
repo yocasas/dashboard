@@ -23,7 +23,7 @@
         gtag('js', new Date())
 
         gtag('config', 'G-V0C85S2RG3')
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
         gtag('set', {
             id: clientInfo.ClientId.substring(7),
         })
@@ -322,7 +322,7 @@
             }
 
             let homesShow = $('#homes_show')
-            checkCurrentUser()
+            checkCurrentUserNoBlock()
             $.ajax({
                 url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
                 type: 'POST',
@@ -549,7 +549,7 @@
                     height: '100%'
                 });*/
 
-            checkCurrentUser()
+                checkCurrentUserNoBlock()
             changeUserName($(`#userNameDrop`))
             getUserPoints().then((userPoints) => {
                 $('#pointsUser').text(userPoints)

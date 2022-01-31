@@ -24,7 +24,7 @@
 
 
         gtag('config', 'G-V0C85S2RG3');
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
         gtag('set', {
             'id': clientInfo.ClientId.substring(7)
         });
@@ -45,7 +45,7 @@
 <script>
     $(document).ready(() => {
 
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
         changeUserName($(`#userNameDrop`))
         getUserPoints().then(userPoints => {
             $("#pointsUser").text(userPoints)
