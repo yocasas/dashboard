@@ -24,10 +24,13 @@
 
 
         gtag('config', 'G-V0C85S2RG3');
-        checkCurrentUserNoBlock()
-        gtag('set', {
+        checkCurrentUser()
+        if (authCookie != null) {
+            gtag('set', {
             'id': clientInfo.ClientId.substring(7)
         });
+        }
+        
     </script>
 
 </head>
@@ -45,13 +48,15 @@
 <script>
     $(document).ready(() => {
 
-        checkCurrentUserNoBlock()
+        checkCurrentUser()
+        if (authCookie != null) {
         changeUserName($(`#userNameDrop`))
         getUserPoints().then(userPoints => {
             $("#pointsUser").text(userPoints)
             $("#pointsUserCel").text(userPoints)
 
         })
+    }
         populateHomes()
     });
 </script>
