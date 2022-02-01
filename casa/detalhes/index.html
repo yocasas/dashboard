@@ -24,9 +24,14 @@
 
         gtag('config', 'G-V0C85S2RG3')
         checkCurrentUser()
-        gtag('set', {
+
+        console.log(authCookie)
+        if (authCookie != null) {
+            gtag('set', {
             id: clientInfo.ClientId.substring(7),
         })
+        }
+        
     </script>
 
     <script>
@@ -549,17 +554,22 @@
                     height: '100%'
                 });*/
 
-            checkCurrentUser()
-            changeUserName($(`#userNameDrop`))
-            getUserPoints().then((userPoints) => {
+                checkCurrentUser()
+                if (authCookie != null) {
+                    changeUserName($(`#userNameDrop`))
+                    getUserPoints().then((userPoints) => {
                 $('#pointsUser').text(userPoints)
                 $('#pointsUserCel').text(userPoints)
             })
+                }
+            
             startCarrousel()
+            if (authCookie != null) {
             if (clientInfo.clientType > 3) {
                 let currentParams = window.location.href
                 window.location.replace("v1?" + window.location.href.split("?")[1])
             }
+        }
         })
     </script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
