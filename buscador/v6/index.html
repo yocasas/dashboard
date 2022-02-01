@@ -24,10 +24,12 @@
 
 
         gtag('config', 'G-V0C85S2RG3');
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
+        if (authCookie) {
         gtag('set', {
             'id': clientInfo.ClientId.substring(7)
         });
+    }
     </script>
 
 </head>
@@ -45,13 +47,15 @@
 <script>
     $(document).ready(() => {
 
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
+        if (authCookie != null) {
         changeUserName($(`#userNameDrop`))
         getUserPoints().then(userPoints => {
             $("#pointsUser").text(userPoints)
             $("#pointsUserCel").text(userPoints)
 
         })
+    }
         populateHomes()
     });
 </script>
@@ -203,8 +207,7 @@
             "nAdm": true
         }
 
-
-
+        if (authCookie != null) {
         $.ajax({
             url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
             type: "POST",
@@ -301,6 +304,101 @@
 
             }
         })
+    } else {
+        $.ajax({
+            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+
+
+
+            success: function (x) {
+
+                maxPage = 0
+                currentPage = 0
+
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = x.length
+                }
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = 4
+                } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
+                    pageSize = 6
+                } else if (window.innerWidth >= 1536) {
+                    pageSize = 6
+                }
+
+                maxPage = Math.ceil((x.length) / pageSize)
+
+
+                let pages = $(`#pages`)
+
+
+
+
+                let pageIcon = pages.find('#0')
+
+                $(`.page`).slice(1).remove()
+
+
+
+                for (let index = 0; index < maxPage - 1; index++) {
+                    let pageClone = pageIcon.clone()
+                    pageClone.removeClass('button_bg')
+                    pageClone.addClass('border')
+                    pageClone.addClass('borda_filtro')
+                    pageClone.attr('id', index + 1)
+                    pages.append(pageClone)
+                }
+
+                let allPages = $(`.page`) //TODO set click on first page
+
+
+                allPages.removeClass('button_bg')
+                allPages.addClass('border')
+                allPages.addClass('borda_filtro')
+                allPages.eq(0).removeClass('border')
+                allPages.eq(0).addClass('button_bg')
+
+
+
+
+                resultFromApi = x
+
+                $(document).on("click", ".page", function () {
+                    let allPages = $(`.page`)
+                    allPages.removeClass('button_bg')
+                    allPages.addClass('border')
+                    allPages.addClass('borda_filtro')
+
+                    $(this).addClass('button_bg')
+                    $(this).removeClass('border')
+                    $(this).removeClass('border')
+
+                    currentPage = parseInt($(this).attr(`id`))
+
+                    nextItem = (currentPage + 1) * pageSize
+
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
+                        resultFromApi.length ? resultFromApi.length : nextItem)
+
+                    createAndPopulate(locationType, dbResponse)
+
+                })
+
+
+                nextItem = (currentPage + 1) * pageSize
+
+                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
+                    .length ? resultFromApi.length : nextItem)
+
+                createAndPopulate(locationType, dbResponse)
+
+            }
+        })
+
+    }
     }
 
 

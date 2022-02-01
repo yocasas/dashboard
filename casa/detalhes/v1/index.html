@@ -23,10 +23,12 @@
     gtag('js', new Date())
 
     gtag('config', 'G-V0C85S2RG3')
-    checkCurrentUser()
-    gtag('set', {
-      id: clientInfo.ClientId.substring(7),
-    })
+    checkCurrentUserNoBlock()
+    if (authCookie != null) {
+            gtag('set', {
+            id: clientInfo.ClientId.substring(7),
+        })
+        }
   </script>
 
   <script>
@@ -314,7 +316,8 @@
       }
 
       let homesShow = $('#homes_show')
-      checkCurrentUser()
+      checkCurrentUserNoBlock()
+      if (authCookie != null) {
       $.ajax({
         url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
         type: 'POST',
@@ -547,6 +550,243 @@
           //vue.$data.attrs[0].dates = totalDates
         },
       })
+    } else {
+
+      $.ajax({
+        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes',
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function (x) {
+          let element = x[0]
+          currentHomeInfo = element
+          $('#nickName').text(`${element['nickName']}`)
+          if (element['underReview'] != undefined && element['underReview']) {
+            $('#openChat').text('Sob consulta')
+            $('#reservationCalculator').toggleClass('hidden')
+          }
+          if (element[`state`] != '' && element[`state`] != undefined) {
+            //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
+            $('#location').text(
+              `${element['city']}, ${element['state']}, ${element['country']}`,
+            )
+          } else {
+            $('#location').text(`${element['city']}, ${element['country']}`)
+          }
+
+          $('#locationTypeHost').text(element['locationType'])
+          $('.locationType').text(traduzirLocation(element['locationType']))
+          $('.locationTypeMobile').text(
+            traduzirLocation(element['locationType'], 1),
+          )
+
+          $('#inCondominium').text(element[`inCondominium`] ? 'Sim' : 'Não')
+          $('#floorSpace').text(element[`floorSpace`])
+          $('#airportDistance').text(element[`airportDistance`])
+          $('#uncoveredParking').text(element[`uncoveredParking`])
+          $('#coveredParking').text(element[`coveredParking`])
+          $('#map')
+            .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
+            </iframe>`)
+          $(`#infoWorkers`).text(
+            checkData(element[`infoWorkers`]) ?
+            element[`infoWorkers`] :
+            'Sem informações',
+          )
+          $(`#infoAC`).text(
+            checkData(element[`totalAc`]) ?
+            element[`totalAc`] :
+            'Sem informações',
+          )
+          $(`#carEntrance`).text(
+            checkData(element[`accessPath`]) ?
+            element[`accessPath`] :
+            'Sem informações',
+          )
+          $(`#description`).text(element[`description`])
+          $(`#curatedDetails`).text(
+            checkData(element[`curatedDetails`]) ?
+            element[`curatedDetails`] :
+            'Sem informações',
+          )
+          $(`#extraRestriction`).text(
+            checkData(element[`extraRestriction`]) ?
+            element[`extraRestriction`] :
+            'Sem informações',
+          )
+
+          contactId = element['clientId']
+
+          // $.ajax({
+          //   url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
+          //   type: 'POST',
+          //   headers: {
+          //     Authorization: authCookie,
+          //   },
+          //   data: JSON.stringify({
+          //     ClientId: element['clientId'],
+          //   }),
+          //   contentType: 'application/json',
+
+          //   success: (client) => {
+          //     console.log(client)
+          //     currentHomeInfo.contactName = client[`nickName`]
+          //     $(`#contactName`).text(client[`nickName`])
+          //     //$(".loading").removeClass('dot-pulse')
+          //   },
+          // })
+
+          multiplier = element['multiplier']
+
+          let stars = range(element['multiplier'], 1)
+
+          if (element["multiplier"] < 7 && element["multiplier"] > 2) {
+            let dft = $('#3-6')
+            dft.removeClass('hidden')
+            let stars = range(element["multiplier"], 1)
+            stars.forEach(startId => {
+              let rank = dft.find('#rank')
+              rank.find(`#${startId}`).removeClass("far");
+              rank.find(`#${startId}`).addClass("fas");
+            })
+          } else if (element["multiplier"] == 7) {
+            let dft = $('#7')
+            dft.removeClass('hidden')
+          } else if (element["multiplier"] == 2) {
+            let dft = $('#2-EX')
+            dft.removeClass('hidden')
+          }
+
+
+
+          let points = starsToPointsPerNight(element['multiplier'])
+          $(`#homeStars`).val(element['multiplier'])
+          $('#points').text(numberWithCommas(points))
+
+          let files = []
+
+          $('.loading').parent().addClass('hidden')
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto',
+          })
+          if (authCookie != null) {
+
+          if (clientInfo.clientType > 3) {
+            $('.adminOnly').removeClass('hidden')
+            $('#curatedDetails').attr('contenteditable', 'true')
+          }
+        }
+          //TODO check loading
+
+          element['picturesS3Urls'].forEach((x) => {
+            let y = 0
+            files.push(
+              getS3file(x, $('#slider'), element['picturesS3Urls'].length, y),
+            )
+          })
+
+          Promise.all(
+            files.slice(0, files.length < 3 ? files.length - 1 : 3),
+          ).then((sourceList) => {
+            sourceList.forEach((source) => {
+              let element = `<div class="bg-white px-1 ">
+                                        <img class="object-cover h-96 w-full " src="${source}">
+                                        </div>`
+
+              $('.slider').slick('slickAdd', element)
+            })
+          })
+
+          if (files.length > 3) {
+            Promise.all(files.slice(3, files.length - 1)).then(
+              (sourceList) => {
+                sourceList.forEach((source) => {
+                  let element = `<div class="bg-white px-1 ">
+                                                <img class="object-cover h-96 w-full " src="${source}">
+                                                </div>`
+
+                  $('.slider').slick('slickAdd', element)
+                })
+              },
+            )
+          }
+
+          $('#maxCapacity').text(
+            `${
+                element['maxPeople'] > 1
+                  ? element['maxPeople'] + ' Hóspedes'
+                  : element['maxPeople'] + ' Hóspede'
+              }`,
+          )
+
+          $('#totalBathRooms').text(
+            `${
+                element['totalBathRooms'] > 1
+                  ? element['totalBathRooms'] + ' Banheiros'
+                  : element['totalBathRooms'] + ' Banheiro'
+              }`,
+          )
+          $('#totalBedRooms').text(
+            `${
+                element['totalBedRooms'] > 1
+                  ? element['totalBedRooms'] + ' Quartos'
+                  : element['totalBedRooms'] + ' Quarto'
+              }`,
+          )
+          $('#totalSuits').text(
+            element['totalSuites'] > 1 ?
+            `( ${element['totalSuites']} Suítes )` :
+            `( ${element['totalSuites']} Suíte )`,
+          )
+
+          facilitiesFormat(element.facilities.length)
+          element.facilities.forEach((e) => {
+            $(`#facility-${e}`).removeClass('hidden')
+          })
+
+
+
+          element.workers.forEach((e) => {
+            $(`#worker-${e}`).removeClass('hidden')
+          })
+
+          element.authorizatedTo.forEach((e) => {
+            console.log($(`#authorized-${e}`)) //TIRAR
+            console.log(`#authorized-${e}`)
+            $(`#authorized-${e}`).removeClass('line-through')
+          })
+
+          let totalAvaliableDates = []
+          element.availableDates.forEach((e) => {
+            let localDate = new Date(e)
+            totalAvaliableDates.push(localDate)
+          })
+
+          totalAvaliableDates.sort(function (a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return a - b
+          })
+
+          let totalDates = generateAvaliableObj(totalAvaliableDates)
+
+          console.log(currentHomeInfo['underReview'] + "TESTE")
+
+          if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
+            vue.$data.avbldates = undefined
+            vue.$data.attr[0].dates = totalDates
+          } else {
+            vue.$data.avbldates = totalDates
+          }
+          
+
+
+          //vue.$data.attrs[0].dates = totalDates
+        },
+      })
+
+    }
     }
   </script>
 
@@ -568,13 +808,16 @@
                   height: '100%'
               });*/
 
-      checkCurrentUser()
+              checkCurrentUserNoBlock()
+      if (authCookie != null) {
+
       changeUserName($(`#userNameDrop`))
       getUserPoints().then((userPoints) => {
         $('#pointsUser').text(userPoints)
         $('#pointsUserCel').text(userPoints)
         $('#totalPoints').text(userPoints)
       })
+    }
       startCarrousel()
     })
   </script>
