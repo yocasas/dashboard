@@ -25,6 +25,9 @@
 
         gtag('config', 'G-V0C85S2RG3');
         checkCurrentUserNoBlock()
+        console.log(authCookie)
+        console.log(clientInfo)
+
         if (authCookie != null) {
         gtag('set', {
             'id': clientInfo.ClientId.substring(7)
