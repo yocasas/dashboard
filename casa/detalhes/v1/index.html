@@ -239,6 +239,15 @@
 
     function abrirChat(messageId) {
       //TODO send new message
+      if (authCookie == null) {
+        checkCurrentUser()
+        return false
+      } else {
+        if (clientInfo.clientType < 2) {
+          checkCurrentUser()
+          return false
+        }
+      }
 
       let chatSettings = {
         hostId: currentHomeInfo.clientId,
@@ -918,6 +927,16 @@
 
     function redirectChatCreate() {
       //alert(currentHomeInfo.clientId)
+
+      if (authCookie == null) {
+        checkCurrentUser()
+        return false
+      } else {
+        if (clientInfo.clientType < 2) {
+          checkCurrentUser()
+          return false
+        }
+      }
 
       let chatSettings = {
         hostId: currentHomeInfo.clientId,
