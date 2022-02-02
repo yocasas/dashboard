@@ -85,6 +85,10 @@ let checkCurrentUserNoBlock = function () {
 
     authCookie = myCookie
 
+    if(myCookie != null){
+        clientInfo = JSON.parse(atob(myCookie.split(".")[1]));
+    }
+
     
 
 }
