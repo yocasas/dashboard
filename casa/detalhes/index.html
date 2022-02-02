@@ -23,7 +23,7 @@
         gtag('js', new Date())
 
         gtag('config', 'G-V0C85S2RG3')
-        checkCurrentUser()
+        checkCurrentUserNoBlock()
 
         console.log(authCookie)
         if (authCookie != null) {
@@ -327,7 +327,7 @@
             }
 
             let homesShow = $('#homes_show')
-            checkCurrentUser()
+            checkCurrentUserNoBlock()
             $.ajax({
                 url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
                 type: 'POST',
@@ -554,7 +554,7 @@
                     height: '100%'
                 });*/
 
-                checkCurrentUser()
+                checkCurrentUserNoBlock()
                 if (authCookie != null) {
                     changeUserName($(`#userNameDrop`))
                     getUserPoints().then((userPoints) => {
