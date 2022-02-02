@@ -564,12 +564,11 @@
                 }
             
             startCarrousel()
-            if (authCookie != null) {
-            if (clientInfo.clientType > 0) {
+           
                 let currentParams = window.location.href
                 window.location.replace("v1?" + window.location.href.split("?")[1])
-            }
-        }
+            
+        
         })
     </script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
