@@ -1937,8 +1937,7 @@
             </div>
           </div>
 
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17/vue.js"></script>
-
+          <script src="https://unpkg.com/vue@2/dist/vue.js"></script>
           <!-- 2. Link VCalendar Javascript (Plugin automatically installed) -->
           <script src="https://unpkg.com/v-calendar"></script>
 
@@ -1957,8 +1956,8 @@
       }
     ],
                   range: {
-                    start: new Date(0),
-                    end: new Date(0),
+                    start: null,
+                    end: null,
                   },
                   avbldates: [{
                     start: new Date(),
@@ -1988,7 +1987,6 @@
                 numberWithCommas(starsToPointsPerNight(multiplier) * days),
               )
               $('#totalNights').text(days)
-
               $('#totalPointsAfter').text(
                 numberWithCommas(
                   userPointsInfo - starsToPointsPerNight(multiplier) * days,
