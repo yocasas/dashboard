@@ -45,7 +45,7 @@
       })
 
       console.log($(`#homeStars`).val())
-
+      
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
         clientId: currentHomeInfo.clientId,
@@ -53,6 +53,7 @@
         curatedDetails: $(`#curatedDetails`).text(),
         curateStatus: curateStatus,
         featured: featured,
+        availableDates: currentHomeInfo.availableDates,
       }
 
       let curateUserSettings = {
