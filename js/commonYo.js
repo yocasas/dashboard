@@ -137,7 +137,6 @@ let starsToPointsPerNight = function (multiplier) {
 }
 
 
-
 function getUserPoints() {
     token = authCookie
     return new Promise((resolve, reject) => {
@@ -170,7 +169,7 @@ function getUserPoints() {
         data = JSON.stringify(data)
 
         $.ajax({
-            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser",
+            url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary",
             type: 'POST',
             data: data,
             headers: {
@@ -178,9 +177,9 @@ function getUserPoints() {
             },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-                let element = data1
-                userPointsInfo = element["points"]
-                resolve(`${element["points"]}`)
+                let userPointsInfo = data1
+                
+                resolve(userPointsInfo)
 
             },
             error: function (jqXHR, textStatus, errorThrown) {
