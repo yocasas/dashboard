@@ -177,7 +177,7 @@ function getUserPoints() {
             },
             "contentType": "application/json",
             success: function (data1, textStatus, jqXHR) {
-                let userPointsInfo = data1
+                userPointsInfo = data1
                 
                 resolve(userPointsInfo)
 
