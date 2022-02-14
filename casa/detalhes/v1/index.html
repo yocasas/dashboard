@@ -401,10 +401,6 @@
             } else {
               $(`.curatedOnly`).addClass('hidden')
             }
-
-            if (element[`featured`]) {
-              console.log("a casa eh featured")
-            }
             
 
             contactId = element['clientId']
@@ -899,7 +895,7 @@
       </button>
 
       <button onclick="curateHome(true, true)" href="#"
-        class="nonFeaturedOnly h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        class="curatedOnly h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
         Adicionar casa (em destaque)
       </button>
     </h1>
