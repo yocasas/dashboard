@@ -2003,7 +2003,7 @@
 
               $('#totalPointsAfter').text(
                 numberWithCommas(
-                  userPointsInfo - starsToPointsPerNight(multiplier) * days,
+                  (userPointsInfo != undefined ? userPointsInfo : 0 ) - starsToPointsPerNight(multiplier) * days,
                 ),
               )
 

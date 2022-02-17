@@ -446,7 +446,7 @@
 
                 success: (resp) => {
                     window.scrollTo(0, 0);
-                    if (accept == 1) {
+                    if (accept != 1) {
                         $('#showWarn').removeClass('hidden')
                     } else {
                         $('#showWarn1').removeClass('hidden')
