@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yô Edita Admin</title>
+  <style></style>
+  <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
+  <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
+  <script>
+    window.dataLayer = window.dataLayer || []
+
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+
+    gtag('config', 'G-V0C85S2RG3')
+    checkCurrentUserNoBlock()
+    if (authCookie != null) {
+      gtag('set', {
+        id: clientInfo.ClientId.substring(7),
+      })
+    }
+  </script>
+
+  <script>
+    let currentHomeInfo
+
+    let contactId
+
+    let multiplier
+    let vue
+
+    function logKey(e) {
+      console.log(` ${e.code}`)
+    }
+
+    let selectedDates
+
+    function populateHomes(e) {
+      let data = {
+        HomeId: e,
+      }
+
+      function range(size, startAt = 0) {
+        return [...Array(size).keys()].map((i) => i + startAt)
+      }
+
+      function getS3file(name, image, total, y) {
+        return new Promise((resolve, reject) => {
+          $.ajax({
+            url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3',
+            type: 'POST',
+            data: JSON.stringify({
+              'pic-name': name,
+            }),
+            contentType: 'application/json',
+            success: (x) => {
+              let source = `${x}`
+              let element = `<div class="bg-white px-1 ">
+                                        <img class="object-cover h-96 w-full " src="${source}">
+                                        </div>`
+
+              //$(".slider").slick('slickAdd', element)
+              //image.prepend(`<img id="theImg" src= />`);
+              resolve(source)
+            },
+          })
+        })
+      }
+
+      let homesShow = $('#homes_show')
+      checkCurrentUserNoBlock()
+      if (authCookie != null) {
+        $.ajax({
+          url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
+          type: 'POST',
+          data: JSON.stringify(data),
+          contentType: 'application/json',
+          headers: {
+            Authorization: authCookie,
+          },
+          success: function (x) {
+            let element = x[0]
+            currentHomeInfo = element
+
+            let files = []
+
+            console.log(element['picturesS3Urls'])
+
+            element['picturesS3Urls'].forEach((x) => {
+              let y = 0
+              files.push(
+                getS3file(
+                  x,
+                  $('#slider'),
+                  element['picturesS3Urls'].length,
+                  y,
+                ),
+              )
+            })
+
+            Promise.all(
+              files
+            ).then((sourceList) => {
+              sourceList.forEach((source, idx) => {
+                let dafaultHome = $('#pictureMain').clone()
+                dafaultHome.find('#imgSource').attr('src', source)
+                dafaultHome.removeClass('hidden')
+                dafaultHome.attr('id', idx)
+                dafaultHome.find('.numberphoto').text(idx)
+                $('#photos').append(dafaultHome)
+              })
+            })
+          },
+        })
+      }
+    }
+  </script>
+
+  <script>
+    function makeUrlList(oldImages) {
+      return new Promise((resolve, reject) => {
+        let totalNewPhotos = []
+        $("#photos").children().each(function () {
+          totalNewPhotos.push(oldImages[$(this).attr("id")])
+        })
+        resolve(totalNewPhotos)
+      })
+    }
+  </script>
+
+  <script>
+    async function formsRequest() {
+      var objForm = currentHomeInfo
+      let newS3Images = await makeUrlList(objForm['picturesS3Urls'])
+      objForm['picturesS3Urls'] = newS3Images.slice(0, newS3Images.length>15 ? 15 : newS3Images.length)
+
+      var tokens = authCookie.split('.')
+      // console.log(atob(tokens[0])); //Alg, Type
+      var clientObject = JSON.parse(atob(tokens[1])) //Id, ClientType, Iat, exp
+
+      var clientId = clientObject.ClientId
+
+      objForm['updatePics'] = true
+
+      data = JSON.stringify(objForm)
+
+      $.ajax({
+        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
+        type: 'POST',
+        data: data,
+        headers: {
+          Authorization: authCookie,
+        },
+        contentType: 'application/json',
+        success: function (data1, textStatus, jqXHR) {
+          alert("15 primeiras imagens foram salvas em ordem")
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        },
+      })
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+</head>
+
+<body>
+  <style>
+    .dark_green {
+      color: rgba(69, 95, 93, 1);
+    }
+  </style>
+
+  <link href="style/style.css" rel="stylesheet" />
+  <link href="style/loading.css" rel="stylesheet" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+  <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/browser-image-compression@1.0.15/dist/browser-image-compression.js"></script>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search)
+    const homeId = urlParams.get('homeId')
+    populateHomes(homeId)
+  </script>
+
+  <script>
+    $(function () {
+      $("#photos").sortable();
+    });
+    $(function () {
+      $("#sortable-1").sortable();
+    });
+
+    function handleImageUpload(event) {
+
+
+      return new Promise((resolve, reject) => {
+        var imageFile = event.target.files[0];
+        // console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+        //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+
+
+        var options = {
+          maxSizeMB: 1,
+          // maxWidthOrHeight: 1920, //TODO: fazer teste
+          fileType: 'image/jpeg',
+          useWebWorker: true
+        }
+        imageCompression(imageFile, options)
+          .then(function (compressedFile) {
+            // console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+            // console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+
+            handleImageRequest(compressedFile)
+
+            // return new Promise((resolve, reject) => resolve(compressedFile)) //don't submit
+
+          })
+          .catch(function (error) {
+            console.log(error.message);
+          });
+      })
+    }
+
+    function blobToBase64(blob) {
+      return new Promise((resolve, _) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    async function handleImageRequest(compressedUrl) {
+
+      console.log(compressedUrl)
+      let b64file = await blobToBase64(compressedUrl)
+      imageObject = {
+        "b64pic": b64file.replace(/data:image\/.*?\;base64,/g, "")
+      }
+      data = JSON.stringify(imageObject)
+
+      $.ajax({
+        url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile",
+        type: 'POST',
+        data: data,
+        headers: {
+          'Authorization': authCookie,
+        },
+        "contentType": "application/json",
+        success: function (data1, textStatus, jqXHR) {
+          let dafaultHome = $('#pictureMain').clone()
+          console.log(compressedUrl)
+          currentHomeInfo.picturesS3Urls.push(JSON.parse(data1)['Key'])
+          dafaultHome.find('#imgSource').attr('src', b64file)
+          dafaultHome.removeClass('hidden')
+          dafaultHome.attr('id', $("#photos").children().length)
+          dafaultHome.find('.numberphoto').text($("#photos").children().length)
+          $('#photos').append(dafaultHome)
+
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+
+
+        },
+      })
+
+    }
+  </script>
+
+  <div class="w-screen h-screen">
+    <li id="pictureMain" class="h-60 w-60 hidden">
+      <div class="h-60 w-60 absolute cursor-move">
+
+      </div>
+      <div id="homePhoto" class="h-40 w-60">
+        <img src="https://via.placeholder.com/150" class="h-40 w-60 object-fit" id="imgSource" />
+      </div>
+      <div class="h-20 w-60 bg-gray-400 flex justify-center justify-items-center">
+        <div class="bg-white-900">
+          #
+        </div>
+        <div class="bg-white-900 numberphoto" contenteditable="true">
+          1
+        </div>
+      </div>
+    </li>
+    <ul class="flex gap-3 flex-wrap" id="photos"></ul>
+    <button onclick="formsRequest()" class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text">
+      Atualizar
+    </button>
+    <label for="arquivo" class="header_color_bt py-5 px-5 cursor-pointer rounded-full button_text">+ foto</label>
+    <input type="file" accept="image/*" class="hidden" name="arquivo" id="arquivo" onchange="handleImageUpload(event);">
+    <ul id="sortable-1" class="hidden">
+      <li class="default">Product 1</li>
+      <li class="default">Product 2</li>
+      <li class="default">Product 3</li>
+      <li class="default">Product 4</li>
+      <li class="default">Product 5</li>
+      <li class="default">Product 6</li>
+      <li class="default">Product 7</li>
+    </ul>
+  </div>
+</body>
+
+</html>
