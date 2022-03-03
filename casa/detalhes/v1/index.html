@@ -45,7 +45,7 @@
       })
 
       console.log($(`#homeStars`).val())
-      
+
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
         clientId: currentHomeInfo.clientId,
@@ -341,7 +341,7 @@
             $('#nickName').text(`${element['nickName']}`)
             if (element['underReview'] != undefined && element['underReview']) {
               $('#openChat').text('Sob consulta')
-              $('#reservationCalculator').toggleClass('hidden')
+              //$('#reservationCalculator').toggleClass('hidden')
             }
             if (element[`state`] != '' && element[`state`] != undefined) {
               //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
@@ -394,14 +394,14 @@
             )
 
 
-             
+
             if (element[`curated`]) {
               console.log("A casa eh curada")
               $(`.nonCuratedOnly`).addClass('hidden')
             } else {
               $(`.curatedOnly`).addClass('hidden')
             }
-            
+
 
             contactId = element['clientId']
 
@@ -771,8 +771,6 @@
             })
 
             element.authorizatedTo.forEach((e) => {
-              console.log($(`#authorized-${e}`)) //TIRAR
-              console.log(`#authorized-${e}`)
               $(`#authorized-${e}`).removeClass('line-through')
             })
 
@@ -789,8 +787,6 @@
             })
 
             let totalDates = generateAvaliableObj(totalAvaliableDates)
-
-            console.log(currentHomeInfo['underReview'] + "TESTE")
 
             if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
               vue.$data.avbldates = undefined
@@ -899,10 +895,11 @@
         Adicionar casa (em destaque)
       </button>
 
-      <button onclick="window.location.replace('/dashboard/casa/editar/v1/?'+window.location.href.split('?')[1])" href="#"
-      class="h-10 left-0 relative hostOnly cadastro-button bg-blue-500 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
-      Editar Fotos
-  </button>
+      <button onclick="window.location.replace('/dashboard/casa/editar/v1/?'+window.location.href.split('?')[1])"
+        href="#"
+        class="h-10 left-0 relative hostOnly cadastro-button bg-blue-500 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Editar Fotos
+      </button>
     </h1>
   </div>
 
@@ -1169,10 +1166,10 @@
           </a>
 
           <a id="parentPoints" onclick="location.href='/usuario'"
-          class="flex justify-between text-base font-normal  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-          Pontuação:
-          <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-      </a>
+            class="flex justify-between text-base font-normal  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Pontuação:
+            <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+          </a>
 
 
           <a href="/home" onclick="removeCookie()"
@@ -1180,7 +1177,7 @@
             Log out
           </a>
 
-          
+
 
         </div>
       </div>
@@ -1304,15 +1301,7 @@
               </div>
             </div>
 
-            <!--<div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
-                            <img src="Assets/caracteristicas/SUITES.svg" alt="" class="h-14">
-                            TODO fix responsivity
 
-
-                            <div class="flex justify-center items-center w-auto h-full">
-                                
-                            </div>
-                        </div>-->
 
             <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
               <img src="Assets/caracteristicas/QUARTOS.svg" alt="" class="h-14" />
@@ -1970,7 +1959,8 @@
                 return {
                   attr: [{
                     key: 'today',
-                    highlight: 'green',
+                    //highlight: 'green',
+                    bar:  'green',
                     dates: new Date(0)
                   }],
                   range: {
@@ -2008,12 +1998,12 @@
 
               $('#totalPointsAfter').text(
                 numberWithCommas(
-                  (userPointsInfo != undefined ? userPointsInfo : 0 ) - starsToPointsPerNight(multiplier) * days,
+                  (userPointsInfo != undefined ? userPointsInfo : 0) - starsToPointsPerNight(multiplier) * days,
                 ),
               )
 
               $('#nightsTax').text(
-                'R$ ' + numberWithCommas( (100 * (multiplier - 1)) + 200),
+                'R$ ' + numberWithCommas((100 * (multiplier - 1)) + 200),
               )
             }
           </script>
