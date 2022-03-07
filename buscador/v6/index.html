@@ -27,10 +27,10 @@
         checkCurrentUserNoBlock()
 
         if (authCookie != null) {
-        gtag('set', {
-            'id': clientInfo.ClientId.substring(7)
-        });
-    }
+            gtag('set', {
+                'id': clientInfo.ClientId.substring(7)
+            });
+        }
     </script>
 
 </head>
@@ -50,13 +50,13 @@
 
         checkCurrentUserNoBlock()
         if (authCookie != null) {
-        changeUserName($(`#userNameDrop`))
-        getUserPoints().then(userPoints => {
-            $("#pointsUser").text(userPoints)
-            $("#pointsUserCel").text(userPoints)
+            changeUserName($(`#userNameDrop`))
+            getUserPoints().then(userPoints => {
+                $("#pointsUser").text(userPoints)
+                $("#pointsUserCel").text(userPoints)
 
-        })
-    }
+            })
+        }
         populateHomes()
     });
 </script>
@@ -76,16 +76,20 @@
 
 
     function createAndPopulate(locationType, dbResponse) {
-
+        
         function range(size, startAt = 0) {
             return [...Array(size).keys()].map(i => i + startAt);
         }
 
         function getS3file(name, image, element) {
             let imgSrc = image.find("#img_source")
+            
             if (element.b64img == undefined) {
+                checkCurrentUserNoBlock()
+                //''
+
                 $.ajax({
-                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3",
+                    url: getCurrentS3Uri(),
                     type: "POST",
                     data: JSON.stringify({
                         "pic-name": name
@@ -209,197 +213,201 @@
         }
 
         if (authCookie != null) {
-        $.ajax({
-            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
-            type: "POST",
-            data: JSON.stringify(data),
+            let getHomesDetailedUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
+            if (devMode) {
+                getHomesDetailedUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
+            }
+            $.ajax({
+                url: getHomesDetailedUri,
+                type: "POST",
+                data: JSON.stringify(data),
 
-            headers: {
-                "Authorization": authCookie
-            },
-            contentType: "application/json",
-
-
-
-            success: function (x) {
-
-                maxPage = 0
-                currentPage = 0
-
-                if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                    pageSize = x.length
-                }
-                if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                    pageSize = 4
-                } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
-                    pageSize = 6
-                } else if (window.innerWidth >= 1536) {
-                    pageSize = 6
-                }
-
-                maxPage = Math.ceil((x.length) / pageSize)
-
-
-                let pages = $(`#pages`)
+                headers: {
+                    "Authorization": authCookie
+                },
+                contentType: "application/json",
 
 
 
+                success: function (x) {
 
-                let pageIcon = pages.find('#0')
+                    maxPage = 0
+                    currentPage = 0
 
-                $(`.page`).slice(1).remove()
+                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                        pageSize = x.length
+                    }
+                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                        pageSize = 4
+                    } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
+                        pageSize = 6
+                    } else if (window.innerWidth >= 1536) {
+                        pageSize = 6
+                    }
+
+                    maxPage = Math.ceil((x.length) / pageSize)
 
 
-
-                for (let index = 0; index < maxPage - 1; index++) {
-                    let pageClone = pageIcon.clone()
-                    pageClone.removeClass('button_bg')
-                    pageClone.addClass('border')
-                    pageClone.addClass('borda_filtro')
-                    pageClone.attr('id', index + 1)
-                    pages.append(pageClone)
-                }
-
-                let allPages = $(`.page`) //TODO set click on first page
-
-
-                allPages.removeClass('button_bg')
-                allPages.addClass('border')
-                allPages.addClass('borda_filtro')
-                allPages.eq(0).removeClass('border')
-                allPages.eq(0).addClass('button_bg')
+                    let pages = $(`#pages`)
 
 
 
 
-                resultFromApi = x
+                    let pageIcon = pages.find('#0')
 
-                $(document).on("click", ".page", function () {
-                    let allPages = $(`.page`)
+                    $(`.page`).slice(1).remove()
+
+
+
+                    for (let index = 0; index < maxPage - 1; index++) {
+                        let pageClone = pageIcon.clone()
+                        pageClone.removeClass('button_bg')
+                        pageClone.addClass('border')
+                        pageClone.addClass('borda_filtro')
+                        pageClone.attr('id', index + 1)
+                        pages.append(pageClone)
+                    }
+
+                    let allPages = $(`.page`) //TODO set click on first page
+
+
                     allPages.removeClass('button_bg')
                     allPages.addClass('border')
                     allPages.addClass('borda_filtro')
+                    allPages.eq(0).removeClass('border')
+                    allPages.eq(0).addClass('button_bg')
 
-                    $(this).addClass('button_bg')
-                    $(this).removeClass('border')
-                    $(this).removeClass('border')
 
-                    currentPage = parseInt($(this).attr(`id`))
+
+
+                    resultFromApi = x
+
+                    $(document).on("click", ".page", function () {
+                        let allPages = $(`.page`)
+                        allPages.removeClass('button_bg')
+                        allPages.addClass('border')
+                        allPages.addClass('borda_filtro')
+
+                        $(this).addClass('button_bg')
+                        $(this).removeClass('border')
+                        $(this).removeClass('border')
+
+                        currentPage = parseInt($(this).attr(`id`))
+
+                        nextItem = (currentPage + 1) * pageSize
+
+                        let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
+                            resultFromApi.length ? resultFromApi.length : nextItem)
+
+                        createAndPopulate(locationType, dbResponse)
+
+                    })
+
 
                     nextItem = (currentPage + 1) * pageSize
 
-                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
-                        resultFromApi.length ? resultFromApi.length : nextItem)
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
+                        .length ? resultFromApi.length : nextItem)
 
                     createAndPopulate(locationType, dbResponse)
 
-                })
-
-
-                nextItem = (currentPage + 1) * pageSize
-
-                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
-                    .length ? resultFromApi.length : nextItem)
-
-                createAndPopulate(locationType, dbResponse)
-
-            }
-        })
-    } else {
-        $.ajax({
-            url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/",
-            type: "POST",
-            data: JSON.stringify(data),
-            contentType: "application/json",
-
-
-
-            success: function (x) {
-
-                maxPage = 0
-                currentPage = 0
-
-                if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                    pageSize = x.length
                 }
-                if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                    pageSize = 4
-                } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
-                    pageSize = 6
-                } else if (window.innerWidth >= 1536) {
-                    pageSize = 6
-                }
-
-                maxPage = Math.ceil((x.length) / pageSize)
-
-
-                let pages = $(`#pages`)
+            })
+        } else {
+            $.ajax({
+                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json",
 
 
 
+                success: function (x) {
 
-                let pageIcon = pages.find('#0')
+                    maxPage = 0
+                    currentPage = 0
 
-                $(`.page`).slice(1).remove()
+                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                        pageSize = x.length
+                    }
+                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                        pageSize = 4
+                    } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
+                        pageSize = 6
+                    } else if (window.innerWidth >= 1536) {
+                        pageSize = 6
+                    }
+
+                    maxPage = Math.ceil((x.length) / pageSize)
 
 
-
-                for (let index = 0; index < maxPage - 1; index++) {
-                    let pageClone = pageIcon.clone()
-                    pageClone.removeClass('button_bg')
-                    pageClone.addClass('border')
-                    pageClone.addClass('borda_filtro')
-                    pageClone.attr('id', index + 1)
-                    pages.append(pageClone)
-                }
-
-                let allPages = $(`.page`) //TODO set click on first page
-
-
-                allPages.removeClass('button_bg')
-                allPages.addClass('border')
-                allPages.addClass('borda_filtro')
-                allPages.eq(0).removeClass('border')
-                allPages.eq(0).addClass('button_bg')
+                    let pages = $(`#pages`)
 
 
 
 
-                resultFromApi = x
+                    let pageIcon = pages.find('#0')
 
-                $(document).on("click", ".page", function () {
-                    let allPages = $(`.page`)
+                    $(`.page`).slice(1).remove()
+
+
+
+                    for (let index = 0; index < maxPage - 1; index++) {
+                        let pageClone = pageIcon.clone()
+                        pageClone.removeClass('button_bg')
+                        pageClone.addClass('border')
+                        pageClone.addClass('borda_filtro')
+                        pageClone.attr('id', index + 1)
+                        pages.append(pageClone)
+                    }
+
+                    let allPages = $(`.page`) //TODO set click on first page
+
+
                     allPages.removeClass('button_bg')
                     allPages.addClass('border')
                     allPages.addClass('borda_filtro')
+                    allPages.eq(0).removeClass('border')
+                    allPages.eq(0).addClass('button_bg')
 
-                    $(this).addClass('button_bg')
-                    $(this).removeClass('border')
-                    $(this).removeClass('border')
 
-                    currentPage = parseInt($(this).attr(`id`))
+
+
+                    resultFromApi = x
+
+                    $(document).on("click", ".page", function () {
+                        let allPages = $(`.page`)
+                        allPages.removeClass('button_bg')
+                        allPages.addClass('border')
+                        allPages.addClass('borda_filtro')
+
+                        $(this).addClass('button_bg')
+                        $(this).removeClass('border')
+                        $(this).removeClass('border')
+
+                        currentPage = parseInt($(this).attr(`id`))
+
+                        nextItem = (currentPage + 1) * pageSize
+
+                        let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
+                            resultFromApi.length ? resultFromApi.length : nextItem)
+
+                        createAndPopulate(locationType, dbResponse)
+
+                    })
+
 
                     nextItem = (currentPage + 1) * pageSize
 
-                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
-                        resultFromApi.length ? resultFromApi.length : nextItem)
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
+                        .length ? resultFromApi.length : nextItem)
 
                     createAndPopulate(locationType, dbResponse)
 
-                })
+                }
+            })
 
-
-                nextItem = (currentPage + 1) * pageSize
-
-                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
-                    .length ? resultFromApi.length : nextItem)
-
-                createAndPopulate(locationType, dbResponse)
-
-            }
-        })
-
-    }
+        }
     }
 
 
@@ -910,16 +918,16 @@
                     </a>
 
                     <a id="parentPoints" onclick="location.href='/usuario'"
-                    class="flex justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                    Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-            </a>
+                        class="flex justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Pontuação: <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                    </a>
 
                     <a href="/home" onclick="removeCookie()"
                         class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
                         Log out
                     </a>
 
-                    
+
 
                 </div>
             </div>
@@ -1136,11 +1144,11 @@
                                 <div class="w-1/2 md:h-full items-end flex hidden" id="7">
                                     <h1 class="text-sm md:text-lg usuario_font" id="rank">
                                         <i class="fas fa-star " aria-hidden="true"></i>
-                                        <i class="fas fa-star "  aria-hidden="true"></i>
                                         <i class="fas fa-star " aria-hidden="true"></i>
-                                        <i class="fas fa-star "  aria-hidden="true"></i>
-                                        <i class="fas fa-star "  aria-hidden="true"></i>
-                                        <i class="fas fa-star text-lg md:text-2xl"  aria-hidden="true"></i>
+                                        <i class="fas fa-star " aria-hidden="true"></i>
+                                        <i class="fas fa-star " aria-hidden="true"></i>
+                                        <i class="fas fa-star " aria-hidden="true"></i>
+                                        <i class="fas fa-star text-lg md:text-2xl" aria-hidden="true"></i>
                                     </h1>
                                 </div>
 

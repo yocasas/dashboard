@@ -304,7 +304,7 @@
       function getS3file(name, image, total, y) {
         return new Promise((resolve, reject) => {
           $.ajax({
-            url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3',
+            url: getCurrentS3Uri(),
             type: 'POST',
             data: JSON.stringify({
               'pic-name': name,
@@ -328,7 +328,7 @@
       checkCurrentUserNoBlock()
       if (authCookie != null) {
         $.ajax({
-          url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
+          url: getCurrentDetailedUrl(),
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -572,7 +572,7 @@
       } else {
 
         $.ajax({
-          url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes',
+          url: `${getCurrentHomeBaseUri}/gethomes`,
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
