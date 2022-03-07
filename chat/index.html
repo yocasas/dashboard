@@ -101,26 +101,26 @@
 
         async function getS3ProfilePics(fullInfo) { //populate s3 pics b64 data
             let photo0 = await $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                url: `${getCurrentHomeBaseUri()}/s3/getFile/v3`,
                 type: "POST",
                 data: JSON.stringify({
                     "pic-name": fullInfo.hostPicture
                 }),
                 contentType: "application/json",
                 success: (x) => {
-                    fullInfo.hostImageb64 = `data:image/png;base64,${x}`
+                    fullInfo.hostImageb64 = `${x}`
                 }
             })
 
             let photo1 = await $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                url: `${getCurrentHomeBaseUri()}/s3/getFile/v3`,
                 type: "POST",
                 data: JSON.stringify({
                     "pic-name": fullInfo.guestPicture
                 }),
                 contentType: "application/json",
                 success: (x) => {
-                    fullInfo.guestImageb64 = `data:image/png;base64,${x}`
+                    fullInfo.guestImageb64 = `${x}`
                 }
             })
 
@@ -306,7 +306,7 @@
             $("#contactNameChat").text("")
 
             $.ajax({ //get messages from database
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
+                url: `${getCurrentChatBaseUri()}/messages/get`,
                 type: "POST",
                 headers: {
                     "Authorization": authCookie
@@ -347,7 +347,7 @@
             $("#contactNameChat").text("")
 
             $.ajax({ //get messages from database
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/get",
+                url: `${getCurrentChatBaseUri()}/messages/get`,
                 type: "POST",
                 headers: {
                     "Authorization": authCookie
@@ -390,7 +390,7 @@
             }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
 
             $.ajax({
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add",
+                url: `${getCurrentChatBaseUri()}/messages/add`,
                 type: "POST",
                 headers: {
                     "Authorization": authCookie
@@ -436,7 +436,7 @@
             }
 
             $.ajax({
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/host/request/respond",
+                url: `${getCurrentChatBaseUri()}/host/request/respond`,
                 type: "POST",
                 headers: {
                     "Authorization": authCookie
@@ -474,7 +474,7 @@
             const chatId = urlParams.get('chatId');
 
             $.ajax({
-                url: "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/getChats",
+                url: `${getCurrentChatBaseUri()}/getChats`,
                 type: "POST",
                 headers: {
                     "Authorization": authCookie

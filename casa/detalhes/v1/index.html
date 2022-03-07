@@ -62,7 +62,7 @@
       }
 
       $.ajax({
-        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
+        url: `${getCurrentHomeBaseUri}/addHome/curate`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -215,7 +215,7 @@
     async function addMessage(chatId, messageContent, hostId) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add',
+          url: `${getCurrentChatBaseUri()}/messages/add`,
           type: 'POST',
           headers: {
             Authorization: authCookie,
@@ -261,7 +261,7 @@
         homeId: currentHomeInfo.homeId,
       }
       $.ajax({
-        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -963,7 +963,7 @@
       }
 
       $.ajax({
-        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
         headers: {
           Authorization: authCookie,

@@ -14,6 +14,8 @@ let getHomesDetailedUri
 
 let homeBaseuri
 
+let chatBaseuri
+
 //=========================================
 
 function capitalizeFirstLetter(string) {
@@ -94,6 +96,7 @@ function checkDevMode() {
 
   return devMode
 }
+
 function getCurrentHomeBaseUri() {
   if (checkDevMode()) {
     homeBaseuri = 'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV'
@@ -102,6 +105,29 @@ function getCurrentHomeBaseUri() {
   }
   return homeBaseuri
 }
+
+function setDevMode() {
+  console.log("SET DEV MODE ")
+  if (checkDevMode()) {
+    console.log("false ")
+    document.cookie = "dev_mode_enable=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+  } else {
+    console.log("true ")
+    document.cookie = `dev_mode_enable=yes; max-age=86400; path=/`
+  }
+
+}
+
+function getCurrentChatBaseUri() {
+  if (checkDevMode()) {
+    chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV'
+  } else {
+    chatBaseuri = 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev'
+  }
+  return chatBaseuri
+}
+
+
 
 function getCurrentS3Uri() {
   if (devMode) {
@@ -201,8 +227,7 @@ function getUserPoints() {
     data = JSON.stringify(data)
 
     $.ajax({
-      url:
-        'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary',
+      url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary',
       type: 'POST',
       data: data,
       headers: {
