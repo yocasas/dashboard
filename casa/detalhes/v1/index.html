@@ -62,7 +62,7 @@
       }
 
       $.ajax({
-        url: `${getCurrentHomeBaseUri}/addHome/curate`,
+        url: `${getCurrentHomeBaseUri()}/addHome/curate`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
