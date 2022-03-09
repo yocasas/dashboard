@@ -572,7 +572,7 @@
       } else {
 
         $.ajax({
-          url: `${getCurrentHomeBaseUri}/gethomes`,
+          url: `${getCurrentHomeBaseUri()}/gethomes`,
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
