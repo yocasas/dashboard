@@ -45,7 +45,7 @@
       })
 
       console.log($(`#homeStars`).val())
-      
+
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
         clientId: currentHomeInfo.clientId,
@@ -61,8 +61,16 @@
         clientId: currentHomeInfo.clientId,
       }
 
+      if (authCookie != null) {
+        let addHomeCurateUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate"
+
+        if (devMode) {
+          addHomeCurateUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome/curate"
+        }
+      }
+
       $.ajax({
-        url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
+        url: addHomeCurateUri,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -82,8 +90,15 @@
         },
       })
 
+      if (authCookie != null) {
+        let curateUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate"
+
+        if (devMode) {
+          curateUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate"
+        }
+      }
       $.ajax({
-        url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate',
+        url: curateUserUri,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -91,7 +106,7 @@
         data: JSON.stringify(curateUserSettings),
         contentType: 'application/json',
 
-        success: (resp) => {},
+        success: (resp) => { },
       })
     }
 
@@ -200,7 +215,7 @@
                 slidesToShow: 1,
                 slidesToScroll: 1,
               },
-            }, ],
+            },],
           })
         })
       })
@@ -212,10 +227,17 @@
 
     let selectedDates
 
+    if (authCookie != null) {
+      let addMessageUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add"
+
+      if (devMode) {
+        addMessageUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/messages/add"
+      }
+    }
     async function addMessage(chatId, messageContent, hostId) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add',
+          url: addMessageUri,
           type: 'POST',
           headers: {
             Authorization: authCookie,
@@ -260,8 +282,16 @@
         homeNickName: currentHomeInfo.nickName,
         homeId: currentHomeInfo.homeId,
       }
+
+      if (authCookie != null) {
+        let createChatUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat"
+
+        if (devMode) {
+          createChatUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/createchat"
+        }
+      }
       $.ajax({
-        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        url: createChatUri,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -274,8 +304,8 @@
           addMessage(
             respObj['data']['chatId'],
             `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                selectedDates[0],
-              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+              selectedDates[0],
+            )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
             currentHomeInfo.clientId,
           ).then((x) => {
             window.scrollTo(0, 0)
@@ -303,8 +333,13 @@
 
       function getS3file(name, image, total, y) {
         return new Promise((resolve, reject) => {
+          let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile"
+
+          if (devMode) {
+            getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+          }
           $.ajax({
-            url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3',
+            url: getFileS3Uri,
             type: 'POST',
             data: JSON.stringify({
               'pic-name': name,
@@ -327,8 +362,13 @@
       let homesShow = $('#homes_show')
       checkCurrentUserNoBlock()
       if (authCookie != null) {
+        let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
+
+      if (devMode) {
+        getHomesDetaileduri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
+      }
         $.ajax({
-          url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed',
+          url: getHomesDetaileduri,
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -368,35 +408,39 @@
             </iframe>`)
             $(`#infoWorkers`).text(
               checkData(element[`infoWorkers`]) ?
-              element[`infoWorkers`] :
-              'Sem informações',
+                element[`infoWorkers`] :
+                'Sem informações',
             )
             $(`#infoAC`).text(
               checkData(element[`totalAc`]) ?
-              element[`totalAc`] :
-              'Sem informações',
+                element[`totalAc`] :
+                'Sem informações',
             )
             $(`#carEntrance`).text(
               checkData(element[`accessPath`]) ?
-              element[`accessPath`] :
-              'Sem informações',
+                element[`accessPath`] :
+                'Sem informações',
             )
             $(`#description`).text(element[`description`])
             $(`#curatedDetails`).text(
               checkData(element[`curatedDetails`]) ?
-              element[`curatedDetails`] :
-              'Sem informações',
+                element[`curatedDetails`] :
+                'Sem informações',
             )
             $(`#extraRestriction`).text(
               checkData(element[`extraRestriction`]) ?
-              element[`extraRestriction`] :
-              'Sem informações',
+                element[`extraRestriction`] :
+                'Sem informações',
             )
 
             contactId = element['clientId']
 
+            let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
+            if (devMode) {
+                getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
+            }
             $.ajax({
-              url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
+              url: getUserUri,
               type: 'POST',
               headers: {
                 Authorization: authCookie,
@@ -489,31 +533,28 @@
             }
 
             $('#maxCapacity').text(
-              `${
-                element['maxPeople'] > 1
-                  ? element['maxPeople'] + ' Hóspedes'
-                  : element['maxPeople'] + ' Hóspede'
+              `${element['maxPeople'] > 1
+                ? element['maxPeople'] + ' Hóspedes'
+                : element['maxPeople'] + ' Hóspede'
               }`,
             )
 
             $('#totalBathRooms').text(
-              `${
-                element['totalBathRooms'] > 1
-                  ? element['totalBathRooms'] + ' Banheiros'
-                  : element['totalBathRooms'] + ' Banheiro'
+              `${element['totalBathRooms'] > 1
+                ? element['totalBathRooms'] + ' Banheiros'
+                : element['totalBathRooms'] + ' Banheiro'
               }`,
             )
             $('#totalBedRooms').text(
-              `${
-                element['totalBedRooms'] > 1
-                  ? element['totalBedRooms'] + ' Quartos'
-                  : element['totalBedRooms'] + ' Quarto'
+              `${element['totalBedRooms'] > 1
+                ? element['totalBedRooms'] + ' Quartos'
+                : element['totalBedRooms'] + ' Quarto'
               }`,
             )
             $('#totalSuits').text(
               element['totalSuites'] > 1 ?
-              `( ${element['totalSuites']} Suítes )` :
-              `( ${element['totalSuites']} Suíte )`,
+                `( ${element['totalSuites']} Suítes )` :
+                `( ${element['totalSuites']} Suíte )`,
             )
 
             facilitiesFormat(element.facilities.length)
@@ -560,9 +601,12 @@
           },
         })
       } else {
-
+        let getHomesUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes'
+            if (devMode) {
+              getHomesUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes"
+            }
         $.ajax({
-          url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes',
+          url: getHomesUri,
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -599,29 +643,29 @@
             </iframe>`)
             $(`#infoWorkers`).text(
               checkData(element[`infoWorkers`]) ?
-              element[`infoWorkers`] :
-              'Sem informações',
+                element[`infoWorkers`] :
+                'Sem informações',
             )
             $(`#infoAC`).text(
               checkData(element[`totalAc`]) ?
-              element[`totalAc`] :
-              'Sem informações',
+                element[`totalAc`] :
+                'Sem informações',
             )
             $(`#carEntrance`).text(
               checkData(element[`accessPath`]) ?
-              element[`accessPath`] :
-              'Sem informações',
+                element[`accessPath`] :
+                'Sem informações',
             )
             $(`#description`).text(element[`description`])
             $(`#curatedDetails`).text(
               checkData(element[`curatedDetails`]) ?
-              element[`curatedDetails`] :
-              'Sem informações',
+                element[`curatedDetails`] :
+                'Sem informações',
             )
             $(`#extraRestriction`).text(
               checkData(element[`extraRestriction`]) ?
-              element[`extraRestriction`] :
-              'Sem informações',
+                element[`extraRestriction`] :
+                'Sem informações',
             )
 
             contactId = element['clientId']
@@ -722,31 +766,28 @@
             }
 
             $('#maxCapacity').text(
-              `${
-                element['maxPeople'] > 1
-                  ? element['maxPeople'] + ' Hóspedes'
-                  : element['maxPeople'] + ' Hóspede'
+              `${element['maxPeople'] > 1
+                ? element['maxPeople'] + ' Hóspedes'
+                : element['maxPeople'] + ' Hóspede'
               }`,
             )
 
             $('#totalBathRooms').text(
-              `${
-                element['totalBathRooms'] > 1
-                  ? element['totalBathRooms'] + ' Banheiros'
-                  : element['totalBathRooms'] + ' Banheiro'
+              `${element['totalBathRooms'] > 1
+                ? element['totalBathRooms'] + ' Banheiros'
+                : element['totalBathRooms'] + ' Banheiro'
               }`,
             )
             $('#totalBedRooms').text(
-              `${
-                element['totalBedRooms'] > 1
-                  ? element['totalBedRooms'] + ' Quartos'
-                  : element['totalBedRooms'] + ' Quarto'
+              `${element['totalBedRooms'] > 1
+                ? element['totalBedRooms'] + ' Quartos'
+                : element['totalBedRooms'] + ' Quarto'
               }`,
             )
             $('#totalSuits').text(
               element['totalSuites'] > 1 ?
-              `( ${element['totalSuites']} Suítes )` :
-              `( ${element['totalSuites']} Suíte )`,
+                `( ${element['totalSuites']} Suítes )` :
+                `( ${element['totalSuites']} Suíte )`,
             )
 
             facilitiesFormat(element.facilities.length)
@@ -949,9 +990,15 @@
         homeNickName: currentHomeInfo.nickName,
         homeId: currentHomeInfo.homeId,
       }
+      if (authCookie != null) {
+        let createChatUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat"
 
+        if (devMode) {
+          createChatUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/createchat"
+        }
+      }
       $.ajax({
-        url: 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat',
+        url: createChatUri,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -1154,10 +1201,10 @@
           </a>
 
           <a id="parentPoints" onclick="location.href='/usuario'"
-          class="flex justify-between text-base font-normal  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-          Pontuação:
-          <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-      </a>
+            class="flex justify-between text-base font-normal  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            Pontuação:
+            <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+          </a>
 
 
           <a href="/home" onclick="removeCookie()"
@@ -1165,7 +1212,7 @@
             Log out
           </a>
 
-          
+
 
         </div>
       </div>
@@ -1965,7 +2012,7 @@
                   avbldates: [{
                     start: new Date(),
                     end: new Date('2021-09-30'),
-                  }, ],
+                  },],
                 }
               },
               methods: {
