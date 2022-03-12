@@ -61,16 +61,10 @@
         clientId: currentHomeInfo.clientId,
       }
 
-      if (authCookie != null) {
-        let addHomeCurateUri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate"
-
-        if (devMode) {
-          addHomeCurateUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome/curate"
-        }
-      }
+      
 
       $.ajax({
-        url: addHomeCurateUri,
+        url: `${getCurrentHomeBaseUri()}/addHome/curate`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -227,17 +221,11 @@
 
     let selectedDates
 
-    if (authCookie != null) {
-      let addMessageUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/messages/add"
-
-      if (devMode) {
-        addMessageUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/messages/add"
-      }
-    }
+    
     async function addMessage(chatId, messageContent, hostId) {
       return new Promise((resolve, reject) => {
         $.ajax({
-          url: addMessageUri,
+          url: `${getCurrentChatBaseUri()}/messages/add`,
           type: 'POST',
           headers: {
             Authorization: authCookie,
@@ -283,15 +271,9 @@
         homeId: currentHomeInfo.homeId,
       }
 
-      if (authCookie != null) {
-        let createChatUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat"
-
-        if (devMode) {
-          createChatUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/createchat"
-        }
-      }
+      
       $.ajax({
-        url: createChatUri,
+        url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -333,13 +315,9 @@
 
       function getS3file(name, image, total, y) {
         return new Promise((resolve, reject) => {
-          let getFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile"
-
-          if (devMode) {
-            getFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
-          }
+          
           $.ajax({
-            url: getFileS3Uri,
+            url: getCurrentS3Uri(),
             type: 'POST',
             data: JSON.stringify({
               'pic-name': name,
@@ -362,13 +340,9 @@
       let homesShow = $('#homes_show')
       checkCurrentUserNoBlock()
       if (authCookie != null) {
-        let getHomesDetaileduri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed"
-
-      if (devMode) {
-        getHomesDetaileduri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
-      }
+        
         $.ajax({
-          url: getHomesDetaileduri,
+          url: getCurrentDetailedUrl(),
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -381,7 +355,7 @@
             $('#nickName').text(`${element['nickName']}`)
             if (element['underReview'] != undefined && element['underReview']) {
               $('#openChat').text('Sob consulta')
-              $('#reservationCalculator').toggleClass('hidden')
+              //$('#reservationCalculator').toggleClass('hidden')
             }
             if (element[`state`] != '' && element[`state`] != undefined) {
               //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
@@ -432,6 +406,16 @@
                 element[`extraRestriction`] :
                 'Sem informações',
             )
+
+
+
+            if (element[`curated`]) {
+              console.log("A casa eh curada")
+              $(`.nonCuratedOnly`).addClass('hidden')
+            } else {
+              $(`.curatedOnly`).addClass('hidden')
+            }
+
 
             contactId = element['clientId']
 
@@ -588,12 +572,14 @@
 
             console.log(currentHomeInfo['underReview'] + "TESTE")
 
-            if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
-              vue.$data.avbldates = undefined
-              vue.$data.attr[0].dates = totalDates
+            /*if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
+              
             } else {
               vue.$data.avbldates = totalDates
-            }
+            }*/
+
+            vue.$data.avbldates = undefined
+            vue.$data.attr[0].dates = totalDates
 
 
 
@@ -601,12 +587,9 @@
           },
         })
       } else {
-        let getHomesUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes'
-            if (devMode) {
-              getHomesUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes"
-            }
+        
         $.ajax({
-          url: getHomesUri,
+          url: `${getCurrentHomeBaseUri()}/gethomes`,
           type: 'POST',
           data: JSON.stringify(data),
           contentType: 'application/json',
@@ -802,8 +785,6 @@
             })
 
             element.authorizatedTo.forEach((e) => {
-              console.log($(`#authorized-${e}`)) //TIRAR
-              console.log(`#authorized-${e}`)
               $(`#authorized-${e}`).removeClass('line-through')
             })
 
@@ -820,8 +801,6 @@
             })
 
             let totalDates = generateAvaliableObj(totalAvaliableDates)
-
-            console.log(currentHomeInfo['underReview'] + "TESTE")
 
             if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
               vue.$data.avbldates = undefined
@@ -916,18 +895,24 @@
       </div>
 
       <button onclick="curateHome(true, false)" href="#"
-        class="h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        class="nonCuratedOnly h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
         Adicionar/Curar casa
       </button>
 
       <button onclick="curateHome(false, false)" href="#"
-        class="h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        class="curatedOnly h-10 left-0 relative hostOnly cadastro-button bg-red-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
         Remover Casa
       </button>
 
       <button onclick="curateHome(true, true)" href="#"
-        class="h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
-        Adicionar/Curar casa (em destaque)
+        class="curatedOnly h-10 left-0 relative hostOnly cadastro-button bg-yellow-400 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Adicionar casa (em destaque)
+      </button>
+
+      <button onclick="window.location.replace('/dashboard/casa/editar/v1/?'+window.location.href.split('?')[1])"
+        href="#"
+        class="h-10 left-0 relative hostOnly cadastro-button bg-blue-500 text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+        Editar Fotos
       </button>
     </h1>
   </div>
@@ -990,15 +975,9 @@
         homeNickName: currentHomeInfo.nickName,
         homeId: currentHomeInfo.homeId,
       }
-      if (authCookie != null) {
-        let createChatUri = "https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev/createchat"
-
-        if (devMode) {
-          createChatUri = "https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV/createchat"
-        }
-      }
+      
       $.ajax({
-        url: createChatUri,
+        url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
         headers: {
           Authorization: authCookie,
@@ -1336,15 +1315,7 @@
               </div>
             </div>
 
-            <!--<div class="h-20  flex justify-start md:justify-start  items-start  md:gap-1">
-                            <img src="Assets/caracteristicas/SUITES.svg" alt="" class="h-14">
-                            TODO fix responsivity
 
-
-                            <div class="flex justify-center items-center w-auto h-full">
-                                
-                            </div>
-                        </div>-->
 
             <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
               <img src="Assets/caracteristicas/QUARTOS.svg" alt="" class="h-14" />
@@ -1983,8 +1954,8 @@
               <p class="text-lg usuario_font mr-auto align-top">
                 TAXA DE TROCA:
               </p>
-              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="nightsTax">
-                0
+              <h1 class="line-through text-xl font-bold usuario_font ml-auto align-top" id="nightsTax">
+                R$ 0
               </h1>
             </div>
           </div>
@@ -2002,7 +1973,8 @@
                 return {
                   attr: [{
                     key: 'today',
-                    highlight: 'green',
+                    //highlight: 'green',
+                    bar:  'green',
                     dates: new Date(0)
                   }],
                   range: {
@@ -2037,14 +2009,15 @@
                 numberWithCommas(starsToPointsPerNight(multiplier) * days),
               )
               $('#totalNights').text(days)
+
               $('#totalPointsAfter').text(
                 numberWithCommas(
-                  userPointsInfo - starsToPointsPerNight(multiplier) * days,
+                  (userPointsInfo != undefined ? userPointsInfo : 0) - starsToPointsPerNight(multiplier) * days,
                 ),
               )
 
               $('#nightsTax').text(
-                'R$ ' + numberWithCommas(days * 100 * (multiplier - 1)),
+                'R$ ' + numberWithCommas((100 * (multiplier - 1)) + 200),
               )
             }
           </script>

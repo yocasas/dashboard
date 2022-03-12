@@ -14,144 +14,163 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <script>
+        function toggleDevMode() {
+            $("#devMode").toggleClass("bg-green-500")
+            $("#devMode").toggleClass("bg-red-500")
+            setDevMode()
+        }
+
+
         let clientIdArray = []
         $(document).ready(() => {
             checkCurrentUser()
             populateUsers()
+            if (checkDevMode()) {
+                $("#devMode").addClass("bg-green-500")
+                $("#devMode").removeClass("bg-red-500")
+            } else {
+                $("#devMode").removeClass("bg-green-500")
+                $("#devMode").addClass("bg-red-500")
+            }
             $("#token_h1").text(authCookie)
         });
+
         function populateHomes() {
             return new Promise((resolve, reject) => {
 
-            let data = {
-            }
+                let data = {}
 
 
-            $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
-                type: "POST",
-                data: JSON.stringify(data),
+                $.ajax({
+                    url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed",
+                    type: "POST",
+                    data: JSON.stringify(data),
 
-                headers: {
-                    "Authorization": authCookie
-                },
-                contentType: "application/json",
-
-
-
-                success: function (x) {
-
-                    console.log(x.length)
-
-
-                    x.forEach(element => {
-                        $(`#homes`).append(`<li class="${element['curated'] ?  "bg-green-400"   : "bg-red-400"  } border-4 hover:bg-gray-200 font-semibold flex"><a class="underline" id=${element['clientId']} href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab font-bold">${element['nickName']} ${element['done'] || element['done']==undefined ? "(Terminou de preencher)" : "(Não terminou de preencher)"}</span></a></li>`)
-                        clientIdArray.push(`${element['clientId']}`)
-                        
-                        // console.log($(`li > a > span#${element['clientId']}`))
-
-                        
-                    });
-
-                    resolve(clientIdArray)
+                    headers: {
+                        "Authorization": authCookie
+                    },
+                    contentType: "application/json",
 
 
 
+                    success: function (x) {
 
-                }
+                        console.log(x.length)
+
+
+                        x.forEach(element => {
+                            $(`#homes`).append(
+                                `<li class="${element['curated'] ?  "bg-green-400"   : "bg-red-400"  } border-4 hover:bg-gray-200 font-semibold flex"><a class="underline" id=${element['clientId']} href="/dashboard/casa/detalhes/?homeId=${element['homeId']}"><span class="tab font-bold">${element['nickName']} ${element['done'] || element['done']==undefined ? "(Terminou de preencher)" : "(Não terminou de preencher)"}</span></a></li>`
+                                )
+                            clientIdArray.push(`${element['clientId']}`)
+
+                            // console.log($(`li > a > span#${element['clientId']}`))
+
+
+                        });
+
+                        resolve(clientIdArray)
+
+
+
+
+                    }
+                })
             })
-        })
 
         }
 
 
-        function populateUsers(){
+        function populateUsers() {
             populateHomes().then(clients => {
 
                 let data = {
-                    "clientsArray":clients
-            }
+                    "clientsArray": clients
+                }
                 console.log(clients)
                 $.ajax({
-                url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser/lote",
-                type: "POST",
-                data: JSON.stringify(data),
+                    url: "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser/lote",
+                    type: "POST",
+                    data: JSON.stringify(data),
 
-                headers: {
-                    "Authorization": authCookie
-                },
-                contentType: "application/json",
-
-
-
-                success: function (x) {
+                    headers: {
+                        "Authorization": authCookie
+                    },
+                    contentType: "application/json",
 
 
-                    x.forEach(element => {               
-                        $(`li > #${element['ClientId']}`).after(`&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1>`)
-                        
-                    });
 
-                    
+                    success: function (x) {
 
-                }
-            })
+
+                        x.forEach(element => {
+                            $(`li > #${element['ClientId']}`).after(
+                                `&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1>`
+                                )
+
+                        });
+
+
+
+                    }
+                })
 
             })
 
         }
-
-
     </script>
     <div class="flex justify-between">
-    <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
-        <div class="flex flex-col">
+        <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
+            <div class="flex flex-col">
 
-        <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">
-        <h1>Nome da casa</h1>
-        <h1>Situação de preenchimento</h1>
-        <h1>Nome da pessoa</h1>
-        <h1>Email</h1>
-        <h1>Telefone</h1>
-
-            
-        </div>
-
-        <ul class="tabs" id="homes">
-            
-        </ul>
-        
-    </div>
-    
-
-        <div class="flex flex-col items-center">
-        <h1 class="font-bold text-2xl mr-10">Legenda</h1>
-
-        <div class="flex">
+                <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">
+                    <h1>Nome da casa</h1>
+                    <h1>Situação de preenchimento</h1>
+                    <h1>Nome da pessoa</h1>
+                    <h1>Email</h1>
+                    <h1>Telefone</h1>
 
 
-            <div class="flex items-center mr-10">
-            <svg width="70" height="70">
-                <rect width="70" height="70" class="fill-current text-green-400" style="stroke-width:3;stroke:rgb(0,0,0)" />
-              </svg>
-              <h1 class="font-bold">Casa já foi curada</h1>
-              </div>
+                </div>
 
-            <div class="flex items-center">
-              <svg width="70" height="70">
-                <rect width="70" height="70" class="fill-current text-red-400" style="stroke-width:3;stroke:rgb(0,0,0)" />
-              </svg>
-              <h1 class="font-bold">Casa ainda não foi curada</h1>
+                <ul class="tabs" id="homes">
+
+                </ul>
+
+            </div>
+
+
+            <div class="flex flex-col items-center">
+                <h1 class="font-bold text-2xl mr-10">Legenda</h1>
+
+                <div class="flex">
+
+
+                    <div class="flex items-center mr-10">
+                        <svg width="70" height="70">
+                            <rect width="70" height="70" class="fill-current text-green-400"
+                                style="stroke-width:3;stroke:rgb(0,0,0)" />
+                        </svg>
+                        <h1 class="font-bold">Casa já foi curada</h1>
+                    </div>
+
+                    <div class="flex items-center">
+                        <svg width="70" height="70">
+                            <rect width="70" height="70" class="fill-current text-red-400"
+                                style="stroke-width:3;stroke:rgb(0,0,0)" />
+                        </svg>
+                        <h1 class="font-bold">Casa ainda não foi curada</h1>
+                    </div>
+
+
+                </div>
+
             </div>
 
 
         </div>
-
-    </div>
-
-    
-    </div>
-    <h1 class="break-all " id="token_h1"></h1>
+        <h1 class="break-all " id="token_h1"></h1>
+        <button id="devMode" class="h-20" onclick="toggleDevMode()">DEV MODE</button>
     </div>
 </body>
 
