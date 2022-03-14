@@ -169,8 +169,21 @@
 
 
         </div>
-        <h1 class="break-all " id="token_h1"></h1>
-        <button id="devMode" class="h-20" onclick="toggleDevMode()">DEV MODE</button>
+        <div>
+        <button class="bg-blue-500 hover:bg-gray-200" onclick="showToken()">Token</button>
+        <h1 style="display: none;" id="token_h1"></h1>
+        </div>
+        <script>
+            function showToken() {
+  var x = document.getElementById("token_h1");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+        </script>
+        <button id="devMode" class="h-20 hover:bg-gray-200" onclick="toggleDevMode()">DEV MODE</button>
     </div>
 </body>
 
