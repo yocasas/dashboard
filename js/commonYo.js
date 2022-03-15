@@ -115,6 +115,7 @@ function setDevMode() {
     console.log("true ")
     document.cookie = `dev_mode_enable=yes; max-age=86400; path=/`
   }
+  document.location.reload(true)
 
 }
 
