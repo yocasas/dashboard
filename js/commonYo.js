@@ -16,6 +16,8 @@ let homeBaseuri
 
 let chatBaseuri
 
+let userBaseuri
+
 //=========================================
 
 function capitalizeFirstLetter(string) {
@@ -107,16 +109,16 @@ function getCurrentHomeBaseUri() {
 }
 
 function setDevMode() {
-  console.log("SET DEV MODE ")
+  console.log('SET DEV MODE ')
   if (checkDevMode()) {
-    console.log("false ")
-    document.cookie = "dev_mode_enable=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    console.log('false ')
+    document.cookie =
+      'dev_mode_enable=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
   } else {
-    console.log("true ")
+    console.log('true ')
     document.cookie = `dev_mode_enable=yes; max-age=86400; path=/`
   }
   document.location.reload(true)
-
 }
 
 function getCurrentChatBaseUri() {
@@ -128,7 +130,15 @@ function getCurrentChatBaseUri() {
   return chatBaseuri
 }
 
+function getCurrentUserBaseUri() {
 
+  if (checkDevMode()) {
+    userBaseuri = 'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV'
+  } else {
+    userBaseuri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2'
+  }
+  return userBaseuri
+}
 
 function getCurrentS3Uri() {
   if (devMode) {
@@ -207,8 +217,7 @@ let starsToPointsPerNight = function (multiplier) {
 function getUserPoints() {
   token = authCookie
   if (token != null) {
-    
-}
+  }
   return new Promise((resolve, reject) => {
     let data = {}
     let clientObject = {}
@@ -229,10 +238,12 @@ function getUserPoints() {
 
     //TODO: Usar os headers e nao clientid como argumento
     data = JSON.stringify(data)
-    let getUserPointsUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary"
+    let getUserPointsUri =
+      'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary'
 
     if (devMode) {
-        getUserPointsUri = "https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/points/get/summary"
+      getUserPointsUri =
+        'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/points/get/summary'
     }
     $.ajax({
       url: getUserPointsUri,
