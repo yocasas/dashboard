@@ -44,8 +44,6 @@
         height: '100%',
       })
 
-      console.log($(`#homeStars`).val())
-
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
         clientId: currentHomeInfo.clientId,
@@ -60,8 +58,6 @@
         clientType: 2,
         clientId: currentHomeInfo.clientId,
       }
-
-      
 
       $.ajax({
         url: `${getCurrentHomeBaseUri()}/addHome/curate`,
@@ -84,13 +80,14 @@
         },
       })
 
-      
-        let curateUserUri = "https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate"
+      let curateUserUri =
+        'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
 
-        if (devMode) {
-          curateUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate"
-        }
-      
+      if (devMode) {
+        curateUserUri =
+          'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
+      }
+
       $.ajax({
         url: curateUserUri,
         type: 'POST',
@@ -100,7 +97,7 @@
         data: JSON.stringify(curateUserSettings),
         contentType: 'application/json',
 
-        success: (resp) => { },
+        success: (resp) => {},
       })
     }
 
@@ -145,8 +142,16 @@
           ) {
             endDate = new Date(lastDate.getTime())
           } else {
-            if (endDate > new Date()) {
+            if (startDate >= new Date()) {
               let startDateSave = fixTimeZone(startDate)
+              let endDateSave = fixTimeZone(endDate)
+
+              fullDates.push({
+                start: startDateSave,
+                end: endDateSave,
+              })
+            } else if (endDate >= new Date()) {
+              let startDateSave = fixTimeZone(new Date())
               let endDateSave = fixTimeZone(endDate)
 
               fullDates.push({
@@ -157,18 +162,32 @@
 
             startDate = new Date(lastDate.getTime())
             endDate = new Date(lastDate.getTime())
-
-            console.log('end:' + endDate)
           }
         })
 
-        let startDateSave = fixTimeZone(startDate)
-        let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+        if (startDate >= new Date()) {
+          let startDateSave = fixTimeZone(startDate)
+          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
 
-        fullDates.push({
-          start: startDateSave,
-          end: endDateSave,
-        })
+          fullDates.push({
+            start: startDateSave,
+            end: endDateSave,
+          })
+
+        } else if (endDate >= new Date()) {
+          let startDateSave = fixTimeZone(new Date())
+          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+
+          fullDates.push({
+            start: startDateSave,
+            end: endDateSave,
+          })
+
+        }
+
+
+
+
 
         //console.log(arr)
       } else {
@@ -209,7 +228,7 @@
                 slidesToShow: 1,
                 slidesToScroll: 1,
               },
-            },],
+            }, ],
           })
         })
       })
@@ -221,7 +240,6 @@
 
     let selectedDates
 
-    
     async function addMessage(chatId, messageContent, hostId) {
       return new Promise((resolve, reject) => {
         $.ajax({
@@ -271,7 +289,6 @@
         homeId: currentHomeInfo.homeId,
       }
 
-      
       $.ajax({
         url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
@@ -286,8 +303,8 @@
           addMessage(
             respObj['data']['chatId'],
             `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-              selectedDates[0],
-            )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+                selectedDates[0],
+              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
             currentHomeInfo.clientId,
           ).then((x) => {
             window.scrollTo(0, 0)
@@ -315,7 +332,6 @@
 
       function getS3file(name, image, total, y) {
         return new Promise((resolve, reject) => {
-          
           $.ajax({
             url: getCurrentS3Uri(),
             type: 'POST',
@@ -340,7 +356,6 @@
       let homesShow = $('#homes_show')
       checkCurrentUserNoBlock()
       if (authCookie != null) {
-        
         $.ajax({
           url: getCurrentDetailedUrl(),
           type: 'POST',
@@ -353,7 +368,10 @@
             let element = x[0]
             currentHomeInfo = element
             $('#nickName').text(`${element['nickName']}`)
-            if (element['underReview'] != undefined && element['underReview']) {
+            if (
+              element['underReview'] != undefined &&
+              element['underReview']
+            ) {
               $('#openChat').text('Sob consulta')
               //$('#reservationCalculator').toggleClass('hidden')
             }
@@ -382,46 +400,44 @@
             </iframe>`)
             $(`#infoWorkers`).text(
               checkData(element[`infoWorkers`]) ?
-                element[`infoWorkers`] :
-                'Sem informações',
+              element[`infoWorkers`] :
+              'Sem informações',
             )
             $(`#infoAC`).text(
               checkData(element[`totalAc`]) ?
-                element[`totalAc`] :
-                'Sem informações',
+              element[`totalAc`] :
+              'Sem informações',
             )
             $(`#carEntrance`).text(
               checkData(element[`accessPath`]) ?
-                element[`accessPath`] :
-                'Sem informações',
+              element[`accessPath`] :
+              'Sem informações',
             )
             $(`#description`).text(element[`description`])
             $(`#curatedDetails`).text(
               checkData(element[`curatedDetails`]) ?
-                element[`curatedDetails`] :
-                'Sem informações',
+              element[`curatedDetails`] :
+              'Sem informações',
             )
             $(`#extraRestriction`).text(
               checkData(element[`extraRestriction`]) ?
-                element[`extraRestriction`] :
-                'Sem informações',
+              element[`extraRestriction`] :
+              'Sem informações',
             )
 
-
-
             if (element[`curated`]) {
-              console.log("A casa eh curada")
               $(`.nonCuratedOnly`).addClass('hidden')
             } else {
               $(`.curatedOnly`).addClass('hidden')
             }
 
-
             contactId = element['clientId']
 
-            let getUserUri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
+            let getUserUri =
+              'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
             if (devMode) {
-                getUserUri = "https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser"
+              getUserUri =
+                'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser'
             }
             $.ajax({
               url: getUserUri,
@@ -435,7 +451,6 @@
               contentType: 'application/json',
 
               success: (client) => {
-                console.log(client)
                 currentHomeInfo.contactName = client[`nickName`]
                 $(`#contactName`).text(client[`nickName`])
                 //$(".loading").removeClass('dot-pulse')
@@ -446,24 +461,22 @@
 
             let stars = range(element['multiplier'], 1)
 
-            if (element["multiplier"] < 7 && element["multiplier"] > 2) {
+            if (element['multiplier'] < 7 && element['multiplier'] > 2) {
               let dft = $('#3-6')
               dft.removeClass('hidden')
-              let stars = range(element["multiplier"], 1)
-              stars.forEach(startId => {
+              let stars = range(element['multiplier'], 1)
+              stars.forEach((startId) => {
                 let rank = dft.find('#rank')
-                rank.find(`#${startId}`).removeClass("far");
-                rank.find(`#${startId}`).addClass("fas");
+                rank.find(`#${startId}`).removeClass('far')
+                rank.find(`#${startId}`).addClass('fas')
               })
-            } else if (element["multiplier"] == 7) {
+            } else if (element['multiplier'] == 7) {
               let dft = $('#7')
               dft.removeClass('hidden')
-            } else if (element["multiplier"] == 2) {
+            } else if (element['multiplier'] == 2) {
               let dft = $('#2-EX')
               dft.removeClass('hidden')
             }
-
-
 
             let points = starsToPointsPerNight(element['multiplier'])
             $(`#homeStars`).val(element['multiplier'])
@@ -486,7 +499,12 @@
             element['picturesS3Urls'].forEach((x) => {
               let y = 0
               files.push(
-                getS3file(x, $('#slider'), element['picturesS3Urls'].length, y),
+                getS3file(
+                  x,
+                  $('#slider'),
+                  element['picturesS3Urls'].length,
+                  y,
+                ),
               )
             })
 
@@ -517,28 +535,31 @@
             }
 
             $('#maxCapacity').text(
-              `${element['maxPeople'] > 1
-                ? element['maxPeople'] + ' Hóspedes'
-                : element['maxPeople'] + ' Hóspede'
-              }`,
+              `${
+                  element['maxPeople'] > 1
+                    ? element['maxPeople'] + ' Hóspedes'
+                    : element['maxPeople'] + ' Hóspede'
+                }`,
             )
 
             $('#totalBathRooms').text(
-              `${element['totalBathRooms'] > 1
-                ? element['totalBathRooms'] + ' Banheiros'
-                : element['totalBathRooms'] + ' Banheiro'
-              }`,
+              `${
+                  element['totalBathRooms'] > 1
+                    ? element['totalBathRooms'] + ' Banheiros'
+                    : element['totalBathRooms'] + ' Banheiro'
+                }`,
             )
             $('#totalBedRooms').text(
-              `${element['totalBedRooms'] > 1
-                ? element['totalBedRooms'] + ' Quartos'
-                : element['totalBedRooms'] + ' Quarto'
-              }`,
+              `${
+                  element['totalBedRooms'] > 1
+                    ? element['totalBedRooms'] + ' Quartos'
+                    : element['totalBedRooms'] + ' Quarto'
+                }`,
             )
             $('#totalSuits').text(
               element['totalSuites'] > 1 ?
-                `( ${element['totalSuites']} Suítes )` :
-                `( ${element['totalSuites']} Suíte )`,
+              `( ${element['totalSuites']} Suítes )` :
+              `( ${element['totalSuites']} Suíte )`,
             )
 
             facilitiesFormat(element.facilities.length)
@@ -551,8 +572,6 @@
             })
 
             element.authorizatedTo.forEach((e) => {
-              console.log($(`#authorized-${e}`)) //TIRAR
-              console.log(`#authorized-${e}`)
               $(`#authorized-${e}`).removeClass('line-through')
             })
 
@@ -570,8 +589,6 @@
 
             let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-            console.log(currentHomeInfo['underReview'] + "TESTE")
-
             /*if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
               
             } else {
@@ -581,13 +598,10 @@
             vue.$data.avbldates = undefined
             vue.$data.attr[0].dates = totalDates
 
-
-
             //vue.$data.attrs[0].dates = totalDates
           },
         })
       } else {
-        
         $.ajax({
           url: `${getCurrentHomeBaseUri()}/gethomes`,
           type: 'POST',
@@ -597,7 +611,10 @@
             let element = x[0]
             currentHomeInfo = element
             $('#nickName').text(`${element['nickName']}`)
-            if (element['underReview'] != undefined && element['underReview']) {
+            if (
+              element['underReview'] != undefined &&
+              element['underReview']
+            ) {
               $('#openChat').text('Sob consulta')
               $('#reservationCalculator').toggleClass('hidden')
             }
@@ -626,29 +643,29 @@
             </iframe>`)
             $(`#infoWorkers`).text(
               checkData(element[`infoWorkers`]) ?
-                element[`infoWorkers`] :
-                'Sem informações',
+              element[`infoWorkers`] :
+              'Sem informações',
             )
             $(`#infoAC`).text(
               checkData(element[`totalAc`]) ?
-                element[`totalAc`] :
-                'Sem informações',
+              element[`totalAc`] :
+              'Sem informações',
             )
             $(`#carEntrance`).text(
               checkData(element[`accessPath`]) ?
-                element[`accessPath`] :
-                'Sem informações',
+              element[`accessPath`] :
+              'Sem informações',
             )
             $(`#description`).text(element[`description`])
             $(`#curatedDetails`).text(
               checkData(element[`curatedDetails`]) ?
-                element[`curatedDetails`] :
-                'Sem informações',
+              element[`curatedDetails`] :
+              'Sem informações',
             )
             $(`#extraRestriction`).text(
               checkData(element[`extraRestriction`]) ?
-                element[`extraRestriction`] :
-                'Sem informações',
+              element[`extraRestriction`] :
+              'Sem informações',
             )
 
             contactId = element['clientId']
@@ -676,24 +693,22 @@
 
             let stars = range(element['multiplier'], 1)
 
-            if (element["multiplier"] < 7 && element["multiplier"] > 2) {
+            if (element['multiplier'] < 7 && element['multiplier'] > 2) {
               let dft = $('#3-6')
               dft.removeClass('hidden')
-              let stars = range(element["multiplier"], 1)
-              stars.forEach(startId => {
+              let stars = range(element['multiplier'], 1)
+              stars.forEach((startId) => {
                 let rank = dft.find('#rank')
-                rank.find(`#${startId}`).removeClass("far");
-                rank.find(`#${startId}`).addClass("fas");
+                rank.find(`#${startId}`).removeClass('far')
+                rank.find(`#${startId}`).addClass('fas')
               })
-            } else if (element["multiplier"] == 7) {
+            } else if (element['multiplier'] == 7) {
               let dft = $('#7')
               dft.removeClass('hidden')
-            } else if (element["multiplier"] == 2) {
+            } else if (element['multiplier'] == 2) {
               let dft = $('#2-EX')
               dft.removeClass('hidden')
             }
-
-
 
             let points = starsToPointsPerNight(element['multiplier'])
             $(`#homeStars`).val(element['multiplier'])
@@ -707,7 +722,6 @@
               height: 'auto',
             })
             if (authCookie != null) {
-
               if (clientInfo.clientType > 3) {
                 $('.adminOnly').removeClass('hidden')
                 $('#curatedDetails').attr('contenteditable', 'true')
@@ -718,7 +732,12 @@
             element['picturesS3Urls'].forEach((x) => {
               let y = 0
               files.push(
-                getS3file(x, $('#slider'), element['picturesS3Urls'].length, y),
+                getS3file(
+                  x,
+                  $('#slider'),
+                  element['picturesS3Urls'].length,
+                  y,
+                ),
               )
             })
 
@@ -749,36 +768,37 @@
             }
 
             $('#maxCapacity').text(
-              `${element['maxPeople'] > 1
-                ? element['maxPeople'] + ' Hóspedes'
-                : element['maxPeople'] + ' Hóspede'
-              }`,
+              `${
+                  element['maxPeople'] > 1
+                    ? element['maxPeople'] + ' Hóspedes'
+                    : element['maxPeople'] + ' Hóspede'
+                }`,
             )
 
             $('#totalBathRooms').text(
-              `${element['totalBathRooms'] > 1
-                ? element['totalBathRooms'] + ' Banheiros'
-                : element['totalBathRooms'] + ' Banheiro'
-              }`,
+              `${
+                  element['totalBathRooms'] > 1
+                    ? element['totalBathRooms'] + ' Banheiros'
+                    : element['totalBathRooms'] + ' Banheiro'
+                }`,
             )
             $('#totalBedRooms').text(
-              `${element['totalBedRooms'] > 1
-                ? element['totalBedRooms'] + ' Quartos'
-                : element['totalBedRooms'] + ' Quarto'
-              }`,
+              `${
+                  element['totalBedRooms'] > 1
+                    ? element['totalBedRooms'] + ' Quartos'
+                    : element['totalBedRooms'] + ' Quarto'
+                }`,
             )
             $('#totalSuits').text(
               element['totalSuites'] > 1 ?
-                `( ${element['totalSuites']} Suítes )` :
-                `( ${element['totalSuites']} Suíte )`,
+              `( ${element['totalSuites']} Suítes )` :
+              `( ${element['totalSuites']} Suíte )`,
             )
 
             facilitiesFormat(element.facilities.length)
             element.facilities.forEach((e) => {
               $(`#facility-${e}`).removeClass('hidden')
             })
-
-
 
             element.workers.forEach((e) => {
               $(`#worker-${e}`).removeClass('hidden')
@@ -802,19 +822,19 @@
 
             let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-            if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
+            if (
+              currentHomeInfo['underReview'] != undefined &&
+              currentHomeInfo['underReview']
+            ) {
               vue.$data.avbldates = undefined
               vue.$data.attr[0].dates = totalDates
             } else {
               vue.$data.avbldates = totalDates
             }
 
-
-
             //vue.$data.attrs[0].dates = totalDates
           },
         })
-
       }
     }
   </script>
@@ -833,13 +853,12 @@
 
       window.scrollTo(0, 0)
       /*$('html, body').css({
-                  overflow: 'hidden',
-                  height: '100%'
-              });*/
+                overflow: 'hidden',
+                height: '100%'
+            });*/
 
       checkCurrentUserNoBlock()
       if (authCookie != null) {
-
         changeUserName($(`#userNameDrop`))
         getUserPoints().then((userPoints) => {
           $('#pointsUser').text(userPoints)
@@ -975,7 +994,7 @@
         homeNickName: currentHomeInfo.nickName,
         homeId: currentHomeInfo.homeId,
       }
-      
+
       $.ajax({
         url: `${getCurrentChatBaseUri()}/createchat`,
         type: 'POST',
@@ -1180,19 +1199,15 @@
           </a>
 
           <a id="parentPoints" onclick="location.href='/usuario'"
-            class="flex justify-between text-base font-normal  cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+            class="flex justify-between text-base font-normal cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
             Pontuação:
             <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
           </a>
-
 
           <a href="/home" onclick="removeCookie()"
             class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
             Log out
           </a>
-
-
-
         </div>
       </div>
     </div>
@@ -1214,29 +1229,26 @@
     </div>
     <div class="grid md:grid-cols-5 grid-rows-auto md:grid-rows-1 w-full md:h-1/5 gap-5 md:gap-0"
       id="homeBasicInformation">
-
       <div
         class="md:col-start-1 flex flex-col md:flex-row justify-center md:justify-start md:gap-5 md:items-center md:h-20">
-
-
         <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="3-6">
           <h1 class="text-sm md:text-lg usuario_font" id="rank">
-            <i class="far fa-star " id="1" aria-hidden="true"></i>
-            <i class="far fa-star " id="2" aria-hidden="true"></i>
-            <i class="far fa-star " id="3" aria-hidden="true"></i>
-            <i class="far fa-star " id="4" aria-hidden="true"></i>
-            <i class="far fa-star " id="5" aria-hidden="true"></i>
-            <i class="far fa-star " id="6" aria-hidden="true"></i>
+            <i class="far fa-star" id="1" aria-hidden="true"></i>
+            <i class="far fa-star" id="2" aria-hidden="true"></i>
+            <i class="far fa-star" id="3" aria-hidden="true"></i>
+            <i class="far fa-star" id="4" aria-hidden="true"></i>
+            <i class="far fa-star" id="5" aria-hidden="true"></i>
+            <i class="far fa-star" id="6" aria-hidden="true"></i>
           </h1>
         </div>
 
         <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="7">
           <h1 class="text-sm md:text-lg usuario_font" id="rank">
-            <i class="fas fa-star " aria-hidden="true"></i>
-            <i class="fas fa-star " aria-hidden="true"></i>
-            <i class="fas fa-star " aria-hidden="true"></i>
-            <i class="fas fa-star " aria-hidden="true"></i>
-            <i class="fas fa-star " aria-hidden="true"></i>
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <i class="fas fa-star" aria-hidden="true"></i>
+            <i class="fas fa-star" aria-hidden="true"></i>
             <i class="fas fa-star text-lg md:text-2xl" aria-hidden="true"></i>
           </h1>
         </div>
@@ -1246,7 +1258,6 @@
             EXPERIENCIA
           </h1>
         </div>
-
       </div>
 
       <div class="md:col-start-3 md:gap-10 flex flex-col md:flex-row justify-center md:items-center md:h-20 hidden">
@@ -1314,8 +1325,6 @@
                 </p>
               </div>
             </div>
-
-
 
             <div class="h-20 flex justify-start md:justify-start items-start md:gap-1">
               <img src="Assets/caracteristicas/QUARTOS.svg" alt="" class="h-14" />
@@ -1900,7 +1909,7 @@
           </div>
 
           <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
-            <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes='attr'
+            <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
               @dayclick="onDayClick" />
           </div>
 
@@ -1974,9 +1983,9 @@
                   attr: [{
                     key: 'today',
                     //highlight: 'green',
-                    bar:  'green',
-                    dates: new Date(0)
-                  }],
+                    bar: 'green',
+                    dates: new Date(0),
+                  }, ],
                   range: {
                     start: null,
                     end: null,
@@ -1984,7 +1993,7 @@
                   avbldates: [{
                     start: new Date(),
                     end: new Date('2021-09-30'),
-                  },],
+                  }, ],
                 }
               },
               methods: {
@@ -2012,12 +2021,13 @@
 
               $('#totalPointsAfter').text(
                 numberWithCommas(
-                  (userPointsInfo != undefined ? userPointsInfo : 0) - starsToPointsPerNight(multiplier) * days,
+                  (userPointsInfo != undefined ? userPointsInfo : 0) -
+                  starsToPointsPerNight(multiplier) * days,
                 ),
               )
 
               $('#nightsTax').text(
-                'R$ ' + numberWithCommas((100 * (multiplier - 1)) + 200),
+                'R$ ' + numberWithCommas(100 * (multiplier - 1) + 200),
               )
             }
           </script>
