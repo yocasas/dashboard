@@ -99,7 +99,7 @@
 
                 success: function (x) {
                     $(`#${clientId}points`).html(
-                        `<h1 class="border-2 border-blue-800">TotalPontos=${x}</h1>`,
+                        `<h1 class="border-2 border-blue-800">TotalPontos=${x}</h1><a href="/usuario/?clientId=${clientId}">!!Clique para detalhes</a>`,
                     )
                 },
                 error: function (x) {
