@@ -168,7 +168,6 @@
 
         }
 
-
         function addNewMsg(msg, fullInfo) { //add chat infomation miniature
             let fullChat = $("#fullChat")
             let allMessages = fullChat.find("#messages")
@@ -207,12 +206,7 @@
         function populateFullChat(fullChatInfo, messages, fullChatElement, chatId) { //add all messages to full chat
             $("#contactNameChat").removeClass("dot-spin")
 
-
-
             let requestedDates = fullChatInfo.requestedDates
-
-
-
 
             $("#contactNameChat").text(fullChatInfo.contactName)
             $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ?
@@ -289,6 +283,7 @@
             var fullInfo = chatsInfos[clickedBtnID]
 
             $('#chatBlock').addClass('hidden')
+            $('#loadingScreen').removeClass('hidden')
 
             $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
             e.find("#information").addClass("button_bg_meio_alpha") //add selected chat
@@ -317,6 +312,7 @@
                 contentType: "application/json",
 
                 success: (msgsString) => {
+                    $('#loadingScreen').addClass('hidden')
                     getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
                         msgsString), fullChat, clickedBtnID))
                 }
@@ -330,6 +326,8 @@
             var fullInfo = chatsInfos[clickedBtnID]
 
             $('#chatBlock').addClass('hidden')
+
+            $("#loadingScreen").removeClass("hidden")
 
             $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
             $(this).find("#information").addClass("button_bg_meio_alpha") //add selected chat
@@ -358,6 +356,7 @@
                 contentType: "application/json",
 
                 success: (msgsString) => {
+                    $("#loadingScreen").addClass("hidden")
                     getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
                         msgsString), fullChat, clickedBtnID))
                 }
@@ -424,7 +423,7 @@
         }
     </script>
 
-    <script>
+    <script id="respondFunction">
         function resolveChat(accept) { //TODO send new message
 
 
@@ -465,7 +464,7 @@
         }
     </script>
 
-    <script>
+    <script id="loadChatsFunction">
         //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
@@ -487,6 +486,8 @@
 
                 success: (msgsString) => {
 
+                    $("#loadingScreen").addClass("hidden")
+
                     let msgs = JSON.parse(msgsString)
 
 
@@ -505,7 +506,7 @@
                             chatId: msg.chatId
                         }
                         console.log(msg.hostName)
-                        addChat(chatInfo, msg) //TODO get from server
+                        addChat(chatInfo, msg)
                     });
 
                     defineReadChat(msgs)
@@ -530,7 +531,7 @@
         }
     </script>
 
-    <script>
+    <script id="getPointsAndUser">
         $(document).ready(() => {
             checkCurrentUser()
             changeUserName($(`#userNameDrop`))
@@ -541,6 +542,10 @@
             })
         });
     </script>
+
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center" id="loadingScreen">
+        <div class="loading dot-pulse"></div>
+    </div>
 
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn">
@@ -794,17 +799,17 @@
                             </a>
 
                             <a id="parentPoints" onclick="location.href='/usuario'"
-                            class="flex justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                            Pontuação: <div id="pointsUser"
-                                class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-                        </a>
+                                class="flex justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                Pontuação: <div id="pointsUser"
+                                    class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                            </a>
 
                             <a href="/home" onclick="removeCookie()"
                                 class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
                                 Log out
                             </a>
 
-                            
+
 
                         </div>
                     </div>
