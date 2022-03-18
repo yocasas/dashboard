@@ -266,7 +266,14 @@
     }
 
     function abrirChat(messageId) {
-      //TODO send new message
+      //TODO here
+      window.scrollTo(0, 0)
+      $('.loading').parent().removeClass('hidden')
+      $('html, body').css({
+        overflow: 'hidden',
+        height: '100%',
+      })
+
       if (authCookie == null) {
         checkCurrentUser()
         return false
@@ -307,6 +314,7 @@
               )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
             currentHomeInfo.clientId,
           ).then((x) => {
+            $('.loading').parent().addClass('hidden')
             window.scrollTo(0, 0)
             $('#showWarn').removeClass('hidden')
             $('html, body').css({
