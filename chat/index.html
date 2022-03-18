@@ -208,7 +208,7 @@
 
             let requestedDates = fullChatInfo.requestedDates
 
-            $("#contactNameChat").text(fullChatInfo.contactName)
+            $("#contactNameChat").text(fullChatInfo.contactName + (fullChatInfo.ending > 0 ? " (Finalizado)" : ""))
             $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ?
                 "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
             $(`#homeNickName`).text(fullChatInfo.isHost ? "" : `(${fullChatInfo.homeNickName})`)
@@ -235,6 +235,14 @@
                 $('.hostOnly').addClass('hidden')
             }
 
+            if (fullChatInfo.ending > 0) {
+                $('.respondRequest').addClass('hidden')
+                
+            } else {
+                $('.respondRequest').removeClass('hidden')
+            }
+
+
 
 
             let allMessages = fullChatElement.find("#messages")
@@ -243,8 +251,6 @@
 
             messagesSort = messages.sort((a, b) => (new Date(a.messageTime) <= new Date(b.messageTime)) ? -1 : 1)
 
-            console.log(messagesSort)
-            console.log(messages)
 
             messages.forEach(element => {
 
@@ -424,10 +430,12 @@
     </script>
 
     <script id="respondFunction">
-        function resolveChat(accept) { //TODO send new message
+        function resolveChat(accept) { 
+
+            $('.respondRequest').addClass('hidden')
 
 
-
+            $("#loadingScreen").removeClass("hidden")
 
             let chatSettings = {
                 "chatId": currentChatInfo.chatId,
@@ -505,7 +513,7 @@
                             lastMessage: "...",
                             chatId: msg.chatId
                         }
-                        console.log(msg.hostName)
+
                         addChat(chatInfo, msg)
                     });
 
@@ -985,10 +993,10 @@
 
 
                                 <button onclick="resolveChat(false)" href="#"
-                                    class=" h-10 left-0  relative hostOnly hidden  cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
+                                    class="respondRequest h-10 left-0  relative hostOnly hidden  cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
                                     reserva</button>
                                 <button onclick="resolveChat(true)" href="#"
-                                    class=" h-10 left-0 mx-2 md:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
+                                    class="respondRequest h-10 left-0 mx-2 md:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
                                     reserva</button>
 
 
