@@ -88,11 +88,15 @@ let checkCurrentUser = function () {
 }
 
 function checkDevMode() {
-  if (
+  /*if (
     getCookie('dev_mode_enable') != null &&
     getCookie('dev_mode_enable') != undefined &&
     getCookie('dev_mode_enable') == 'yes'
   ) {
+    devMode = true
+  }*/
+
+  if (sessionStorage.getItem("devMode") == "yes") {
     devMode = true
   }
 
@@ -112,11 +116,13 @@ function setDevMode() {
   console.log('SET DEV MODE ')
   if (checkDevMode()) {
     console.log('false ')
-    document.cookie =
-      'dev_mode_enable=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
+    sessionStorage.setItem("devMode", "no");
+    /*document.cookie =
+      'dev_mode_enable=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'*/
   } else {
     console.log('true ')
-    document.cookie = `dev_mode_enable=yes; max-age=86400; path=/`
+    sessionStorage.setItem("devMode", "yes");
+    //document.cookie = `dev_mode_enable=yes; max-age=86400; path=/`
   }
   document.location.reload(true)
 }
