@@ -164,6 +164,10 @@
 
     function abrirChat(messageId) {
       //TODO here
+      if ($('#totalPointsAfter').text() <= 0) {
+        alert("Você precisa de mais pontos para reservar. Contate um administrador.")
+        return
+      }
       window.scrollTo(0, 0)
       $('.loading').parent().removeClass('hidden')
       $('html, body').css({
