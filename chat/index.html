@@ -2,57 +2,49 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
     <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yô Chat</title>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || []
 
         function gtag() {
-            dataLayer.push(arguments);
+            dataLayer.push(arguments)
         }
-        gtag('js', new Date());
+        gtag('js', new Date())
 
-
-        gtag('config', 'G-V0C85S2RG3');
+        gtag('config', 'G-V0C85S2RG3')
         checkCurrentUser()
         gtag('set', {
-            'id': clientInfo.ClientId.substring(7)
-        });
+            id: clientInfo.ClientId.substring(7),
+        })
     </script>
-
-
 </head>
 
 <body>
-
     <div class="flex justify-end">
-
         <h1 class="fixed z-50 my-64">
             <span class="sr-only">Badge Beta</span>
-            <img src="Assets/badge_beta.svg" class="h-32">
+            <img src="Assets/badge_beta.svg" class="h-32" />
         </h1>
     </div>
 
     <style>
         .dark_green {
             color: rgba(69, 95, 93, 1);
-            ;
         }
     </style>
 
-
-
-    <link href="style/style.css" rel="stylesheet">
-    <link href="style/loading.css" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet" />
+    <link href="style/loading.css" rel="stylesheet" />
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -65,16 +57,17 @@
 
     <script>
         function changeVisibility(e) {
-            if ($(`#${e}`).attr("class").split(/\s+/).indexOf("hidden") == -1) {
-                $(`#${e}`).addClass("hidden")
+            if ($(`#${e}`).attr('class').split(/\s+/).indexOf('hidden') == -1) {
+                $(`#${e}`).addClass('hidden')
             } else {
-                $(`#${e}`).removeClass("hidden")
+                $(`#${e}`).removeClass('hidden')
             }
-
         }
 
         async function defineReadChat(msgs) {
-            let maxLastSeen = Math.max(msgs.map(x => new Date(x.lastDate).getTime()))
+            let maxLastSeen = Math.max(
+                msgs.map((x) => new Date(x.lastDate).getTime()),
+            )
 
             window.localStorage.lastDate = maxLastSeen
         }
@@ -83,15 +76,15 @@
     <script id="chatFunctionality">
         //all db communication and chat functionality
 
-
         function timesClick() {
-            if (screen.width < 640) { //for cel show one at a time
-                changeVisibility("avaliableChats")
-                changeVisibility("fullChatBLockCel")
+            if (screen.width < 640) {
+                //for cel show one at a time
+                changeVisibility('avaliableChats')
+                changeVisibility('fullChatBLockCel')
             }
         }
 
-        $(document).on("click", ".removeMessages", function () {
+        $(document).on('click', '.removeMessages', function () {
             timesClick()
         })
 
@@ -99,123 +92,168 @@
 
         let currentChatInfo = {}
 
-        async function getS3ProfilePics(fullInfo) { //populate s3 pics b64 data
+        async function getS3ProfilePics(fullInfo) {
+            //populate s3 pics b64 data
             let photo0 = await $.ajax({
                 url: `${getCurrentHomeBaseUri()}/s3/getFile/v3`,
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify({
-                    "pic-name": fullInfo.hostPicture
+                    'pic-name': fullInfo.hostPicture,
                 }),
-                contentType: "application/json",
+                contentType: 'application/json',
                 success: (x) => {
                     fullInfo.hostImageb64 = `${x}`
-                }
+                },
             })
 
             let photo1 = await $.ajax({
                 url: `${getCurrentHomeBaseUri()}/s3/getFile/v3`,
-                type: "POST",
+                type: 'POST',
                 data: JSON.stringify({
-                    "pic-name": fullInfo.guestPicture
+                    'pic-name': fullInfo.guestPicture,
                 }),
-                contentType: "application/json",
+                contentType: 'application/json',
                 success: (x) => {
                     fullInfo.guestImageb64 = `${x}`
-                }
+                },
             })
 
-            return (photo0, photo1)
-
+            return photo0, photo1
         }
-
 
         let avaliableChats = {}
 
-        function addChat(chatInfo, fullInfo) { //add chat infomation miniature
-
+        function addChat(chatInfo, fullInfo) {
+            //add chat infomation miniature
 
             let lastSeenChat = new Date(window.localStorage.lastDate)
 
-            let avaliableChats = $("#avaliableChats")
-            let ChatModel = $("#itemChat").clone() //clone dafault chat
+            let avaliableChats = $('#avaliableChats')
+            let ChatModel = $('#itemChat').clone() //clone dafault chat
 
             let nameSplit = chatInfo.contactName.split(' ')
 
-            if (fullInfo.lastDate == undefined || new Date(fullInfo.lastDate).getTime() > lastSeenChat.getTime()) {
+            if (
+                fullInfo.lastDate == undefined ||
+                new Date(fullInfo.lastDate).getTime() > lastSeenChat.getTime()
+            ) {
                 ChatModel.addClass('animate-pulse')
             }
 
-
-            ChatModel.prop("chatId", chatInfo.chatId)
+            ChatModel.prop('chatId', chatInfo.chatId)
             fullInfo.contactName = chatInfo.contactName //safe full info
             chatsInfos[chatInfo.chatId] = fullInfo
             ChatModel.find(`#lastMessage`).text(chatInfo.lastMessage)
             if (fullInfo.isHost) {
                 ChatModel.find('#isHost').text('Sou anfitrião')
-                ChatModel.find(`#contactName`).text("Hóspede: " + nameSplit[0] + " " + nameSplit[nameSplit.length -
-                    1])
+                ChatModel.find(`#contactName`).text(
+                    'Hóspede: ' + nameSplit[0] + ' ' + nameSplit[nameSplit.length - 1],
+                )
             } else {
                 ChatModel.find('#isHost').text('Sou hóspede')
-                ChatModel.find(`#contactName`).text("Anfitrião: " + nameSplit[0] + " " + nameSplit[nameSplit.length -
-                    1])
+                ChatModel.find(`#contactName`).text(
+                    'Anfitrião: ' +
+                    nameSplit[0] +
+                    ' ' +
+                    nameSplit[nameSplit.length - 1],
+                )
             }
 
             ChatModel.removeClass('hidden') //show element
-            ChatModel.prop('id', 'itemChat' + avaliableChats.children().length) //add chat id 
-            ChatModel.prop("id", chatInfo.chatId)
+            ChatModel.prop('id', 'itemChat' + avaliableChats.children().length) //add chat id
+            ChatModel.prop('id', chatInfo.chatId)
             avaliableChats['itemChat' + avaliableChats.children().length] = chatInfo //DEPRECATED
             avaliableChats.append(ChatModel)
-
         }
 
-        function addNewMsg(msg, fullInfo) { //add chat infomation miniature
-            let fullChat = $("#fullChat")
-            let allMessages = fullChat.find("#messages")
+        function addNewMsg(msg, fullInfo) {
+            //add chat infomation miniature
+            let fullChat = $('#fullChat')
+            let allMessages = fullChat.find('#messages')
 
-
-
-            allMessages.append(generateElementMessage(fullInfo, fullChat, msg, allMessages.children().length + 1))
+            allMessages.append(
+                generateElementMessage(
+                    fullInfo,
+                    fullChat,
+                    msg,
+                    allMessages.children().length + 1,
+                ),
+            )
             fullChat.animate({
-                scrollTop: allMessages.height()
-            }, 1000)
-
+                    scrollTop: allMessages.height(),
+                },
+                1000,
+            )
         }
 
-        function generateElementMessage(fullChatInfo, fullChatElement, element, id) {
-            let fullMessage = fullChatElement.find("#chatMessage").clone()
+        function generateElementMessage(
+            fullChatInfo,
+            fullChatElement,
+            element,
+            id,
+        ) {
+            let fullMessage = fullChatElement.find('#chatMessage').clone()
 
             let msgTime = new Date(element.messageTime)
 
             //show element
-            fullMessage.removeClass("hidden")
-
+            fullMessage.removeClass('hidden')
 
             //setup current element
-            fullMessage.find("#contactPhoto").attr("src",
-                `${element.isHost ? fullChatInfo.hostImageb64 : fullChatInfo.guestImageb64}`);
-            fullMessage.find("#contactNameChatInternal").text(element.isHost ? fullChatInfo.hostName : fullChatInfo
-                .guestName);
-            fullMessage.find("#contactDateChatInternal").text(toHumanDate(msgTime))
-            fullMessage.find("#content").text(element.content);
+            fullMessage
+                .find('#contactPhoto')
+                .attr(
+                    'src',
+                    `${
+              element.isHost
+                ? fullChatInfo.hostImageb64
+                : fullChatInfo.guestImageb64
+            }`,
+                )
+            fullMessage
+                .find('#contactNameChatInternal')
+                .text(element.isHost ? fullChatInfo.hostName : fullChatInfo.guestName)
+            fullMessage.find('#contactDateChatInternal').text(toHumanDate(msgTime))
+            fullMessage.find('#content').text(element.content)
             fullMessage.prop('id', 'itemChat' + id)
 
             return fullMessage
-
         }
 
-        function populateFullChat(fullChatInfo, messages, fullChatElement, chatId) { //add all messages to full chat
-            $("#contactNameChat").removeClass("dot-spin")
+        function populateFullChat(
+            fullChatInfo,
+            messages,
+            fullChatElement,
+            chatId,
+        ) {
+            //add all messages to full chat
+            $('#contactNameChat').removeClass('dot-spin')
 
             let requestedDates = fullChatInfo.requestedDates
 
-            $("#contactNameChat").text(fullChatInfo.contactName + (fullChatInfo.ending > 0 ? " (Finalizado)" : ""))
-            $(`#datesChat`).text((requestedDates != undefined && requestedDates != "[]" && requestedDates.length > 0) ?
-                "" + toHumanDate(requestedDates[0]) + " a " + toHumanDate(requestedDates[1]) + "" : ' Sem datas')
-            $(`#homeNickName`).text(fullChatInfo.isHost ? "" : `(${fullChatInfo.homeNickName})`)
-            if (requestedDates == undefined || requestedDates == "[]") {
-
+            $('#contactNameChat').text(
+                fullChatInfo.contactName +
+                (fullChatInfo.ending > 0 ? ' (Finalizado)' : ''),
+            )
+            $(`#datesChat`).text(
+                requestedDates != undefined &&
+                requestedDates != '[]' &&
+                requestedDates.length > 0 ?
+                '' +
+                toHumanDate(requestedDates[0]) +
+                ' a ' +
+                toHumanDate(requestedDates[1]) +
+                '' :
+                ' Sem datas',
+            )
+            $(`#homeNickName`).text(
+                fullChatInfo.isHost ? '' : `(${fullChatInfo.homeNickName})`,
+            )
+            if (requestedDates == undefined || requestedDates == '[]') {
                 $(`.fas`).addClass(`fa-info-circle`)
-                $(`.tooltiptext`).text(`Defina datas de hospedagem antes de entar no chat`)
+                $(`.tooltiptext`).text(
+                    `Defina datas de hospedagem antes de entar no chat`,
+                )
             } else {
                 $(`.fas`).removeClass(`fa-info-circle`)
             }
@@ -227,9 +265,13 @@
             currentChatInfo.isHost = fullChatInfo.isHost
             currentChatInfo.ending = fullChatInfo.ending
 
-
-            if (currentChatInfo.isHost && (requestedDates != undefined && requestedDates != "[]" && requestedDates
-                    .length > 0) && currentChatInfo.ending == 0) {
+            if (
+                currentChatInfo.isHost &&
+                requestedDates != undefined &&
+                requestedDates != '[]' &&
+                requestedDates.length > 0 &&
+                currentChatInfo.ending == 0
+            ) {
                 $('.hostOnly').removeClass('hidden')
             } else {
                 $('.hostOnly').addClass('hidden')
@@ -237,291 +279,300 @@
 
             if (fullChatInfo.ending > 0) {
                 $('.respondRequest').addClass('hidden')
-                
             }
 
+            let allMessages = fullChatElement.find('#messages')
 
+            allMessages.find('.chatMessage').slice(1).remove()
 
+            messagesSort = messages.sort((a, b) =>
+                new Date(a.messageTime) <= new Date(b.messageTime) ? -1 : 1,
+            )
 
-            let allMessages = fullChatElement.find("#messages")
-
-            allMessages.find(".chatMessage").slice(1).remove();
-
-            messagesSort = messages.sort((a, b) => (new Date(a.messageTime) <= new Date(b.messageTime)) ? -1 : 1)
-
-
-            messages.forEach(element => {
-
-                allMessages.append(generateElementMessage(fullChatInfo, fullChatElement, element, allMessages
-                    .children().length + 1))
-            });
+            messages.forEach((element) => {
+                allMessages.append(
+                    generateElementMessage(
+                        fullChatInfo,
+                        fullChatElement,
+                        element,
+                        allMessages.children().length + 1,
+                    ),
+                )
+            })
 
             fullChatElement.animate({
-                scrollTop: allMessages.height()
-            }, 1000)
+                    scrollTop: allMessages.height(),
+                },
+                1000,
+            )
         }
 
         function appendChat(e) {
-            var id = e.target.id;
+            var id = e.target.id
             //variables for testing, you could have all of the
             //comparisons in the 'if' statement, just using these to
             //make the 'if' statement more clear
 
-            let isEnterKeypress = e.type == "keypress" && e.keyCode == 13,
-                isSendClick = e.type == "click" && id == "send";
+            let isEnterKeypress = e.type == 'keypress' && e.keyCode == 13,
+                isSendClick = e.type == 'click' && id == 'send'
 
-            if ((isEnterKeypress || isSendClick)) {
+            if (isEnterKeypress || isSendClick) {
                 sendNewMessage('inputMessage')
             }
         }
 
-        $(document).on("keypress", "#inputMessage", appendChat)
-
-
-
-
-
+        $(document).on('keypress', '#inputMessage', appendChat)
 
         let clickItemChat = (e) => {
-            var clickedBtnID = e.attr('id'); // get caht id from database and infos from chat all
+            var clickedBtnID = e.attr('id') // get caht id from database and infos from chat all
             var fullInfo = chatsInfos[clickedBtnID]
 
             $('#chatBlock').addClass('hidden')
             $('#loadingScreen').removeClass('hidden')
 
-            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
-            e.find("#information").addClass("button_bg_meio_alpha") //add selected chat
+            $('.itemChat').find('#information').removeClass('button_bg_meio_alpha') //reset selected chat
+            e.find('#information').addClass('button_bg_meio_alpha') //add selected chat
 
-
-            if (screen.width < 640) { //for cel show one at a time
-                changeVisibility("avaliableChats")
-                changeVisibility("fullChatBLockCel")
+            if (screen.width < 640) {
+                //for cel show one at a time
+                changeVisibility('avaliableChats')
+                changeVisibility('fullChatBLockCel')
             }
 
+            let fullChat = $('#fullChat') //fullchat get
 
-            let fullChat = $("#fullChat") //fullchat get
+            $('#contactNameChat').addClass('dot-spin')
+            $('#contactNameChat').text('')
 
-            $("#contactNameChat").addClass("dot-spin")
-            $("#contactNameChat").text("")
-
-            $.ajax({ //get messages from database
+            $.ajax({
+                //get messages from database
                 url: `${getCurrentChatBaseUri()}/messages/get`,
-                type: "POST",
+                type: 'POST',
                 headers: {
-                    "Authorization": authCookie
+                    Authorization: authCookie,
                 },
                 data: JSON.stringify({
-                    chatId: clickedBtnID
+                    chatId: clickedBtnID,
                 }),
-                contentType: "application/json",
+                contentType: 'application/json',
 
                 success: (msgsString) => {
                     $('#loadingScreen').addClass('hidden')
-                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
-                        msgsString), fullChat, clickedBtnID))
-                }
+                    getS3ProfilePics(fullInfo).then((x) =>
+                        populateFullChat(
+                            fullInfo,
+                            JSON.parse(msgsString),
+                            fullChat,
+                            clickedBtnID,
+                        ),
+                    )
+                },
             })
         }
 
-
         //add chats click to load full chat
-        $(document).on("click", ".itemChat", function () {
-            var clickedBtnID = $(this).attr('id'); // get caht id from database and infos from chat all
+        $(document).on('click', '.itemChat', function () {
+            var clickedBtnID = $(this).attr('id') // get caht id from database and infos from chat all
             var fullInfo = chatsInfos[clickedBtnID]
 
             $('#chatBlock').addClass('hidden')
 
-            $("#loadingScreen").removeClass("hidden")
+            $('#loadingScreen').removeClass('hidden')
 
-            $(".itemChat").find("#information").removeClass("button_bg_meio_alpha") //reset selected chat
-            $(this).find("#information").addClass("button_bg_meio_alpha") //add selected chat
+            $('.itemChat').find('#information').removeClass('button_bg_meio_alpha') //reset selected chat
+            $(this).find('#information').addClass('button_bg_meio_alpha') //add selected chat
 
-
-            if (screen.width < 640) { //for cel show one at a time
-                changeVisibility("avaliableChats")
-                changeVisibility("fullChatBLockCel")
+            if (screen.width < 640) {
+                //for cel show one at a time
+                changeVisibility('avaliableChats')
+                changeVisibility('fullChatBLockCel')
             }
 
+            let fullChat = $('#fullChat') //fullchat get
 
-            let fullChat = $("#fullChat") //fullchat get
+            $('#contactNameChat').addClass('dot-spin')
+            $('#contactNameChat').text('')
 
-            $("#contactNameChat").addClass("dot-spin")
-            $("#contactNameChat").text("")
-
-            $.ajax({ //get messages from database
+            $.ajax({
+                //get messages from database
                 url: `${getCurrentChatBaseUri()}/messages/get`,
-                type: "POST",
+                type: 'POST',
                 headers: {
-                    "Authorization": authCookie
+                    Authorization: authCookie,
                 },
                 data: JSON.stringify({
-                    chatId: clickedBtnID
+                    chatId: clickedBtnID,
                 }),
-                contentType: "application/json",
+                contentType: 'application/json',
 
                 success: (msgsString) => {
-                    $("#loadingScreen").addClass("hidden")
-                    getS3ProfilePics(fullInfo).then((x) => populateFullChat(fullInfo, JSON.parse(
-                        msgsString), fullChat, clickedBtnID))
-                }
+                    $('#loadingScreen').addClass('hidden')
+                    getS3ProfilePics(fullInfo).then((x) =>
+                        populateFullChat(
+                            fullInfo,
+                            JSON.parse(msgsString),
+                            fullChat,
+                            clickedBtnID,
+                        ),
+                    )
+                },
             })
-        });
+        })
 
-
-
-        $(document).on("click", ".removeWarn", function () {
+        $(document).on('click', '.removeWarn', function () {
             $(this).parent().parent().addClass('hidden')
             $('html, body').css({
                 overflow: 'auto',
-                height: 'auto'
-            });
+                height: 'auto',
+            })
         })
 
-
-
-
-        function sendNewMessage(messageId) { //TODO send new message
+        function sendNewMessage(messageId) {
+            //TODO send new message
             let messageElement = $(`#${messageId}`)
             let messageContent = messageElement.val()
             $(`#loadMSg`).removeClass('hidden')
             let chInfo = chatsInfos[currentChatInfo.chatId]
             let nowDate = new Date()
             addNewMsg({
-                messageTime: nowDate.toString(),
-                isHost: clientInfo.ClientId == chInfo.hostId,
-                content: messageContent
-            }, chatsInfos[currentChatInfo.chatId]) //TODO get from server
+                    messageTime: nowDate.toString(),
+                    isHost: clientInfo.ClientId == chInfo.hostId,
+                    content: messageContent,
+                },
+                chatsInfos[currentChatInfo.chatId],
+            ) //TODO get from server
 
             $.ajax({
                 url: `${getCurrentChatBaseUri()}/messages/add`,
-                type: "POST",
+                type: 'POST',
                 headers: {
-                    "Authorization": authCookie
+                    Authorization: authCookie,
                 },
                 data: JSON.stringify({
-                        "chatId": currentChatInfo.chatId,
-                        "messageContent": messageContent,
-                        "clientId": clientInfo.ClientId,
-                        "isHost": currentChatInfo.isHost,
-                        "clientIdHost": currentChatInfo.hostId != clientInfo.ClientId ? currentChatInfo
-                            .hostId : currentChatInfo.guestId,
-                    }
-
-
-
-                ),
-                contentType: "application/json",
+                    chatId: currentChatInfo.chatId,
+                    messageContent: messageContent,
+                    clientId: clientInfo.ClientId,
+                    isHost: currentChatInfo.isHost,
+                    clientIdHost: currentChatInfo.hostId != clientInfo.ClientId ?
+                        currentChatInfo.hostId :
+                        currentChatInfo.guestId,
+                }),
+                contentType: 'application/json',
 
                 success: (msgsString) => {
-
                     let msgs = JSON.parse(msgsString)
                     $(`#loadMSg`).addClass('hidden')
-                }
+                },
             })
 
-
-
-
-
-            messageElement.val("")
+            messageElement.val('')
         }
     </script>
 
     <script id="respondFunction">
-        function resolveChat(accept) { 
-
+        function resolveChat(accept) {
             $('.respondRequest').addClass('hidden')
 
-
-            $("#loadingScreen").removeClass("hidden")
+            $('#loadingScreen').removeClass('hidden')
 
             let chatSettings = {
-                "chatId": currentChatInfo.chatId,
-                "response": accept ? 2 : 1,
+                chatId: currentChatInfo.chatId,
+                response: accept ? 2 : 1,
             }
 
             $.ajax({
                 url: `${getCurrentChatBaseUri()}/host/request/respond`,
-                type: "POST",
+                type: 'POST',
                 headers: {
-                    "Authorization": authCookie
+                    Authorization: authCookie,
                 },
                 data: JSON.stringify(chatSettings),
-                contentType: "application/json",
+                contentType: 'application/json',
 
                 success: (resp) => {
-                    window.scrollTo(0, 0);
+                    window.scrollTo(0, 0)
                     if (accept != 1) {
                         $('#showWarn').removeClass('hidden')
                     } else {
                         $('#showWarn1').removeClass('hidden')
                     }
 
-                    $("#loadingScreen").addClass("hidden")
-
+                    $('#loadingScreen').addClass('hidden')
 
                     $('html, body').css({
                         overflow: 'hidden',
-                        height: '100%'
-                    });
+                        height: '100%',
+                    })
 
                     //$('#showWarn').removeClass('hidden')
                     //window.location.href = "/dashboard/chat"
-                }
+                },
             })
         }
     </script>
+
+    <!--- REMOVER TODO REMOVER !!!!!!!!!1-->
+    <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
+        <script>
+            $(document).ready(function () {
+                if (sessionStorage.getItem('devMode') == 'yes') {
+                    console.log('hello')
+                    $('#devModeShow').removeClass('hidden')
+                }
+            })
+        </script>
+        <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
+            <p class="font-black text-white text-center align-middle">DEV MODE</p>
+        </div>
+    </div>
 
     <script id="loadChatsFunction">
         //load chats from tokenn
         window.onload = function () {
             checkCurrentUser()
-            const urlParams = new URLSearchParams(window.location.search);
-            const clientId = urlParams.get('chat');
-            const chatId = urlParams.get('chatId');
+            const urlParams = new URLSearchParams(window.location.search)
+            const clientId = urlParams.get('chat')
+            const chatId = urlParams.get('chatId')
 
             $.ajax({
                 url: `${getCurrentChatBaseUri()}/getChats`,
-                type: "POST",
+                type: 'POST',
                 headers: {
-                    "Authorization": authCookie
+                    Authorization: authCookie,
                 },
                 data: JSON.stringify({
                     clientId: clientInfo.ClientId,
-                    ending: -1
+                    ending: -1,
                 }),
-                contentType: "application/json",
+                contentType: 'application/json',
 
                 success: (msgsString) => {
-
-                    $("#loadingScreen").addClass("hidden")
+                    $('#loadingScreen').addClass('hidden')
 
                     let msgs = JSON.parse(msgsString)
 
-
-
-                    msgs.sort((a, b) => (a.lastDate > b.lastDate) ? -1 : 1)
+                    msgs.sort((a, b) => (a.lastDate > b.lastDate ? -1 : 1))
 
                     if (msgs.length == 0) {
-
                         $('#showWarnNoChat').removeClass('hidden')
                     }
-                    msgs.forEach(msg => {
+                    msgs.forEach((msg) => {
                         let chatInfo = {
-                            contactName: clientInfo.ClientId == msg.hostId ? msg.guestName :
+                            contactName: clientInfo.ClientId == msg.hostId ?
+                                msg.guestName :
                                 msg.hostName,
-                            lastMessage: "...",
-                            chatId: msg.chatId
+                            lastMessage: '...',
+                            chatId: msg.chatId,
                         }
 
                         addChat(chatInfo, msg)
-                    });
+                    })
 
                     defineReadChat(msgs)
 
                     if (clientId != undefined && clientId.length > 0) {
                         let homesArray = Object.values(chatsInfos)
-                        let chatHostId = homesArray.filter(x => x.hostId == clientId)
+                        let chatHostId = homesArray.filter((x) => x.hostId == clientId)
                         //console.log(localChatInfo)
                         clickItemChat($(`#${chatHostId[0].chatId}`))
                         //clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
@@ -530,12 +581,8 @@
                     } else {
                         clickItemChat($(`#avaliableChats:nth-child(2)`).children().eq(1))
                     }
-
-
-                }
+                },
             })
-
-
         }
     </script>
 
@@ -543,15 +590,15 @@
         $(document).ready(() => {
             checkCurrentUser()
             changeUserName($(`#userNameDrop`))
-            getUserPoints().then(userPoints => {
-                $("#pointsUser").text(userPoints)
-                $("#pointsUserCel").text(userPoints)
-
+            getUserPoints().then((userPoints) => {
+                $('#pointsUser').text(userPoints)
+                $('#pointsUserCel').text(userPoints)
             })
-        });
+        })
     </script>
 
-    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center" id="loadingScreen">
+    <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center"
+        id="loadingScreen">
         <div class="loading dot-pulse"></div>
     </div>
 
@@ -563,123 +610,108 @@
                 <div class="">
                     <i class="fas fa-times"></i>
                 </div>
-
-
             </div>
 
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Que pena! Você recusou a solicitação do
-                hóspede.
-                <br> Gostaria de nos dizer o motivo?
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
+                Que pena! Você recusou a solicitação do hóspede.
+                <br />
+                Gostaria de nos dizer o motivo?
             </h1>
 
-
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Podem nos contatar através do email
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">
+                Podem nos contatar através do email
                 <a href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
             </h1>
-
         </div>
     </div>
 
-
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarn1">
-
         <div
             class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
-            <div class="flex justify-end items-start w-full h-10  removeWarn">
+            <div class="flex justify-end items-start w-full h-10 removeWarn">
                 <div class="h-2">
                     <i class="fas fa-times"></i>
                 </div>
-
             </div>
-            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">Ótimo! Você aceitou a solicitação do
-                hóspede.
-                <br>Esperamos que tenha tido uma excelente experiência até agora.
+            <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
+                Ótimo! Você aceitou a solicitação do hóspede.
+                <br />
+                Esperamos que tenha tido uma excelente experiência até agora.
             </h1>
 
-
-            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">Para nos dar algum feedback
-                importante não deixe de nos contatar em <a
-                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
+            <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">
+                Para nos dar algum feedback importante não deixe de nos contatar em
+                <a href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a>
             </h1>
-
         </div>
     </div>
 
     <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"
         id="showWarnNoChat">
-
         <div
             class="flex flex-col shadow-2xl bg-white h-4/6 md:h-auto w-11/12 md:w-2/6 rounded-md items-center p-10 justify-between">
-            <div class="flex justify-end items-start w-full h-10  removeWarn">
+            <div class="flex justify-end items-start w-full h-10 removeWarn">
                 <div class="h-2">
                     <i class="fas fa-times"></i>
                 </div>
-
             </div>
             <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
                 Você ainda não tem mensagens.
-                <a href="/dashboard/buscador">Explore</a> nosso site e comece uma conversa com outro membro Yô.
-
+                <a href="/dashboard/buscador">Explore</a>
+                nosso site e comece uma conversa com outro membro Yô.
             </h1>
-
-
         </div>
     </div>
 
     <div class="flex flex-col">
         <div class="md:h-screen">
-
-            <header class="relative bg-no-repeat bg-cover p-10 md:p-4  z-5 bg-bottom lg:bg-center">
-
+            <header class="relative bg-no-repeat bg-cover p-10 md:p-4 z-5 bg-bottom lg:bg-center">
                 <script>
                     function removeCookie() {
-                        document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                        document.cookie =
+                            'login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/'
                     }
                 </script>
                 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-                <link rel="stylesheet" href="./style/header.css">
+                <link rel="stylesheet" href="./style/header.css" />
                 <script>
                     function toggle(id) {
-                        $(`#${id}`).toggleClass('hidden');
+                        $(`#${id}`).toggleClass('hidden')
                     }
                 </script>
                 <script>
                     $(document).ready(function () {
                         $('.minus-guests').click(function () {
-                            var $input = $(this).parent().find('.input');
-                            var count = parseInt($input.text()) - 1;
-                            count = count < 1 ? 1 : count;
-                            $input.text(count);
+                            var $input = $(this).parent().find('.input')
+                            var count = parseInt($input.text()) - 1
+                            count = count < 1 ? 1 : count
+                            $input.text(count)
                             $(`#total_guests`).text(`${count}`)
-                            return false;
-                        });
+                            return false
+                        })
                         $('.plus-guests').click(function () {
-                            var $input = $(this).parent().find('.input');
-                            $input.text(parseInt($input.text()) + 1);
+                            var $input = $(this).parent().find('.input')
+                            $input.text(parseInt($input.text()) + 1)
                             $(`#total_guests`).text(`${$input.text()}`)
-                            return false;
-                        });
-                    });
+                            return false
+                        })
+                    })
                 </script>
 
                 <div class="relative flex items-center justify-between mb-20 md:mb-0">
                     <a href="/home">
                         <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
-                            <div id="logo" class=" w-36" onclick="window.location.href='/home'">
-                                <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval">
+                            <div id="logo" class="w-36" onclick="window.location.href='/home'">
+                                <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval" />
                             </div>
                         </div>
                     </a>
 
-
-
                     <!-- remove absolute and relative-->
                     <div id="buscador"
                         class="absolute top-28 md:top-0 md:relative w-auto h-16 md:h-20 header_color grid grid-cols-2 grid-rows-1 px-10 rounded-full">
-
-
-                        <div class="hidden absolute mt-2 py-2 w-3/6  md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
+                        <div class="hidden absolute mt-2 py-2 w-3/6 md:w-1/6 top-20 hidden bg-white rounded-lg shadow-xl z-20"
                             id="location_dropdown">
                             <a href="#"
                                 class="block px-4 py-2 text-sm capitalize usuario_font hover:button_bg hover:text-black"
@@ -703,80 +735,70 @@
                             </a>
                         </div>
 
-                        <div class="hidden h-full col-span-1 md:py-10 flex justify-start items-center  text-white font-semibold cursor-pointer"
+                        <div class="hidden h-full col-span-1 md:py-10 flex justify-start items-center text-white font-semibold cursor-pointer"
                             id="location_type" onclick="toggle(`location_dropdown`)">
                             Todos os destinos
                         </div>
                         <div
-                            class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20 ">
-
+                            class="hidden h-full col-span-1 md:py-10 flex justify-end items-center gap-x-10 md:gap-x-20">
                             <div class="flex flex-row gap-2 cursor-pointer justify-center items-center" onclick="
                                 toggle(`total_guests_dropdown`)">
-                                <div class="h-10 w-px button_bg_meio_alpha "></div>
-                                <p class="text-white font-semibold ml-10" id="total_guests">1 </p>
-                                <p class="text-white font-semibold hidden md:block">hóspede(s) </p>
+                                <div class="h-10 w-px button_bg_meio_alpha"></div>
+                                <p class="text-white font-semibold ml-10" id="total_guests">
+                                    1
+                                </p>
+                                <p class="text-white font-semibold hidden md:block">
+                                    hóspede(s)
+                                </p>
                                 <div class="flex justify-center items-center md:hidden">
-                                    <i class=" fas fa-user text-white"></i>
+                                    <i class="fas fa-user text-white"></i>
                                 </div>
-                                <div class="absolute mt-2 py-2 w-3/6  md:w-1/6 top-16 rounded-lg hidden  z-20"
+                                <div class="absolute mt-2 py-2 w-3/6 md:w-1/6 top-16 rounded-lg hidden z-20"
                                     id="total_guests_dropdown">
-                                    <div class="number  header_color_alpha p-4 rounded-lg" id="">
+                                    <div class="number header_color_alpha p-4 rounded-lg" id="">
                                         <div class="flex justify-end contador gap-x-4">
                                             <div
-                                                class="h-full w-10 minus-guests cursor-pointer   rounded-full button_bg flex justify-center">
-                                                -</div>
+                                                class="h-full w-10 minus-guests cursor-pointer rounded-full button_bg flex justify-center">
+                                                -
+                                            </div>
                                             <h1 class="input text-white">1</h1>
                                             <div
-                                                class="h-full w-10 plus-guests cursor-pointer  rounded-full button_bg flex justify-center">
-                                                +</div>
-
+                                                class="h-full w-10 plus-guests cursor-pointer rounded-full button_bg flex justify-center">
+                                                +
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
 
-
-
                             <a onclick="populateHomes()"
-                                class="hidden md:block  cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                                class="hidden md:block cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                                 <p class="text-black font-semibold">Explorar</p>
-
                             </a>
 
-                            <button class="md:hidden rounded-full px-2  button_bg usuario_font">
+                            <button class="md:hidden rounded-full px-2 button_bg usuario_font">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
 
                         <div class="w-full h-full flex justify-center col-span-2 items-center">
                             <a href="/dashboard/buscador"
-                                class="block my-2   cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
+                                class="block my-2 cursor-pointer border-green_light px-14 py-2 rounded-full button_bg hover:bg-gray-300 hover:border-gray-300 border-4 md:inline-flex items-center">
                                 <p class="text-black font-semibold">Explorar</p>
-
                             </a>
                         </div>
 
-                        <div class=" w-full h-px flex justify-center md:col-span-2 items-center md:px-72">
-                            <a class="block h-px px-14 hover:border-gray-300  md:inline-flex items-center">
-
-                            </a>
+                        <div class="w-full h-px flex justify-center md:col-span-2 items-center md:px-72">
+                            <a class="block h-px px-14 hover:border-gray-300 md:inline-flex items-center"></a>
                         </div>
-
-
-
-
-
                     </div>
-
-
-
-
 
                     <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
                         <a href="#" @click="dropdownOpen = !dropdownOpen"
-                            class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
-                            <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">Usuário</p>
+                            class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light hidden md:inline-flex items-center">
+                            <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">
+                                Usuário
+                            </p>
                             <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
                         </a>
 
@@ -785,14 +807,11 @@
                             <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
                         </a>
 
-
-
                         <div x-show="dropdownOpen" @click="dropdownOpen = false"
                             class="fixed inset-0 h-full w-full z-10"></div>
 
                         <div x-show="dropdownOpen"
                             class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
-
                             <a onclick="location.href='/onboarding'"
                                 class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
                                 Editar Cadastro
@@ -807,249 +826,202 @@
                             </a>
 
                             <a id="parentPoints" onclick="location.href='/usuario'"
-                                class="flex justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                                Pontuação: <div id="pointsUser"
-                                    class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+                                class="flex justify-between text-base font-normal cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                Pontuação:
+                                <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
                             </a>
 
                             <a href="/home" onclick="removeCookie()"
                                 class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
                                 Log out
                             </a>
-
-
-
                         </div>
                     </div>
-
-
-
-
                 </div>
-
-
-
             </header>
             <div class="px-10 md:px-16 md:h-3/4">
-
-
                 <div class="w-full md:h-full h-auto grid md:grid-cols-4 md:grid-rows-1" id="chats">
-                    <div class="block md:flex flex-col " id="">
+                    <div class="block md:flex flex-col" id="">
                         <div class="w-11/12 flex justify-start flex-col">
-                            <div class="flex justify-end items-end h-5 w-full  removeMessages sm:hidden">
+                            <div class="flex justify-end items-end h-5 w-full removeMessages sm:hidden">
                                 <div class="">
                                     <i class="fas fa-times"></i>
                                 </div>
-
-
                             </div>
                             <h1 id="Message" class="p-3 text-4xl md:text-4xl font-extrabold usuario_font_warp">
                                 Mensagens
                             </h1>
-                            <p id="HelpMessage" class="p-3 text-xs md:text-xs  usuario_font_warp">
-                                Você tem alguma dúvida? Estamos aqui para te ajudar. Entre em contato com o nosso
-                                serviço de
-                                assistência enviando um e-mail para <a class="font-extrabold"
-                                    href="mailto:contato@yocasas.com.br">contato@yocasas.com.br</a> Teremos o maior
-                                prazer em
-                                tirar suas dúvidas.
+                            <p id="HelpMessage" class="p-3 text-xs md:text-xs usuario_font_warp">
+                                Você tem alguma dúvida? Estamos aqui para te ajudar. Entre em
+                                contato com o nosso serviço de assistência enviando um e-mail
+                                para
+                                <a class="font-extrabold" href="mailto:contato@yocasas.com.br">
+                                    contato@yocasas.com.br
+                                </a>
+                                Teremos o maior prazer em tirar suas dúvidas.
                             </p>
                         </div>
                         <div class="overflow-y-scroll h-4/5" id="avaliableChats">
-                            <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer "
+                            <div class="w-11/12 flex justify-center flex-col items-center hidden itemChat cursor-pointer"
                                 id="itemChat">
                                 <div class="w-full flex rounded-lg p-4" id="information">
                                     <div class="w-3/12 flex justify-start items-center">
                                         <div class="h-14 w-14 rounded-full" id="imgChat">
-                                            <img class="object-cover h-full w-full rounded-full "
-                                                src="Assets/PERFIL.svg">
+                                            <img class="object-cover h-full w-full rounded-full"
+                                                src="Assets/PERFIL.svg" />
                                         </div>
                                     </div>
-                                    <div class=" w-7/12 " id="chatInfo">
+                                    <div class="w-7/12" id="chatInfo">
                                         <div class="flex flex-col">
-                                            <i class="w-full font-extrabold text-1xl md:text-xs usuario_font_warp "
+                                            <i class="w-full font-extrabold text-1xl md:text-xs usuario_font_warp"
                                                 id="isHost"></i>
                                             <h1 id="contactName"
-                                                class="select-none w-full font-extrabold  text-1xl md:text-2xl usuario_font_warp">
-                                                Julio
-                                                L.
+                                                class="select-none w-full font-extrabold text-1xl md:text-2xl usuario_font_warp">
+                                                Julio L.
                                             </h1>
 
                                             <!--fas fa-crown-->
                                         </div>
-                                        <p id="lastMessage" class="clamp_line_2 hidden">Lorem ipsum dolor sit amet,
-                                            consectetur
-                                            adipisicing
-                                            elit. Officia, rerum
-                                            dicta Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta velit
-                                            qui
-                                            laboriosam eos optio quasi ad laudantium repudiandae dicta doloribus
-                                            voluptates
-                                            similique praesentium cumque nulla eligendi numquam, cum laborum quidem.
-                                            Lorem ipsum
-                                            dolor sit amet consectetur adipisicing elit. Recusandae et facilis quaerat
-                                            repudiandae
-                                            mollitia fugit perspiciatis alias vero a harum aspernatur sed consequatur,
-                                            itaque
-                                            nostrum quia modi vitae, temporibus saepe!</p>
+                                        <p id="lastMessage" class="clamp_line_2 hidden">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing
+                                            elit. Officia, rerum dicta Lorem ipsum dolor sit amet
+                                            consectetur adipisicing elit. Soluta velit qui
+                                            laboriosam eos optio quasi ad laudantium repudiandae
+                                            dicta doloribus voluptates similique praesentium cumque
+                                            nulla eligendi numquam, cum laborum quidem. Lorem ipsum
+                                            dolor sit amet consectetur adipisicing elit. Recusandae
+                                            et facilis quaerat repudiandae mollitia fugit
+                                            perspiciatis alias vero a harum aspernatur sed
+                                            consequatur, itaque nostrum quia modi vitae, temporibus
+                                            saepe!
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="w-full flex items-center justify-center p-2">
                                     <div id="hr" class="w-full h-px header_color"></div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-                    <div class="md:col-span-3 w-full h-full hidden md:flex md:flex-col " id="fullChatBLockCel">
-                        <div class="w-full h-20 ">
-                            <div class="p-2 ">
+                    <div class="md:col-span-3 w-full h-full hidden md:flex md:flex-col" id="fullChatBLockCel">
+                        <div class="w-full h-20">
+                            <div class="p-2">
                                 <div class="w-full flex flex-col justify-center md:justify-center">
                                     <h1 id="contactNameChat"
                                         class="pt-3 text-3xl md:text-3x1 usuario_font_warp min-full stage flex items-center justify-center">
                                         Nenhum chat selecionado
                                     </h1>
                                     <div class="flex items-center justify-center">
-                                        <h1 id="homeNickName" class=" text-sm md:text-sm usuario_font_warp stage ">
-
-                                        </h1>
-
+                                        <h1 id="homeNickName" class="text-sm md:text-sm usuario_font_warp stage"></h1>
                                     </div>
                                     <div class="flex items-center justify-center">
-                                        <h1 id="datesChat" class=" text-xs md:text-xs usuario_font_warp stage ">
-
-                                        </h1>
+                                        <h1 id="datesChat" class="text-xs md:text-xs usuario_font_warp stage"></h1>
                                         <div class="tooltip text-xs fas fa-info-circle ml-2">
-                                            <span class="tooltiptext">Selecione um chat ao lado</span>
+                                            <span class="tooltiptext">
+                                                Selecione um chat ao lado
+                                            </span>
                                         </div>
                                     </div>
-
-
                                 </div>
                                 <!--<div class="w-full flex items-center justify-center">
                             <div id="hr" class="w-11/12 h-px header_color "></div>
                         </div>-->
                             </div>
-
-
-
-
                         </div>
-                        <div class=" overflow-y-scroll h-90%-screen md:h-full  " id="fullChat">
-
+                        <div class="overflow-y-scroll h-90%-screen md:h-full" id="fullChat">
                             <div id="messages">
-                                <div class="w-full hidden  flex py-3 px-6 chatMessage" id="chatMessage">
+                                <div class="w-full hidden flex py-3 px-6 chatMessage" id="chatMessage">
                                     <div class="hidden md:block w-1/12 flex justify-center items-start">
                                         <!--less -->
                                         <div class="h-8 w-8 md:h-14 md:w-14 rounded-full" id="imgChat">
-                                            <img class="object-cover h-full w-full rounded-full "
-                                                src="Assets/PERFIL.svg" id="contactPhoto">
+                                            <img class="object-cover h-full w-full rounded-full" src="Assets/PERFIL.svg"
+                                                id="contactPhoto" />
                                         </div>
                                     </div>
-                                    <div class=" w-11/12" id="chatInfo">
+                                    <div class="w-11/12" id="chatInfo">
                                         <div class="flex w-full">
                                             <h1 class="text-xl md:text-2xl usuario_font_warp"
                                                 id="contactNameChatInternal">
                                                 Lucas L.
                                             </h1>
-                                            <h1 class=" align-bottom text-sm  md:text-sm usuario_font_warp ml-20"
+                                            <h1 class="align-bottom text-sm md:text-sm usuario_font_warp ml-20"
                                                 id="contactDateChatInternal">
                                                 2019
                                             </h1>
                                         </div>
 
-                                        <p id="content" class="py-3 content classificacao_texto text-sm">Lorem ipsum
-                                            dolor sit amet consectetur
-                                            adipisicing
-                                            elit.
-                                            Error
-                                            asperiores illum id! Neque aliquid saepe doloremque sint tempora natus quam
-                                            repudiandae
-                                            numquam? Blanditiis, harum assumenda veritatis quasi ipsum impedit culpa.
-                                            Lorem
-                                            ipsum
-                                            dolor
-                                            sit amet consectetur adipisicing elit. Aperiam quod beatae alias cum tempore
-                                            nostrum
-                                            laborum
-                                            tempora. Libero, molestiae sint. Officia commodi ducimus inventore eum
-                                            voluptate
-                                            velit
-                                            ab
-                                            obcaecati qui. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                                            Totam,
-                                            debitis
-                                            ullam aliquam natus nulla numquam aperiam neque recusandae, dicta, doloribus
-                                            blanditiis
-                                            maiores doloremque molestiae accusamus vero. Minima adipisci nobis nemo.</p>
+                                        <p id="content" class="py-3 content classificacao_texto text-sm">
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                            Error asperiores illum id! Neque aliquid saepe
+                                            doloremque sint tempora natus quam repudiandae numquam?
+                                            Blanditiis, harum assumenda veritatis quasi ipsum
+                                            impedit culpa. Lorem ipsum dolor sit amet consectetur
+                                            adipisicing elit. Aperiam quod beatae alias cum tempore
+                                            nostrum laborum tempora. Libero, molestiae sint. Officia
+                                            commodi ducimus inventore eum voluptate velit ab
+                                            obcaecati qui. Lorem ipsum dolor, sit amet consectetur
+                                            adipisicing elit. Totam, debitis ullam aliquam natus
+                                            nulla numquam aperiam neque recusandae, dicta, doloribus
+                                            blanditiis maiores doloremque molestiae accusamus vero.
+                                            Minima adipisci nobis nemo.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class=" w-full flex justify-end gap-4" id="approveReserve">
-                            <div class="absolute flex  justify-start bottom-36 px-5">
-
-
+                        <div class="w-full flex justify-end gap-4" id="approveReserve">
+                            <div class="absolute flex justify-start bottom-36 px-5">
                                 <button onclick="resolveChat(false)" href="#"
-                                    class="respondRequest h-10 left-0  relative hostOnly hidden  cadastro-button header_color text-white px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">Recusar
-                                    reserva</button>
+                                    class="respondRequest h-10 left-0 relative hostOnly hidden cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
+                                    Recusar reserva
+                                </button>
                                 <button onclick="resolveChat(true)" href="#"
-                                    class="respondRequest h-10 left-0 mx-2 md:mx-10  relative hostOnly hidden cadastro-button bg-green_light px-1 md:px-10  rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">Aceitar
-                                    reserva</button>
-
-
+                                    class="respondRequest h-10 left-0 mx-2 md:mx-10 relative hostOnly hidden cadastro-button bg-green_light px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 text-center border-green_light text-green_dark">
+                                    Aceitar reserva
+                                </button>
                             </div>
-
                         </div>
-                        <div class=" w-full h-auto justify-center md:px-10" id="sendBar">
+                        <div class="w-full h-auto justify-center md:px-10" id="sendBar">
                             <!-- relative: -->
                             <div class="w-full h-4 flex justify-center items-center">
-                                <div class=" bg-grey-400 dot-elastic hidden" id="loadMSg"></div>
+                                <div class="bg-grey-400 dot-elastic hidden" id="loadMSg"></div>
                             </div>
-                            <div class="z-30 mt-10 md:mt-0  w-full flex pb-10 sm:pb-0">
+                            <div class="z-30 mt-10 md:mt-0 w-full flex pb-10 sm:pb-0">
                                 <textarea type="text" placeholder="Escreva uma mensagem" id="inputMessage"
-                                    class=" w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 md:pl-12 borda_filtro rounded-full h-12"></textarea>
+                                    class="w-11/12 focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-3 md:pl-12 borda_filtro rounded-full h-12"></textarea>
                                 <div class="w-20 flex items-center justify-center">
-                                    <button class=" w-2/3 h-full rounded-full button_bg"
-                                        onclick="sendNewMessage('inputMessage')"><i class="fa fa-paper-plane"
-                                            aria-hidden="true"></i></button>
+                                    <button class="w-2/3 h-full rounded-full button_bg"
+                                        onclick="sendNewMessage('inputMessage')">
+                                        <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    </button>
                                 </div>
                                 <div class="absolute w-8/12 h-12 z-10 button_bg opacity-70 rounded-full flex items-center justify-center"
                                     id="chatBlock">
                                     <!--TODO remove chat block-->
-                                    <p class="classificacao_texto font-normal">Escolha um chat ao lado para enviar
-                                        mensagens</p>
+                                    <p class="classificacao_texto font-normal">
+                                        Escolha um chat ao lado para enviar mensagens
+                                    </p>
                                 </div>
                             </div>
-
-
                         </div>
-
-
                     </div>
-
-
                 </div>
-
-
-
             </div>
         </div>
         <footer class="bg-green_medium py-10 text-sm">
-            <div class=" mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
+            <div class="mx-10 mb-6 border-gray-300 px-4 text-center md:text-left lg:px-0">
                 <div class="flex flex-col flex-wrap items-start justify-start w-full">
-
-
-                    <h5 class="text-green_light mb-5 sm:mb-2 text-lg">Você tem alguma dúvida? Estamos aqui para ajudar.
+                    <h5 class="text-green_light mb-5 sm:mb-2 text-lg">
+                        Você tem alguma dúvida? Estamos aqui para ajudar.
                     </h5>
 
                     <div class="flex sm:flex-row flex-col items-center sm:justify-between w-full">
-
                         <div class="sm:flex sm:flex-row mb-10">
-                            <h5 class="text-green_light mb-2 text-lg">Entre em contato conosco através do email:&nbsp;
-                                <h5 class="text-green_light font-bold text-lg">contato@yocasas.com.br</h5>
+                            <h5 class="text-green_light mb-2 text-lg">
+                                Entre em contato conosco através do email:&nbsp;
+                                <h5 class="text-green_light font-bold text-lg">
+                                    contato@yocasas.com.br
+                                </h5>
                             </h5>
                         </div>
 
@@ -1057,40 +1029,51 @@
                             <a class="my-6 mx-1 sm:my-0 sm:mx-0" href="https://wa.me/5511991379972">
                                 <h1>
                                     <span class="sr-only">Whats App</span>
-                                    <img src="Assets/whatsapp.svg" class="h-10 ">
+                                    <img src="Assets/whatsapp.svg" class="h-10" />
                                 </h1>
                             </a>
 
-                            <a class="sm:-my-1 " href="https://www.instagram.com/yo_trocadecasas/">
+                            <a class="sm:-my-1" href="https://www.instagram.com/yo_trocadecasas/">
                                 <h1>
                                     <span class="sr-only">Instagram</span>
-                                    <img src="Assets/instagram.svg" class="h-16 ">
+                                    <img src="Assets/instagram.svg" class="h-16" />
                                 </h1>
                             </a>
                         </div>
-
                     </div>
 
                     <ul class="leading-loose sm:flex sm:flex-row sm:justify-between sm:w-2/5 w-full">
-                        <li><a onclick="location.href='/onboarding'"
-                                class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline"
-                                href="#">Cadastro</a></li>
-                        <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                                href="/home/assets/tabela.pdf" target="_blank">Regras
-                                e pontuação Yô</a></li>
-                        <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                                href="/legal/privacy" target="_blank">Política de privacidade</a></li>
-                        <li><a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
-                                href="/legal/terms" target="_blank">Termos e Condições</a></li>
-
+                        <li>
+                            <a onclick="location.href='/onboarding'"
+                                class="cursor-pointer sm:text-sm text-xl text-green_light hover:underline" href="#">
+                                Cadastro
+                            </a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                                href="/home/assets/tabela.pdf" target="_blank">
+                                Regras e pontuação Yô
+                            </a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                                href="/legal/privacy" target="_blank">
+                                Política de privacidade
+                            </a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer text-green_light hover:underline sm:text-sm text-xl"
+                                href="/legal/terms" target="_blank">
+                                Termos e Condições
+                            </a>
+                        </li>
                     </ul>
-
-
-
                 </div>
             </div>
             <div class="justify-end flex items-center px-4 mx-10 lg:px-0">
-                <p class="text-green_light text-sm pl-2">Copyright &copy; 2021 Yô. All rights reserved.</p>
+                <p class="text-green_light text-sm pl-2">
+                    Copyright &copy; 2021 Yô. All rights reserved.
+                </p>
             </div>
         </footer>
         <!-- <footer class="footer_bg border-t border-gray-300 py-10 text-sm">

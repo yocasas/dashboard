@@ -76,14 +76,14 @@
 
 
     function createAndPopulate(locationType, dbResponse) {
-        
+
         function range(size, startAt = 0) {
             return [...Array(size).keys()].map(i => i + startAt);
         }
 
         function getS3file(name, image, element) {
             let imgSrc = image.find("#img_source")
-            
+
             if (element.b64img == undefined) {
                 checkCurrentUserNoBlock()
                 //''
@@ -484,6 +484,20 @@
 
 
 <body>
+    <!--- REMOVER TODO REMOVER !!!!!!!!!1-->
+    <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
+        <script>
+            $(document).ready(function () {
+                if (sessionStorage.getItem('devMode') == 'yes') {
+                    console.log('hello')
+                    $('#devModeShow').removeClass('hidden')
+                }
+            })
+        </script>
+        <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
+            <p class="font-black text-white text-center align-middle">DEV MODE</p>
+        </div>
+    </div>
 
     <div class="absolute z-30 w-full h-screen bg-gray-900 bg-opacity-50 flex justify-center items-start hidden overflow-y-scroll"
         id="more_filters">

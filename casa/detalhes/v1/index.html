@@ -30,7 +30,7 @@
       })
     }
   </script>
-
+  <script type="text/javascript" src="./script/script.js"></script>
   <script>
     let currentHomeInfo
 
@@ -101,105 +101,6 @@
       })
     }
 
-    Date.prototype.addHours = function (h) {
-      this.setTime(this.getTime() + h * 60 * 60 * 1000)
-      return this
-    }
-
-    function fixTimeZone(date) {
-      let dateSave = new Date(date.getTime())
-      return dateSave.addHours(dateSave.getTimezoneOffset() / 60)
-    }
-
-    function generateAvaliableObj(sortedDatesJSON) {
-      let sortedDatesString = JSON.parse(JSON.stringify(sortedDatesJSON))
-
-      if (sortedDatesString.length == 0) {
-        return {
-          start: new Date(0),
-          end: new Date(0),
-        }
-      }
-
-      let sortedDates = sortedDatesString.map((x) => new Date(x))
-      let sortedDates1 = sortedDatesString.map((x) => new Date(x))
-      //console.log(typeof sortedDates[0])
-
-      let fullDates = []
-
-      if (sortedDates.length > 1) {
-        let initDate = new Date(0)
-        let startDate = new Date(0)
-        let endDate = new Date(0)
-
-        sortedDates.forEach((lastDate) => {
-          initDate = new Date(endDate.getTime())
-          initDate.setDate(initDate.getDate() + 1)
-          if (
-            initDate.getDate() == lastDate.getDate() &&
-            initDate.getFullYear() == lastDate.getFullYear() &&
-            initDate.getMonth() == lastDate.getMonth()
-          ) {
-            endDate = new Date(lastDate.getTime())
-          } else {
-            if (startDate >= new Date()) {
-              let startDateSave = fixTimeZone(startDate)
-              let endDateSave = fixTimeZone(endDate)
-
-              fullDates.push({
-                start: startDateSave,
-                end: endDateSave,
-              })
-            } else if (endDate >= new Date()) {
-              let startDateSave = fixTimeZone(new Date())
-              let endDateSave = fixTimeZone(endDate)
-
-              fullDates.push({
-                start: startDateSave,
-                end: endDateSave,
-              })
-            }
-
-            startDate = new Date(lastDate.getTime())
-            endDate = new Date(lastDate.getTime())
-          }
-        })
-
-        if (startDate >= new Date()) {
-          let startDateSave = fixTimeZone(startDate)
-          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
-
-          fullDates.push({
-            start: startDateSave,
-            end: endDateSave,
-          })
-
-        } else if (endDate >= new Date()) {
-          let startDateSave = fixTimeZone(new Date())
-          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
-
-          fullDates.push({
-            start: startDateSave,
-            end: endDateSave,
-          })
-
-        }
-
-
-
-
-
-        //console.log(arr)
-      } else {
-        fullDates.push({
-          start: new Date(0),
-          end: new Date(0),
-        })
-      }
-
-      return fullDates
-    }
-
     let multiplier
     let vue
 
@@ -232,10 +133,6 @@
           })
         })
       })
-    }
-
-    function checkData(data) {
-      return data != undefined && data.length > 0
     }
 
     let selectedDates
@@ -329,6 +226,7 @@
       })
     }
 
+
     function populateHomes(e) {
       let data = {
         HomeId: e,
@@ -359,6 +257,11 @@
             },
           })
         })
+      }
+
+
+      function checkData(data) {
+        return data != undefined && data.length > 0
       }
 
       let homesShow = $('#homes_show')
@@ -861,9 +764,9 @@
 
       window.scrollTo(0, 0)
       /*$('html, body').css({
-                overflow: 'hidden',
-                height: '100%'
-            });*/
+              overflow: 'hidden',
+              height: '100%'
+          });*/
 
       checkCurrentUserNoBlock()
       if (authCookie != null) {
@@ -1031,6 +934,21 @@
 
   <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
     <div class="loading dot-pulse"></div>
+  </div>
+
+  <!--- REMOVER TODO REMOVER !!!!!!!!!1-->
+  <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
+    <script>
+      $(document).ready(function () {
+        if (sessionStorage.getItem('devMode') == 'yes') {
+          console.log('hello')
+          $('#devModeShow').removeClass('hidden')
+        }
+      })
+    </script>
+    <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
+      <p class="font-black text-white text-center align-middle">DEV MODE</p>
+    </div>
   </div>
 
   <div class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center hidden"

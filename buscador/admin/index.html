@@ -202,6 +202,20 @@
             DEV MODE
         </button>
     </div>
+    <!--- REMOVER TODO REMOVER !!!!!!!!!1-->
+    <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
+        <script>
+            $(document).ready(function () {
+                if (sessionStorage.getItem('devMode') == 'yes') {
+                    console.log('hello')
+                    $('#devModeShow').removeClass('hidden')
+                }
+            })  
+        </script>
+        <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
+            <p class="font-black text-white text-center align-middle">DEV MODE</p>
+        </div>
+    </div>
 </body>
 
 </html>
