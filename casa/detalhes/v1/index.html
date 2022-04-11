@@ -38,6 +38,10 @@
 
     function curateHome(curateStatus, featured = false) {
       window.scrollTo(0, 0)
+      if (!$('.loading').parent().hasClass('hidden')) {
+        alert("Ja existe uma requisição em andamento")
+        return
+      }
       $('.loading').parent().removeClass('hidden')
       $('html, body').css({
         overflow: 'hidden',
@@ -75,30 +79,34 @@
             overflow: 'auto',
             height: 'auto',
           })
+
+          let curateUserUri =
+            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
+
+          if (devMode) {
+            curateUserUri =
+              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
+          }
+
+          $.ajax({
+            url: curateUserUri,
+            type: 'POST',
+            headers: {
+              Authorization: authCookie,
+            },
+            data: JSON.stringify(curateUserSettings),
+            contentType: 'application/json',
+
+            success: (resp) => {
+              location.reload()
+            },
+          })
           //$('#showWarn').removeClass('hidden')
           //window.location.href = "/dashboard/chat"
         },
       })
 
-      let curateUserUri =
-        'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
 
-      if (devMode) {
-        curateUserUri =
-          'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
-      }
-
-      $.ajax({
-        url: curateUserUri,
-        type: 'POST',
-        headers: {
-          Authorization: authCookie,
-        },
-        data: JSON.stringify(curateUserSettings),
-        contentType: 'application/json',
-
-        success: (resp) => {},
-      })
     }
 
     let multiplier
