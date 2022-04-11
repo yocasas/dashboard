@@ -16,6 +16,12 @@
   <script>
     window.dataLayer = window.dataLayer || []
 
+
+    function removeId() {
+      $(this).addClass("remove")
+      $(this).addClass("hidden")
+    }
+
     function gtag() {
       dataLayer.push(arguments)
     }
@@ -55,12 +61,12 @@
 
       function getS3file(name, image, total, y) {
         let s3Uri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
-        if (devMode) {
+        if (checkDevMode()) {
           s3uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
         }
         return new Promise((resolve, reject) => {
           $.ajax({
-            url: s3Uri,
+            url: getCurrentS3Uri(),
             type: 'POST',
             data: JSON.stringify({
               'pic-name': name,
@@ -81,10 +87,11 @@
       }
 
       let homesShow = $('#homes_show')
+      $("#loading").removeClass("hidden")
       checkCurrentUserNoBlock()
       if (authCookie != null) {
         let getHomesDetailedUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
-        if (devMode) {
+        if (checkDevMode()) {
           getHomesDetailedUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
         }
         $.ajax({
@@ -96,6 +103,7 @@
             Authorization: authCookie,
           },
           success: function (x) {
+            $("#loading").addClass("hidden")
             let element = x[0]
             currentHomeInfo = element
 
@@ -124,6 +132,8 @@
                 dafaultHome.removeClass('hidden')
                 dafaultHome.attr('id', idx)
                 dafaultHome.find('.numberphoto').text(idx)
+                dafaultHome.click(removeId)
+                $("#loading").addClass("hidden")
                 $('#photos').append(dafaultHome)
               })
             })
@@ -138,7 +148,10 @@
       return new Promise((resolve, reject) => {
         let totalNewPhotos = []
         $("#photos").children().each(function () {
-          totalNewPhotos.push(oldImages[$(this).attr("id")])
+          if (!$(this).hasClass("hidden")) {
+            totalNewPhotos.push(oldImages[$(this).attr("id")])
+          }
+          
         })
         resolve(totalNewPhotos)
       })
@@ -148,8 +161,9 @@
   <script>
     async function formsRequest() {
       var objForm = currentHomeInfo
+      $("#loading").removeClass("hidden")
       let newS3Images = await makeUrlList(objForm['picturesS3Urls'])
-      objForm['picturesS3Urls'] = newS3Images.slice(0, newS3Images.length>15 ? 15 : newS3Images.length)
+      objForm['picturesS3Urls'] = newS3Images.slice(0, newS3Images.length > 15 ? 15 : newS3Images.length)
 
       var tokens = authCookie.split('.')
       // console.log(atob(tokens[0])); //Alg, Type
@@ -163,7 +177,7 @@
 
       let curateHomeUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate'
 
-      if (devMode) {
+      if (checkDevMode()) {
         curateHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome/curate"
       }
 
@@ -176,7 +190,7 @@
         },
         contentType: 'application/json',
         success: function (data1, textStatus, jqXHR) {
-          alert("15 primeiras imagens foram salvas em ordem")
+          $("#loading").addClass("hidden")
         },
         error: function (jqXHR, textStatus, errorThrown) {
 
@@ -192,6 +206,25 @@
 </head>
 
 <body>
+
+  <!--- REMOVER TODO REMOVER !!!!!!!!!1-->
+  <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
+    <script>
+      $(document).ready(function () {
+        if (sessionStorage.getItem('devMode') == 'yes') {
+          console.log('hello')
+          $('#devModeShow').removeClass('hidden')
+        }
+      })
+    </script>
+    <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
+      <p class="font-black text-white text-center align-middle">DEV MODE</p>
+    </div>
+  </div>
+
+  <div id="loading" class="absolute bg-gray-900 bg-opacity-50 z-30 w-full h-full flex justify-center items-center">
+    <div class="loading dot-pulse"></div>
+  </div>
   <style>
     .dark_green {
       color: rgba(69, 95, 93, 1);
@@ -223,6 +256,12 @@
     $(function () {
       $("#sortable-1").sortable();
     });
+
+
+
+
+
+
 
     function handleImageUpload(event) {
 
@@ -264,7 +303,7 @@
     }
 
     async function handleImageRequest(compressedUrl) {
-
+      $("#loading").removeClass("hidden")
       console.log(compressedUrl)
       let b64file = await blobToBase64(compressedUrl)
       imageObject = {
@@ -272,7 +311,7 @@
       }
       data = JSON.stringify(imageObject)
       let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
-      if (devMode) {
+      if (checkDevMode()) {
         addFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/addfile"
       }
       $.ajax({
@@ -291,6 +330,8 @@
           dafaultHome.removeClass('hidden')
           dafaultHome.attr('id', $("#photos").children().length)
           dafaultHome.find('.numberphoto').text($("#photos").children().length)
+          dafaultHome.click(removeId)
+          $("#loading").addClass("hidden")
           $('#photos').append(dafaultHome)
 
 
@@ -308,8 +349,10 @@
 
   <div class="w-screen h-screen">
     <li id="pictureMain" class="h-60 w-60 hidden">
-      <div class="h-60 w-60 absolute cursor-move">
-
+      <div class="h-60 w-60 absolute cursor-move flex">
+        <div class="h-5 w-5 bg-red-600 cursor-pointer removeID">
+          X
+        </div>
       </div>
       <div id="homePhoto" class="h-40 w-60">
         <img src="https://via.placeholder.com/150" class="h-40 w-60 object-fit" id="imgSource" />
