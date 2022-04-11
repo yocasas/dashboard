@@ -58,8 +58,12 @@
         availableDates: currentHomeInfo.availableDates,
       }
 
+      let clientTypeData = 2
+      if (clientInfo.clientType > 2) {
+        clientTypeData = clientInfo.clientType
+      }
       let curateUserSettings = {
-        clientType: 2,
+        clientType: clientTypeData,
         clientId: currentHomeInfo.clientId,
       }
 
