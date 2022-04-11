@@ -160,6 +160,10 @@
 
   <script>
     async function formsRequest() {
+      if (!$("#loading").hasClass("hidden")) {
+        alert("Ja existe uma requisição em andamento")
+        return
+      }
       var objForm = currentHomeInfo
       $("#loading").removeClass("hidden")
       let newS3Images = await makeUrlList(objForm['picturesS3Urls'])
