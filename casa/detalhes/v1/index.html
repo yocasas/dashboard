@@ -299,7 +299,7 @@
               element['underReview'] != undefined &&
               element['underReview']
             ) {
-              $('#openChat').text('Sob consulta')
+              $('#openChat').text('Solicitar reserva')
               //$('#reservationCalculator').toggleClass('hidden')
             }
             if (element[`state`] != '' && element[`state`] != undefined) {
@@ -1849,11 +1849,17 @@
               Calendário
             </p>
           </div>
+          <div>
+            <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
+              <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
+                @dayclick="onDayClick" />
 
-          <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
-            <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
-              @dayclick="onDayClick" />
+            </div>
+            <p class="text-xs px-15 text-center"><i class="fa fa-info-circle" aria-hidden="true"></i>
+              Datas com marcação simbolizam datas preferidas, <br>
+              com maior chance de aceitação</p>
           </div>
+
 
           <div class="w-full h-24 md:h-32 flex justify-center items-center">
             <button onclick="abrirChat()" class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text"
