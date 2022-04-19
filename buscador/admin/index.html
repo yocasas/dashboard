@@ -14,20 +14,26 @@
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
     <script>
+        function removeCookie() {
+            document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+        }
+
         function toggleDevMode() {
             $('#devMode').toggleClass('bg-green-500')
             $('#devMode').toggleClass('bg-red-500')
             setDevMode()
+            removeCookie()
+            location.href = "/home"
         }
 
         let clientIdArray = []
         $(document).ready(() => {
             checkCurrentUser()
             if (devMode != true) {
-            if (clientInfo.clientType <= 2) {
-                window.location.href = `https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
+                if (clientInfo.clientType <= 2) {
+                    window.location.href = `https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
+                }
             }
-        }
             populateUsers()
             if (checkDevMode()) {
                 $('#devMode').addClass('bg-green-500')
@@ -221,7 +227,7 @@
                     console.log('hello')
                     $('#devModeShow').removeClass('hidden')
                 }
-            })  
+            })
         </script>
         <div class="h-full ml-auto bg-blue-800 flex flex-col justify-around">
             <p class="font-black text-white text-center align-middle">DEV MODE</p>

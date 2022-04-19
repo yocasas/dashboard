@@ -38,6 +38,10 @@
 
     function curateHome(curateStatus, featured = false) {
       window.scrollTo(0, 0)
+      if (!$('.loading').parent().hasClass('hidden')) {
+        alert("Ja existe uma requisição em andamento")
+        return
+      }
       $('.loading').parent().removeClass('hidden')
       $('html, body').css({
         overflow: 'hidden',
@@ -79,30 +83,34 @@
             overflow: 'auto',
             height: 'auto',
           })
+
+          let curateUserUri =
+            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
+
+          if (devMode) {
+            curateUserUri =
+              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
+          }
+
+          $.ajax({
+            url: curateUserUri,
+            type: 'POST',
+            headers: {
+              Authorization: authCookie,
+            },
+            data: JSON.stringify(curateUserSettings),
+            contentType: 'application/json',
+
+            success: (resp) => {
+              location.reload()
+            },
+          })
           //$('#showWarn').removeClass('hidden')
           //window.location.href = "/dashboard/chat"
         },
       })
 
-      let curateUserUri =
-        'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
 
-      if (devMode) {
-        curateUserUri =
-          'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
-      }
-
-      $.ajax({
-        url: curateUserUri,
-        type: 'POST',
-        headers: {
-          Authorization: authCookie,
-        },
-        data: JSON.stringify(curateUserSettings),
-        contentType: 'application/json',
-
-        success: (resp) => {},
-      })
     }
 
     let multiplier
@@ -291,7 +299,7 @@
               element['underReview'] != undefined &&
               element['underReview']
             ) {
-              $('#openChat').text('Sob consulta')
+              $('#openChat').text('Solicitar reserva')
               //$('#reservationCalculator').toggleClass('hidden')
             }
             if (element[`state`] != '' && element[`state`] != undefined) {
@@ -1841,11 +1849,17 @@
               Calendário
             </p>
           </div>
+          <div>
+            <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
+              <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
+                @dayclick="onDayClick" />
 
-          <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
-            <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
-              @dayclick="onDayClick" />
+            </div>
+            <p class="text-xs px-15 text-center"><i class="fa fa-info-circle" aria-hidden="true"></i>
+              Datas com marcação simbolizam datas preferidas, <br>  
+              com maior chance de aceitação</p>
           </div>
+
 
           <div class="w-full h-24 md:h-32 flex justify-center items-center">
             <button onclick="abrirChat()" class="header_color_bt w-2/5 md:w-2/5 h-14 rounded-full button_text"

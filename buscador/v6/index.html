@@ -212,116 +212,116 @@
             "nAdm": true
         }
 
-        if (authCookie != null) {
-            let getHomesDetailedUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
-            if (devMode) {
-                getHomesDetailedUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
-            }
-            $.ajax({
-                url: getHomesDetailedUri,
-                type: "POST",
-                data: JSON.stringify(data),
 
-                headers: {
-                    "Authorization": authCookie
-                },
-                contentType: "application/json",
+        let getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
+        if (authCookie == null) {
+            getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes`
 
+        }
+        $.ajax({
+            url: getHomesDetailedUri,
+            type: "POST",
+            data: JSON.stringify(data),
 
-
-                success: function (x) {
-
-                    maxPage = 0
-                    currentPage = 0
-
-                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                        pageSize = x.length
-                    }
-                    if (window.innerWidth >= 640 && window.innerWidth < 767) {
-                        pageSize = 4
-                    } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
-                        pageSize = 6
-                    } else if (window.innerWidth >= 1536) {
-                        pageSize = 6
-                    }
-
-                    maxPage = Math.ceil((x.length) / pageSize)
-
-
-                    let pages = $(`#pages`)
+            headers: {
+                "Authorization": authCookie == null ? undefined : authCookie
+            },
+            contentType: "application/json",
 
 
 
+            success: function (x) {
 
-                    let pageIcon = pages.find('#0')
+                maxPage = 0
+                currentPage = 0
 
-                    $(`.page`).slice(1).remove()
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = x.length
+                }
+                if (window.innerWidth >= 640 && window.innerWidth < 767) {
+                    pageSize = 4
+                } else if (window.innerWidth >= 768 && window.innerWidth < 1535) {
+                    pageSize = 6
+                } else if (window.innerWidth >= 1536) {
+                    pageSize = 6
+                } else {
+                    pageSize = x.length //TODO infinite scrolling
+                }
+
+                maxPage = Math.ceil((x.length) / pageSize)
+
+
+                let pages = $(`#pages`)
 
 
 
-                    for (let index = 0; index < maxPage - 1; index++) {
-                        let pageClone = pageIcon.clone()
-                        pageClone.removeClass('button_bg')
-                        pageClone.addClass('border')
-                        pageClone.addClass('borda_filtro')
-                        pageClone.attr('id', index + 1)
-                        pages.append(pageClone)
-                    }
 
-                    let allPages = $(`.page`) //TODO set click on first page
+                let pageIcon = pages.find('#0')
+
+                $(`.page`).slice(1).remove()
 
 
+
+                for (let index = 0; index < maxPage - 1; index++) {
+                    let pageClone = pageIcon.clone()
+                    pageClone.removeClass('button_bg')
+                    pageClone.addClass('border')
+                    pageClone.addClass('borda_filtro')
+                    pageClone.attr('id', index + 1)
+                    pages.append(pageClone)
+                }
+
+                let allPages = $(`.page`) //TODO set click on first page
+
+
+                allPages.removeClass('button_bg')
+                allPages.addClass('border')
+                allPages.addClass('borda_filtro')
+                allPages.eq(0).removeClass('border')
+                allPages.eq(0).addClass('button_bg')
+
+
+
+
+                resultFromApi = x
+
+                $(document).on("click", ".page", function () {
+                    let allPages = $(`.page`)
                     allPages.removeClass('button_bg')
                     allPages.addClass('border')
                     allPages.addClass('borda_filtro')
-                    allPages.eq(0).removeClass('border')
-                    allPages.eq(0).addClass('button_bg')
 
+                    $(this).addClass('button_bg')
+                    $(this).removeClass('border')
+                    $(this).removeClass('border')
 
-
-
-                    resultFromApi = x
-
-                    $(document).on("click", ".page", function () {
-                        let allPages = $(`.page`)
-                        allPages.removeClass('button_bg')
-                        allPages.addClass('border')
-                        allPages.addClass('borda_filtro')
-
-                        $(this).addClass('button_bg')
-                        $(this).removeClass('border')
-                        $(this).removeClass('border')
-
-                        currentPage = parseInt($(this).attr(`id`))
-
-                        nextItem = (currentPage + 1) * pageSize
-
-                        let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
-                            resultFromApi.length ? resultFromApi.length : nextItem)
-
-                        createAndPopulate(locationType, dbResponse)
-
-                    })
-
+                    currentPage = parseInt($(this).attr(`id`))
 
                     nextItem = (currentPage + 1) * pageSize
 
-                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
-                        .length ? resultFromApi.length : nextItem)
+                    let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem >
+                        resultFromApi.length ? resultFromApi.length : nextItem)
 
                     createAndPopulate(locationType, dbResponse)
 
-                }
-            })
-        } else {
+                })
+
+
+                nextItem = (currentPage + 1) * pageSize
+
+                let dbResponse = resultFromApi.slice(currentPage * pageSize, nextItem > resultFromApi
+                    .length ? resultFromApi.length : nextItem)
+
+                createAndPopulate(locationType, dbResponse)
+
+            }
+        })
+        /*} else {
             $.ajax({
                 url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/",
                 type: "POST",
                 data: JSON.stringify(data),
                 contentType: "application/json",
-
-
-
                 success: function (x) {
 
                     maxPage = 0
@@ -407,7 +407,7 @@
                 }
             })
 
-        }
+        }*/
     }
 
 
