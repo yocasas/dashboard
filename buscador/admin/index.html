@@ -141,9 +141,12 @@
                         console.log(x[0]['ClientId'])
 
                         x.forEach((element) => {
-                            console.log(x)
+                            let picturesCheck = element['picturesCheck'] == true ? 'Fotos autorizadas' : 'Fotos não autorizadas'
+                            let numberVerified = element['verifiedNumber'] == true ? 'Número verificado' : 'Número não verificado'
+                            
+                            
                             $(`li > #${element['ClientId']}`).after(
-                                `&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1><div class="w-10" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div>`,
+                                `&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1><div class="mr-10 w-10" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">${picturesCheck}</h1> <h1 class="border-2 border-blue-800">${numberVerified}</h1>`,
                             )
                         })
                     },
@@ -161,6 +164,8 @@
                     <h1>Email</h1>
                     <h1>Telefone</h1>
                     <h1>Pontos</h1>
+                    <h1>Fotos Autorizadas</h1>
+                    <h1>Telefone Verificado</h1>
                 </div>
 
                 <ul class="tabs" id="homes"></ul>
