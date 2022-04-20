@@ -180,6 +180,10 @@
         alert("Você precisa de mais pontos para reservar. Contate um administrador.")
         return
       }
+      if (currentHomeInfo.clientId == clientInfo.ClientId) {
+        alert("Não é possivel criar um chat com voce mesmo")
+        return
+      }
       window.scrollTo(0, 0)
       $('.loading').parent().removeClass('hidden')
       $('html, body').css({
@@ -894,6 +898,10 @@
 
   <script>
     function redirectChat() {
+      if (currentHomeInfo.clientId == clientInfo.ClientId) {
+        alert("Não é possivel criar um chat com voce mesmo")
+        return
+      }
       window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
     }
 
@@ -908,6 +916,11 @@
           checkCurrentUser()
           return false
         }
+      }
+
+      if (currentHomeInfo.clientId == clientInfo.ClientId) {
+        alert("Não é possivel criar um chat com voce mesmo")
+        return
       }
 
       let chatSettings = {
