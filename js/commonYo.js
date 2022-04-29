@@ -48,6 +48,8 @@ function traduzirLocation(location, tiny) {
   }
 }
 
+
+
 function getCookie(name) {
   var dc = document.cookie
   var prefix = name + '='
@@ -65,10 +67,23 @@ function getCookie(name) {
   return decodeURI(dc.substring(begin + prefix.length, end))
 }
 
-let checkCurrentUser = function () {
+let checkCurrentUser = function (cookieJs) {
   checkDevMode()
 
   let myCookie = getCookie('login_session')
+
+  if (cookieJs != undefined) {
+    let myCookieNew = cookieJs.get('login_session')
+
+    if (myCookieNew != "" && myCookie != undefined) {
+      myCookie = myCookieNew
+    }
+    
+  }
+
+
+
+
 
   authCookie = myCookie
 
@@ -279,7 +294,7 @@ function getUserPoints() {
 
         resolve(userPointsInfo)
       },
-      error: function (jqXHR, textStatus, errorThrown) {},
+      error: function (jqXHR, textStatus, errorThrown) { },
     })
   })
 }
