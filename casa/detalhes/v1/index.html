@@ -176,10 +176,16 @@
 
     function abrirChat(messageId) {
       //TODO here
+      if (authCookie) {
       if ($('#totalPointsAfter').text() <= 0) {
         alert("Você precisa de mais pontos para reservar. Contate um administrador.")
         return
       }
+    } else {
+      alert("Torne-se um membro Yô para se comunicar com este anfitrião. Clique aqui para iniciar ou continuar o preenchimento do seu pré-cadastro.")
+      window.location.href = `/onboarding`
+
+    }
       if (currentHomeInfo.clientId == clientInfo.ClientId) {
         alert("Não é possivel criar um chat com voce mesmo")
         return
