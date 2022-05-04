@@ -73,14 +73,13 @@
                 contentType: 'application/json',
 
                 success: (resp) => {
-                    window.scrollTo(0, 0) //LOADINGG
+                    window.scrollTo(0, 0)
                     $('.loading').parent().addClass('hidden')
                     $('html, body').css({
                         overflow: 'auto',
                         height: 'auto',
                     })
-                    //$('#showWarn').removeClass('hidden')
-                    //window.location.href = "/dashboard/chat"
+
                 },
             })
 
@@ -94,14 +93,6 @@
                 contentType: 'application/json',
 
                 success: (resp) => {
-                    // window.scrollTo(0, 0);//LOADINGG
-                    // $(".loading").parent().addClass('hidden')
-                    // $('html, body').css({
-                    //     overflow: 'auto',
-                    //     height: 'auto'
-                    // });
-                    //$('#showWarn').removeClass('hidden')
-                    //window.location.href = "/dashboard/chat"
                 },
             })
         }
