@@ -430,6 +430,7 @@
           success: function (x) {
             let element = x[0]
             currentHomeInfo = element
+
             $('#nickName').text(`${element['nickName']}`)
             if (
               element['underReview'] != undefined &&
@@ -597,6 +598,8 @@
               )
             }
 
+
+
             $('#maxCapacity').text(
               `${
                   element['maxPeople'] > 1
@@ -610,6 +613,14 @@
                   element['totalBathRooms'] > 1
                     ? element['totalBathRooms'] + ' Banheiros'
                     : element['totalBathRooms'] + ' Banheiro'
+                }`,
+            )
+
+            $('#totalShowers').text(
+              `${
+                  element['totalShowers'] > 1
+                    ? '(' + element['totalShowers'] + ' com chuveiros)'
+                    : '(' + element['totalShowers'] + ' com chuveiro)'
                 }`,
             )
             $('#totalBedRooms').text(
@@ -845,13 +856,23 @@
                     : element['totalBathRooms'] + ' Banheiro'
                 }`,
             )
-            $('#totalBedRooms').text(
+            $('#totalBathRooms').text(
               `${
-                  element['totalBedRooms'] > 1
-                    ? element['totalBedRooms'] + ' Quartos'
-                    : element['totalBedRooms'] + ' Quarto'
+                  element['totalBathRooms'] > 1
+                    ? element['totalBathRooms'] + ' Banheiros'
+                    : element['totalBathRooms'] + ' Banheiro'
                 }`,
             )
+            if (element['totalShowers'] != undefined) {
+
+            $('#totalShowers').text(
+              `${
+                  element['totalShowers'] > 1
+                    ? '(' + element['totalShowers'] + ' com chuveiros)'
+                    : '(' + element['totalShowers'] + ' com chuveiro)'
+                }`,
+            )
+              }
             $('#totalSuits').text(
               element['totalSuites'] > 1 ?
               `( ${element['totalSuites']} Suítes )` :
@@ -1435,11 +1456,14 @@
               <img src="Assets/caracteristicas/BANHEIROS.svg" alt="" class="h-14" />
               <!--TODO fix responsivity-->
 
-              <div class="flex justify-start items-start w-auto h-full">
+              <div class="flex justify-start items-start w-auto h-full flex-col">
                 <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="totalBathRooms">
                   1
                   <!--TODO check break line 24 -->
                   Banheiro
+                </p>
+                <p class="w-28 text-md md:text-sm align-top usuario_font_warp" id="totalShowers">
+                  
                 </p>
               </div>
             </div>
