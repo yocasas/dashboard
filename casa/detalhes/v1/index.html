@@ -430,6 +430,7 @@
           success: function (x) {
             let element = x[0]
             currentHomeInfo = element
+            console.log(element)
 
             $('#nickName').text(`${element['nickName']}`)
             if (
@@ -465,6 +466,11 @@
             $(`#infoWorkers`).text(
               checkData(element[`infoWorkers`]) ?
               element[`infoWorkers`] :
+              'Sem informações',
+            )
+            $(`#feeCleaning`).text(
+              element[`feeCleaning`] != undefined && element[`feeCleaning`] != '' ?
+              element[`feeCleaning`] :
               'Sem informações',
             )
             $(`#infoAC`).text(
@@ -1791,6 +1797,22 @@
                 </p>
               </div>
             </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="w-full">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Taxa de limpeza (acerto com o anfitrião)
+                </p>
+              </div>
+
+              <div class="w-full">
+                <p class="text-lg md:text-sm usuario_font_warp mt-2" id="feeCleaning">
+                  Sem informações
+                </p>
+              </div>
+            </div>
+
+
           </div>
 
           <div id="authorize_desc" class="my-10 w-full">
@@ -1806,6 +1828,9 @@
               </h1>
             </div>
           </div>
+
+          
+
         </div>
       </div>
 
