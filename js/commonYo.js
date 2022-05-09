@@ -121,7 +121,7 @@ let checkCurrentUser = function (cookieJs) {
 
 function checkDevMode() {
 
-  if (sessionStorage.getItem("devMode") == "yes") {
+  if (sessionStorage.getItem("devMode") == "yes" || document.location.hostname == "localhost" || document.location.hostname == "dev.yocasas.com.br" ) {
     devMode = true
   }
 
