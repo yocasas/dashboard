@@ -102,10 +102,6 @@ let checkCurrentUser = function (cookieJs) {
     
   }
 
-
-
-
-
   authCookie = myCookie
 
   if (myCookie == null) {
@@ -124,13 +120,6 @@ let checkCurrentUser = function (cookieJs) {
 }
 
 function checkDevMode() {
-  /*if (
-    getCookie('dev_mode_enable') != null &&
-    getCookie('dev_mode_enable') != undefined &&
-    getCookie('dev_mode_enable') == 'yes'
-  ) {
-    devMode = true
-  }*/
 
   if (sessionStorage.getItem("devMode") == "yes") {
     devMode = true
@@ -146,6 +135,10 @@ function getCurrentHomeBaseUri() {
     homeBaseuri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev'
   }
   return homeBaseuri
+}
+
+function getCurrentCookie() {
+  return authCookie
 }
 
 function setDevMode() {
