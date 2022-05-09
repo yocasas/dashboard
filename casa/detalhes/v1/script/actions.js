@@ -154,6 +154,11 @@ function setHomeInfos(element) {
             element[`feeCleaning`] :
             'Sem informações',
     )
+    $(`#beachDistance`).text(
+        element[`beachDistance`] != undefined && element[`beachDistance`] != '' ?
+            element[`beachDistance`] :
+            'Sem informações',
+    )
     $(`#infoAC`).text(
         checkData(element[`totalAc`]) ?
             element[`totalAc`] :
