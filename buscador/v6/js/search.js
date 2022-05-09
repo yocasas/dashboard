@@ -23,7 +23,6 @@ function createAndPopulate(locationType, dbResponse) {
         let imgSrc = image.find("#img_source")
 
         if (element.b64img == undefined) {
-            checkCurrentUserNoBlock()
             //''
 
             $.ajax({
