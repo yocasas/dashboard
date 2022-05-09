@@ -187,3 +187,7 @@ function setHomeInfos(element) {
         $(`.curatedOnly`).addClass('hidden')
     }
 }
+
+
+
+
