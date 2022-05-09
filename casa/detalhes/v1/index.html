@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yô Detalhes</title>
-  <style></style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
   <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
@@ -15,6 +15,7 @@
   <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
   <script>
+    var Cookies2 = Cookies.noConflict()
     window.dataLayer = window.dataLayer || []
 
     function gtag() {
@@ -23,7 +24,7 @@
     gtag('js', new Date())
 
     gtag('config', 'G-V0C85S2RG3')
-    checkCurrentUserNoBlock()
+    checkCurrentUserNoBlock(Cookies2)
     if (authCookie != null) {
       gtag('set', {
         id: clientInfo.ClientId.substring(7),
@@ -31,7 +32,7 @@
     }
   </script>
   <script type="text/javascript" src="./script/script.js"></script>
-  
+
   <script>
     let selectedModal = ""
     let textModal = "Erro. Tente novamente mais tarde ou contate um administrador."
@@ -47,109 +48,109 @@
       overflow-y: visible !important;
     }
   </style>
-  
-  
 
 
 
 
-      <!-- Modal aviso de registro -->
-      <div
-        class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
-        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-
-        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
 
+  <!-- Modal aviso de registro -->
+  <div
+    class="modalWarning opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-20">
+    <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
-          <!-- Add margin if you want to see some of the overlay behind the modal-->
-          <div class="modal-content py-4 text-left px-6">
-            <!--Title-->
-            <div class="flex justify-between items-center pb-3">
-              <p class="text-sm font-bold text-green_dark mx-auto">Aviso!</p>
-              <div class="modal-close cursor-pointer z-50">
-                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                  viewBox="0 0 18 18">
-                  <path
-                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                  </path>
-                </svg>
-              </div>
-            </div>
-
-            <!--Body-->
-
-            <div id="modalText" class="text-center text-green_dark leading-relaxed">
-              Você precisa de mais pontos para reservar. Contate um administrador.
-            </div>
-
-            <!--Footer-->
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
 
 
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-sm font-bold text-green_dark mx-auto">Aviso!</p>
+          <div class="modal-close cursor-pointer z-50">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+              viewBox="0 0 18 18">
+              <path
+                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+              </path>
+            </svg>
           </div>
         </div>
+
+        <!--Body-->
+
+        <div id="modalText" class="text-center text-green_dark leading-relaxed">
+          Você precisa de mais pontos para reservar. Contate um administrador.
+        </div>
+
+        <!--Footer-->
+
+
       </div>
+    </div>
+  </div>
 
-      <script>
-        var openmodal = document.querySelectorAll('.modal-open')
-        for (var i = 0; i < openmodal.length; i++) {
-          openmodal[i].addEventListener('click', function (event) {
-            event.preventDefault()
-            toggleModal()
-          })
-        }
+  <script>
+    var openmodal = document.querySelectorAll('.modal-open')
+    for (var i = 0; i < openmodal.length; i++) {
+      openmodal[i].addEventListener('click', function (event) {
+        event.preventDefault()
+        toggleModal()
+      })
+    }
 
-        const overlay = document.querySelector('.modal-overlay')
-        overlay.addEventListener('click', toggleModal)
+    const overlay = document.querySelector('.modal-overlay')
+    overlay.addEventListener('click', toggleModal)
 
-        var closemodal = document.querySelectorAll('.modal-close')
-        for (var i = 0; i < closemodal.length; i++) {
-          closemodal[i].addEventListener('click', toggleModal)
-        }
+    var closemodal = document.querySelectorAll('.modal-close')
+    for (var i = 0; i < closemodal.length; i++) {
+      closemodal[i].addEventListener('click', toggleModal)
+    }
 
-        document.onkeydown = function (evt) {
-          evt = evt || window.event
-          var isEscape = false
-          if ("key" in evt) {
-            isEscape = (evt.key === "Escape" || evt.key === "Esc")
-          } else {
-            isEscape = (evt.keyCode === 27)
-          }
-          if (isEscape && document.body.classList.contains('modal-active')) {
-            toggleModal()
-          }
-        };
-
-
-        function toggleModal(modalArgs, text) {
-          $("#modalText").html(text)
-          if (selectedModal != '.modal') {
-            modalArgs = selectedModal
-          }
+    document.onkeydown = function (evt) {
+      evt = evt || window.event
+      var isEscape = false
+      if ("key" in evt) {
+        isEscape = (evt.key === "Escape" || evt.key === "Esc")
+      } else {
+        isEscape = (evt.keyCode === 27)
+      }
+      if (isEscape && document.body.classList.contains('modal-active')) {
+        toggleModal()
+      }
+    };
 
 
-          console.log(modalArgs)
+    function toggleModal(modalArgs, text) {
+      $("#modalText").html(text)
+      if (selectedModal != '.modal') {
+        modalArgs = selectedModal
+      }
 
 
-          if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
-            modalArgs = '.modal'
-
-          }
-
-          const body = document.querySelector('body')
-          const modal = document.querySelector(modalArgs)
-          modal.classList.toggle('opacity-0')
-          modal.classList.toggle('pointer-events-none')
-          body.classList.toggle('modal-active')
-
-          if (typeof (modalArgs) != "object") selectedModal = modalArgs
+      console.log(modalArgs)
 
 
-        }
+      if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
+        modalArgs = '.modal'
+
+      }
+
+      const body = document.querySelector('body')
+      const modal = document.querySelector(modalArgs)
+      modal.classList.toggle('opacity-0')
+      modal.classList.toggle('pointer-events-none')
+      body.classList.toggle('modal-active')
+
+      if (typeof (modalArgs) != "object") selectedModal = modalArgs
 
 
-      </script>
-      
+    }
+
+
+  </script>
+
   <script>
     let currentHomeInfo
 
@@ -260,124 +261,13 @@
                 slidesToShow: 1,
                 slidesToScroll: 1,
               },
-            }, ],
+            },],
           })
         })
       })
     }
 
     let selectedDates
-
-    async function addMessage(chatId, messageContent, hostId) {
-      return new Promise((resolve, reject) => {
-        $.ajax({
-          url: `${getCurrentChatBaseUri()}/messages/add`,
-          type: 'POST',
-          headers: {
-            Authorization: authCookie,
-          },
-          data: JSON.stringify({
-            chatId: chatId,
-            messageContent: messageContent,
-            clientId: clientInfo.ClientId,
-            isHost: false,
-            clientIdHost: hostId,
-          }),
-          contentType: 'application/json',
-
-          success: (msgsString) => {
-            let msgs = JSON.parse(msgsString)
-            resolve(msgsString)
-          },
-        })
-      })
-    }
-
-    function abrirChat(messageId) {
-      //TODO here
-      if (authCookie) {
-      if ($('#totalPointsAfter').text() <= 0) {
-        selectedModal = '.modalWarning' 
-        textModal = "Você precisa de mais pontos para reservar. Contate um administrador."
-        toggleModal(selectedModal, textModal)
-        return
-      }
-    } else {
-      selectedModal = '.modalWarning'
-      textModal = `Torne-se um membro Yô para se comunicar com este anfitrião. <a onclick="location.href='/onboarding/'"
-                class="cursor-pointer underline">Clique aqui</a> para iniciar ou continuar o preenchimento do seu pré-cadastro.`
-      toggleModal(selectedModal, textModal)
-      
-      // window.location.href = `/onboarding/`
-      return
-
-    }
-      if (currentHomeInfo.clientId == clientInfo.ClientId) {
-        alert("Não é possivel criar um chat com voce mesmo")
-        return
-      }
-      window.scrollTo(0, 0)
-      $('.loading').parent().removeClass('hidden')
-      $('html, body').css({
-        overflow: 'hidden',
-        height: '100%',
-      })
-
-      if (authCookie == null) {
-        checkCurrentUser()
-        return false
-      } else {
-        if (clientInfo.clientType < 2) {
-          checkCurrentUser()
-          return false
-        }
-      }
-
-      let chatSettings = {
-        hostId: currentHomeInfo.clientId,
-        guestId: clientInfo.ClientId,
-        guestPicture: 'chat_con.png',
-        hostPicture: 'chat_con.png',
-        requestedDate: selectedDates,
-        hostName: currentHomeInfo.contactName,
-        guestName: clientInfo.nickName,
-        homeNickName: currentHomeInfo.nickName,
-        homeId: currentHomeInfo.homeId,
-      }
-
-      $.ajax({
-        url: `${getCurrentChatBaseUri()}/createchat`,
-        type: 'POST',
-        headers: {
-          Authorization: authCookie,
-        },
-        data: JSON.stringify(chatSettings),
-        contentType: 'application/json',
-
-        success: (resp) => {
-          respObj = JSON.parse(resp)
-          addMessage(
-            respObj['data']['chatId'],
-            `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                selectedDates[0],
-              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
-            currentHomeInfo.clientId,
-          ).then((x) => {
-            $('.loading').parent().addClass('hidden')
-            window.scrollTo(0, 0)
-            $('#showWarn').removeClass('hidden')
-            $('html, body').css({
-              overflow: 'hidden',
-              height: '100%',
-            })
-          })
-
-          //$('#showWarn').removeClass('hidden')
-          //window.location.href = "/dashboard/chat/"
-        },
-      })
-    }
-
 
     function populateHomes(e) {
       let data = {
@@ -411,527 +301,205 @@
         })
       }
 
-
-      function checkData(data) {
-        return data != undefined && data.length > 0
-      }
-
       let homesShow = $('#homes_show')
-      checkCurrentUserNoBlock()
-      if (authCookie != null) {
-        $.ajax({
-          url: getCurrentDetailedUrl(),
-          type: 'POST',
-          data: JSON.stringify(data),
-          contentType: 'application/json',
-          headers: {
-            Authorization: authCookie,
-          },
-          success: function (x) {
-            let element = x[0]
-            currentHomeInfo = element
-            console.log(element)
+      checkCurrentUserNoBlock(Cookies2)
+      $.ajax({
+        url: `${getCurrentHomeBaseUri()}/gethomes${(authCookie != null) ? "/detailed" : ""}`,
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        headers: {
+          Authorization: (authCookie != null) ? authCookie : undefined,
+        },
+        success: function (x) {
+          let element = x[0]
+          currentHomeInfo = element
+          console.log(element)
 
-            $('#nickName').text(`${element['nickName']}`)
-            if (
-              element['underReview'] != undefined &&
-              element['underReview']
-            ) {
-              $('#openChat').text('Solicitar reserva')
-              //$('#reservationCalculator').toggleClass('hidden')
-            }
-            if (element[`state`] != '' && element[`state`] != undefined) {
-              //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
-              $('#location').text(
-                `${element['city']}, ${element['state']}, ${element['country']}`,
-              )
-            } else {
-              $('#location').text(`${element['city']}, ${element['country']}`)
-            }
 
-            $('#locationTypeHost').text(element['locationType'])
-            $('.locationType').text(traduzirLocation(element['locationType']))
-            $('.locationTypeMobile').text(
-              traduzirLocation(element['locationType'], 1),
-            )
 
-            $('#inCondominium').text(element[`inCondominium`] ? 'Sim' : 'Não')
-            $('#floorSpace').text(element[`floorSpace`])
-            $('#airportDistance').text(element[`airportDistance`])
-            $('#uncoveredParking').text(element[`uncoveredParking`])
-            $('#coveredParking').text(element[`coveredParking`])
-            $('#map')
-              .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
-            </iframe>`)
-            $(`#infoWorkers`).text(
-              checkData(element[`infoWorkers`]) ?
-              element[`infoWorkers`] :
-              'Sem informações',
-            )
-            $(`#feeCleaning`).text(
-              element[`feeCleaning`] != undefined && element[`feeCleaning`] != '' ?
-              element[`feeCleaning`] :
-              'Sem informações',
-            )
-            $(`#infoAC`).text(
-              checkData(element[`totalAc`]) ?
-              element[`totalAc`] :
-              'Sem informações',
-            )
-            $(`#carEntrance`).text(
-              checkData(element[`accessPath`]) ?
-              element[`accessPath`] :
-              'Sem informações',
-            )
-            $(`#description`).text(element[`description`])
-            $(`#curatedDetails`).text(
-              checkData(element[`curatedDetails`]) ?
-              element[`curatedDetails`] :
-              'Sem informações',
-            )
-            $(`#extraRestriction`).text(
-              checkData(element[`extraRestriction`]) ?
-              element[`extraRestriction`] :
-              'Sem informações',
-            )
+          contactId = element['clientId']
 
-            if (element[`curated`]) {
-              $(`.nonCuratedOnly`).addClass('hidden')
-            } else {
-              $(`.curatedOnly`).addClass('hidden')
-            }
+          let getUserUri =
+            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
+          if (devMode) {
+            getUserUri =
+              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser'
+          }
+          $.ajax({
+            url: getUserUri,
+            type: 'POST',
+            headers: {
+              Authorization: authCookie,
+            },
+            data: JSON.stringify({
+              ClientId: element['clientId'],
+            }),
+            contentType: 'application/json',
 
-            contactId = element['clientId']
+            success: (client) => {
+              currentHomeInfo.contactName = client[`nickName`]
+              $(`#contactName`).text(client[`nickName`])
+              //$(".loading").removeClass('dot-pulse')
+            },
+          })
 
-            let getUserUri =
-              'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
-            if (devMode) {
-              getUserUri =
-                'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser'
-            }
-            $.ajax({
-              url: getUserUri,
-              type: 'POST',
-              headers: {
-                Authorization: authCookie,
-              },
-              data: JSON.stringify({
-                ClientId: element['clientId'],
-              }),
-              contentType: 'application/json',
+          multiplier = element['multiplier']
 
-              success: (client) => {
-                currentHomeInfo.contactName = client[`nickName`]
-                $(`#contactName`).text(client[`nickName`])
-                //$(".loading").removeClass('dot-pulse')
-              },
-            })
+          let stars = range(element['multiplier'], 1)
 
-            multiplier = element['multiplier']
-
+          if (element['multiplier'] < 7 && element['multiplier'] > 2) {
+            let dft = $('#3-6')
+            dft.removeClass('hidden')
             let stars = range(element['multiplier'], 1)
-
-            if (element['multiplier'] < 7 && element['multiplier'] > 2) {
-              let dft = $('#3-6')
-              dft.removeClass('hidden')
-              let stars = range(element['multiplier'], 1)
-              stars.forEach((startId) => {
-                let rank = dft.find('#rank')
-                rank.find(`#${startId}`).removeClass('far')
-                rank.find(`#${startId}`).addClass('fas')
-              })
-            } else if (element['multiplier'] == 7) {
-              let dft = $('#7')
-              dft.removeClass('hidden')
-            } else if (element['multiplier'] == 2) {
-              let dft = $('#2-EX')
-              dft.removeClass('hidden')
-            }
-
-            let points = starsToPointsPerNight(element['multiplier'])
-            $(`#homeStars`).val(element['multiplier'])
-            $('#points').text(numberWithCommas(points))
-
-            let files = []
-
-            $('.loading').parent().addClass('hidden')
-            $('html, body').css({
-              overflow: 'auto',
-              height: 'auto',
+            stars.forEach((startId) => {
+              let rank = dft.find('#rank')
+              rank.find(`#${startId}`).removeClass('far')
+              rank.find(`#${startId}`).addClass('fas')
             })
+          } else if (element['multiplier'] == 7) {
+            let dft = $('#7')
+            dft.removeClass('hidden')
+          } else if (element['multiplier'] == 2) {
+            let dft = $('#2-EX')
+            dft.removeClass('hidden')
+          }
 
-            if (clientInfo.clientType > 3) {
-              $('.adminOnly').removeClass('hidden')
-              $('#curatedDetails').attr('contenteditable', 'true')
-            }
-            //TODO check loading
+          let points = starsToPointsPerNight(element['multiplier'])
+          $(`#homeStars`).val(element['multiplier'])
+          $('#points').text(numberWithCommas(points))
 
-            element['picturesS3Urls'].forEach((x) => {
-              let y = 0
-              files.push(
-                getS3file(
-                  x,
-                  $('#slider'),
-                  element['picturesS3Urls'].length,
-                  y,
-                ),
-              )
-            })
+          let files = []
 
-            Promise.all(
-              files.slice(0, files.length < 3 ? files.length - 1 : 3),
-            ).then((sourceList) => {
-              sourceList.forEach((source) => {
-                let element = `<div class="bg-white px-1 ">
+          $('.loading').parent().addClass('hidden')
+          $('html, body').css({
+            overflow: 'auto',
+            height: 'auto',
+          })
+
+          if (clientInfo != undefined && clientInfo.clientType > 3) {
+            $('.adminOnly').removeClass('hidden')
+            $('#curatedDetails').attr('contenteditable', 'true')
+          }
+          //TODO check loading
+
+          element['picturesS3Urls'].forEach((x) => {
+            let y = 0
+            files.push(
+              getS3file(
+                x,
+                $('#slider'),
+                element['picturesS3Urls'].length,
+                y,
+              ),
+            )
+          })
+
+          Promise.all(
+            files.slice(0, files.length < 3 ? files.length - 1 : 3),
+          ).then((sourceList) => {
+            sourceList.forEach((source) => {
+              let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
 
-                $('.slider').slick('slickAdd', element)
-              })
+              $('.slider').slick('slickAdd', element)
             })
+          })
 
-            if (files.length > 3) {
-              Promise.all(files.slice(3, files.length - 1)).then(
-                (sourceList) => {
-                  sourceList.forEach((source) => {
-                    let element = `<div class="bg-white px-1 ">
+          if (files.length > 3) {
+            Promise.all(files.slice(3, files.length - 1)).then(
+              (sourceList) => {
+                sourceList.forEach((source) => {
+                  let element = `<div class="bg-white px-1 ">
                                                 <img class="object-cover h-96 w-full " src="${source}">
                                                 </div>`
 
-                    $('.slider').slick('slickAdd', element)
-                  })
-                },
-              )
-            }
-
-
-
-            $('#maxCapacity').text(
-              `${
-                  element['maxPeople'] > 1
-                    ? element['maxPeople'] + ' Hóspedes'
-                    : element['maxPeople'] + ' Hóspede'
-                }`,
+                  $('.slider').slick('slickAdd', element)
+                })
+              },
             )
+          }
 
-            $('#totalBathRooms').text(
-              `${
-                  element['totalBathRooms'] > 1
-                    ? element['totalBathRooms'] + ' Banheiros'
-                    : element['totalBathRooms'] + ' Banheiro'
-                }`,
-            )
 
-            $('#totalShowers').text(
-              `${
-                  element['totalShowers'] > 1
-                    ? '(' + element['totalShowers'] + ' com chuveiros)'
-                    : '(' + element['totalShowers'] + ' com chuveiro)'
-                }`,
-            )
-            $('#totalBedRooms').text(
-              `${
-                  element['totalBedRooms'] > 1
-                    ? element['totalBedRooms'] + ' Quartos'
-                    : element['totalBedRooms'] + ' Quarto'
-                }`,
-            )
-            $('#totalSuits').text(
-              element['totalSuites'] > 1 ?
+
+          $('#maxCapacity').text(
+            `${element['maxPeople'] > 1
+              ? element['maxPeople'] + ' Hóspedes'
+              : element['maxPeople'] + ' Hóspede'
+            }`,
+          )
+
+          $('#totalBathRooms').text(
+            `${element['totalBathRooms'] > 1
+              ? element['totalBathRooms'] + ' Banheiros'
+              : element['totalBathRooms'] + ' Banheiro'
+            }`,
+          )
+
+          $('#totalShowers').text(
+            `${element['totalShowers'] > 1
+              ? '(' + element['totalShowers'] + ' com chuveiros)'
+              : '(' + element['totalShowers'] + ' com chuveiro)'
+            }`,
+          )
+          $('#totalBedRooms').text(
+            `${element['totalBedRooms'] > 1
+              ? element['totalBedRooms'] + ' Quartos'
+              : element['totalBedRooms'] + ' Quarto'
+            }`,
+          )
+          $('#totalSuits').text(
+            element['totalSuites'] > 1 ?
               `( ${element['totalSuites']} Suítes )` :
               `( ${element['totalSuites']} Suíte )`,
-            )
+          )
 
-            facilitiesFormat(element.facilities.length)
-            element.facilities.forEach((e) => {
-              $(`#facility-${e}`).removeClass('hidden')
-            })
+          facilitiesFormat(element.facilities.length)
+          element.facilities.forEach((e) => {
+            $(`#facility-${e}`).removeClass('hidden')
+          })
 
-            element.workers.forEach((e) => {
-              $(`#worker-${e}`).removeClass('hidden')
-            })
+          element.workers.forEach((e) => {
+            $(`#worker-${e}`).removeClass('hidden')
+          })
 
-            element.authorizatedTo.forEach((e) => {
-              $(`#authorized-${e}`).removeClass('line-through')
-            })
+          element.authorizatedTo.forEach((e) => {
+            $(`#authorized-${e}`).removeClass('line-through')
+          })
 
-            let totalAvaliableDates = []
-            element.availableDates.forEach((e) => {
-              let localDate = new Date(e)
-              totalAvaliableDates.push(localDate)
-            })
+          let totalAvaliableDates = []
+          element.availableDates.forEach((e) => {
+            let localDate = new Date(e)
+            totalAvaliableDates.push(localDate)
+          })
 
-            totalAvaliableDates.sort(function (a, b) {
-              // Turn your strings into dates, and then subtract them
-              // to get a value that is either negative, positive, or zero.
-              return a - b
-            })
+          totalAvaliableDates.sort(function (a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return a - b
+          })
 
-            let totalDates = generateAvaliableObj(totalAvaliableDates)
+          let totalDates = generateAvaliableObj(totalAvaliableDates)
 
-            /*if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
-              
-            } else {
-              vue.$data.avbldates = totalDates
-            }*/
+          /*if (currentHomeInfo['underReview'] != undefined && currentHomeInfo['underReview']) {
+            
+          } else {
+            vue.$data.avbldates = totalDates
+          }*/
 
-            vue.$data.avbldates = undefined
-            vue.$data.attr[0].dates = totalDates
+          vue.$data.avbldates = undefined
+          vue.$data.attr[0].dates = totalDates
 
-            //vue.$data.attrs[0].dates = totalDates
-          },
-        })
-      } else {
-        $.ajax({
-          url: `${getCurrentHomeBaseUri()}/gethomes`,
-          type: 'POST',
-          data: JSON.stringify(data),
-          contentType: 'application/json',
-          success: function (x) {
-            let element = x[0]
-            currentHomeInfo = element
-            $('#nickName').text(`${element['nickName']}`)
-            if (
-              element['underReview'] != undefined &&
-              element['underReview']
-            ) {
-              $('#openChat').text('Sob consulta')
-              $('#reservationCalculator').toggleClass('hidden')
-            }
-            if (element[`state`] != '' && element[`state`] != undefined) {
-              //$("#location").text(`${element["city"]}, ${element["state"]}, ${element["country"]}`)
-              $('#location').text(
-                `${element['city']}, ${element['state']}, ${element['country']}`,
-              )
-            } else {
-              $('#location').text(`${element['city']}, ${element['country']}`)
-            }
-
-            $('#locationTypeHost').text(element['locationType'])
-            $('.locationType').text(traduzirLocation(element['locationType']))
-            $('.locationTypeMobile').text(
-              traduzirLocation(element['locationType'], 1),
-            )
-
-            $('#inCondominium').text(element[`inCondominium`] ? 'Sim' : 'Não')
-            $('#floorSpace').text(element[`floorSpace`])
-            $('#airportDistance').text(element[`airportDistance`])
-            $('#uncoveredParking').text(element[`uncoveredParking`])
-            $('#coveredParking').text(element[`coveredParking`])
-            $('#map')
-              .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
-            </iframe>`)
-            $(`#infoWorkers`).text(
-              checkData(element[`infoWorkers`]) ?
-              element[`infoWorkers`] :
-              'Sem informações',
-            )
-            $(`#infoAC`).text(
-              checkData(element[`totalAc`]) ?
-              element[`totalAc`] :
-              'Sem informações',
-            )
-            $(`#carEntrance`).text(
-              checkData(element[`accessPath`]) ?
-              element[`accessPath`] :
-              'Sem informações',
-            )
-            $(`#description`).text(element[`description`])
-            $(`#curatedDetails`).text(
-              checkData(element[`curatedDetails`]) ?
-              element[`curatedDetails`] :
-              'Sem informações',
-            )
-            $(`#extraRestriction`).text(
-              checkData(element[`extraRestriction`]) ?
-              element[`extraRestriction`] :
-              'Sem informações',
-            )
-
-            contactId = element['clientId']
-
-            // $.ajax({
-            //   url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
-            //   type: 'POST',
-            //   headers: {
-            //     Authorization: authCookie,
-            //   },
-            //   data: JSON.stringify({
-            //     ClientId: element['clientId'],
-            //   }),
-            //   contentType: 'application/json',
-
-            //   success: (client) => {
-            //     console.log(client)
-            //     currentHomeInfo.contactName = client[`nickName`]
-            //     $(`#contactName`).text(client[`nickName`])
-            //     //$(".loading").removeClass('dot-pulse')
-            //   },
-            // })
-
-            multiplier = element['multiplier']
-
-            let stars = range(element['multiplier'], 1)
-
-            if (element['multiplier'] < 7 && element['multiplier'] > 2) {
-              let dft = $('#3-6')
-              dft.removeClass('hidden')
-              let stars = range(element['multiplier'], 1)
-              stars.forEach((startId) => {
-                let rank = dft.find('#rank')
-                rank.find(`#${startId}`).removeClass('far')
-                rank.find(`#${startId}`).addClass('fas')
-              })
-            } else if (element['multiplier'] == 7) {
-              let dft = $('#7')
-              dft.removeClass('hidden')
-            } else if (element['multiplier'] == 2) {
-              let dft = $('#2-EX')
-              dft.removeClass('hidden')
-            }
-
-            let points = starsToPointsPerNight(element['multiplier'])
-            $(`#homeStars`).val(element['multiplier'])
-            $('#points').text(numberWithCommas(points))
-
-            let files = []
-
-            $('.loading').parent().addClass('hidden')
-            $('html, body').css({
-              overflow: 'auto',
-              height: 'auto',
-            })
-            if (authCookie != null) {
-              if (clientInfo.clientType > 3) {
-                $('.adminOnly').removeClass('hidden')
-                $('#curatedDetails').attr('contenteditable', 'true')
-              }
-            }
-            //TODO check loading
-
-            element['picturesS3Urls'].forEach((x) => {
-              let y = 0
-              files.push(
-                getS3file(
-                  x,
-                  $('#slider'),
-                  element['picturesS3Urls'].length,
-                  y,
-                ),
-              )
-            })
-
-            Promise.all(
-              files.slice(0, files.length < 3 ? files.length - 1 : 3),
-            ).then((sourceList) => {
-              sourceList.forEach((source) => {
-                let element = `<div class="bg-white px-1 ">
-                                        <img class="object-cover h-96 w-full " src="${source}">
-                                        </div>`
-
-                $('.slider').slick('slickAdd', element)
-              })
-            })
-
-            if (files.length > 3) {
-              Promise.all(files.slice(3, files.length - 1)).then(
-                (sourceList) => {
-                  sourceList.forEach((source) => {
-                    let element = `<div class="bg-white px-1 ">
-                                                <img class="object-cover h-96 w-full " src="${source}">
-                                                </div>`
-
-                    $('.slider').slick('slickAdd', element)
-                  })
-                },
-              )
-            }
-
-            $('#maxCapacity').text(
-              `${
-                  element['maxPeople'] > 1
-                    ? element['maxPeople'] + ' Hóspedes'
-                    : element['maxPeople'] + ' Hóspede'
-                }`,
-            )
-
-            $('#totalBathRooms').text(
-              `${
-                  element['totalBathRooms'] > 1
-                    ? element['totalBathRooms'] + ' Banheiros'
-                    : element['totalBathRooms'] + ' Banheiro'
-                }`,
-            )
-            $('#totalBathRooms').text(
-              `${
-                  element['totalBathRooms'] > 1
-                    ? element['totalBathRooms'] + ' Banheiros'
-                    : element['totalBathRooms'] + ' Banheiro'
-                }`,
-            )
-            if (element['totalShowers'] != undefined) {
-
-            $('#totalShowers').text(
-              `${
-                  element['totalShowers'] > 1
-                    ? '(' + element['totalShowers'] + ' com chuveiros)'
-                    : '(' + element['totalShowers'] + ' com chuveiro)'
-                }`,
-            )
-              }
-            $('#totalSuits').text(
-              element['totalSuites'] > 1 ?
-              `( ${element['totalSuites']} Suítes )` :
-              `( ${element['totalSuites']} Suíte )`,
-            )
-
-            facilitiesFormat(element.facilities.length)
-            element.facilities.forEach((e) => {
-              $(`#facility-${e}`).removeClass('hidden')
-            })
-
-            element.workers.forEach((e) => {
-              $(`#worker-${e}`).removeClass('hidden')
-            })
-
-            element.authorizatedTo.forEach((e) => {
-              $(`#authorized-${e}`).removeClass('line-through')
-            })
-
-            let totalAvaliableDates = []
-            element.availableDates.forEach((e) => {
-              let localDate = new Date(e)
-              totalAvaliableDates.push(localDate)
-            })
-
-            totalAvaliableDates.sort(function (a, b) {
-              // Turn your strings into dates, and then subtract them
-              // to get a value that is either negative, positive, or zero.
-              return a - b
-            })
-
-            let totalDates = generateAvaliableObj(totalAvaliableDates)
-
-            if (
-              currentHomeInfo['underReview'] != undefined &&
-              currentHomeInfo['underReview']
-            ) {
-              vue.$data.avbldates = undefined
-              vue.$data.attr[0].dates = totalDates
-            } else {
-              vue.$data.avbldates = totalDates
-            }
-
-            //vue.$data.attrs[0].dates = totalDates
-          },
-        })
-      }
+          //vue.$data.attrs[0].dates = totalDates
+        },
+      })
     }
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+  <script type="text/javascript" src="./script/script.js"></script>
   <script>
     let openChat = () => {
       window.href = `/dashboard/chat/`
@@ -947,7 +515,7 @@
               height: '100%'
           });*/
 
-      checkCurrentUserNoBlock()
+      checkCurrentUserNoBlock(Cookies2)
       if (authCookie != null) {
         changeUserName($(`#userNameDrop`))
         getUserPoints().then((userPoints) => {
@@ -1068,11 +636,11 @@
       //alert(currentHomeInfo.clientId)
 
       if (authCookie == null) {
-        checkCurrentUser()
+        checkCurrentUser(Cookies2)
         return false
       } else {
         if (clientInfo.clientType < 2) {
-          checkCurrentUser()
+          checkCurrentUser(Cookies2)
           return false
         }
       }
@@ -1469,7 +1037,7 @@
                   Banheiro
                 </p>
                 <p class="w-28 text-md md:text-sm align-top usuario_font_warp" id="totalShowers">
-                  
+
                 </p>
               </div>
             </div>
@@ -1829,7 +1397,7 @@
             </div>
           </div>
 
-          
+
 
         </div>
       </div>
@@ -2050,7 +1618,7 @@
 
             </div>
             <p class="text-xs px-15 text-center"><i class="fa fa-info-circle" aria-hidden="true"></i>
-              Datas com marcação simbolizam datas preferidas, <br>  
+              Datas com marcação simbolizam datas preferidas, <br>
               com maior chance de aceitação</p>
           </div>
 
@@ -2127,7 +1695,7 @@
                     //highlight: 'green',
                     bar: 'green',
                     dates: new Date(0),
-                  }, ],
+                  },],
                   range: {
                     start: null,
                     end: null,
@@ -2135,7 +1703,7 @@
                   avbldates: [{
                     start: new Date(),
                     end: new Date('2021-09-30'),
-                  }, ],
+                  },],
                 }
               },
               methods: {
