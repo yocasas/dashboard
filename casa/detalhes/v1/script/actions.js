@@ -175,6 +175,7 @@ function setHomeInfos(element) {
             element[`curatedDetails`] :
             'Sem informações',
     )
+    console.log(element[`curatedDetails`])
     $(`#extraRestriction`).text(
         checkData(element[`extraRestriction`]) ?
             element[`extraRestriction`] :
