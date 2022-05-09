@@ -67,6 +67,27 @@ function getCookie(name) {
   return decodeURI(dc.substring(begin + prefix.length, end))
 }
 
+let checkCurrentUserNoBlock = function (cookieJs) {
+  checkDevMode()
+
+  let myCookie = getCookie('login_session')
+
+  if (cookieJs != undefined) {
+    let myCookieNew = cookieJs.get('login_session')
+
+    if (myCookieNew != "" && myCookie != undefined) {
+      myCookie = myCookieNew
+    }
+    
+  }
+
+  authCookie = myCookie
+
+  if (authCookie != null) {
+    clientInfo = JSON.parse(atob(authCookie.split('.')[1]))
+  }
+}
+
 let checkCurrentUser = function (cookieJs) {
   checkDevMode()
 
@@ -202,17 +223,7 @@ function getCurrentHomesUrl() {
 
 
 
-let checkCurrentUserNoBlock = function () {
-  checkDevMode()
 
-  let myCookie = getCookie('login_session')
-
-  authCookie = myCookie
-
-  if (authCookie != null) {
-    clientInfo = JSON.parse(atob(authCookie.split('.')[1]))
-  }
-}
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
