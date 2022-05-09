@@ -67,7 +67,7 @@ function getCookie(name) {
   return decodeURI(dc.substring(begin + prefix.length, end))
 }
 
-let checkCurrentUser = function (cookieJs) {
+let checkCurrentUserNoBlock = function (cookieJs) {
   checkDevMode()
 
   let myCookie = getCookie('login_session')
@@ -81,9 +81,26 @@ let checkCurrentUser = function (cookieJs) {
     
   }
 
+  authCookie = myCookie
 
+  if (authCookie != null) {
+    clientInfo = JSON.parse(atob(authCookie.split('.')[1]))
+  }
+}
 
+let checkCurrentUser = function (cookieJs) {
+  checkDevMode()
 
+  let myCookie = getCookie('login_session')
+
+  if (cookieJs != undefined) {
+    let myCookieNew = cookieJs.get('login_session')
+
+    if (myCookieNew != "" && myCookie != undefined) {
+      myCookie = myCookieNew
+    }
+    
+  }
 
   authCookie = myCookie
 
@@ -103,13 +120,6 @@ let checkCurrentUser = function (cookieJs) {
 }
 
 function checkDevMode() {
-  /*if (
-    getCookie('dev_mode_enable') != null &&
-    getCookie('dev_mode_enable') != undefined &&
-    getCookie('dev_mode_enable') == 'yes'
-  ) {
-    devMode = true
-  }*/
 
   if (sessionStorage.getItem("devMode") == "yes") {
     devMode = true
@@ -125,6 +135,10 @@ function getCurrentHomeBaseUri() {
     homeBaseuri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev'
   }
   return homeBaseuri
+}
+
+function getCurrentCookie() {
+  return authCookie
 }
 
 function setDevMode() {
@@ -202,17 +216,7 @@ function getCurrentHomesUrl() {
 
 
 
-let checkCurrentUserNoBlock = function () {
-  checkDevMode()
 
-  let myCookie = getCookie('login_session')
-
-  authCookie = myCookie
-
-  if (authCookie != null) {
-    clientInfo = JSON.parse(atob(authCookie.split('.')[1]))
-  }
-}
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
