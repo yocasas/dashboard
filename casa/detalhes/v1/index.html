@@ -473,6 +473,11 @@
               element[`feeCleaning`] :
               'Sem informações',
             )
+            $(`#beachDistance`).text(
+              element[`beachDistance`] != undefined && element[`beachDistance`] != '' ?
+              element[`beachDistance`] :
+              'Sem informações',
+            )
             $(`#infoAC`).text(
               checkData(element[`totalAc`]) ?
               element[`totalAc`] :
@@ -1722,6 +1727,20 @@
               <div class="">
                 <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 locationType" id="locationTypeHost">
                   Praia
+                </p>
+              </div>
+            </div>
+
+            <div class="h-full w-full flex flex-col" id="description-icon">
+              <div class="">
+                <p class="font-extrabold text-lg md:text-sm usuario_font_warp">
+                  Distância da praia
+                </p>
+              </div>
+
+              <div class="">
+                <p class="text-lg md:text-sm usuario_font_warp w-full mt-2 beachDistance" id="beachDistance">
+                  Sem informações
                 </p>
               </div>
             </div>
