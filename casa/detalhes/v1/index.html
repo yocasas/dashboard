@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Yô Detalhes</title>
+  <meta v="2">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
   <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
@@ -697,7 +698,7 @@
   <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
     <script>
       $(document).ready(function () {
-        if (sessionStorage.getItem('devMode') == 'yes') {
+        if (checkDevMode()) {
           console.log('hello')
           $('#devModeShow').removeClass('hidden')
         }

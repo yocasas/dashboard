@@ -215,7 +215,7 @@
   <div class="w-10 h-full fixed hidden flex z-35" id="devModeShow">
     <script>
       $(document).ready(function () {
-        if (sessionStorage.getItem('devMode') == 'yes') {
+        if (checkDevMode()) {
           console.log('hello')
           $('#devModeShow').removeClass('hidden')
         }
