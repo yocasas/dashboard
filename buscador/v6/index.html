@@ -53,15 +53,23 @@
 <script>
 
     $(document).ready(() => {
+       
 
         checkCurrentUserNoBlock(Cookies2)
         if (authCookie != null) {
+            $("#userDropdownLogged").removeClass("hidden")
+            $("#userDropdown").attr('onclick', '');
             changeUserName($(`#userNameDrop`))
             getUserPoints().then(userPoints => {
                 $("#pointsUser").text(userPoints)
                 $("#pointsUserCel").text(userPoints)
 
             })
+        } else {
+            $("#userNameDrop").text("Inscreva-se já")
+            $("#userDropdownLogged").addClass("hidden")
+            $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
+            
         }
         populateHomes()
     });
@@ -536,7 +544,7 @@
 
 
 
-            <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
+            <div x-data="{ dropdownOpen: false }" id="userDropdown" class="usuario-button relative">
                 <a href="#" @click="dropdownOpen = !dropdownOpen"
                     class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
                     <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">Usuário</p>
@@ -549,7 +557,7 @@
                 </a>
 
 
-
+                <div id="userDropdownLogged" class="flex">
                 <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
                 <div x-show="dropdownOpen"
@@ -581,6 +589,7 @@
 
 
                 </div>
+            </div>
             </div>
 
 
