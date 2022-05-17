@@ -51,7 +51,96 @@
   </style>
 
 
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+          lat: -7.0157404,
+          lng: 110.4171283
+        },
+        zoom: 12
+      });
+      var input = /** @type {!HTMLInputElement} */ (
+        document.getElementById('pac-input'));
 
+      var types = document.getElementById('type-selector');
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+      map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+      var autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo('bounds', map);
+
+      var infowindow = new google.maps.InfoWindow();
+      var marker = new google.maps.Marker({
+        map: map,
+        anchorPoint: new google.maps.Point(0, -29),
+        draggable: true
+      });
+      google.maps.event.addListener(marker, 'dragend', function () {
+        document.getElementsByName('latitude')[0].value = marker.getPosition().lat();
+        document.getElementsByName('longitude')[0].value = marker.getPosition().lng();
+      })
+
+      autocomplete.addListener('place_changed', function () {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+          window.alert("Autocomplete's returned place contains no geometry");
+          return;
+        }
+
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+          map.fitBounds(place.geometry.viewport);
+        } else {
+          map.setCenter(place.geometry.location);
+          map.setZoom(17); // Why 17? Because it looks good.
+        }
+        marker.setIcon( /** @type {google.maps.Icon} */({
+          url: 'http://maps.google.com/mapfiles/ms/icons/red.png',
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(35, 35)
+        }));
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);
+
+        var address = '';
+        if (place.address_components) {
+          address = [
+            (place.address_components[0] && place.address_components[0].short_name || ''), (place.address_components[1] && place.address_components[1].short_name || ''), (place.address_components[2] && place.address_components[2].short_name || '')
+          ].join(' ');
+        }
+
+        var latitude = place.geometry.location.lat();
+        var longitude = place.geometry.location.lng();
+
+        $("input[name=coordinate]").val(address);
+        $("input[name=latitude]").val(latitude);
+        $("input[name=longitude]").val(longitude);
+
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+        infowindow.open(map, marker);
+      });
+
+      // Sets a listener on a radio button to change the filter type on Places
+      // Autocomplete.
+      function setupClickListener(id, types) {
+        var radioButton = document.getElementById(id);
+        radioButton.addEventListener('click', function () {
+          autocomplete.setTypes(types);
+        });
+      }
+
+      setupClickListener('changetype-all', []);
+      setupClickListener('changetype-address', ['address']);
+      setupClickListener('changetype-establishment', ['establishment']);
+      setupClickListener('changetype-geocode', ['geocode']);
+    }
+    google.maps.event.addDomListener(window, "load", initMap);
+  </script>
 
 
 
@@ -158,16 +247,36 @@
     let contactId
 
     function curateHome(curateStatus, featured = false) {
+
+      let makeRequest = true
       window.scrollTo(0, 0)
       if (!$('.loading').parent().hasClass('hidden')) {
         alert("Ja existe uma requisição em andamento")
+        makeRequest = false
         return
       }
-      $('.loading').parent().removeClass('hidden')
-      $('html, body').css({
-        overflow: 'hidden',
-        height: '100%',
-      })
+
+
+      if (curateStatus) {
+        $(".checklist").each((i, e) => {
+          console.log(e)
+          if ($(e).is(":checked")) {
+            console.log("Os dados foram checados")
+          } else {
+            makeRequest = false
+            console.log("Garanta que checou os dados antes da aprovação")
+            return
+          }
+        })
+      }
+
+      if (makeRequest) {
+        $('html, body').css({
+          overflow: 'hidden',
+          height: '100%',
+        })
+        $('.loading').parent().removeClass('hidden')
+      }
 
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
@@ -187,50 +296,50 @@
         clientType: clientTypeData,
         clientId: currentHomeInfo.clientId,
       }
+      if (makeRequest) {
+        $.ajax({
+          url: `${getCurrentHomeBaseUri()}/addHome/curate`,
+          type: 'POST',
+          headers: {
+            Authorization: authCookie,
+          },
+          data: JSON.stringify(curateSettings),
+          contentType: 'application/json',
 
-      $.ajax({
-        url: `${getCurrentHomeBaseUri()}/addHome/curate`,
-        type: 'POST',
-        headers: {
-          Authorization: authCookie,
-        },
-        data: JSON.stringify(curateSettings),
-        contentType: 'application/json',
+          success: (resp) => {
+            window.scrollTo(0, 0) //LOADINGG
+            $('.loading').parent().addClass('hidden')
+            $('html, body').css({
+              overflow: 'auto',
+              height: 'auto',
+            })
 
-        success: (resp) => {
-          window.scrollTo(0, 0) //LOADINGG
-          $('.loading').parent().addClass('hidden')
-          $('html, body').css({
-            overflow: 'auto',
-            height: 'auto',
-          })
+            let curateUserUri =
+              'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
 
-          let curateUserUri =
-            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
+            if (devMode) {
+              curateUserUri =
+                'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
+            }
 
-          if (devMode) {
-            curateUserUri =
-              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
-          }
+            $.ajax({
+              url: curateUserUri,
+              type: 'POST',
+              headers: {
+                Authorization: authCookie,
+              },
+              data: JSON.stringify(curateUserSettings),
+              contentType: 'application/json',
 
-          $.ajax({
-            url: curateUserUri,
-            type: 'POST',
-            headers: {
-              Authorization: authCookie,
-            },
-            data: JSON.stringify(curateUserSettings),
-            contentType: 'application/json',
-
-            success: (resp) => {
-              location.reload()
-            },
-          })
-          //$('#showWarn').removeClass('hidden')
-          //window.location.href = "/dashboard/chat/"
-        },
-      })
-
+              success: (resp) => {
+                location.reload()
+              },
+            })
+            //$('#showWarn').removeClass('hidden')
+            //window.location.href = "/dashboard/chat/"
+          },
+        })
+      }
 
     }
 
@@ -531,8 +640,8 @@
         })
       } else {
         $("#userNameDrop").text("Inscreva-se já")
-            $("#userDropdownLogged").addClass("hidden")
-            $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
+        $("#userDropdownLogged").addClass("hidden")
+        $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
       }
       startCarrousel()
     })
@@ -572,12 +681,35 @@
   <div class="flex justify-end adminOnly hidden">
     <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
       <div>
+        <h1 class="font-black">Cheklist de curadoria</h1>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar ortografia dos campos de texto</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar mapa de localização das casas</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar calendario</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar layout da pagina</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar por falta de Letras maisculas ao inicio de palavras / frases </label>
+        </div>
+
         <h1>Quantidade de estrelas</h1>
         <p>
           2 - Experiencia
           <br />
           7 - 6+
         </p>
+
         <input type="number" value="3" id="homeStars" name="quantity" min="2" max="7" />
       </div>
 
@@ -868,44 +1000,44 @@
           <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
         </a>
 
-        <div x-data="{ dropdownOpen: false }"  class="usuario-button relative">
-        <a href="#" @click="dropdownOpen = !dropdownOpen"
-          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
-          <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
-        </a>
-        <div id="userDropdownLogged" class="flex">
+        <div x-data="{ dropdownOpen: false }" class="usuario-button relative">
+          <a href="#" @click="dropdownOpen = !dropdownOpen"
+            class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
+            <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
+          </a>
+          <div id="userDropdownLogged" class="flex">
 
-        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+            <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
-        <div x-show="dropdownOpen"
-          class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
-          <a onclick="location.href='/onboarding/'"
-            class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Editar Cadastro
-          </a>
-          <a onclick="location.href='/residence/calendar/'"
-            class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Adicionar Datas
-          </a>
-          <a onclick="location.href='/dashboard/chat/'"
-            class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Mensagens
-          </a>
+            <div x-show="dropdownOpen"
+              class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
+              <a onclick="location.href='/onboarding/'"
+                class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                Editar Cadastro
+              </a>
+              <a onclick="location.href='/residence/calendar/'"
+                class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                Adicionar Datas
+              </a>
+              <a onclick="location.href='/dashboard/chat/'"
+                class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                Mensagens
+              </a>
 
-          <a id="parentPoints" onclick="location.href='/usuario/'"
-            class="flex justify-between text-base font-normal cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Pontuação:
-            <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
-          </a>
+              <a id="parentPoints" onclick="location.href='/usuario/'"
+                class="flex justify-between text-base font-normal cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                Pontuação:
+                <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+              </a>
 
-          <a href="/home/" onclick="removeCookie()"
-            class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Log out
-          </a>
-        </div>
+              <a href="/home/" onclick="removeCookie()"
+                class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                Log out
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   </header>
 
   <div class="px-10 md:px-16 md:py-5 hidden" id="main">

@@ -141,7 +141,7 @@ function setHomeInfos(element) {
     $('#airportDistance').text(element[`airportDistance`])
     $('#uncoveredParking').text(element[`uncoveredParking`])
     $('#coveredParking').text(element[`coveredParking`])
-    $('#map')
+    $('#map1')
         .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
             </iframe>`)
     $(`#infoWorkers`).text(
