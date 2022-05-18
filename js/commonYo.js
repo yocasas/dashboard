@@ -48,7 +48,9 @@ function traduzirLocation(location, tiny) {
   }
 }
 
-
+function numberWithPeriod(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
 
 function getCookie(name) {
   var dc = document.cookie
@@ -232,6 +234,21 @@ function toHumanDate(x) {
 
   return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
 }
+
+
+function toIsoDate(x) {
+  let date = x
+  var day  = date.split("/")[0];
+  var month  = date.split("/")[1];
+  var year  = date.split("/")[2];
+
+  //return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
+
+  return year + '-' + ("0"+month).slice(-2) + '-' + ("0"+day).slice(-2);
+
+
+}
+
 
 let starsToPointsPerNight = function (multiplier) {
   const basePoint = 400
