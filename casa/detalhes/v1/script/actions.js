@@ -142,7 +142,7 @@ function setHomeInfos(element) {
     $('#uncoveredParking').text(element[`uncoveredParking`])
     $('#coveredParking').text(element[`coveredParking`])
     $('#map')
-        .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
+        .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['lat'] != null && element['lat'] != undefined ? element['lat'] + element['lng'] : element['zipCode']}"">
             </iframe>`)
     $(`#infoWorkers`).text(
         checkData(element[`infoWorkers`]) ?
@@ -175,7 +175,6 @@ function setHomeInfos(element) {
             element[`curatedDetails`] :
             'Sem informações',
     )
-    console.log(element[`curatedDetails`])
     $(`#extraRestriction`).text(
         checkData(element[`extraRestriction`]) ?
             element[`extraRestriction`] :
