@@ -141,9 +141,17 @@ function setHomeInfos(element) {
     $('#airportDistance').text(element[`airportDistance`])
     $('#uncoveredParking').text(element[`uncoveredParking`])
     $('#coveredParking').text(element[`coveredParking`])
-    $('#map')
-        .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['lat'] != null && element['lat'] != undefined ? element['lat'] + element['lng'] : element['zipCode']}"">
+
+    if (element['lat'] != null && element['lat'] != undefined) {
+        $('#map')
+            .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/view?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&center=${element['lat']},${element['lng']}&zoom=15"">
             </iframe>`)
+    } else {
+
+        $('#map')
+            .prepend(`<iframe  class="w-full h-s-1/2" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&q=${element['zipCode']}"">
+            </iframe>`)
+    }
     $(`#infoWorkers`).text(
         checkData(element[`infoWorkers`]) ?
             element[`infoWorkers`] :
@@ -186,6 +194,18 @@ function setHomeInfos(element) {
     } else {
         $(`.curatedOnly`).addClass('hidden')
     }
+}
+
+
+function updateMap(lat, lng, zipcode) {
+    if (lat == undefined) {
+        lat = $("#lat").val()
+    }
+    if (lng == undefined) {
+        lng = $("#lng").val()
+    }
+    $('#map>iframe').attr('src', `https://www.google.com/maps/embed/v1/view?key=AIzaSyCkZNXLlRijWEbGtos2oL60_EIaofq_XKY&center=${lat} ${lng}&zoom=15`);
+
 }
 
 

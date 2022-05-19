@@ -201,6 +201,8 @@
         curateStatus: curateStatus,
         featured: featured,
         availableDates: currentHomeInfo.availableDates,
+        lat: $(`#lat`).val(),
+        lng: $(`#lng`).val(),
       }
 
       let clientTypeData = 2
@@ -394,6 +396,8 @@
 
           let points = starsToPointsPerNight(element['multiplier'])
           $(`#homeStars`).val(element['multiplier'])
+          $(`#lat`).val(element['lat'])
+          $(`#lng`).val(element['lng'])
           $('#points').text(numberWithCommas(points))
 
           let files = []
@@ -626,6 +630,20 @@
         </p>
 
         <input type="number" value="3" id="homeStars" name="quantity" min="2" max="7" />
+      </div>
+
+      <div class="py-3">
+        <h1 class="font-black">Lat / Long do Mapa</h1>
+        <div>
+          <input type="text" id="lat" name="lat">
+          <label for="lat">Latitude</label>
+        </div>
+        <div>
+          <input type="text" id="lng" name="lng">
+          <label for="lat">Longitude</label>
+        </div>
+        <button class="nonCuratedOnly h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light" onclick="updateMap()">Update Map</button>
+
       </div>
 
       <button onclick="curateHome(true, false)" href="#"
