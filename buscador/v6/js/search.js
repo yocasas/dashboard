@@ -153,22 +153,23 @@ function populateHomes(e) {
     let getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
     if (authCookie == null) {
         getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes`
-
     }
+
+    
     $.ajax({
         url: getHomesDetailedUri,
         type: "POST",
         data: JSON.stringify(data),
 
         headers: {
-            "Authorization": authCookie == null ? undefined : authCookie
+            "Authorization": authCookie == null ? undefined : authCookie,
+            contentType: "application/json",
         },
-        contentType: "application/json",
+        
 
 
 
         success: function (x) {
-
             maxPage = 0
             currentPage = 0
 
@@ -189,9 +190,6 @@ function populateHomes(e) {
 
 
             let pages = $(`#pages`)
-
-
-
 
             let pageIcon = pages.find('#0')
 

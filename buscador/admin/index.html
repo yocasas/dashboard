@@ -9,6 +9,11 @@
 </head>
 
 <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
+    <script>
+
+        var Cookies2 = Cookies.noConflict()
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
@@ -28,7 +33,7 @@
 
         let clientIdArray = []
         $(document).ready(() => {
-            checkCurrentUser()
+            checkCurrentUser(Cookies2)
             if (devMode != true) {
                 if (clientInfo.clientType <= 2) {
                     window.location.href = `https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
