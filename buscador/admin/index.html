@@ -73,7 +73,6 @@
                     contentType: 'application/json',
 
                     success: function (x) {
-                        console.log(x.length)
 
                         x.forEach((element) => {
                             $(`#homes`).append(
@@ -137,7 +136,7 @@
                 let data = {
                     clientsArray: clients,
                 }
-                console.log(clients)
+
                 $.ajax({
                     url: getUserLoteUri,
                     type: 'POST',
@@ -149,8 +148,6 @@
                     contentType: 'application/json',
 
                     success: function (x) {
-                        console.log(x[0]['ClientId'])
-
                         x.forEach((element) => {
                             let picturesCheck = element['picturesCheck'] == true ? 'Fotos autorizadas' : 'Fotos não autorizadas'
                             let numberVerified = element['verifiedNumber'] == true ? 'Número verificado' : 'Número não verificado'
@@ -229,7 +226,7 @@
         <script>
             $(document).ready(function () {
                 if (checkDevMode()) {
-                    console.log('hello')
+
                     $('#devModeShow').removeClass('hidden')
                 }
             })
