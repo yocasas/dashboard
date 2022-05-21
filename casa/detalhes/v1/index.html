@@ -12,6 +12,9 @@
   <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
   <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
 
+
+
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-V0C85S2RG3"></script>
@@ -49,6 +52,7 @@
       overflow-y: visible !important;
     }
   </style>
+
 
 
 
@@ -130,7 +134,7 @@
       }
 
 
-      console.log(modalArgs)
+
 
 
       if (!modalArgs || typeof (modalArgs) != "string" || modalArgs == "") {
@@ -158,16 +162,36 @@
     let contactId
 
     function curateHome(curateStatus, featured = false) {
+
+      let makeRequest = true
       window.scrollTo(0, 0)
       if (!$('.loading').parent().hasClass('hidden')) {
         alert("Ja existe uma requisição em andamento")
+        makeRequest = false
         return
       }
-      $('.loading').parent().removeClass('hidden')
-      $('html, body').css({
-        overflow: 'hidden',
-        height: '100%',
-      })
+
+
+      if (curateStatus) {
+        $(".checklist").each((i, e) => {
+          console.log(e)
+          if ($(e).is(":checked")) {
+            console.log("Os dados foram checados")
+          } else {
+            makeRequest = false
+            console.log("Garanta que checou os dados antes da aprovação")
+            return
+          }
+        })
+      }
+
+      if (makeRequest) {
+        $('html, body').css({
+          overflow: 'hidden',
+          height: '100%',
+        })
+        $('.loading').parent().removeClass('hidden')
+      }
 
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
@@ -177,6 +201,8 @@
         curateStatus: curateStatus,
         featured: featured,
         availableDates: currentHomeInfo.availableDates,
+        lat: $(`#lat`).val(),
+        lng: $(`#lng`).val(),
       }
 
       let clientTypeData = 2
@@ -187,50 +213,50 @@
         clientType: clientTypeData,
         clientId: currentHomeInfo.clientId,
       }
+      if (makeRequest) {
+        $.ajax({
+          url: `${getCurrentHomeBaseUri()}/addHome/curate`,
+          type: 'POST',
+          headers: {
+            Authorization: authCookie,
+          },
+          data: JSON.stringify(curateSettings),
+          contentType: 'application/json',
 
-      $.ajax({
-        url: `${getCurrentHomeBaseUri()}/addHome/curate`,
-        type: 'POST',
-        headers: {
-          Authorization: authCookie,
-        },
-        data: JSON.stringify(curateSettings),
-        contentType: 'application/json',
+          success: (resp) => {
+            window.scrollTo(0, 0) //LOADINGG
+            $('.loading').parent().addClass('hidden')
+            $('html, body').css({
+              overflow: 'auto',
+              height: 'auto',
+            })
 
-        success: (resp) => {
-          window.scrollTo(0, 0) //LOADINGG
-          $('.loading').parent().addClass('hidden')
-          $('html, body').css({
-            overflow: 'auto',
-            height: 'auto',
-          })
+            let curateUserUri =
+              'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
 
-          let curateUserUri =
-            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
+            if (devMode) {
+              curateUserUri =
+                'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
+            }
 
-          if (devMode) {
-            curateUserUri =
-              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
-          }
+            $.ajax({
+              url: curateUserUri,
+              type: 'POST',
+              headers: {
+                Authorization: authCookie,
+              },
+              data: JSON.stringify(curateUserSettings),
+              contentType: 'application/json',
 
-          $.ajax({
-            url: curateUserUri,
-            type: 'POST',
-            headers: {
-              Authorization: authCookie,
-            },
-            data: JSON.stringify(curateUserSettings),
-            contentType: 'application/json',
-
-            success: (resp) => {
-              location.reload()
-            },
-          })
-          //$('#showWarn').removeClass('hidden')
-          //window.location.href = "/dashboard/chat/"
-        },
-      })
-
+              success: (resp) => {
+                location.reload()
+              },
+            })
+            //$('#showWarn').removeClass('hidden')
+            //window.location.href = "/dashboard/chat/"
+          },
+        })
+      }
 
     }
 
@@ -315,7 +341,7 @@
         success: function (x) {
           let element = x[0]
           currentHomeInfo = element
-          console.log(element)
+
 
 
 
@@ -370,6 +396,8 @@
 
           let points = starsToPointsPerNight(element['multiplier'])
           $(`#homeStars`).val(element['multiplier'])
+          $(`#lat`).val(element['lat'])
+          $(`#lng`).val(element['lng'])
           $('#points').text(numberWithCommas(points))
 
           let files = []
@@ -531,8 +559,8 @@
         })
       } else {
         $("#userNameDrop").text("Inscreva-se já")
-            $("#userDropdownLogged").addClass("hidden")
-            $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
+        $("#userDropdownLogged").addClass("hidden")
+        $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
       }
       startCarrousel()
     })
@@ -572,13 +600,50 @@
   <div class="flex justify-end adminOnly hidden">
     <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
       <div>
+        <h1 class="font-black">Cheklist de curadoria</h1>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar ortografia dos campos de texto</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar mapa de localização das casas</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar calendario</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar layout da pagina</label>
+        </div>
+        <div>
+          <input type="checkbox" id="horns" name="horns" class="checklist">
+          <label for="horns">Checar por falta de Letras maisculas ao inicio de palavras / frases </label>
+        </div>
+
         <h1>Quantidade de estrelas</h1>
         <p>
           2 - Experiencia
           <br />
           7 - 6+
         </p>
+
         <input type="number" value="3" id="homeStars" name="quantity" min="2" max="7" />
+      </div>
+
+      <div class="py-3">
+        <h1 class="font-black">Lat / Long do Mapa</h1>
+        <div>
+          <input type="text" id="lat" name="lat">
+          <label for="lat">Latitude</label>
+        </div>
+        <div>
+          <input type="text" id="lng" name="lng">
+          <label for="lat">Longitude</label>
+        </div>
+        <button class="nonCuratedOnly h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light" onclick="updateMap()">Update Map</button>
+
       </div>
 
       <button onclick="curateHome(true, false)" href="#"
@@ -707,7 +772,7 @@
     <script>
       $(document).ready(function () {
         if (checkDevMode()) {
-          console.log('hello')
+
           $('#devModeShow').removeClass('hidden')
         }
       })
@@ -859,38 +924,37 @@
         </div>
       </div>
 
-      <div x-data="{ dropdownOpen: false }" class="usuario-button relative" id="userDropdown">
+      <div x-data="{ dropdownOpen: false }" id="userDropdown" class="usuario-button relative">
         <a href="#" @click="dropdownOpen = !dropdownOpen"
-          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light hidden md:inline-flex items-center">
-          <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">
-            Usuário
-          </p>
+          class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light  hidden md:inline-flex items-center">
+          <p id="userNameDrop" class="text-green_dark font-semibold whitespace-nowrap">Usuário</p>
           <div class="flex-wrap flex ml-4 lg:ml-24 fas fa-bars fa-lg"></div>
         </a>
 
-        <div x-data="{ dropdownOpen: false }"  class="usuario-button relative">
         <a href="#" @click="dropdownOpen = !dropdownOpen"
           class="md:mx-10 mx-4 bg-green_light px-5 py-2 rounded-full hover:bg-green_detail hover:border-green_detail border-4 border-green_light text-green_dark sm:hidden inline-flex items-center">
           <div class="flex-wrap flex sm:ml-24 fas fa-bars fa-lg"></div>
         </a>
+
+
         <div id="userDropdownLogged" class="flex">
+          <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
 
-        <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
+          <div x-show="dropdownOpen"
+            class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
 
-        <div x-show="dropdownOpen"
-          class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
-          <a onclick="location.href='/onboarding/'"
-            class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Editar Cadastro
-          </a>
-          <a onclick="location.href='/residence/calendar/'"
-            class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Adicionar Datas
-          </a>
-          <a onclick="location.href='/dashboard/chat/'"
-            class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Mensagens
-          </a>
+            <a onclick="location.href='/onboarding/'"
+              class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+              Editar Cadastro
+            </a>
+            <a onclick="location.href='/usuario/residence/calendar/'"
+              class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+              Adicionar Datas
+            </a>
+            <a onclick="location.href='/dashboard/chat/'"
+              class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+              Mensagens
+            </a>
 
           <a id="parentPoints" onclick="location.href='/usuario/'"
                         class="flex flex-col justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
@@ -898,14 +962,16 @@
                         <div class="text-sm text-green_medium">Ver histórico</div>
                     </a>
 
-          <a href="/home/" onclick="removeCookie()"
-            class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
-            Log out
-          </a>
-        </div>
+            <a href="/home/" onclick="removeCookie()"
+              class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
+              Log out
+            </a>
+
+
+
+          </div>
         </div>
       </div>
-    </div>
   </header>
 
   <div class="px-10 md:px-16 md:py-5 hidden" id="main">
