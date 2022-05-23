@@ -163,7 +163,6 @@ function populateHomes(e) {
 
         headers: {
             "Authorization": authCookie == null ? undefined : authCookie,
-            contentType: "application/json",
         },
         
 
