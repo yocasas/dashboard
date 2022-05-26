@@ -154,6 +154,98 @@
     }
 
 
+    Date.prototype.addHours = function (h) {
+      this.setTime(this.getTime() + h * 60 * 60 * 1000)
+      return this
+    }
+
+    function fixTimeZone(date) {
+      let dateSave = new Date(date.getTime())
+      return dateSave.addHours(dateSave.getTimezoneOffset() / 60)
+    }
+
+    function generateAvaliableObj(sortedDatesJSON) {
+      let sortedDatesString = JSON.parse(JSON.stringify(sortedDatesJSON))
+
+      if (sortedDatesString.length == 0) {
+        return {
+          start: new Date(0),
+          end: new Date(0),
+        }
+      }
+
+      let sortedDates = sortedDatesString.map((x) => new Date(x))
+      let sortedDates1 = sortedDatesString.map((x) => new Date(x))
+      //console.log(typeof sortedDates[0])
+
+      let fullDates = []
+
+      if (sortedDates.length > 1) {
+        let initDate = new Date(0)
+        let startDate = new Date(0)
+        let endDate = new Date(0)
+
+        sortedDates.forEach((lastDate) => {
+          initDate = new Date(endDate.getTime())
+          initDate.setDate(initDate.getDate() + 1)
+          if (
+            initDate.getDate() == lastDate.getDate() &&
+            initDate.getFullYear() == lastDate.getFullYear() &&
+            initDate.getMonth() == lastDate.getMonth()
+          ) {
+            endDate = new Date(lastDate.getTime())
+          } else {
+            if (startDate >= new Date()) {
+              let startDateSave = fixTimeZone(startDate)
+              let endDateSave = fixTimeZone(endDate)
+
+              fullDates.push({
+                start: startDateSave,
+                end: endDateSave,
+              })
+            } else if (endDate >= new Date()) {
+              let startDateSave = fixTimeZone(new Date())
+              let endDateSave = fixTimeZone(endDate)
+
+              fullDates.push({
+                start: startDateSave,
+                end: endDateSave,
+              })
+            }
+
+            startDate = new Date(lastDate.getTime())
+            endDate = new Date(lastDate.getTime())
+          }
+        })
+
+        if (startDate >= new Date()) {
+          let startDateSave = fixTimeZone(startDate)
+          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+
+          fullDates.push({
+            start: startDateSave,
+            end: endDateSave,
+          })
+        } else if (endDate >= new Date()) {
+          let startDateSave = fixTimeZone(new Date())
+          let endDateSave = fixTimeZone(sortedDates[sortedDates.length - 1])
+
+          fullDates.push({
+            start: startDateSave,
+            end: endDateSave,
+          })
+        }
+      } else {
+        fullDates.push({
+          start: new Date(0),
+          end: new Date(0),
+        })
+      }
+      console.log(fullDates)
+      return fullDates
+    }
+
+
   </script>
 
   <script>
@@ -642,7 +734,9 @@
           <input type="text" id="lng" name="lng">
           <label for="lat">Longitude</label>
         </div>
-        <button class="nonCuratedOnly h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light" onclick="updateMap()">Update Map</button>
+        <button
+          class="nonCuratedOnly h-10 left-0 relative hostOnly cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light"
+          onclick="updateMap()">Update Map</button>
 
       </div>
 
@@ -956,11 +1050,14 @@
               Mensagens
             </a>
 
-          <a id="parentPoints" onclick="location.href='/usuario/'"
-                        class="flex flex-col justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                        <div class="flex justify-between"><div>Pontuação:</div> <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div></div>
-                        <div class="text-sm text-green_medium">Ver histórico</div>
-                    </a>
+            <a id="parentPoints" onclick="location.href='/usuario/'"
+              class="flex flex-col justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+              <div class="flex justify-between">
+                <div>Pontuação:</div>
+                <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div>
+              </div>
+              <div class="text-sm text-green_medium">Ver histórico</div>
+            </a>
 
             <a href="/home/" onclick="removeCookie()"
               class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
@@ -1706,8 +1803,8 @@
           </div>
           <div>
             <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
-              <v-date-picker v-model="range" is-range :available-dates="avbldates" :attributes="attr"
-                @dayclick="onDayClick" />
+              <v-date-picker v-model="range" is-range :available-dates="avbldates" :min-date='new Date()'
+                :attributes="attr" @dayclick="onDayClick" />
 
             </div>
             <p class="text-xs px-15 text-center"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -1788,14 +1885,15 @@
                     //highlight: 'green',
                     bar: 'green',
                     dates: new Date(0),
-                  },],
+                  },
+                  ],
                   range: {
                     start: null,
                     end: null,
                   },
                   avbldates: [{
-                    start: new Date(),
-                    end: new Date('2021-09-30'),
+                    start: new Date(0),
+                    end: new Date('2022-06-30'),
                   },],
                 }
               },
@@ -1807,31 +1905,37 @@
             })
 
             function updateCalendarData(days1) {
+
               let startDate = vue.$data.range.start
               let endDate = vue.$data.range.end
               selectedDates = [startDate, endDate]
               let days = Math.round(
                 (endDate - startDate) / (1000 * 60 * 60 * 24),
               )
-              $('#dataReserva').text(
-                `${toHumanDate(startDate)} a ${toHumanDate(endDate)}`,
-              )
-              $('#totalCost').text(
-                '- ' +
-                numberWithCommas(starsToPointsPerNight(multiplier) * days),
-              )
-              $('#totalNights').text(days)
 
-              $('#totalPointsAfter').text(
-                numberWithCommas(
-                  (userPointsInfo != undefined ? userPointsInfo : 0) -
-                  starsToPointsPerNight(multiplier) * days,
-                ),
-              )
+              if (startDate != null && endDate != null) {
 
-              $('#nightsTax').text(
-                'R$ ' + numberWithCommas(100 * (multiplier - 1) + 200),
-              )
+                $('#dataReserva').text(
+                  `${toHumanDate(startDate)} a ${toHumanDate(endDate)}`,
+                )
+                $('#totalCost').text(
+                  '- ' +
+                  numberWithCommas(starsToPointsPerNight(multiplier) * days),
+                )
+                $('#totalNights').text(days)
+
+                $('#totalPointsAfter').text(
+                  numberWithCommas(
+                    (userPointsInfo != undefined ? userPointsInfo : 0) -
+                    starsToPointsPerNight(multiplier) * days,
+                  ),
+                )
+
+                $('#nightsTax').text(
+                  'R$ ' + numberWithCommas(100 * (multiplier - 1) + 200),
+                )
+
+              }
             }
           </script>
         </div>
