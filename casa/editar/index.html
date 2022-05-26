@@ -64,7 +64,7 @@
             }
 
             $.ajax({
-                url: 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate',
+                url: `${getCurrentHomeBaseUri()}/addHome/curate`,
                 type: 'POST',
                 headers: {
                     Authorization: authCookie,
