@@ -80,7 +80,7 @@ let checkCurrentUserNoBlock = function (cookieJs) {
     if (myCookieNew != "" && myCookie != undefined) {
       myCookie = myCookieNew
     }
-    
+
   }
 
   authCookie = myCookie
@@ -101,7 +101,7 @@ let checkCurrentUser = function (cookieJs) {
     if (myCookieNew != "" && myCookie != undefined) {
       myCookie = myCookieNew
     }
-    
+
   }
 
   authCookie = myCookie
@@ -123,7 +123,7 @@ let checkCurrentUser = function (cookieJs) {
 
 function checkDevMode() {
 
-  if (sessionStorage.getItem("devMode") == "yes" || document.location.hostname == "localhost" || document.location.hostname == "dev.yocasas.com.br" ) {
+  if (sessionStorage.getItem("devMode") == "yes" || document.location.hostname == "localhost" || document.location.hostname == "dev.yocasas.com.br") {
     devMode = true
   }
 
@@ -132,7 +132,7 @@ function checkDevMode() {
 
 function getCurrentHomeBaseUri() {
   if (checkDevMode()) {
-    homeBaseuri = 'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV'
+    homeBaseuri = `https://${getCurrentHomeBaseUri()}/dev`
   } else {
     homeBaseuri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev'
   }
@@ -180,7 +180,7 @@ function getCurrentUserBaseUri() {
 function getCurrentS3Uri() {
   if (devMode) {
     gets3Uri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3'
+      `https://${getCurrentHomeBaseUri()}/s3/getFile/v3`
   } else {
     gets3Uri =
       'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
@@ -193,7 +193,7 @@ function getCurrentDetailedUrl() {
   if (checkDevMode()) {
     console.log('ENTROU AQUI')
     getHomesDetailedUri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed'
+      `https://${getCurrentHomeBaseUri()}/gethomes/detailed`
   } else {
     console.log('ENTROU ALI')
     getHomesDetailedUri =
@@ -206,7 +206,7 @@ function getCurrentDetailedUrl() {
 function getCurrentHomesUrl() {
   if (checkDevMode()) {
     getHomesDetailedUri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/'
+      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/dev/'
   } else {
     getHomesDetailedUri =
       'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/'
@@ -238,13 +238,13 @@ function toHumanDate(x) {
 
 function toIsoDate(x) {
   let date = x
-  var day  = date.split("/")[0];
-  var month  = date.split("/")[1];
-  var year  = date.split("/")[2];
+  var day = date.split("/")[0];
+  var month = date.split("/")[1];
+  var year = date.split("/")[2];
 
   //return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
 
-  return year + '-' + ("0"+month).slice(-2) + '-' + ("0"+day).slice(-2);
+  return year + '-' + ("0" + month).slice(-2) + '-' + ("0" + day).slice(-2);
 
 
 }

@@ -59,7 +59,7 @@
 
                 if (devMode) {
                     getHomesDetaileduri =
-                        'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed'
+                        `https://${getCurrentHomeBaseUri()}/gethomes/detailed`
                 }
 
                 $.ajax({
