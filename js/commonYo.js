@@ -180,7 +180,7 @@ function getCurrentUserBaseUri() {
 function getCurrentS3Uri() {
   if (devMode) {
     gets3Uri =
-      `https://${getCurrentHomeBaseUri()}/s3/getFile/v3`
+      `${getCurrentHomeBaseUri()}/s3/getFile/v3`
   } else {
     gets3Uri =
       'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
@@ -193,7 +193,7 @@ function getCurrentDetailedUrl() {
   if (checkDevMode()) {
     console.log('ENTROU AQUI')
     getHomesDetailedUri =
-      `https://${getCurrentHomeBaseUri()}/gethomes/detailed`
+      `${getCurrentHomeBaseUri()}/gethomes/detailed`
   } else {
     console.log('ENTROU ALI')
     getHomesDetailedUri =
