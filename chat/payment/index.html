@@ -17,7 +17,7 @@
             const urlParams = new URLSearchParams(window.location.search)
             const chatId = urlParams.get('chatId')
 
-            window.location.href = `${getCurrentChatBaseUri()}/host/request/respond/?chatId=${chatId}`
+            window.location.href = `${getCurrentChatBaseUri()}/host/request/complete/?chatId=${chatId}`
         })
     </script>
 
