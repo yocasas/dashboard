@@ -160,7 +160,7 @@ function setDevMode() {
 
 function getCurrentChatBaseUri() {
   if (checkDevMode()) {
-    chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV'
+    chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/dev'
   } else {
     chatBaseuri = 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev'
   }
