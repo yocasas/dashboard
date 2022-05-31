@@ -271,7 +271,7 @@
             console.log("Os dados foram checados")
           } else {
             makeRequest = false
-            console.log("Garanta que checou os dados antes da aprovação")
+            alert("Garanta que checou os dados antes da aprovação")
             return
           }
         })
@@ -389,6 +389,7 @@
     let selectedDates
 
     function populateHomes(e) {
+      $("#homeIDadmin").text(`casa #${e}`)
       let data = {
         HomeId: e,
       }
@@ -693,6 +694,7 @@
     <h1 class="fixed z-50 right-0 bottom-0 w-auto bg-grey-400 bg-opacity-50">
       <div>
         <h1 class="font-black">Cheklist de curadoria</h1>
+        <p id="homeIDadmin">casa #?</p>
         <div>
           <input type="checkbox" id="horns" name="horns" class="checklist">
           <label for="horns">Checar ortografia dos campos de texto</label>
