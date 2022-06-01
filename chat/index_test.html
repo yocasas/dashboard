@@ -52,7 +52,7 @@
 
         async function getS3ProfilePics(fullInfo) { //populate s3 pics b64 data
             let photo0 = await $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                url: `${getCurrentHomeBaseUri()}/s3/getFile`,
                 type: "POST",
                 data: JSON.stringify({
                     "pic-name": fullInfo.hostPicture
@@ -64,7 +64,7 @@
             })
 
             let photo1 = await $.ajax({
-                url: "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile",
+                url: `${getCurrentHomeBaseUri()}/s3/getFile`,
                 type: "POST",
                 data: JSON.stringify({
                     "pic-name": fullInfo.guestPicture

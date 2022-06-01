@@ -55,12 +55,8 @@
                 let data = {}
 
                 let getHomesDetaileduri =
-                    'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
-
-                if (devMode) {
-                    getHomesDetaileduri =
                         `${getCurrentHomeBaseUri()}/gethomes/detailed`
-                }
+
 
                 $.ajax({
                     url: getHomesDetaileduri,

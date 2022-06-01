@@ -183,7 +183,7 @@ function getCurrentS3Uri() {
       `${getCurrentHomeBaseUri()}/s3/getFile/v3`
   } else {
     gets3Uri =
-      'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
+    `${getCurrentHomeBaseUri()}/dev/s3/getFile/v3`
   }
 
   return gets3Uri
