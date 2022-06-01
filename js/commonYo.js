@@ -134,7 +134,7 @@ function getCurrentHomeBaseUri() {
   if (checkDevMode()) {
     homeBaseuri = `https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/dev`
   } else {
-    homeBaseuri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev'
+    homeBaseuri = 'https://eq3xwcj4zd.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return homeBaseuri
 }
