@@ -389,7 +389,7 @@
     let selectedDates
 
     function populateHomes(e) {
-      $("#homeIDadmin").text(`casa #${e}`)
+      $("#homeIDadmin").text(`casa #${e.substring(0,5)}`)
       let data = {
         HomeId: e,
       }
