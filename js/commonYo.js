@@ -271,6 +271,27 @@ let starsToPointsPerNight = function (multiplier) {
   }
 }
 
+let starsToPointsTaxNight = function (multiplier) {
+  const basePoint = 400
+  switch (multiplier) {
+    case 2:
+      return 300
+    case 3:
+      return 300
+    case 4:
+      return 600
+    case 5:
+      return 600
+    case 6:
+      return 900
+    case 7:
+      return 900
+
+    default:
+      return 0
+  }
+}
+
 function getUserPoints() {
   token = authCookie
   if (token != null) {
