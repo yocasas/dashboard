@@ -170,9 +170,9 @@ function getCurrentChatBaseUri() {
 function getCurrentUserBaseUri() {
 
   if (checkDevMode()) {
-    userBaseuri = 'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV'
+    userBaseuri = 'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/dev'
   } else {
-    userBaseuri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2'
+    userBaseuri = 'https://fvwbz9ne3a.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return userBaseuri
 }
@@ -316,13 +316,9 @@ function getUserPoints() {
 
     //TODO: Usar os headers e nao clientid como argumento
     data = JSON.stringify(data)
-    let getUserPointsUri =
-      'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary'
+    let getUserPointsUri = `${getCurrentUserBaseUri()}/points/get/summary`
 
-    if (checkDevMode()) {
-      getUserPointsUri =
-        'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/points/get/summary'
-    }
+    
     $.ajax({
       url: getUserPointsUri,
       type: 'POST',
