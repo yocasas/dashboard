@@ -297,12 +297,9 @@
         lng: $(`#lng`).val(),
       }
 
-      let clientTypeData = 2
-      if (clientInfo.clientType > 2) {
-        clientTypeData = clientInfo.clientType
-      }
+      
       let curateUserSettings = {
-        clientType: clientTypeData,
+        clientType: 2,
         clientId: currentHomeInfo.clientId,
       }
       if (makeRequest) {
@@ -324,12 +321,10 @@
             })
 
             let curateUserUri =
-              'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate'
+              `${getCurrentUserBaseUri()}/register/curate`
 
-            if (devMode) {
-              curateUserUri =
-                'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/register/curate'
-            }
+            
+              
 
             $.ajax({
               url: curateUserUri,
@@ -443,11 +438,8 @@
           setHomeInfos(element)
 
           let getUserUri =
-            'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser'
-          if (devMode) {
-            getUserUri =
-              'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser'
-          }
+            `${getCurrentUserBaseUri()}/getuser`
+         
           $.ajax({
             url: getUserUri,
             type: 'POST',
