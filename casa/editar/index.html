@@ -84,7 +84,7 @@
             })
 
             $.ajax({
-                url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/register/curate',
+                url: `${getCurrentUserBaseUri()}/register/curate`,
                 type: 'POST',
                 headers: {
                     Authorization: authCookie,
@@ -384,7 +384,7 @@
                     contactId = element['clientId']
 
                     $.ajax({
-                        url: 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser',
+                        url: `${getCurrentUserBaseUri()}/getuser`,
                         type: 'POST',
                         headers: {
                             Authorization: authCookie,
