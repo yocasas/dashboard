@@ -162,7 +162,7 @@ function getCurrentChatBaseUri() {
   if (checkDevMode()) {
     chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/dev'
   } else {
-    chatBaseuri = 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev'
+    chatBaseuri = 'https://8qdyri7j6b.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return chatBaseuri
 }
