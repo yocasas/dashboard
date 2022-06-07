@@ -55,12 +55,8 @@
                 let data = {}
 
                 let getHomesDetaileduri =
-                    'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
+                        `${getCurrentHomeBaseUri()}/gethomes/detailed`
 
-                if (devMode) {
-                    getHomesDetaileduri =
-                        'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed'
-                }
 
                 $.ajax({
                     url: getHomesDetaileduri,
@@ -82,7 +78,7 @@
                     element['clientId']
                   } href="/dashboard/casa/detalhes/?homeId=${
                     element['homeId']
-                  }"><span class="tab font-bold">${element['nickName']} ${
+                  }"><span class="tab font-bold">${element['nickName']} #${element['homeId'].substring(0,5)} ${
                     element['done'] || element['done'] == undefined
                       ? '(Terminou de preencher)'
                       : '(Não terminou de preencher)'
@@ -127,7 +123,7 @@
 
         function populateUsers() {
             let getUserLoteUri =
-                'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/getuser/lote'
+                `${getCurrentUserBaseUri()}/getuser/lote`
             if (devMode) {
                 getUserLoteUri =
                     'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser/lote'
@@ -154,7 +150,7 @@
                             
                             
                             $(`li > #${element['ClientId']}`).after(
-                                `&emsp;<a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1><div class="mr-10 w-10" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">${picturesCheck}</h1> <h1 class="border-2 border-blue-800">${numberVerified}</h1>`,
+                                `&emsp;<h1>id cliente: ${element['ClientId']}</h1><a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1><div class="mr-10 w-40" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">${picturesCheck}</h1> <h1 class="border-2 border-blue-800">${numberVerified}</h1>`,
                             )
                         })
                     },
@@ -165,8 +161,9 @@
     <div class="flex justify-between">
         <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
             <div class="flex flex-col">
-                <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">
+                <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">   
                     <h1>Nome da casa</h1>
+                    <h1>Id cliente</h1>
                     <h1>Situação de preenchimento</h1>
                     <h1>Nome da pessoa</h1>
                     <h1>Email</h1>

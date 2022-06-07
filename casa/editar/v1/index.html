@@ -60,9 +60,9 @@
       }
 
       function getS3file(name, image, total, y) {
-        let s3Uri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
+        let s3Uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
         if (checkDevMode()) {
-          s3uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3"
+          s3uri = `${getCurrentHomeBaseUri()}/s3/getFile/v3`
         }
         return new Promise((resolve, reject) => {
           $.ajax({
@@ -90,9 +90,9 @@
       $("#loading").removeClass("hidden")
       checkCurrentUserNoBlock()
       if (authCookie != null) {
-        let getHomesDetailedUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/gethomes/detailed'
+        let getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
         if (checkDevMode()) {
-          getHomesDetailedUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed"
+          getHomesDetailedUri = `${getCurrentHomeBaseUri()}/gethomes/detailed`
         }
         $.ajax({
           url: getHomesDetailedUri,
@@ -179,10 +179,10 @@
 
       data = JSON.stringify(objForm)
 
-      let curateHomeUri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/addHome/curate'
+      let curateHomeUri = `${getCurrentHomeBaseUri()}/addHome/curate`
 
       if (checkDevMode()) {
-        curateHomeUri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/addHome/curate"
+        curateHomeUri = `${getCurrentHomeBaseUri()}/addHome/curate`
       }
 
       $.ajax({
@@ -314,9 +314,9 @@
         "b64pic": b64file.replace(/data:image\/.*?\;base64,/g, "")
       }
       data = JSON.stringify(imageObject)
-      let addFileS3Uri = "https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/addfile"
+      let addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
       if (checkDevMode()) {
-        addFileS3Uri = "https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/addfile"
+        addFileS3Uri = `${getCurrentHomeBaseUri()}/s3/addfile`
       }
       $.ajax({
         url: addFileS3Uri,

@@ -80,7 +80,7 @@ let checkCurrentUserNoBlock = function (cookieJs) {
     if (myCookieNew != "" && myCookie != undefined) {
       myCookie = myCookieNew
     }
-    
+
   }
 
   authCookie = myCookie
@@ -101,7 +101,7 @@ let checkCurrentUser = function (cookieJs) {
     if (myCookieNew != "" && myCookie != undefined) {
       myCookie = myCookieNew
     }
-    
+
   }
 
   authCookie = myCookie
@@ -123,7 +123,7 @@ let checkCurrentUser = function (cookieJs) {
 
 function checkDevMode() {
 
-  if (sessionStorage.getItem("devMode") == "yes" || document.location.hostname == "localhost" || document.location.hostname == "dev.yocasas.com.br" ) {
+  if (sessionStorage.getItem("devMode") == "yes" || document.location.hostname == "localhost" || document.location.hostname == "dev.yocasas.com.br") {
     devMode = true
   }
 
@@ -132,9 +132,9 @@ function checkDevMode() {
 
 function getCurrentHomeBaseUri() {
   if (checkDevMode()) {
-    homeBaseuri = 'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV'
+    homeBaseuri = `https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/dev`
   } else {
-    homeBaseuri = 'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev'
+    homeBaseuri = 'https://eq3xwcj4zd.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return homeBaseuri
 }
@@ -160,7 +160,7 @@ function setDevMode() {
 
 function getCurrentChatBaseUri() {
   if (checkDevMode()) {
-    chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/DEV'
+    chatBaseuri = 'https://pviaa2nfqa.execute-api.us-east-2.amazonaws.com/dev'
   } else {
     chatBaseuri = 'https://dhg9zd3gy1.execute-api.us-east-1.amazonaws.com/dev'
   }
@@ -170,9 +170,9 @@ function getCurrentChatBaseUri() {
 function getCurrentUserBaseUri() {
 
   if (checkDevMode()) {
-    userBaseuri = 'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV'
+    userBaseuri = 'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/dev'
   } else {
-    userBaseuri = 'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2'
+    userBaseuri = 'https://fvwbz9ne3a.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return userBaseuri
 }
@@ -180,10 +180,10 @@ function getCurrentUserBaseUri() {
 function getCurrentS3Uri() {
   if (devMode) {
     gets3Uri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/s3/getFile/v3'
+      `${getCurrentHomeBaseUri()}/s3/getFile/v3`
   } else {
     gets3Uri =
-      'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/s3/getFile/v3'
+    `${getCurrentHomeBaseUri()}/dev/s3/getFile/v3`
   }
 
   return gets3Uri
@@ -193,7 +193,7 @@ function getCurrentDetailedUrl() {
   if (checkDevMode()) {
     console.log('ENTROU AQUI')
     getHomesDetailedUri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/gethomes/detailed'
+      `${getCurrentHomeBaseUri()}/gethomes/detailed`
   } else {
     console.log('ENTROU ALI')
     getHomesDetailedUri =
@@ -206,7 +206,7 @@ function getCurrentDetailedUrl() {
 function getCurrentHomesUrl() {
   if (checkDevMode()) {
     getHomesDetailedUri =
-      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/DEV/'
+      'https://5mpfn9a77j.execute-api.us-east-2.amazonaws.com/dev/'
   } else {
     getHomesDetailedUri =
       'https://of5h69nvm8.execute-api.us-east-1.amazonaws.com/dev/'
@@ -238,13 +238,13 @@ function toHumanDate(x) {
 
 function toIsoDate(x) {
   let date = x
-  var day  = date.split("/")[0];
-  var month  = date.split("/")[1];
-  var year  = date.split("/")[2];
+  var day = date.split("/")[0];
+  var month = date.split("/")[1];
+  var year = date.split("/")[2];
 
   //return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + (date.getDate());
 
-  return year + '-' + ("0"+month).slice(-2) + '-' + ("0"+day).slice(-2);
+  return year + '-' + ("0" + month).slice(-2) + '-' + ("0" + day).slice(-2);
 
 
 }
@@ -265,6 +265,27 @@ let starsToPointsPerNight = function (multiplier) {
       return basePoint * Math.pow(2, 4)
     case 7:
       return basePoint * Math.pow(2, 4) * 1.5
+
+    default:
+      return 0
+  }
+}
+
+let starsToPointsTaxNight = function (multiplier) {
+  const basePoint = 400
+  switch (multiplier) {
+    case 2:
+      return 300
+    case 3:
+      return 300
+    case 4:
+      return 600
+    case 5:
+      return 600
+    case 6:
+      return 900
+    case 7:
+      return 900
 
     default:
       return 0
@@ -295,13 +316,9 @@ function getUserPoints() {
 
     //TODO: Usar os headers e nao clientid como argumento
     data = JSON.stringify(data)
-    let getUserPointsUri =
-      'https://044er6jwuc.execute-api.us-east-1.amazonaws.com/dev-2/points/get/summary'
+    let getUserPointsUri = `${getCurrentUserBaseUri()}/points/get/summary`
 
-    if (devMode) {
-      getUserPointsUri =
-        'https://8e9nbq8rj1.execute-api.us-east-2.amazonaws.com/DEV/points/get/summary'
-    }
+    
     $.ajax({
       url: getUserPointsUri,
       type: 'POST',
