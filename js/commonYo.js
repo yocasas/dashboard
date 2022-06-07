@@ -183,7 +183,7 @@ function getCurrentS3Uri() {
       `${getCurrentHomeBaseUri()}/s3/getFile/v3`
   } else {
     gets3Uri =
-    `${getCurrentHomeBaseUri()}/dev/s3/getFile/v3`
+    `${getCurrentHomeBaseUri()}/s3/getFile/v3`
   }
 
   return gets3Uri
