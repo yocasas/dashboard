@@ -124,10 +124,6 @@
         function populateUsers() {
             let getUserLoteUri =
                 `${getCurrentUserBaseUri()}/getuser/lote`
-            if (devMode) {
-                getUserLoteUri =
-                    'https://wuixd5ec4b.execute-api.us-east-2.amazonaws.com/DEV/getuser/lote'
-            }
             populateHomes().then((clients) => {
                 let data = {
                     clientsArray: clients,
