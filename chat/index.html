@@ -2,6 +2,11 @@
 <html lang="en">
 
 <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
+    <script>
+
+        var Cookies2 = Cookies.noConflict()
+    </script>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
@@ -21,7 +26,7 @@
         gtag('js', new Date())
 
         gtag('config', 'G-V0C85S2RG3')
-        checkCurrentUser()
+        checkCurrentUser(Cookies2)
         gtag('set', {
             id: clientInfo.ClientId.substring(7),
         })
@@ -532,7 +537,7 @@
     <script id="loadChatsFunction">
         //load chats from tokenn
         window.onload = function () {
-            checkCurrentUser()
+            checkCurrentUser(Cookies2)
             const urlParams = new URLSearchParams(window.location.search)
             const clientId = urlParams.get('chat')
             const chatId = urlParams.get('chatId')
@@ -591,7 +596,7 @@
 
     <script id="getPointsAndUser">
         $(document).ready(() => {
-            checkCurrentUser()
+            checkCurrentUser(Cookies2)
             if (authCookie != null) {
                 $("#userDropdownLogged").removeClass("hidden")
             $("#userDropdown").attr('onclick', '');
@@ -983,7 +988,7 @@
                             </div>
                         </div>
                         <div class="w-full flex justify-end gap-4" id="approveReserve">
-                            <div class="absolute flex justify-start bottom-36 px-5">
+                            <div class="flex justify-start bottom-36 px-5">
                                 <button onclick="resolveChat(false)" href="#"
                                     class="respondRequest h-10 left-0 relative hostOnly hidden cadastro-button header_color text-white px-1 md:px-10 rounded-full hover:bg-gray-300 hover:border-gray-300 border-green_light">
                                     Recusar reserva

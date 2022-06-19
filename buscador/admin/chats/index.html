@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
+    <script>
+
+        var Cookies2 = Cookies.noConflict()
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+    <script>
+
+        let clientIdArray = []
+        $(document).ready(() => {
+            checkCurrentUser(Cookies2)
+            if (!devMode) {
+                if (clientInfo.clientType <= 2) {
+                    window.location.href = `https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
+                }
+            }
+            getChatInformation()
+        })
+    </script>
+
+    <script>
+        function generateEndingColor(ending) {
+            switch (ending) {
+                case 0:
+                    return "bg-slate-300"
+                case 1:
+                    return "bg-red-400"
+                case 2:
+                    return "bg-blue-500"
+                case 3:
+                    return "bg-green-500"
+                case 4:
+                    return "bg-yellow-400"
+                default:
+                    break;
+            }
+        }
+        function getChatInformation() {
+
+
+            $.ajax({
+                url: `${getCurrentChatBaseUri()}/getChats/admin`,
+                type: 'POST',
+                data: JSON.stringify({ ending: -1 }),
+
+                headers: {
+                    Authorization: authCookie,
+                },
+                contentType: 'application/json',
+
+                success: function (x) {
+                    console.log(typeof x)
+                    x.forEach((element) => {
+                        $(`#chats`).append(
+                            `<li class="w-full "><div class=" w-full border-dotted border-4 border-light-blue-500 ${generateEndingColor(element.ending)}"><h1>chatId: ${element.chatId} ${element.ending}</h1> <p>Host Name:${element.hostName} (${element.hostId.substring(0, 5)}) </p> <p>Guest Name:${element.guestName} (${element.guestId.substring(0, 5)})</p> <p>Datas: ${element.startDate} ate ${element.endDate}</p> <p>Nome da casa: ${element.homeNickName} (${element.homeId.substring(0, 5)})</p> </div></li>`)
+                    })
+                },
+            })
+        }
+    </script>
+    <div class="flex-col justify-between py-10 border-black border-4">
+        <div class="flex justify-around">ending chat | explicação </div>
+        <div class="flex justify-around">0 | reserva aberta </div>
+        <div class="flex justify-around bg-red-400"> 1 | reserva recusada </div>
+        <div class="flex justify-around bg-blue-500">2 | reseva aceita (aguardando pagamento) </div>
+        <div class="flex justify-around bg-green-500"> 3 | reserva aceita (pago) </div>
+        <div class="flex justify-around bg-yellow-500">4 | reserva aceita (cancelado) </div>
+    </div>
+    <ul id="chats" class="w-screen"></ul>
+
+</body>
+
+</html>
