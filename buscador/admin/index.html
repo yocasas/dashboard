@@ -74,7 +74,8 @@
                             $(`#homes`).append(
                                 `<li class="${
                     element['curated'] ? 'bg-green-400' : 'bg-red-400'
-                  } border-4 hover:bg-gray-200 font-semibold flex"><a class="underline" id=${
+                  } border-4 hover:bg-gray-200 font-semibold flex">
+                  <a class="underline ${element['clientId']}" id=${
                     element['clientId']
                   } href="/dashboard/casa/detalhes/?homeId=${
                     element['homeId']
@@ -145,8 +146,8 @@
                             let numberVerified = element['verifiedNumber'] == true ? 'Número verificado' : 'Número não verificado'
                             
                             
-                            $(`li > #${element['ClientId']}`).after(
-                                `&emsp;<h1>id cliente: ${element['ClientId']}</h1><a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">${element['email']}</h1> <h1 class="border-2 border-blue-800">${element['telNumber']}</h1><div class="mr-10 w-40" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">${picturesCheck}</h1> <h1 class="border-2 border-blue-800">${numberVerified}</h1>`,
+                            $(`li > .${element['ClientId']}`).after(
+                                `<div class="w-full">&emsp;<h1 class="w-screen">id cliente: ${element['ClientId']}</h1><a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">client name:${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">client email:${element['email']}</h1> <h1 class="border-2 border-blue-800"> client number:${element['telNumber']}</h1><div class="mr-10 w-40" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">Autorizo fotos: ${picturesCheck}</h1> <h1 class="border-2 border-blue-800">Numero verificado: ${numberVerified}</h1></div>`,
                             )
                         })
                     },
