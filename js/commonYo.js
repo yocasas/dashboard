@@ -139,6 +139,17 @@ function getCurrentHomeBaseUri() {
   return homeBaseuri
 }
 
+let templateBaseUri
+function getCurrentTemplateBaseUri() {
+  if (checkDevMode()) {
+    templateBaseUri = `https://uyzufwpsw0.execute-api.us-east-2.amazonaws.com/dev`
+  } else {
+    throw Error('not implemented yet')
+    templateBaseUri = 'https://uyzufwpsw0.execute-api.us-east-2.amazonaws.com/dev'
+  }
+  return templateBaseUri
+}
+
 function getCurrentCookie() {
   return authCookie
 }
