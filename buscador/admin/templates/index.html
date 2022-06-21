@@ -44,7 +44,7 @@
 
 
         function updateTemplateInformation(clickElementChild, accept) {
-            let clickElement = clickElementChild.parent()
+            let clickElement = clickElementChild.parent().parent()
             let element = {
                 templateId: clickElement.find('#templateId').val(),
                 templateWhatsAppContent: clickElement.find('#whatsAppMessageTemplate').val(),
@@ -100,10 +100,12 @@
             $(`#chats`).append(
                 `<li class="w-full ">
                     <div class="w-full flex-row border-4 border-green-900 border-dotted py-10 template">
-                        <h1> Template Id: ${element.templateId} ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'NEW' : ''} </h1><textarea id="templateId" class="hidden">${element.templateId}</textarea>
-                        <h1>Whatsapp message:</h1><textarea id="whatsAppMessageTemplate">${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? element.templateWhatsAppContentNew : element.templateWhatsAppContent}</textarea>
-                        <h1>Email Message:</h1><textarea id="emailMessageTemplate">${element.templateEmailContentNew != '' && element.templateEmailContentNew != undefined ? element.templateEmailContentNew : element.templateEmailContent}</textarea>
-                        ${clientInfo.clientType < 6 ? '<button class="bg-blue-900 updateButton">Update</button>' : '<button class="bg-blue-900 updateButton">Update</button><button class="bg-green-900 acceptUpdate">Aceitar</button>'}
+                        <div class="flex justify-around w-full ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'bg-green-700' : ''}"><h1> Template Id: ${element.templateId} ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'NEW' : ''} </h1><textarea id="templateId" class="hidden">${element.templateId}</textarea></div>
+                        <div class="flex justify-around w-full">
+                            <div class="flex-row"><h1 class="p-3 bg-gray-300">Whatsapp message:</h1><textarea id="whatsAppMessageTemplate">${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? element.templateWhatsAppContentNew : element.templateWhatsAppContent}</textarea></div>
+                            <div class="flex-row"><h1 class="p-3 bg-gray-300">Email Message:</h1><textarea id="emailMessageTemplate">${element.templateEmailContentNew != '' && element.templateEmailContentNew != undefined ? element.templateEmailContentNew : element.templateEmailContent}</textarea></div>
+                        </div>
+                        <div class="flex justify-between p-10 w-full">${clientInfo.clientType < 6 ? '<button class="p-2 bg-blue-600 updateButton">Update</button>' : '<button class="p-2 bg-blue-600 updateButton">Update</button><button class="p-2 bg-green-300 acceptUpdate">Aceitar</button></div>'}
                     </div>
                 </li>`)
 
@@ -129,6 +131,12 @@
                     $(`.acceptUpdate`).click(function () {
                         updateTemplateInformation($(this), true)
                     })
+                    $("textarea").each(function () {
+                        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+                    }).on("input", function () {
+                        this.style.height = "auto";
+                        this.style.height = (this.scrollHeight) + "px";
+                    });
                 },
             })
         }
@@ -170,12 +178,7 @@
     </div>
 
     <div class="flex-col justify-between py-10 border-black border-4">
-        <div class="flex justify-around">ending chat | explicação </div>
-        <div class="flex justify-around">0 | reserva aberta </div>
-        <div class="flex justify-around bg-red-400"> 1 | reserva recusada </div>
-        <div class="flex justify-around bg-blue-500">2 | reseva aceita (aguardando pagamento) </div>
-        <div class="flex justify-around bg-green-500"> 3 | reserva aceita (pago) </div>
-        <div class="flex justify-around bg-yellow-500">4 | reserva aceita (cancelado) </div>
+        <div class="flex justify-around bg-green-700"> pending review </div>
     </div>
     <ul id="chats" class="w-screen flex-row"></ul>
     <button
