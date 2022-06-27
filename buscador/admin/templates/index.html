@@ -42,6 +42,15 @@
             }
         }
 
+        function convertToEmail(clickElementChild) {
+            const rgx = /^(?=[A-Za-z])/gm;
+            const rgxEnd = /(?<=.)$/gm;
+
+            const clickElement = clickElementChild.parent().parent()
+
+            const templateWhatsAppContent = clickElement.find('#whatsAppMessageTemplate').val()
+            clickElement.find('#emailMessageTemplate').val(templateWhatsAppContent.replace(rgx, "<h3>").replace(rgxEnd, "</h3>"))
+        }
 
         function updateTemplateInformation(clickElementChild, accept) {
             let clickElement = clickElementChild.parent().parent()
@@ -100,8 +109,9 @@
                 `<li class="w-full ">
                     <div class="w-full flex-row border-4 border-green-900 border-dotted py-10 template">
                         <div class="flex justify-around w-full ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'bg-green-700' : ''}"><h1> Template Id: ${element.templateId} ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'NEW' : ''} </h1><textarea id="templateId" class="hidden">${element.templateId}</textarea></div>
-                        <div class="flex justify-around w-full">
+                        <div class="flex justify-around w-full px-2">
                             <div class="flex-row"><h1 class="p-3 bg-gray-300">Whatsapp message:</h1><textarea id="whatsAppMessageTemplate">${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? element.templateWhatsAppContentNew : element.templateWhatsAppContent}</textarea></div>
+                            <button class="convertButton bg-blue-500 hover:bg-blue-700 text-white m-auto px-2 h-10 font-bold rounded focus:outline-none focus:shadow-outline"> ==Convert To Email ==>  </button>
                             <div class="flex-row"><h1 class="p-3 bg-gray-300">Email Message:</h1><textarea id="emailMessageTemplate">${element.templateEmailContentNew != '' && element.templateEmailContentNew != undefined ? element.templateEmailContentNew : element.templateEmailContent}</textarea></div>
                         </div>
                         <div class="flex justify-between p-10 w-full">${clientInfo.clientType < 6 ? '<button class="p-2 bg-blue-600 updateButton">Update</button>' : '<button class="p-2 bg-blue-600 updateButton">Update</button><button class="p-2 bg-green-300 acceptUpdate">Aceitar</button></div>'}
@@ -126,6 +136,9 @@
                     })
                     $(`.updateButton`).click(function () {
                         updateTemplateInformation($(this))
+                    })
+                    $(`.convertButton`).click(function () {
+                        convertToEmail($(this))
                     })
                     $(`.acceptUpdate`).click(function () {
                         updateTemplateInformation($(this), true)
