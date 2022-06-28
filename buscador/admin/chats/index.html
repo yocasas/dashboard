@@ -35,7 +35,17 @@
 
     <script>
         function getPagarMeInfo(chatId) {
-            
+            $.ajax({
+                url: `${getCurrentChatBaseUri()}/payment/${chatId}`,
+                type: 'GET',
+                headers: {
+                    Authorization: authCookie,
+                },
+                contentType: 'application/json',
+                success: function (x) {
+                    alert(`pagar.me identification: ${JSON.parse(x).paymentId}`)
+                },
+            })
         }
         function generateEndingColor(ending) {
             switch (ending) {
@@ -70,7 +80,7 @@
                     console.log(typeof x)
                     x.forEach((element) => {
                         $(`#chats`).append(
-                            `<li class="w-full "><div class=" w-full border-dotted border-4 border-light-blue-500 ${generateEndingColor(element.ending)}"><h1>chatId: ${element.chatId} ${element.ending}</h1> <p>Host Name:${element.hostName} (${element.hostId.substring(0, 5)}) </p> <p>Guest Name:${element.guestName} (${element.guestId.substring(0, 5)})</p> <p>Datas: ${element.startDate} ate ${element.endDate}</p> <p>Nome da casa: ${element.homeNickName} (${element.homeId.substring(0, 5)})</p><p>Create date: ${element.createDate != undefined ?  element.createDate : "-"} <p onclick="getPagarMeInfo(${element.chatId})">pagar.me information</p> </div></li>`)
+                            `<li class="w-full "><div class=" w-full border-dotted border-4 border-light-blue-500 ${generateEndingColor(element.ending)}"><h1>chatId: ${element.chatId} ${element.ending}</h1> <p>Host Name:${element.hostName} (${element.hostId.substring(0, 5)}) </p> <p>Guest Name:${element.guestName} (${element.guestId.substring(0, 5)})</p> <p>Datas: ${element.startDate} ate ${element.endDate}</p> <p>Nome da casa: ${element.homeNickName} (${element.homeId.substring(0, 5)})</p><p>Create date: ${element.createDate != undefined ?  element.createDate : "-"} <p class="bg-white cursor-pointer" onclick="getPagarMeInfo('${element.chatId}')">pagar.me information (Clique aqui)</p> </div></li>`)
                     })
                 },
             })
