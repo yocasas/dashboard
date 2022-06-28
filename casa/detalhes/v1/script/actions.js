@@ -114,6 +114,8 @@ function checkData(data) {
 
 function setHomeInfos(element) {
     $('#nickName').text(`${element['nickName']}`)
+    $('#currentHomeId').text(`${element['homeId']}`)
+    homeId
     if (
         element['underReview'] != undefined &&
         element['underReview']
