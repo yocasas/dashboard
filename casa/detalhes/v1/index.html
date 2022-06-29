@@ -86,7 +86,9 @@
         <!--Body-->
 
         <div id="modalText" class="text-center text-green_dark leading-relaxed">
-          Você precisa de mais pontos para reservar. Contate um administrador.
+          Você precisa de mais pontos para fazer essa reserva.
+          <a onclick="location.href='/home/assets/tabela.pdf/'"
+          class="cursor-pointer underline">Clique aqui</a> e saiba como conseguir pontos.
         </div>
 
         <!--Footer-->
@@ -518,7 +520,6 @@
               let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
-
               $('.slider').slick('slickAdd', element)
             })
           })

@@ -28,7 +28,9 @@ function abrirChat(messageId) {
     if (authCookie) {
         if ($('#totalPointsAfter').text() <= 0) {
             selectedModal = '.modalWarning'
-            textModal = "Você precisa de mais pontos para reservar. Contate um administrador."
+            textModal = `Você precisa de mais pontos para fazer essa reserva.
+            <a onclick="location.href='/home/assets/tabela.pdf'"
+            class="cursor-pointer underline">Clique aqui</a> e saiba como conseguir pontos.`
             toggleModal(selectedModal, textModal)
             return
         }
