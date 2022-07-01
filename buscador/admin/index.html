@@ -72,6 +72,7 @@
                     success: function (x) {
 
                         x.forEach((element) => {
+                            console.log(element)
                             $(`#homes`).append(
                                 `<div class="w-10"></div><li class="${
                     element['curated'] ? 'bg-green-400' : 'bg-red-400'
