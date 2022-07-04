@@ -841,14 +841,15 @@
 
         success: (resp) => {
           respObj = JSON.parse(resp)
+          window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
 
-          addMessage(
+          /*addMessage(
             respObj['data']['chatId'],
             `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`,
             currentHomeInfo.clientId,
           ).then((x) => {
-            window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
-          })
+            
+          })*/
 
           //window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
         },
