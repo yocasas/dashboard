@@ -88,21 +88,23 @@ function abrirChat(messageId) {
 
         success: (resp) => {
             respObj = JSON.parse(resp)
-            addMessage(
-                respObj['data']['chatId'],
-                `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                    selectedDates[0],
-                )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
-                currentHomeInfo.clientId,
-            ).then((x) => {
-                $('.loading').parent().addClass('hidden')
+            $('.loading').parent().addClass('hidden')
                 window.scrollTo(0, 0)
                 $('#showWarn').removeClass('hidden')
                 $('html, body').css({
                     overflow: 'hidden',
                     height: '100%',
                 })
-            })
+
+            /*addMessage(
+                respObj['data']['chatId'],
+                `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
+                    selectedDates[0],
+                )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+                currentHomeInfo.clientId,
+            ).then((x) => {
+                
+            })*/
 
             //$('#showWarn').removeClass('hidden')
             //window.location.href = "/dashboard/chat/"
