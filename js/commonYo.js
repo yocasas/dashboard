@@ -144,8 +144,7 @@ function getCurrentTemplateBaseUri() {
   if (checkDevMode()) {
     templateBaseUri = `https://uyzufwpsw0.execute-api.us-east-2.amazonaws.com/dev`
   } else {
-    throw Error('not implemented yet')
-    templateBaseUri = 'https://uyzufwpsw0.execute-api.us-east-2.amazonaws.com/dev'
+    templateBaseUri = 'https://xc3a9le6q9.execute-api.sa-east-1.amazonaws.com/prod'
   }
   return templateBaseUri
 }
