@@ -28,7 +28,9 @@ function abrirChat(messageId) {
     if (authCookie) {
         if ($('#totalPointsAfter').text() <= 0) {
             selectedModal = '.modalWarning'
-            textModal = "Você precisa de mais pontos para reservar. Contate um administrador."
+            textModal = `Você precisa de mais pontos para fazer essa reserva.
+            <a onclick="location.href='/home/assets/tabela.pdf'"
+            class="cursor-pointer underline">Clique aqui</a> e saiba como conseguir pontos.`
             toggleModal(selectedModal, textModal)
             return
         }
@@ -86,21 +88,23 @@ function abrirChat(messageId) {
 
         success: (resp) => {
             respObj = JSON.parse(resp)
-            addMessage(
-                respObj['data']['chatId'],
-                `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                    selectedDates[0],
-                )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
-                currentHomeInfo.clientId,
-            ).then((x) => {
-                $('.loading').parent().addClass('hidden')
+            $('.loading').parent().addClass('hidden')
                 window.scrollTo(0, 0)
                 $('#showWarn').removeClass('hidden')
                 $('html, body').css({
                     overflow: 'hidden',
                     height: '100%',
                 })
-            })
+
+            /*addMessage(
+                respObj['data']['chatId'],
+                `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
+                    selectedDates[0],
+                )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+                currentHomeInfo.clientId,
+            ).then((x) => {
+                
+            })*/
 
             //$('#showWarn').removeClass('hidden')
             //window.location.href = "/dashboard/chat/"
@@ -114,6 +118,8 @@ function checkData(data) {
 
 function setHomeInfos(element) {
     $('#nickName').text(`${element['nickName']}`)
+    $('#currentHomeId').text(`${element['homeId'].substring(0,7)}`)
+    homeId
     if (
         element['underReview'] != undefined &&
         element['underReview']

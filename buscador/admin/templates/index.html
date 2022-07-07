@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
+    <script>
+
+        var Cookies2 = Cookies.noConflict()
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+    <script>
+
+        let clientIdArray = []
+        $(document).ready(() => {
+            checkCurrentUser(Cookies2)
+            if (!devMode) {
+                if (clientInfo.clientType <= 2) {
+                    window.location.href = `https://${window.location.hostname}/home/?redirectUrl=${window.location.href}`
+                }
+            }
+            getTemplateInformation()
+            needHide(6, 'newMessage')
+        })
+    </script>
+
+    <script>
+        function needHide(id, elementId) {
+            if (clientInfo.clientType < id) {
+                console.log($(this))
+                $(`#${elementId}`).addClass('hidden')
+            }
+        }
+
+        function convertToEmail(clickElementChild) {
+            const rgx = /^(?=[A-Za-z])/gm;
+            const rgxEnd = /(?<=.)$/gm;
+
+            const clickElement = clickElementChild.parent().parent()
+
+            const templateWhatsAppContent = clickElement.find('#whatsAppMessageTemplate').val()
+            clickElement.find('#emailMessageTemplate').val(templateWhatsAppContent.replace(rgx, "<h3>").replace(rgxEnd, "</h3>"))
+        }
+
+        function updateTemplateInformation(clickElementChild, accept) {
+            let clickElement = clickElementChild.parent().parent()
+            let element = {
+                templateId: clickElement.find('#templateId').val(),
+                templateWhatsAppContent: clickElement.find('#whatsAppMessageTemplate').val(),
+                templateEmailContent: clickElement.find('#emailMessageTemplate').val(),
+                possibleKeyWords: ['nickName']
+            }
+
+            $.ajax({
+                url: `${getCurrentTemplateBaseUri()}/templates${accept ? '/approve' : ''}`,
+                type: accept ? 'PATCH' : 'PUT',
+                data: JSON.stringify(element),
+
+                headers: {
+                    Authorization: authCookie,
+                },
+                contentType: 'application/json',
+
+                success: function (x) {
+                    alert(JSON.stringify(x))
+                },
+            })
+        }
+
+
+
+        function addTemplateInformation() {
+            let element = {
+                templateId: $('#templateIdAdd').val(),
+                templateEmailContent: $('#emailtemplateadd').val(),
+                templateWhatsAppContent: $('#whatsapptemplateadd').val(),
+                possibleKeyWords: ['nickName']
+            }
+
+            $.ajax({
+                url: `${getCurrentTemplateBaseUri()}/templates`,
+                type: 'PATCH',
+                data: JSON.stringify(element),
+
+                headers: {
+                    Authorization: authCookie,
+                },
+                contentType: 'application/json',
+
+                success: function (x) {
+                    addnewTemplateToScreen(element)
+                    alert(JSON.stringify(x))
+                },
+            })
+        }
+
+        function addnewTemplateToScreen(element) {
+            $(`#chats`).append(
+                `<li class="w-full ">
+                    <div class="w-full flex-row border-4 border-green-900 border-dotted py-10 template">
+                        <div class="flex justify-around w-full ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'bg-green-700' : ''}"><h1> Template Id: ${element.templateId} ${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? 'NEW' : ''} </h1><textarea id="templateId" class="hidden">${element.templateId}</textarea></div>
+                        <div class="flex justify-around w-full px-2">
+                            <div class="flex-row"><h1 class="p-3 bg-gray-300">Whatsapp message:</h1><textarea id="whatsAppMessageTemplate">${element.templateWhatsAppContentNew != '' && element.templateWhatsAppContentNew != undefined ? element.templateWhatsAppContentNew : element.templateWhatsAppContent}</textarea></div>
+                            <button class="convertButton bg-blue-500 hover:bg-blue-700 text-white m-auto px-2 h-10 font-bold rounded focus:outline-none focus:shadow-outline"> ==Convert To Email ==>  </button>
+                            <div class="flex-row"><h1 class="p-3 bg-gray-300">Email Message:</h1><textarea id="emailMessageTemplate">${element.templateEmailContentNew != '' && element.templateEmailContentNew != undefined ? element.templateEmailContentNew : element.templateEmailContent}</textarea></div>
+                        </div>
+                        <div class="flex justify-between p-10 w-full">${clientInfo.clientType < 6 ? '<button class="p-2 bg-blue-600 updateButton">Update</button>' : '<button class="p-2 bg-blue-600 updateButton">Update</button><button class="p-2 bg-green-300 acceptUpdate">Aceitar</button></div>'}
+                    </div>
+                </li>`)
+
+        }
+        function getTemplateInformation() {
+            $.ajax({
+                url: `${getCurrentTemplateBaseUri()}/templates`,
+                type: 'GET',
+                data: undefined,
+
+                headers: {
+                    Authorization: authCookie,
+                },
+                contentType: 'application/json',
+
+                success: function (x) {
+                    x.forEach((element) => {
+                        addnewTemplateToScreen(element)
+                    })
+                    $(`.updateButton`).click(function () {
+                        updateTemplateInformation($(this))
+                    })
+                    $(`.convertButton`).click(function () {
+                        convertToEmail($(this))
+                    })
+                    $(`.acceptUpdate`).click(function () {
+                        updateTemplateInformation($(this), true)
+                    })
+                    $("textarea").each(function () {
+                        this.setAttribute("style", "height:" + (this.scrollHeight) + "px;overflow-y:hidden;");
+                    }).on("input", function () {
+                        this.style.height = "auto";
+                        this.style.height = (this.scrollHeight) + "px";
+                    });
+                },
+            })
+        }
+    </script>
+
+    <div class="absolute w-screen h-screen hidden" class="w-full" id="newMessageAction">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <div class="block text-gray-700 text-sm font-bold mb-2">
+                    Template Id:
+                </div>
+                <textarea
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="templateIdAdd" type="text" placeholder="ABC_123"></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="block text-gray-700 text-sm font-bold mb-2">
+                    Whatsapp message:
+                </div>
+                <textarea
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="whatsapptemplateadd" type="text" placeholder="BOm dia ..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="block text-gray-700 text-sm font-bold mb-2">
+                    Email Message:
+                </div>
+                <textarea
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="emailtemplateadd" type="text" placeholder="Bom dia ...."></textarea>
+                <textarea id="teste">Meu nome eh isso mesmo</textarea>
+            </div>
+            <button onclick="$('#newMessageAction').addClass('hidden');addTemplateInformation()"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="button">
+                Add new Template
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-col justify-between py-10 border-black border-4">
+        <div class="flex justify-around bg-green-700"> pending review </div>
+    </div>
+    <ul id="chats" class="w-screen flex-row"></ul>
+    <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        id="newMessage" onclick="$('#newMessageAction').removeClass('hidden');">Add new message</button>
+
+
+</body>
+
+</html>

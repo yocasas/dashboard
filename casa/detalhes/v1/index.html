@@ -9,8 +9,8 @@
   <meta v="2">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/latest/js.cookie.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-  <link rel="icon" type="image/svg" sizes="32x32" href="Assets/LOGO.svg" />
-  <link rel="icon" type="image/svg" sizes="16x16" href="Assets/LOGO.svg" />
+  <link rel="icon" type="image/svg" sizes="32x32" href="/dashboard/Assets/logo_dark.svg" />
+  <link rel="icon" type="image/svg" sizes="16x16" href="/dashboard/Assets/logo_dark.svg" />
 
 
 
@@ -86,7 +86,9 @@
         <!--Body-->
 
         <div id="modalText" class="text-center text-green_dark leading-relaxed">
-          Você precisa de mais pontos para reservar. Contate um administrador.
+          Você precisa de mais pontos para fazer essa reserva.
+          <a onclick="location.href='/home/assets/tabela.pdf/'"
+          class="cursor-pointer underline">Clique aqui</a> e saiba como conseguir pontos.
         </div>
 
         <!--Footer-->
@@ -288,6 +290,7 @@
       let curateSettings = {
         zipCode: currentHomeInfo.zipCode,
         clientId: currentHomeInfo.clientId,
+        homeId: currentHomeInfo.homeId,
         multiplier: parseInt($(`#homeStars`).val()),
         curatedDetails: $(`#curatedDetails`).text(),
         curateStatus: curateStatus,
@@ -297,7 +300,7 @@
         lng: $(`#lng`).val(),
       }
 
-      
+
       let curateUserSettings = {
         clientType: 2,
         clientId: currentHomeInfo.clientId,
@@ -323,8 +326,8 @@
             let curateUserUri =
               `${getCurrentUserBaseUri()}/register/curate`
 
-            
-              
+
+
 
             $.ajax({
               url: curateUserUri,
@@ -439,7 +442,7 @@
 
           let getUserUri =
             `${getCurrentUserBaseUri()}/getuser`
-         
+
           $.ajax({
             url: getUserUri,
             type: 'POST',
@@ -518,7 +521,6 @@
               let element = `<div class="bg-white px-1 ">
                                         <img class="object-cover h-96 w-full " src="${source}">
                                         </div>`
-
               $('.slider').slick('slickAdd', element)
             })
           })
@@ -651,9 +653,12 @@
     })
   </script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.7/dist/flowbite.min.css" />
+
 </head>
 
 <body>
+  <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
   <style>
     .dark_green {
       color: rgba(69, 95, 93, 1);
@@ -836,14 +841,15 @@
 
         success: (resp) => {
           respObj = JSON.parse(resp)
+          window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
 
-          addMessage(
+          /*addMessage(
             respObj['data']['chatId'],
             `Olá, estou interessado em saber mais sobre sua casa. Vamos conversar?`,
             currentHomeInfo.clientId,
           ).then((x) => {
-            window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
-          })
+            
+          })*/
 
           //window.location.href = `/dashboard/chat/?chat=${currentHomeInfo.clientId}`
         },
@@ -933,7 +939,7 @@
       <a href="/home/">
         <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
           <div id="logo" class="w-36" onclick="window.location.href='/home/'">
-            <img src="Assets/LOGO.svg" class="h-20 flex-1" alt="Kiwi standing on oval" />
+            <img src="/dashboard/Assets/logo_dark.svg" class="h-20 flex-1" alt="Kiwi standing on oval" />
           </div>
         </div>
       </a>
@@ -1067,10 +1073,13 @@
 
   <div class="px-10 md:px-16 md:py-5 hidden" id="main">
     <div id="basic_home_info" class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5 w-full h-1/5">
-      <div class="grid-row-start-1 flex justify-start items-center md:h-20">
+      <div class="grid-row-start-1 flex flex-col justify-start items-start md:h-20">
         <h1 id="nickName" class="text-2xl md:text-5xl usuario_font_warp font-extrabold">
-          Casa
+          -
         </h1>
+        <p id="currentHomeId" class="text-xs md:text-xs usuario_font_warp font-thin text-gray-300">
+          -
+        </p>
       </div>
       <div class="grid-row-start-1 flex md:justify-start md:justify-end items-center md:h-20">
         <h1 id="location" class="text-2xl usuario_font_warp">-</h1>
@@ -1107,7 +1116,7 @@
 
         <div class="w-1/2 md:h-full items-center flex justify-start hidden" id="2-EX">
           <h1 class="text-md md:text-2xl usuario_font font-black" id="rank">
-            EXPERIENCIA
+            -
           </h1>
         </div>
       </div>
@@ -1128,7 +1137,7 @@
       <div class="md:col-start-5 flex justify-end md:gap-2 flex-col md:flex-row md:items-center md:h-20">
         <div class="w-1/2 items-center md:h-full flex md:justify-end">
           <h1 class="text-lg md:text-3xl font-black points_font align-text-bottom" id="points">
-            2.000
+            -
           </h1>
         </div>
         <div class="w-1/2 md:h-full items-center flex justify-start pb-10 md:pb-0">
@@ -1152,14 +1161,7 @@
           </div>
           <div class="flex items-top py-3 md:py-3">
             <p id="description" class="text-base usuario_font_warp">
-              Os hóspedes poderão usufruir da fogueira, deck panorâmico com
-              hidromassagem, sauna seca e uma vista inigualável. Todos os
-              amenities são privativos da casa. Os hóspedes poderão usufruir
-              da fogueira, deck panorâmico com hidromassagem, sauna seca e uma
-              vista inigualável. Todos os amenities são privativos da casa. Os
-              hóspedes poderão usufruir da fogueira, deck panorâmico com
-              hidromassagem, sauna seca e uma vista inigualável. Todos os
-              amenities são privativos da casa.
+              ...
             </p>
           </div>
 
@@ -1173,7 +1175,7 @@
                 <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="maxCapacity">
                   Capacidade:
                   <!--TODO check break line 24 -->
-                  8 pessoas
+                  -
                 </p>
               </div>
             </div>
@@ -1184,12 +1186,12 @@
 
               <div class="flex justify-start items-start w-auto h-full flex-col">
                 <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="totalBedRooms">
-                  3
+                  -
                   <!--TODO check break line 24 -->
                   Quartos
                 </p>
                 <p class="w-28 text-md md:text-sm align-top usuario_font_warp" id="totalSuits">
-                  (2
+                  (-
                   <!--TODO check break line 24 -->
                   Suites)
                 </p>
@@ -1202,7 +1204,7 @@
 
               <div class="flex justify-start items-start w-auto h-full flex-col">
                 <p class="w-28 text-md md:text-lg align-top usuario_font_warp" id="totalBathRooms">
-                  1
+                  -
                   <!--TODO check break line 24 -->
                   Banheiro
                 </p>
@@ -1794,6 +1796,13 @@
             <p class="text-4xl font-black usuario_font_warp mt-10">
               Calendário
             </p>
+            <i class="fas fa-info-circle" data-tooltip-target="tooltip-default"></i>
+            <div id="tooltip-default" role="tooltip"
+              class="inline-block absolute invisible z-10 py-2 px-3 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 transition-opacity duration-300 tooltip dark:bg-gray-700">
+              Datas com marcação simbolizam datas preferidas, <br>
+              com maior chance de aceitação
+              <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
           </div>
           <div>
             <div id="app" class="w-full h-auto flex md:pt-10 pb-2 justify-center items-center">
@@ -1802,8 +1811,8 @@
 
             </div>
             <p class="text-xs px-15 text-center"><i class="fa fa-info-circle" aria-hidden="true"></i>
-              Datas com marcação simbolizam datas preferidas, <br>
-              com maior chance de aceitação</p>
+              Selecione o período no qual deseja viajar e envie uma mensagem ao anfitrião para checar a disponibilidade
+              e combinar a sua estadia</p>
           </div>
 
 
@@ -1857,16 +1866,9 @@
               <p class="text-lg usuario_font mr-auto align-top">
                 TAXA DE TROCA:
               </p>
-              <h1 class="line-through text-xl font-bold usuario_font ml-auto align-top" id="nightsTax">
+              <h1 class="text-xl font-bold usuario_font ml-auto align-top" id="nightsTax">
                 R$ 0
               </h1>
-            </div>
-            <div class="w-10/12 flex flex-row gap-y-1">
-              <p class="text-sm usuario_font mr-auto align-top text-center w-full">
-                A taxa de troca permanecerá gratuita atá 30/06/2022 <br>
-                Após esta data haverá cobrança de acordo com a categoria da casa.
-              </p>
-              <br>
             </div>
           </div>
 
@@ -1955,6 +1957,24 @@
             </div>
           </div>
           <div class="w-3/5 h-full items-start" id="contactText">
+            <div class="w-full h-1/3">
+              <div class="w-full h-2/3 items-end flex pb-10 md:pb-0">
+                <div class="h-1/4">
+                  <h1 class="font-bold text-lg usuario_font_warp" id="contactTitle">
+                    Anfitrião
+                  </h1>
+                </div>
+              </div>
+
+              <div class="w-full h-1/3 items-start flex">
+                <div>
+                  <!--<h1 class="text-sm usuario_font_warp" id="memberSince">
+                    Membro desde Setembro 2021
+                  </h1>-->
+                </div>
+              </div>
+            </div>
+
             <div class="w-full h-2/3">
               <div class="w-full h-2/3 items-end flex pb-10 md:pb-0">
                 <div class="h-2/4">
@@ -1973,13 +1993,13 @@
               </div>
             </div>
 
-            <div class="w-full h-1/3 items-start flex justify-start">
+            <!--<div class="w-full h-1/3 items-start flex justify-start">
               <input class="hidden" id="contactId" />
               <button class="header_color_bt w-3/5 md:w-2/5 h-1/2 rounded-full button_text"
                 onclick="redirectChatCreate()" id="openChat">
                 Contato
               </button>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
