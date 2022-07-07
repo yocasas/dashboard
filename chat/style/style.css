@@ -172,6 +172,12 @@ textarea::-webkit-scrollbar-thumb {
   background-color: rgba(105, 141, 134, var(--bg-opacity));
 }
 
+.border-green_dark {
+  --border-opacity: 1;
+  border-color: #455F5D;
+  border-color: rgba(69, 95, 93, var(--border-opacity));
+}
+
 .text-green_dark {
   --text-opacity: 1;
   color: #698D86;
