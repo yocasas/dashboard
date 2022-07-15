@@ -255,7 +255,49 @@
 
     let contactId
 
+    function checkChangedAdmin() {
+      let edited = {}
+
+      const nickname = $("#nickName").text()
+      const description = $("#description").text()
+      const infoWorkers = $("#infoWorkers").text()
+      const extraRestriction = $("#extraRestriction").text()
+      const accessPath = $(`#carEntrance`).text()
+      const city = $(`#city`).text()
+      const totalAc = $(`#infoAC`).text()
+
+
+      if (currentHomeInfo.nickName != nickname && nickname != "Sem informações") {
+        edited.nickName = nickname
+      }
+
+      if (currentHomeInfo.description != description && description != "Sem informações") {
+        edited.description = description
+      }
+
+      if (currentHomeInfo.infoWorkers != infoWorkers && infoWorkers != "Sem informações") {
+        edited.infoWorkers = infoWorkers
+      }
+
+      if (currentHomeInfo.extraRestriction != extraRestriction && extraRestriction != "Sem informações") {
+        edited.extraRestriction = extraRestriction
+      }
+
+      if (currentHomeInfo.city != city && city != "Sem informações" && city != "" && false) {
+        edited.city = city
+      }
+      
+      if (currentHomeInfo.totalAc != totalAc && totalAc != "Sem informações") {
+        edited.totalAc = totalAc
+      }
+
+      return edited
+      
+    }
+
     function curateHome(curateStatus, featured = false) {
+
+      
 
       let makeRequest = true
       window.scrollTo(0, 0)
@@ -298,6 +340,7 @@
         availableDates: currentHomeInfo.availableDates,
         lat: $(`#lat`).val(),
         lng: $(`#lng`).val(),
+        edited: checkChangedAdmin()
       }
 
 
@@ -498,6 +541,8 @@
 
           if (clientInfo != undefined && clientInfo.clientType > 3) {
             $('.adminOnly').removeClass('hidden')
+            $('.editable-admin').addClass('border-solid border-8 border-red-700')
+            $('.editable-admin').attr('contenteditable', 'true')
             $('#curatedDetails').attr('contenteditable', 'true')
           }
           //TODO check loading
@@ -1078,7 +1123,7 @@
   <div class="px-10 md:px-16 md:py-5 hidden" id="main">
     <div id="basic_home_info" class="md:grid md:grid-rows-1 md:grid-cols-2 flex flex-col gap-y-3 py-5 w-full h-1/5">
       <div class="grid-row-start-1 flex flex-col justify-start items-start md:h-20">
-        <h1 id="nickName" class="text-2xl md:text-5xl usuario_font_warp font-extrabold">
+        <h1 id="nickName" class="text-2xl md:text-5xl usuario_font_warp font-extrabold editable-admin">
           -
         </h1>
         <p id="currentHomeId" class="text-xs md:text-xs usuario_font_warp font-thin text-gray-300">
@@ -1087,6 +1132,7 @@
       </div>
       <div class="grid-row-start-1 flex md:justify-start md:justify-end items-center md:h-20">
         <h1 id="location" class="text-2xl usuario_font_warp">-</h1>
+        <h1 id="city" class="text-2xl usuario_font_warp adminOnly hidden editable-admin">City admin (placeholder)</h1>
       </div>
     </div>
     <div class="relative shadow-2xl bg-white">
@@ -1164,7 +1210,7 @@
             </h1>
           </div>
           <div class="flex items-top py-3 md:py-3">
-            <p id="description" class="text-base usuario_font_warp">
+            <p id="description" class="text-base usuario_font_warp editable-admin">
               ...
             </p>
           </div>
@@ -1433,7 +1479,7 @@
             </div>
 
             <div class="flex items-center w-full pb-10 md:pb-0" id="DescriptionTitle">
-              <h1 id="infoAC" class="text-ls usuario_font_warp">
+              <h1 id="infoAC" class="text-ls usuario_font_warp editable-admin">
                 Sem Informações
               </h1>
             </div>
@@ -1581,7 +1627,7 @@
             </div>
 
             <div class="flex items-center w-full" id="DescriptionTitle">
-              <h1 id="carEntrance" class="text-ls usuario_font_warp">
+              <h1 id="carEntrance" class="text-ls usuario_font_warp editable-admin">
                 Sem Informações
               </h1>
             </div>
@@ -1663,7 +1709,7 @@
               </div>
 
               <div class="flex items-center w-full" id="DescriptionTitle">
-                <h1 id="infoWorkers" class="text-ls usuario_font_warp">
+                <h1 id="infoWorkers" class="text-ls usuario_font_warp editable-admin">
                   Sem Informações
                 </h1>
               </div>
@@ -1784,7 +1830,7 @@
             </div>
 
             <div class="flex items-center w-full" id="DescriptionTitle">
-              <h1 id="extraRestriction" class="text-ls usuario_font_warp">
+              <h1 id="extraRestriction" class="text-ls usuario_font_warp editable-admin">
                 Sem Informações
               </h1>
             </div>

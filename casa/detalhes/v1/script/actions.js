@@ -135,6 +135,7 @@ function setHomeInfos(element) {
     } else {
         $('#location').text(`${element['city']}, ${element['country']}`)
     }
+    $('#city').text(element['city'])
 
     $('#locationTypeHost').text(element['locationType'])
     $('.locationType').text(traduzirLocation(element['locationType']))
