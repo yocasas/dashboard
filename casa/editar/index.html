@@ -28,10 +28,10 @@
         console.log(authCookie)
         if (authCookie != null) {
             gtag('set', {
-            id: clientInfo.ClientId.substring(7),
-        })
+                id: clientInfo.ClientId.substring(7),
+            })
         }
-        
+
     </script>
 
     <script>
@@ -202,7 +202,7 @@
                                 slidesToShow: 1,
                                 slidesToScroll: 1,
                             },
-                        }, ],
+                        },],
                     })
                 })
             })
@@ -267,8 +267,8 @@
                     addMessage(
                         respObj['data']['chatId'],
                         `Olá, estou interessado em me hospedar na sua casa de ${toHumanDate(
-                selectedDates[0],
-              )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
+                            selectedDates[0],
+                        )} a ${toHumanDate(selectedDates[1])}. Vamos conversar?`,
                         currentHomeInfo.clientId,
                     ).then((x) => {
                         window.scrollTo(0, 0)
@@ -356,29 +356,29 @@
             </iframe>`)
                     $(`#infoWorkers`).text(
                         checkData(element[`infoWorkers`]) ?
-                        element[`infoWorkers`] :
-                        'Sem informações',
+                            element[`infoWorkers`] :
+                            'Sem informações',
                     )
                     $(`#infoAC`).text(
                         checkData(element[`totalAc`]) ?
-                        element[`totalAc`] :
-                        'Sem informações',
+                            element[`totalAc`] :
+                            'Sem informações',
                     )
                     $(`#carEntrance`).text(
                         checkData(element[`accessPath`]) ?
-                        element[`accessPath`] :
-                        'Sem informações',
+                            element[`accessPath`] :
+                            'Sem informações',
                     )
                     $(`#description`).text(element[`description`])
                     $(`#curatedDetails`).text(
                         checkData(element[`curatedDetails`]) ?
-                        element[`curatedDetails`] :
-                        'Sem informações',
+                            element[`curatedDetails`] :
+                            'Sem informações',
                     )
                     $(`#extraRestriction`).text(
                         checkData(element[`extraRestriction`]) ?
-                        element[`extraRestriction`] :
-                        'Sem informações',
+                            element[`extraRestriction`] :
+                            'Sem informações',
                     )
 
                     contactId = element['clientId']
@@ -463,31 +463,28 @@
                     }
 
                     $('#maxCapacity').text(
-                        `${
-                element['maxPeople'] > 1
-                  ? element['maxPeople'] + ' Hóspedes'
-                  : element['maxPeople'] + ' Hóspede'
-              }`,
+                        `${element['maxPeople'] > 1
+                            ? element['maxPeople'] + ' Hóspedes'
+                            : element['maxPeople'] + ' Hóspede'
+                        }`,
                     )
 
                     $('#totalBathRooms').text(
-                        `${
-                element['totalBathRooms'] > 1
-                  ? element['totalBathRooms'] + ' Banheiros'
-                  : element['totalBathRooms'] + ' Banheiro'
-              }`,
+                        `${element['totalBathRooms'] > 1
+                            ? element['totalBathRooms'] + ' Banheiros'
+                            : element['totalBathRooms'] + ' Banheiro'
+                        }`,
                     )
                     $('#totalBedRooms').text(
-                        `${
-                element['totalBedRooms'] > 1
-                  ? element['totalBedRooms'] + ' Quartos'
-                  : element['totalBedRooms'] + ' Quarto'
-              }`,
+                        `${element['totalBedRooms'] > 1
+                            ? element['totalBedRooms'] + ' Quartos'
+                            : element['totalBedRooms'] + ' Quarto'
+                        }`,
                     )
                     $('#totalSuits').text(
                         element['totalSuites'] > 1 ?
-                        `( ${element['totalSuites']} Suítes )` :
-                        `( ${element['totalSuites']} Suíte )`,
+                            `( ${element['totalSuites']} Suítes )` :
+                            `( ${element['totalSuites']} Suíte )`,
                     )
 
                     facilitiesFormat(element.facilities.length)
@@ -545,21 +542,21 @@
                     height: '100%'
                 });*/
 
-                checkCurrentUserNoBlock()
-                if (authCookie != null) {
-                    changeUserName($(`#userNameDrop`))
-                    getUserPoints().then((userPoints) => {
-                $('#pointsUser').text(userPoints)
-                $('#pointsUserCel').text(userPoints)
-            })
-                }
-            
+            checkCurrentUserNoBlock()
+            if (authCookie != null) {
+                changeUserName($(`#userNameDrop`))
+                getUserPoints().then((userPoints) => {
+                    $('#pointsUser').text(userPoints)
+                    $('#pointsUserCel').text(userPoints)
+                })
+            }
+
             startCarrousel()
-           
-                let currentParams = window.location.href
-                window.location.replace("v1/?" + window.location.href.split("?")[1])
-            
-        
+
+            let currentParams = window.location.href
+            window.location.replace("v1/?" + window.location.href.split("?")[1])
+
+
         })
     </script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
@@ -862,6 +859,10 @@
                     <a onclick="location.href='/onboarding/'"
                         class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
                         Editar Cadastro
+                    </a>
+                    <a onclick="window.location.href=`${location.protocol}//${location.host}/onboarding/?calendarPage=true`"
+                        class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                        Incluir Nova Casa
                     </a>
                     <a onclick="location.href='/usuario/residence/calendar/'"
                         class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
@@ -1616,7 +1617,7 @@
                                     avbldates: [{
                                         start: new Date(),
                                         end: new Date('2021-09-30'),
-                                    }, ],
+                                    },],
                                 }
                             },
                             methods: {
