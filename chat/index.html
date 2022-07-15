@@ -185,8 +185,8 @@
                 ),
             )
             fullChat.animate({
-                    scrollTop: allMessages.height(),
-                },
+                scrollTop: allMessages.height(),
+            },
                 1000,
             )
         }
@@ -209,11 +209,10 @@
                 .find('#contactPhoto')
                 .attr(
                     'src',
-                    `${
-              element.isHost
-                ? fullChatInfo.hostImageb64
-                : fullChatInfo.guestImageb64
-            }`,
+                    `${element.isHost
+                        ? fullChatInfo.hostImageb64
+                        : fullChatInfo.guestImageb64
+                    }`,
                 )
             fullMessage
                 .find('#contactNameChatInternal')
@@ -242,14 +241,14 @@
             )
             $(`#datesChat`).text(
                 requestedDates != undefined &&
-                requestedDates != '[]' &&
-                requestedDates.length > 0 ?
-                '' +
-                toHumanDate(requestedDates[0]) +
-                ' a ' +
-                toHumanDate(requestedDates[1]) +
-                '' :
-                ' Sem datas',
+                    requestedDates != '[]' &&
+                    requestedDates.length > 0 ?
+                    '' +
+                    toHumanDate(requestedDates[0]) +
+                    ' a ' +
+                    toHumanDate(requestedDates[1]) +
+                    '' :
+                    ' Sem datas',
             )
             $(`#homeNickName`).text(
                 fullChatInfo.isHost ? '' : `(${fullChatInfo.homeNickName})`,
@@ -306,8 +305,8 @@
             })
 
             fullChatElement.animate({
-                    scrollTop: allMessages.height(),
-                },
+                scrollTop: allMessages.height(),
+            },
                 1000,
             )
         }
@@ -441,10 +440,10 @@
             let chInfo = chatsInfos[currentChatInfo.chatId]
             let nowDate = new Date()
             addNewMsg({
-                    messageTime: nowDate.toString(),
-                    isHost: clientInfo.ClientId == chInfo.hostId,
-                    content: messageContent,
-                },
+                messageTime: nowDate.toString(),
+                isHost: clientInfo.ClientId == chInfo.hostId,
+                content: messageContent,
+            },
                 chatsInfos[currentChatInfo.chatId],
             ) //TODO get from server
 
@@ -599,17 +598,17 @@
             checkCurrentUser(Cookies2)
             if (authCookie != null) {
                 $("#userDropdownLogged").removeClass("hidden")
-            $("#userDropdown").attr('onclick', '');
-            changeUserName($(`#userNameDrop`))
-            getUserPoints().then((userPoints) => {
-                $('#pointsUser').text(userPoints)
-                $('#pointsUserCel').text(userPoints)
-            })
-        } else {
-            $("#userNameDrop").text("Inscreva-se já")
-            $("#userDropdownLogged").addClass("hidden")
-            $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
-        }
+                $("#userDropdown").attr('onclick', '');
+                changeUserName($(`#userNameDrop`))
+                getUserPoints().then((userPoints) => {
+                    $('#pointsUser').text(userPoints)
+                    $('#pointsUserCel').text(userPoints)
+                })
+            } else {
+                $("#userNameDrop").text("Inscreva-se já")
+                $("#userDropdownLogged").addClass("hidden")
+                $("#userDropdown").attr('onclick', "location.href='/onboarding/'");
+            }
         })
     </script>
 
@@ -653,7 +652,8 @@
             <h1 class="font-extrabold text-2xl usuario_font_warp text-center">
                 Ótimo! Você aceitou a solicitação do hóspede.
                 <br />
-                Assim que ele realizar o pagamento da taxa de troca, você receberá a mensagem de confirmação da hospedagem.
+                Assim que ele realizar o pagamento da taxa de troca, você receberá a mensagem de confirmação da
+                hospedagem.
             </h1>
 
             <!-- <h1 class="font-normal text-sm usuario_font_warp pt-10 pb-5 text-center">
@@ -719,7 +719,8 @@
                     <a href="/home/">
                         <div class="flex cursor-pointer row-start-1 col-start-1 items-center md:mx-10">
                             <div id="logo" class="w-36" onclick="window.location.href='/home/'">
-                                <img src="/dashboard/Assets/logo_dark.svg" class="h-20 flex-1" alt="Kiwi standing on oval" />
+                                <img src="/dashboard/Assets/logo_dark.svg" class="h-20 flex-1"
+                                    alt="Kiwi standing on oval" />
                             </div>
                         </div>
                     </a>
@@ -824,35 +825,43 @@
                         </a>
 
                         <div id="userDropdownLogged" class="flex">
-                        <div x-show="dropdownOpen" @click="dropdownOpen = false"
-                            class="fixed inset-0 h-full w-full z-10"></div>
+                            <div x-show="dropdownOpen" @click="dropdownOpen = false"
+                                class="fixed inset-0 h-full w-full z-10"></div>
 
-                        <div x-show="dropdownOpen"
-                            class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
-                            <a onclick="location.href='/onboarding/'"
-                                class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                                Editar Cadastro
-                            </a>
-                            <a onclick="location.href='/usuario/residence/calendar/'"
-                                class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                                Adicionar Datas
-                            </a>
-                            <a onclick="location.href='/dashboard/chat/'"
-                                class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                                Mensagens
-                            </a>
+                            <div x-show="dropdownOpen"
+                                class="absolute right-0 mt-2 py-2 sm:w-3/4 sm:mr-10 bg-white rounded-md shadow-xl z-20">
+                                <a onclick="location.href='/onboarding/'"
+                                    class="cursor-pointer block px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    Editar Cadastro
+                                </a>
+                                <a onclick="window.location.href=`${location.protocol}//${location.host}/onboarding/?calendarPage=true`"
+                                    class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    Incluir Nova Casa
+                                </a>
+                                <a onclick="location.href='/usuario/residence/calendar/'"
+                                    class="cursor-pointer block px-4 py-2 text-base capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    Adicionar Datas
+                                </a>
+                                <a onclick="location.href='/dashboard/chat/'"
+                                    class="block cursor-pointer px-4 py-2 text-base font-normal capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    Mensagens
+                                </a>
 
-                            <a id="parentPoints" onclick="location.href='/usuario/'"
-                        class="flex flex-col justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                        <div class="flex justify-between"><div>Pontuação:</div> <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl"></div></div>
-                        <div class="text-sm text-green_medium">Ver histórico</div>
-                    </a>
+                                <a id="parentPoints" onclick="location.href='/usuario/'"
+                                    class="flex flex-col justify-between text-base font-normal   cursor-pointer px-4 py-2 capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    <div class="flex justify-between">
+                                        <div>Pontuação:</div>
+                                        <div id="pointsUser" class="font-bold mx-10 sm:mx-0 text-green_medium text-xl">
+                                        </div>
+                                    </div>
+                                    <div class="text-sm text-green_medium">Ver histórico</div>
+                                </a>
 
-                            <a href="/home/" onclick="removeCookie()"
-                                class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
-                                Log out
-                            </a>
-                        </div>
+                                <a href="/home/" onclick="removeCookie()"
+                                    class="block px-4 py-2 text-base font-normal border-t border-green_light capitalize text-gray-700 hover:bg-green_light hover:text-black">
+                                    Log out
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
