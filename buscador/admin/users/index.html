@@ -19,6 +19,7 @@
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
     <script type="text/javascript" src="/dashboard/js/commonYo.js"></script>
+    <script type="text/javascript" src="js/transformation.js"></script>
     <script>
         function removeCookie() {
             document.cookie = "login_session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
@@ -79,9 +80,11 @@
             })
         }
 
+        
+
         function populateUsers() {
             let getAllUsersUri =
-                `${getCurrentUserBaseUri()}/getallusers`
+                `${getCurrentUserBaseUri()}/getuser/all`
             // populateHomes().then((clients) => {
                 // let data = {
                 //     clientsArray: clients,
@@ -103,8 +106,8 @@
                             let numberVerified = element['verifiedNumber'] == true ? 'Número verificado' : 'Número não verificado'
                             
                             
-                            $(`li > .${element['ClientId']}`).after(
-                                `<div class="w-full">&emsp;<h1 class="w-screen">id cliente: ${element['ClientId']}</h1><a class="underline" href="/onboarding/?userId=${element['ClientId']}"><h1 class="border-2 border-blue-800">client name:${element['firstname']} ${element['lastname']}</h1></a><h1 class="border-2 border-blue-800">client email:${element['email']}</h1> <h1 class="border-2 border-blue-800"> client number:${element['telNumber']}</h1><div class="mr-10 w-40" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-2 border-blue-800">Autorizo fotos: ${picturesCheck}</h1> <h1 class="border-2 border-blue-800">Numero verificado: ${numberVerified}</h1></div>`,
+                            $(`#users`).append(
+                                `<div class="w-full bg-blue-200 border-8">&emsp;<h1 class="w-screen font-bold border-b-2 border-blue-800">ID do cliente: ${element['ClientId']}</h1><a class="underline" href="/onboarding/?userId=${element['ClientId']}">  <h1 class="border-b-2 border-blue-800">Nome: ${element['firstname']} ${element['lastname']} (Clique para ver mais)</h1></a> <h1 class="border-b-2 border-blue-800 font-bold">Situação: ${translateClientType(element['clientType'])} </h1> <h1 class="border-b-2 border-blue-800">Email: ${element['email']}</h1> <h1 class="border-b-2 border-blue-800">Número de telefone: ${element['telNumber']}</h1><div class="mr-10 w-40 border-b-2 border-blue-800" id="${element['ClientId']}points"><button onclick="getTotalPointsUser('${element['ClientId']}')">Clique para informação sobre Pontos</button></div> <h1 class="border-b-2 border-blue-800">Autorizou fotos: ${picturesCheck}</h1> <h1 class="border-b-2 border-blue-800">Numero verificado: ${numberVerified}</h1></div>`
                             )
                         })
                     },
@@ -127,32 +130,19 @@
         </div>
     </div>
     <div class="flex flex-col items-center">
-        <h1 class="font-bold text-2xl mr-10">Legenda</h1>
+        <!-- <h1 class="font-bold text-2xl mr-10">Legenda</h1> -->
 
         <div class="flex">
-            <div class="flex items-center mr-10">
-                <svg width="70" height="70">
-                    <rect width="70" height="70" class="fill-current text-green-400"
-                        style="stroke-width: 3; stroke: rgb(0, 0, 0);" />
-                </svg>
-                <h1 class="font-bold">Casa já foi curada</h1>
-            </div>
-
-            <div class="flex items-center">
-                <svg width="70" height="70">
-                    <rect width="70" height="70" class="fill-current text-red-400"
-                        style="stroke-width: 3; stroke: rgb(0, 0, 0);" />
-                </svg>
-                <h1 class="font-bold">Casa ainda não foi curada</h1>
-            </div>
-            <button onclick="location.href = 'chats/'" class=" px-10 h-20 hover:bg-gray-200">chats / payments</button>
-            <button onclick="location.href = 'templates/'" class="px-10 h-20 hover:bg-gray-200">email/whatsapp templates</button>
+            
+            <button onclick="location.href = '/dashboard/buscador/admin/chats/'" class=" px-10 h-20 hover:bg-gray-200">chats / payments</button>
+            <button onclick="location.href = '/dashboard/buscador/admin/templates/'" class="px-10 h-20 hover:bg-gray-200">email/whatsapp templates</button>
+            <button onclick="location.href = '/dashboard/buscador/admin/'" class="px-10 h-20 hover:bg-gray-200">Casas</button>
         </div>
     </div>
     <div class="flex justify-between pl-14">
         <div class="w-screen h-sreen bg-grey-300 flex justify-start items-center">
             <div class="flex flex-col">
-                <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">   
+                <!-- <div class="flex bg-gray-200 font-bold space-x-20 border-2 border-black">   
                     <h1>Nome da casa</h1>
                     <h1>Id cliente</h1>
                     <h1>Situação de preenchimento</h1>
@@ -162,9 +152,9 @@
                     <h1>Pontos</h1>
                     <h1>Fotos Autorizadas</h1>
                     <h1>Telefone Verificado</h1>
-                </div>
+                </div> -->
 
-                <ul class="tabs" id="homes"></ul>
+                <ul class="tabs" id="users"></ul>
             </div>
 
             
