@@ -2,6 +2,8 @@ function translateClientType(clientType) {
     switch (clientType) {
         case 0:
             return 'Não curado'
+        case 1:
+            return 'Não curado e com casa aguardando curadoria'
         case 2:
             return 'Usuário curado'
         case 5:
