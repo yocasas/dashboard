@@ -283,12 +283,16 @@
         edited.extraRestriction = extraRestriction
       }
 
-      if (currentHomeInfo.city != city && city != "Sem informações" && city != "" && false) {
+      if (currentHomeInfo.city != city && city != "Sem informações" && city != "") {
         edited.city = city
       }
       
       if (currentHomeInfo.totalAc != totalAc && totalAc != "Sem informações") {
         edited.totalAc = totalAc
+      }
+
+      if (currentHomeInfo.accessPath != accessPath && accessPath != "Sem informações") {
+        edited.accessPath = accessPath
       }
 
       return edited
